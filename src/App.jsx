@@ -68,8 +68,18 @@ const hackathons = [
   },
 ]
 
+const certCategories = [
+  { id: 'all', label: 'All Credentials' },
+  { id: 'ieee', label: 'IEEE Certifications' },
+  { id: 'course', label: 'Course Certifications' },
+  { id: 'participation', label: 'Participations & Workshops' },
+  { id: 'winnings', label: 'Winnings & Awards' },
+]
+
 const certifications = [
+  // --- IEEE CERTIFICATIONS ---
   {
+    category: 'ieee',
     title: 'Certificate of IEEE Volunteering (Secretary)',
     kicker: 'Secretary — Santhiram Engineering College (E25)',
     issuer: 'IEEE Student Branch',
@@ -81,6 +91,7 @@ const certifications = [
     tone: 'lime',
   },
   {
+    category: 'ieee',
     title: '2025 Certificate of IEEE Membership',
     kicker: 'Global Student Member in Good Standing',
     issuer: 'IEEE',
@@ -92,6 +103,7 @@ const certifications = [
     tone: 'cyan',
   },
   {
+    category: 'ieee',
     title: '2025 Certificate of Membership — IEEE Education Society',
     kicker: 'Student Member in Good Standing',
     issuer: 'IEEE Education Society',
@@ -103,6 +115,7 @@ const certifications = [
     tone: 'violet',
   },
   {
+    category: 'ieee',
     title: '2025 Certificate of Participation — IEEE Sensors Council',
     kicker: 'Sensor Systems & IoT Student Member',
     issuer: 'IEEE Sensors Council',
@@ -114,6 +127,7 @@ const certifications = [
     tone: 'cyan',
   },
   {
+    category: 'ieee',
     title: '2025 Certificate of Participation — IEEE CRFID',
     kicker: 'IEEE Council on RFID Student Member',
     issuer: 'IEEE Council on RFID',
@@ -124,29 +138,34 @@ const certifications = [
     credentialUrl: '/assets/cert-ieee-crfid-2025.png',
     tone: 'violet',
   },
+
+  // --- COURSE CERTIFICATIONS ---
   {
-    title: 'National Level Short Term Training Program (NSTTP 2K24)',
-    kicker: 'JAVA Full Stack with React JS & AI',
-    issuer: 'Santhiram Engg. College, Brainovision & AICTE',
-    date: 'Dec 2 — Dec 22, 2024',
-    certId: 'ID: NSTTP-B-SEC286',
-    skills: ['Java Full Stack', 'React JS', 'AI Integration', 'AICTE Approved'],
-    image: '/assets/cert-nsttp-2k24.png',
-    credentialUrl: '/assets/cert-nsttp-2k24.png',
+    category: 'course',
+    title: 'Career Essentials in Generative AI',
+    kicker: 'Professional Learning Path Certification',
+    issuer: 'Microsoft & LinkedIn Learning',
+    date: 'Jul 10, 2026',
+    certId: 'ID: 47a1746469714c89d998f58239be87a9',
+    skills: ['Microsoft Copilot', 'Generative AI', 'Responsible AI'],
+    image: '/assets/cert-microsoft-genai.png',
+    credentialUrl: '/assets/cert-microsoft-genai.png',
     tone: 'cyan',
   },
   {
-    title: 'International Level Student Workshop (INSW 2k24)',
-    kicker: 'Data Science using Python',
-    issuer: 'Santhiram Engg. College, Brainovision & AICTE',
-    date: 'Feb 19 — Feb 23, 2024',
-    certId: 'ID: INSW24BOVSEC938',
-    skills: ['Data Science', 'Python', 'Data Analytics', 'AICTE Approved'],
-    image: '/assets/cert-insw-2k24.png',
-    credentialUrl: '/assets/cert-insw-2k24.png',
+    category: 'course',
+    title: 'AI for Beginners',
+    kicker: 'HP LIFE Online Professional Course',
+    issuer: 'HP LIFE & HP Foundation',
+    date: 'Sep 18, 2025',
+    certId: 'Serial: 07fa596e-4b08-4da0',
+    skills: ['AI Concepts', 'Business Applications', 'Ethical AI'],
+    image: '/assets/cert-hp-life-ai.png',
+    credentialUrl: '/assets/cert-hp-life-ai.png',
     tone: 'violet',
   },
   {
+    category: 'course',
     title: 'Google AI-ML Virtual Internship Certification',
     kicker: 'AI & Machine Learning Foundations',
     issuer: 'Google & EduSkills',
@@ -158,6 +177,7 @@ const certifications = [
     tone: 'cyan',
   },
   {
+    category: 'course',
     title: 'AI Developer Internship Certification',
     kicker: 'NLP & Chatbot Development',
     issuer: 'Zcalar AI',
@@ -167,6 +187,58 @@ const certifications = [
     image: null,
     credentialUrl: 'https://github.com/Rahulbariki',
     tone: 'violet',
+  },
+
+  // --- PARTICIPATIONS & WORKSHOPS ---
+  {
+    category: 'participation',
+    title: 'National Level Short Term Training Program (NSTTP 2K24)',
+    kicker: 'JAVA Full Stack with React JS & AI',
+    issuer: 'Santhiram Engg. College, Brainovision & AICTE',
+    date: 'Dec 2 — Dec 22, 2024',
+    certId: 'ID: NSTTP-B-SEC286',
+    skills: ['Java Full Stack', 'React JS', 'AI Integration', 'AICTE Approved'],
+    image: '/assets/cert-nsttp-2k24.png',
+    credentialUrl: '/assets/cert-nsttp-2k24.png',
+    tone: 'cyan',
+  },
+  {
+    category: 'participation',
+    title: 'International Level Student Workshop (INSW 2k24)',
+    kicker: 'Data Science using Python',
+    issuer: 'Santhiram Engg. College, Brainovision & AICTE',
+    date: 'Feb 19 — Feb 23, 2024',
+    certId: 'ID: INSW24BOVSEC938',
+    skills: ['Data Science', 'Python', 'Data Analytics', 'AICTE Approved'],
+    image: '/assets/cert-insw-2k24.png',
+    credentialUrl: '/assets/cert-insw-2k24.png',
+    tone: 'violet',
+  },
+
+  // --- WINNINGS & AWARDS ---
+  {
+    category: 'winnings',
+    title: 'GenAI Innovation Hackathon Award',
+    kicker: 'National Level AI Sprint Winner',
+    issuer: 'National AI Sprint',
+    date: '2024',
+    certId: 'Featured Innovator Award',
+    skills: ['GenAI Workflow', 'Rapid Prototyping', 'FastAPI'],
+    image: null,
+    credentialUrl: 'https://github.com/Rahulbariki',
+    tone: 'lime',
+  },
+  {
+    category: 'winnings',
+    title: 'Smart Campus AI Challenge Award',
+    kicker: 'SEC Tech Fest Innovation Award',
+    issuer: 'Santhiram Engineering College',
+    date: '2024',
+    certId: 'Top 3 Finalist',
+    skills: ['CampusPulse Portal', 'Full Stack', 'Event Intelligence'],
+    image: null,
+    credentialUrl: 'https://github.com/Rahulbariki',
+    tone: 'cyan',
   },
 ]
 
@@ -566,83 +638,104 @@ function Hackathons() {
 }
 
 function Certifications() {
+  const [activeTab, setActiveTab] = useState('all')
   const [selectedImage, setSelectedImage] = useState(null)
+
+  const filteredCerts = activeTab === 'all'
+    ? certifications
+    : certifications.filter((item) => item.category === activeTab)
 
   return (
     <section className="certifications section-shell" id="certifications">
       <div className="section-heading compact">
-        <div><span>Verified Credentials & Workshops</span><span>05 / 07</span></div>
-        <h2>Workshops &<br /><em>certifications.</em></h2>
+        <div><span>Verified Credentials & Awards</span><span>05 / 07</span></div>
+        <h2>Certifications,<br /><em>workshops & awards.</em></h2>
+      </div>
+
+      {/* Category Filter Tabs */}
+      <div className="cert-filter-tabs">
+        {certCategories.map((tab) => (
+          <button
+            key={tab.id}
+            type="button"
+            className={`cert-tab-btn ${activeTab === tab.id ? 'active' : ''}`}
+            onClick={() => setActiveTab(tab.id)}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
 
       <div className="cert-grid">
-        {certifications.map((cert, index) => (
-          <motion.article
-            key={cert.title}
-            className={`cert-card ${cert.tone}`}
-            initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            data-cursor
-          >
-            <div className="cert-top-row">
-              <div className="cert-icon-wrapper">
-                <Medal size={24} className="cert-icon" />
-              </div>
-              <div className="cert-top-meta">
-                <span className="cert-issuer">{cert.issuer}</span>
-                <span className="cert-date">{cert.date}</span>
-              </div>
-            </div>
-
-            <div className="cert-content">
-              <h3>{cert.title}</h3>
-              {cert.kicker && (
-                <p className="cert-kicker">
-                  {cert.kicker} {cert.certId && <span className="cert-id">• {cert.certId}</span>}
-                </p>
-              )}
-
-              {/* Certificate Image Thumbnail Preview */}
-              {cert.image && (
-                <div
-                  className="cert-img-thumb"
-                  onClick={() => setSelectedImage({ title: cert.title, img: cert.image })}
-                  role="button"
-                  tabIndex={0}
-                  aria-label={`View certificate image for ${cert.title}`}
-                >
-                  <img src={cert.image} alt={`${cert.title} certificate`} loading="lazy" />
-                  <div className="thumb-overlay">
-                    <Eye size={18} />
-                    <span>View Certificate</span>
-                  </div>
+        <AnimatePresence mode="wait">
+          {filteredCerts.map((cert, index) => (
+            <motion.article
+              key={cert.title}
+              className={`cert-card ${cert.tone}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ delay: index * 0.05 }}
+              data-cursor
+            >
+              <div className="cert-top-row">
+                <div className="cert-icon-wrapper">
+                  <Medal size={24} className="cert-icon" />
                 </div>
-              )}
-
-              <div className="cert-skills">
-                {cert.skills.map((s) => <span key={s}>{s}</span>)}
+                <div className="cert-top-meta">
+                  <span className="cert-issuer">{cert.issuer}</span>
+                  <span className="cert-date">{cert.date}</span>
+                </div>
               </div>
-            </div>
 
-            <div className="cert-card-footer">
-              {cert.image ? (
-                <button
-                  type="button"
-                  className="cert-view-btn"
-                  onClick={() => setSelectedImage({ title: cert.title, img: cert.image })}
-                >
-                  <Eye size={15} /> View Image
-                </button>
-              ) : (
-                <a href={cert.credentialUrl} target="_blank" rel="noopener noreferrer" className="cert-link" aria-label={`View credential for ${cert.title}`}>
-                  <ExternalLink size={18} />
-                </a>
-              )}
-            </div>
-          </motion.article>
-        ))}
+              <div className="cert-content">
+                <h3>{cert.title}</h3>
+                {cert.kicker && (
+                  <p className="cert-kicker">
+                    {cert.kicker} {cert.certId && <span className="cert-id">• {cert.certId}</span>}
+                  </p>
+                )}
+
+                {/* Certificate Image Thumbnail Preview */}
+                {cert.image && (
+                  <div
+                    className="cert-img-thumb"
+                    onClick={() => setSelectedImage({ title: cert.title, img: cert.image })}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`View certificate image for ${cert.title}`}
+                  >
+                    <img src={cert.image} alt={`${cert.title} certificate`} loading="lazy" />
+                    <div className="thumb-overlay">
+                      <Eye size={18} />
+                      <span>View Certificate</span>
+                    </div>
+                  </div>
+                )}
+
+                <div className="cert-skills">
+                  {cert.skills.map((s) => <span key={s}>{s}</span>)}
+                </div>
+              </div>
+
+              <div className="cert-card-footer">
+                {cert.image ? (
+                  <button
+                    type="button"
+                    className="cert-view-btn"
+                    onClick={() => setSelectedImage({ title: cert.title, img: cert.image })}
+                  >
+                    <Eye size={15} /> View Image
+                  </button>
+                ) : (
+                  <a href={cert.credentialUrl} target="_blank" rel="noopener noreferrer" className="cert-link" aria-label={`View credential for ${cert.title}`}>
+                    <ExternalLink size={18} />
+                  </a>
+                )}
+              </div>
+            </motion.article>
+          ))}
+        </AnimatePresence>
       </div>
 
       {/* Lightbox Modal for Certificate Image */}
