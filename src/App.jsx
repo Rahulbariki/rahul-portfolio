@@ -544,6 +544,50 @@ function MenuOverlay({ open, onClose }) {
   )
 }
 
+function HeroTerminal() {
+  const [lineIndex, setLineIndex] = useState(0)
+  const lines = [
+    '> initializing GenAI_Agent(role="Engineer")...',
+    '> loading LLM pipeline: GPT-4o / Llama-3 / Claude-3.5...',
+    '> co-building: IntelliAttend (dashboard.intelliattend.app)...',
+    '> status: 8.46 CGPA • 11 Credentials • 4 Live Apps'
+  ]
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLineIndex((prev) => (prev + 1) % lines.length)
+    }, 2800)
+    return () => clearInterval(interval)
+  }, [lines.length])
+
+  return (
+    <div className="hero-terminal">
+      <div className="terminal-bar">
+        <div className="terminal-dots">
+          <span className="dot red" />
+          <span className="dot yellow" />
+          <span className="dot green" />
+        </div>
+        <span className="terminal-title">rahul_bariki_ai_engine.py</span>
+      </div>
+      <div className="terminal-body">
+        <span className="terminal-prompt">$</span>
+        <motion.span
+          key={lineIndex}
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
+          className="terminal-text"
+        >
+          {lines[lineIndex]}
+        </motion.span>
+        <span className="cursor-blink">|</span>
+      </div>
+    </div>
+  )
+}
+
 function Hero() {
   const { scrollYProgress } = useScroll()
   const y = useTransform(scrollYProgress, [0, 0.2], [0, 40])
@@ -558,9 +602,12 @@ function Hero() {
 
       {/* Top status bar */}
       <motion.div className="hero-topbar" style={{ opacity }} initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-        <div className="eyebrow"><span className="signal" /> GENERATIVE AI ENGINEER · AI ENGINEER · UI/UX DESIGNER</div>
+        <div className="eyebrow">
+          <span className="signal" /> GENERATIVE AI ENGINEER · AI ENGINEER · UI/UX DESIGNER
+        </div>
         <div className="hero-topbar-right">
-          <span className="hero-location"><MapPin size={13} /> Nandyal, Andhra Pradesh, India</span>
+          <span className="hero-startup-pill">⚡ Co-Builder @ IntelliAttend Startup</span>
+          <span className="hero-location"><MapPin size={13} /> Nandyal, AP, India</span>
         </div>
       </motion.div>
 
@@ -576,6 +623,9 @@ function Hero() {
             Results-driven Software Engineer with expertise in Generative AI, AI Engineering, and UI/UX Design. I specialize in building intelligent AI agents, intuitive user interfaces, and software solutions for real-time problems.
           </p>
 
+          {/* Interactive AI Agent Live Terminal Widget */}
+          <HeroTerminal />
+
           <div className="hero-actions">
             <a href="mailto:rahulbariki24@gmail.com" className="hero-cta-primary">Let's Talk <ArrowUpRight /></a>
             <a href="tel:+916281769623" className="hero-cta-secondary"><Phone size={15} /> +91 62817 69623</a>
@@ -584,15 +634,17 @@ function Hero() {
           <div className="hero-stats">
             <span><strong>8.46</strong><small>B.Tech CGPA</small></span>
             <span><strong>58,055</strong><small>JEE Mains Rank</small></span>
-            <span><strong>3+</strong><small>AI Systems</small></span>
+            <span><strong>4+</strong><small>Live Apps</small></span>
             <span><strong>02</strong><small>AI Internships</small></span>
           </div>
         </motion.div>
 
-        {/* Dedicated Portrait Frame Column */}
+        {/* Dedicated Portrait Frame Column with Cyber Orbit Rings */}
         <motion.div className="hero-portrait-col" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.45, duration: 0.85 }}>
           <div className="portrait-frame">
             <div className="portrait-glow" />
+            <div className="orbit-ring"><span className="orbit-dot" /></div>
+            <div className="orbit-ring orbit-ring-outer"><span className="orbit-dot" /></div>
             <div className="portrait-border-ring" />
             <img src="/assets/rahul-profile.png" alt="Rahul Bariki - Gen-AI Engineer & UI/UX Designer" loading="eager" />
           </div>
