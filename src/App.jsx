@@ -1,0 +1,258 @@
+import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
+import { ArrowDown, ArrowUpRight, Bot, BrainCircuit, Code2, Cpu, Github, Layers3, Linkedin, Mail, Menu, MoveUpRight, Sparkles, X } from 'lucide-react'
+
+const projects = [
+  { number: '01', title: 'BrandNova', kicker: 'AI brand operating system', description: 'A generative intelligence platform that transforms a raw startup idea into a coherent, launch-ready brand.', result: '0 → identity', tags: ['GenAI', 'Product systems', 'Automation'], tone: 'cyan', icon: Sparkles },
+  { number: '02', title: 'Jarvis AI', kicker: 'Ambient intelligence', description: 'A voice-first assistant designed around natural commands, modular capabilities, and useful real-world automation.', result: 'Voice → action', tags: ['Python', 'Speech', 'Agents'], tone: 'violet', icon: Bot },
+  { number: '03', title: 'Vision Lab', kicker: 'Computer vision experiments', description: 'A collection of gesture interfaces, spatial canvases, object detection systems, and playful visual prototypes.', result: '9+ experiments', tags: ['OpenCV', 'MediaPipe', 'YOLO'], tone: 'lime', icon: Cpu },
+]
+
+const capabilities = [
+  { icon: BrainCircuit, title: 'AI product engineering', text: 'Turning model capability into focused, useful, human-centered product experiences.' },
+  { icon: Layers3, title: 'Generative systems', text: 'Designing multi-step generation workflows, agents, and automation that hold together.' },
+  { icon: Cpu, title: 'Computer vision', text: 'Building responsive visual interfaces with OpenCV, MediaPipe, and object detection.' },
+  { icon: Code2, title: 'Rapid prototyping', text: 'Moving from an ambitious idea to a testable, polished product with unusual speed.' },
+]
+
+const experiences = [
+  { period: 'Jan 2024 — Mar 2024', company: 'Google AI-ML Virtual Internship', role: 'AI / Machine Learning Intern', text: 'Studied end-to-end machine learning workflows, model development, and practical AI foundations.' },
+  { period: '2024', company: 'Zcalar AI Internship', role: 'AI Developer Intern', text: 'Developed intelligent chatbot systems and explored useful, product-focused NLP experiences.' },
+]
+
+const navItems = ['Work', 'Capabilities', 'Experience', 'Contact']
+
+function usePointer() {
+  const x = useMotionValue(-100)
+  const y = useMotionValue(-100)
+  const springX = useSpring(x, { stiffness: 500, damping: 45 })
+  const springY = useSpring(y, { stiffness: 500, damping: 45 })
+  useEffect(() => {
+    const move = (event) => {
+      x.set(event.clientX)
+      y.set(event.clientY)
+      document.documentElement.style.setProperty('--mx', `${event.clientX}px`)
+      document.documentElement.style.setProperty('--my', `${event.clientY}px`)
+    }
+    window.addEventListener('pointermove', move)
+    return () => window.removeEventListener('pointermove', move)
+  }, [x, y])
+  return { springX, springY }
+}
+
+function ParticleField() {
+  const canvasRef = useRef(null)
+  useEffect(() => {
+    const canvas = canvasRef.current
+    const context = canvas.getContext('2d')
+    let frame
+    let particles = []
+    let width = 0
+    let height = 0
+    const pointer = { x: -1000, y: -1000 }
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const resize = () => {
+      const ratio = Math.min(window.devicePixelRatio, 2)
+      width = window.innerWidth
+      height = window.innerHeight
+      canvas.width = width * ratio
+      canvas.height = height * ratio
+      canvas.style.width = `${width}px`
+      canvas.style.height = `${height}px`
+      context.setTransform(ratio, 0, 0, ratio, 0, 0)
+      particles = Array.from({ length: Math.min(95, Math.floor(width / 15)) }, () => ({
+        x: Math.random() * width, y: Math.random() * height, vx: (Math.random() - 0.5) * 0.18, vy: (Math.random() - 0.5) * 0.18, radius: Math.random() * 1.4 + 0.3,
+      }))
+    }
+    const move = (event) => { pointer.x = event.clientX; pointer.y = event.clientY }
+    const draw = () => {
+      context.clearRect(0, 0, width, height)
+      particles.forEach((particle, index) => {
+        if (!reduced) { particle.x += particle.vx; particle.y += particle.vy }
+        if (particle.x < 0 || particle.x > width) particle.vx *= -1
+        if (particle.y < 0 || particle.y > height) particle.vy *= -1
+        const pointerDistance = Math.hypot(particle.x - pointer.x, particle.y - pointer.y)
+        context.beginPath()
+        context.fillStyle = pointerDistance < 180 ? 'rgba(167,139,250,.9)' : 'rgba(255,255,255,.28)'
+        context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
+        context.fill()
+        particles.slice(index + 1, index + 7).forEach((other) => {
+          const distance = Math.hypot(particle.x - other.x, particle.y - other.y)
+          if (distance < 105) {
+            context.beginPath()
+            context.strokeStyle = `rgba(167,139,250,${0.045 * (1 - distance / 105)})`
+            context.moveTo(particle.x, particle.y)
+            context.lineTo(other.x, other.y)
+            context.stroke()
+          }
+        })
+      })
+      frame = requestAnimationFrame(draw)
+    }
+    resize(); draw()
+    window.addEventListener('resize', resize)
+    window.addEventListener('pointermove', move)
+    return () => { cancelAnimationFrame(frame); window.removeEventListener('resize', resize); window.removeEventListener('pointermove', move) }
+  }, [])
+  return <canvas ref={canvasRef} className="particle-field" aria-hidden="true" />
+}
+
+function Cursor({ x, y }) {
+  const [active, setActive] = useState(false)
+  useEffect(() => {
+    const enter = () => setActive(true)
+    const leave = () => setActive(false)
+    const targets = document.querySelectorAll('a, button, [data-cursor]')
+    targets.forEach((target) => { target.addEventListener('pointerenter', enter); target.addEventListener('pointerleave', leave) })
+    return () => targets.forEach((target) => { target.removeEventListener('pointerenter', enter); target.removeEventListener('pointerleave', leave) })
+  }, [])
+  return <motion.div className={`cursor ${active ? 'cursor-active' : ''}`} style={{ x, y }} />
+}
+
+function Navigation({ onOpen }) {
+  return (
+    <motion.header className="nav" initial={{ y: -80 }} animate={{ y: 0 }} transition={{ delay: 0.8, duration: 0.8 }}>
+      <a className="monogram" href="#top" aria-label="Rahul Bariki home">RB<span>®</span></a>
+      <nav className="nav-links" aria-label="Primary navigation">{navItems.map((item, index) => <a key={item} href={`#${item.toLowerCase()}`}><span>0{index + 1}</span>{item}</a>)}</nav>
+      <button className="menu-button" type="button" onClick={onOpen} aria-label="Open menu"><Menu size={18} /> Menu</button>
+    </motion.header>
+  )
+}
+
+function MenuOverlay({ open, onClose }) {
+  useEffect(() => {
+    if (!open) return undefined
+    const closeOnEscape = (event) => { if (event.key === 'Escape') onClose() }
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', closeOnEscape)
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [open, onClose])
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div className="menu-overlay" role="dialog" aria-modal="true" aria-label="Site navigation" initial={{ clipPath: 'inset(0 0 100% 0)' }} animate={{ clipPath: 'inset(0 0 0% 0)' }} exit={{ clipPath: 'inset(0 0 100% 0)' }} transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}>
+          <button type="button" onClick={onClose} className="menu-close"><X /> Close</button>
+          <div className="menu-list">{navItems.map((item, index) => <motion.a key={item} href={`#${item.toLowerCase()}`} onClick={onClose} initial={{ y: 80, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.15 + index * 0.08 }}><span>0{index + 1}</span>{item}<ArrowUpRight /></motion.a>)}</div>
+          <p>Available for internships, ambitious ideas, and teams building what comes next.</p>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
+function Hero() {
+  const { scrollYProgress } = useScroll()
+  const y = useTransform(scrollYProgress, [0, 0.2], [0, 100])
+  const opacity = useTransform(scrollYProgress, [0, 0.16], [1, 0])
+  const portraitY = useTransform(scrollYProgress, [0, 0.24], [0, 60])
+  const portraitScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95])
+  return (
+    <section className="hero" id="top">
+      {/* Decorative elements */}
+      <div className="hero-gradient-orb hero-orb-1" />
+      <div className="hero-gradient-orb hero-orb-2" />
+      <div className="hero-gradient-orb hero-orb-3" />
+
+      {/* Top bar with eyebrow */}
+      <motion.div className="hero-topbar" style={{ opacity }} initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+        <div className="eyebrow"><span className="signal" /> Available for ambitious AI work</div>
+        <div className="hero-topbar-right">
+          <span className="hero-location">Based in India</span>
+        </div>
+      </motion.div>
+
+      {/* Main name - massive, full width */}
+      <motion.div className="hero-name-container" style={{ y, opacity }}>
+        <h1 aria-label="Rahul Bariki">
+          <span className="hero-line"><motion.span initial={{ y: '120%' }} animate={{ y: 0 }} transition={{ duration: 1.1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}>Rahul</motion.span></span>
+          <span className="hero-line hero-line-last"><motion.span initial={{ y: '120%' }} animate={{ y: 0 }} transition={{ duration: 1.1, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}>Bariki</motion.span></span>
+        </h1>
+      </motion.div>
+
+      {/* Portrait - overlapping the name */}
+      <motion.div className="hero-portrait" style={{ y: portraitY, scale: portraitScale }}>
+        <div className="portrait-glow" />
+        <img src="/assets/rahul-profile.png" alt="Rahul Bariki" />
+      </motion.div>
+
+      {/* Bottom content area */}
+      <motion.div className="hero-bottom" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85, duration: 0.8 }}>
+        <div className="hero-bottom-left">
+          <p className="hero-desc">I build intelligent AI products, generative systems, and computer vision experiences that make ambitious ideas useful.</p>
+          <div className="hero-actions">
+            <a href="mailto:rahulbarik24@gmail.com" className="hero-cta-primary">Let's Talk <ArrowUpRight /></a>
+            <a href="#work" className="hero-cta-secondary">View Work <ArrowDown /></a>
+          </div>
+        </div>
+        <div className="hero-bottom-right">
+          <p className="hero-desc-alt">Merging product intuition, deep learning, and rapid prototyping to craft AI solutions that feel inevitable.</p>
+          <div className="hero-stats">
+            <span><strong>9+</strong><small>Projects built</small></span>
+            <span><strong>02</strong><small>AI internships</small></span>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Floating tags */}
+      <motion.span className="hero-float-tag tag-ai" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.1 }}>GEN AI</motion.span>
+      <motion.span className="hero-float-tag tag-cv" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.25 }}>COMPUTER VISION</motion.span>
+      <motion.span className="hero-float-tag tag-eng" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.4 }}>AI ENGINEER</motion.span>
+
+      <div className="hero-scroll-hint" aria-hidden="true">
+        <motion.span animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>↓</motion.span>
+        <span>Scroll</span>
+      </div>
+    </section>
+  )
+}
+
+function Manifesto() {
+  return <section className="manifesto" id="about"><div className="section-kicker">Principle / 01</div><motion.p initial={{ opacity: 0.2 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 1.2 }}>AI is only remarkable when it feels <em>inevitable.</em> I combine engineering, experimentation, and product instinct to make complex systems feel beautifully simple.</motion.p><div className="manifesto-meta"><span>Based in India</span><span>Building globally</span><span>Available now</span></div></section>
+}
+
+function ProjectCard({ project }) {
+  const Icon = project.icon
+  const cardRef = useRef(null)
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [7, -7]), { stiffness: 220, damping: 25 })
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-7, 7]), { stiffness: 220, damping: 25 })
+  const move = (event) => { const box = cardRef.current.getBoundingClientRect(); x.set((event.clientX - box.left) / box.width - 0.5); y.set((event.clientY - box.top) / box.height - 0.5) }
+  return (
+    <motion.article ref={cardRef} className={`project-card ${project.tone}`} onPointerMove={move} onPointerLeave={() => { x.set(0); y.set(0) }} style={{ rotateX, rotateY, transformPerspective: 1000 }} initial={{ opacity: 0, y: 80 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.8 }} data-cursor>
+      <div className="project-top"><span>{project.number} / Featured</span><Icon /></div>
+      <div className="project-visual"><div className="visual-ring ring-a" /><div className="visual-ring ring-b" /><div className="visual-grid" /><Icon className="visual-icon" /><span>{project.result}</span></div>
+      <div className="project-copy"><p>{project.kicker}</p><h3>{project.title}</h3><p>{project.description}</p><div className="project-footer"><div>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><a href="https://github.com/rahulbariki" target="_blank" rel="noreferrer" aria-label={`View ${project.title} on GitHub`}><MoveUpRight /></a></div></div>
+    </motion.article>
+  )
+}
+
+function Work() {
+  return <section className="work section-shell" id="work"><div className="section-heading"><div><span>Selected systems</span><span>02 / 05</span></div><h2>Work that moves<br /><em>ideas forward.</em></h2></div><div className="project-grid">{projects.map((project) => <ProjectCard project={project} key={project.title} />)}</div></section>
+}
+
+function Capabilities() {
+  return <section className="capabilities section-shell" id="capabilities"><div className="section-heading compact"><div><span>What I bring</span><span>03 / 05</span></div><h2>From possibility<br />to <em>working product.</em></h2></div><div className="capability-list">{capabilities.map(({ icon: Icon, title, text }, index) => <motion.article key={title} initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }}><span>0{index + 1}</span><Icon /><h3>{title}</h3><p>{text}</p><ArrowUpRight /></motion.article>)}</div><div className="ticker" aria-hidden="true"><div>GENERATIVE AI · COMPUTER VISION · AGENTIC SYSTEMS · PRODUCT ENGINEERING · RAPID PROTOTYPING · </div><div>GENERATIVE AI · COMPUTER VISION · AGENTIC SYSTEMS · PRODUCT ENGINEERING · RAPID PROTOTYPING · </div></div></section>
+}
+
+function Experience() {
+  return <section className="experience section-shell" id="experience"><div className="section-heading compact"><div><span>Field notes</span><span>04 / 05</span></div><h2>Learning by<br /><em>building in public.</em></h2></div><div className="experience-grid"><div className="experience-intro"><span>Current chapter</span><p>B.Tech Artificial Intelligence & Machine Learning student at Santhiram Engineering College, turning coursework and curiosity into useful systems.</p></div><div className="experience-list">{experiences.map((item, index) => <motion.article key={item.company} initial={{ opacity: 0, y: 35 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}><div><span>0{index + 1}</span><span>{item.period}</span></div><h3>{item.company}</h3><h4>{item.role}</h4><p>{item.text}</p></motion.article>)}</div></div></section>
+}
+
+function Contact() {
+  return <section className="contact section-shell" id="contact"><div className="contact-glow" /><div className="section-kicker">Next chapter / 05</div><h2>Have an impossible<br />idea? <em>Good.</em></h2><p>I’m looking for ambitious teams, serious AI problems, and ideas with enough energy to change shape while we build them.</p><a className="contact-cta" href="mailto:rahulbarik24@gmail.com"><span>Start a conversation</span><ArrowUpRight /></a><div className="social-row"><a href="mailto:rahulbarik24@gmail.com"><Mail />Email</a><a href="https://github.com/rahulbariki" target="_blank" rel="noreferrer"><Github />GitHub</a><a href="https://www.linkedin.com/in/rahul-bariki/" target="_blank" rel="noreferrer"><Linkedin />LinkedIn</a></div><footer><span>Rahul Bariki © 2026</span><span>AI systems / intelligent products</span><a href="#top">Back to top ↑</a></footer></section>
+}
+
+export function App() {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [loaded, setLoaded] = useState(false)
+  const { scrollYProgress } = useScroll()
+  const { springX, springY } = usePointer()
+  useEffect(() => { const timer = window.setTimeout(() => setLoaded(true), 1200); return () => window.clearTimeout(timer) }, [])
+  return <><AnimatePresence>{!loaded && <motion.div className="loader" exit={{ y: '-100%' }} transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}><motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }}>INITIALIZING INTELLIGENCE</motion.span><motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.1 }} /></motion.div>}</AnimatePresence><motion.div className="progress" style={{ scaleX: scrollYProgress }} /><div className="noise" /><div className="pointer-glow" /><ParticleField /><Cursor x={springX} y={springY} /><Navigation onOpen={() => setMenuOpen(true)} /><MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} /><main><Hero /><Manifesto /><Work /><Capabilities /><Experience /><Contact /></main></>
+}
