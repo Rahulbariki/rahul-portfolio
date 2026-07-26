@@ -91,7 +91,7 @@ button {
   position: fixed;
   top: -18px;
   left: -18px;
-  z-index: 200;
+  z-index: 301;
   width: 36px;
   height: 36px;
   border: 1px solid rgba(167, 139, 250, .75);

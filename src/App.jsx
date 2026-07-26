@@ -951,7 +951,7 @@ function ProjectCard({ project, onSelectImage }) {
               </a>
             )}
             <a href={project.url} target="_blank" rel="noopener noreferrer" className="btn-project-github" aria-label={`View ${project.title} Source Code on GitHub`}>
-              <Github size={16} /> <span>GitHub</span>
+              <span>GitHub</span> <Github size={14} />
             </a>
             {project.image && (
               <button
