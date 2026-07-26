@@ -338,19 +338,29 @@ main {
   color: #777;
 }
 
-/* Giant name */
-.hero-name-container {
+/* HERO Main Grid Layout */
+.hero-main-grid {
   position: relative;
-  z-index: 5;
-  text-align: center;
-  margin: 0 auto;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 40px;
+  margin: auto 0;
   width: 100%;
+  padding: 20px 0;
 }
 
-.hero-name-container h1 {
+.hero-text-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hero-text-col h1 {
   margin: 0;
-  font-size: clamp(80px, 14vw, 220px);
-  line-height: .82;
+  font-size: clamp(60px, 9vw, 150px);
+  line-height: .86;
   letter-spacing: -.07em;
   font-weight: 700;
   color: var(--paper);
@@ -367,62 +377,80 @@ main {
   display: block;
 }
 
-/* Portrait */
-.hero-portrait {
-  position: absolute;
-  z-index: 6;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  width: clamp(340px, 30vw, 520px);
-  pointer-events: none;
+.hero-desc {
+  color: #a8a8a2;
+  font-size: 14px;
+  line-height: 1.75;
+  margin: 0;
+  max-width: 480px;
+}
+
+/* Portrait Column & Frame */
+.hero-portrait-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.portrait-frame {
+  position: relative;
+  width: clamp(280px, 25vw, 400px);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .portrait-glow {
   position: absolute;
+  inset: -15px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, .45), rgba(124, 58, 237, .2) 50%, transparent 75%);
+  filter: blur(40px);
   z-index: 0;
-  width: 100%;
-  aspect-ratio: 1;
-  bottom: 0;
-  border-radius: 50%;
-  background: radial-gradient(circle at 50% 60%, rgba(139, 92, 246, .45), rgba(124, 58, 237, .2) 50%, transparent 70%);
-  filter: blur(50px);
 }
 
-.hero-portrait img {
-  position: relative;
+.portrait-border-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  box-shadow: inset 0 0 35px rgba(124, 58, 237, 0.25), 0 0 40px rgba(124, 58, 237, 0.15);
   z-index: 1;
-  width: 100%;
-  display: block;
-  object-fit: contain;
-  object-position: bottom;
-  border-radius: 50%;
-  mask-image: radial-gradient(circle at center, #000 68%, transparent 70%);
-  -webkit-mask-image: radial-gradient(circle at center, #000 68%, transparent 70%);
-  filter: contrast(1.05) brightness(1.02);
 }
 
-/* Bottom split content */
-.hero-bottom {
+.portrait-frame img {
   position: relative;
+  z-index: 2;
+  width: 92%;
+  height: 92%;
+  object-fit: cover;
+  border-radius: 50%;
+  filter: contrast(1.05) brightness(1.02);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Floating tags relative to portrait frame */
+.portrait-frame .hero-float-tag {
+  position: absolute;
   z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: clamp(40px, 10vw, 200px);
-  margin-top: auto;
-  padding-top: 30px;
+  white-space: nowrap;
 }
 
-.hero-bottom-left, .hero-bottom-right {
-  max-width: 380px;
+.tag-ai {
+  top: 6%;
+  left: -24px;
 }
 
-.hero-desc, .hero-desc-alt {
-  color: #a8a8a2;
-  font-size: 13px;
-  line-height: 1.75;
-  margin: 0 0 22px;
+.tag-cv {
+  top: 48%;
+  right: -30px;
+}
+
+.tag-eng {
+  bottom: 4%;
+  left: -10px;
 }
 
 /* CTA buttons */
@@ -430,6 +458,7 @@ main {
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-top: 6px;
 }
 
 .hero-cta-primary, .hero-cta-secondary {
@@ -476,7 +505,7 @@ main {
 .hero-stats {
   display: flex;
   gap: 35px;
-  margin-top: 6px;
+  margin-top: 10px;
 }
 
 .hero-stats span {
@@ -498,14 +527,12 @@ main {
   letter-spacing: .1em;
 }
 
-/* Floating tags */
+/* Floating tags base style */
 .hero-float-tag {
-  position: absolute;
-  z-index: 8;
   padding: 8px 16px;
   border: 1px solid rgba(139, 92, 246, .3);
   border-radius: 100px;
-  background: rgba(15, 15, 15, .7);
+  background: rgba(15, 15, 15, .75);
   backdrop-filter: blur(12px);
   font: 400 9px 'DM Mono';
   letter-spacing: .12em;
@@ -1058,20 +1085,35 @@ footer a:hover {
 @keyframes pulse-ring { 50% { transform: scale(1.12); opacity: .1; } }
 @keyframes marquee { to { transform: translateX(-100%); } }
 
-@media (max-width: 1100px) {
-  .hero-portrait { width: clamp(280px, 35vw, 400px); }
-  .hero-float-tag { display: none; }
-  .hero-bottom { gap: 40px; }
+@media (max-width: 1024px) {
+  .hero-main-grid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    text-align: center;
+    padding-top: 10px;
+  }
+
+  .hero-text-col {
+    align-items: center;
+  }
+
+  .hero-desc {
+    max-width: 100%;
+  }
+
+  .portrait-frame {
+    width: clamp(260px, 45vw, 360px);
+  }
+
+  .tag-ai { left: 0; }
+  .tag-cv { right: 0; }
+  .tag-eng { left: 10px; }
 }
 
 @media (max-width: 900px) {
   .nav-links { display: none; }
-  .hero { padding: 100px 5vw 100px; }
-  .hero-name-container h1 { font-size: clamp(60px, 12vw, 140px); }
-  .hero-portrait { width: clamp(250px, 45vw, 350px); }
-  .hero-bottom { flex-direction: column; align-items: flex-start; gap: 30px; padding-bottom: 40px; }
-  .hero-bottom-left, .hero-bottom-right { max-width: 100%; }
-  .hero-float-tag { display: none; }
+  .hero { padding: 90px 5vw 50px; }
+  .hero-text-col h1 { font-size: clamp(52px, 13vw, 110px); }
   .manifesto { min-height: 70vh; padding: 110px 5vw; }
   .manifesto p { margin: 45px 0; }
   .project-card, .project-card:nth-child(3) { grid-column: 1 / -1; min-height: auto; }
@@ -1086,18 +1128,15 @@ footer a:hover {
   body, a, button { cursor: auto; }
   .cursor { display: none; }
   .nav { height: 66px; padding: 0 18px; }
-  .hero { padding: 90px 18px 90px; min-height: 100svh; }
-  .hero-name-container h1 { font-size: clamp(52px, 16vw, 80px); }
-  .hero-portrait { width: clamp(220px, 55vw, 300px); }
+  .hero { padding: 85px 18px 40px; min-height: 100svh; }
+  .hero-text-col h1 { font-size: clamp(44px, 14vw, 76px); }
+  .portrait-frame { width: clamp(220px, 60vw, 290px); }
   .hero-topbar-right { display: none; }
-  .hero-bottom { flex-direction: column; gap: 25px; }
-  .hero-desc-alt { display: none; }
-  .hero-actions { flex-wrap: wrap; gap: 8px; }
+  .hero-actions { flex-wrap: wrap; justify-content: center; gap: 8px; }
   .hero-cta-primary, .hero-cta-secondary { padding: 12px 16px; font-size: 9px; }
-  .hero-stats { gap: 25px; }
+  .hero-stats { gap: 25px; justify-content: center; }
   .hero-stats strong { font-size: 24px; }
   .hero-scroll-hint { display: none; }
-  .hero-float-tag { display: none; }
   .manifesto-meta { gap: 15px; flex-wrap: wrap; }
   .section-shell { padding: 95px 18px; }
   .section-heading { margin-bottom: 50px; }

@@ -233,18 +233,17 @@ function MenuOverlay({ open, onClose }) {
 
 function Hero() {
   const { scrollYProgress } = useScroll()
-  const y = useTransform(scrollYProgress, [0, 0.2], [0, 100])
+  const y = useTransform(scrollYProgress, [0, 0.2], [0, 40])
   const opacity = useTransform(scrollYProgress, [0, 0.16], [1, 0])
-  const portraitY = useTransform(scrollYProgress, [0, 0.24], [0, 60])
-  const portraitScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95])
+
   return (
     <section className="hero" id="top">
-      {/* Decorative elements */}
+      {/* Decorative gradient elements */}
       <div className="hero-gradient-orb hero-orb-1" />
       <div className="hero-gradient-orb hero-orb-2" />
       <div className="hero-gradient-orb hero-orb-3" />
 
-      {/* Top bar with eyebrow */}
+      {/* Top status bar */}
       <motion.div className="hero-topbar" style={{ opacity }} initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
         <div className="eyebrow"><span className="signal" /> Available for ambitious AI work</div>
         <div className="hero-topbar-right">
@@ -252,42 +251,42 @@ function Hero() {
         </div>
       </motion.div>
 
-      {/* Main name - massive, full width */}
-      <motion.div className="hero-name-container" style={{ y, opacity }}>
-        <h1 aria-label="Rahul Bariki">
-          <span className="hero-line"><motion.span initial={{ y: '120%' }} animate={{ y: 0 }} transition={{ duration: 1.1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}>Rahul</motion.span></span>
-          <span className="hero-line hero-line-last"><motion.span initial={{ y: '120%' }} animate={{ y: 0 }} transition={{ duration: 1.1, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}>Bariki</motion.span></span>
-        </h1>
-      </motion.div>
+      {/* Main Grid: Name & Text on Left, Portrait Frame on Right */}
+      <div className="hero-main-grid">
+        <motion.div className="hero-text-col" style={{ y, opacity }}>
+          <h1 aria-label="Rahul Bariki">
+            <span className="hero-line"><motion.span initial={{ y: '120%' }} animate={{ y: 0 }} transition={{ duration: 1.1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}>Rahul</motion.span></span>
+            <span className="hero-line hero-line-last"><motion.span initial={{ y: '120%' }} animate={{ y: 0 }} transition={{ duration: 1.1, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}>Bariki</motion.span></span>
+          </h1>
 
-      {/* Portrait - overlapping the name */}
-      <motion.div className="hero-portrait" style={{ y: portraitY, scale: portraitScale }}>
-        <div className="portrait-glow" />
-        <img src="/assets/rahul-profile.png" alt="Rahul Bariki" loading="eager" />
-      </motion.div>
+          <p className="hero-desc">
+            I build intelligent AI products, generative systems, and computer vision experiences that make ambitious ideas useful.
+          </p>
 
-      {/* Bottom content area */}
-      <motion.div className="hero-bottom" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85, duration: 0.8 }}>
-        <div className="hero-bottom-left">
-          <p className="hero-desc">I build intelligent AI products, generative systems, and computer vision experiences that make ambitious ideas useful.</p>
           <div className="hero-actions">
             <a href="mailto:rahulbarik24@gmail.com" className="hero-cta-primary">Let's Talk <ArrowUpRight /></a>
             <a href="#work" className="hero-cta-secondary">View Work <ArrowDown /></a>
           </div>
-        </div>
-        <div className="hero-bottom-right">
-          <p className="hero-desc-alt">Merging product intuition, deep learning, and rapid prototyping to craft AI solutions that feel inevitable.</p>
+
           <div className="hero-stats">
             <span><strong>9+</strong><small>Projects built</small></span>
             <span><strong>02</strong><small>AI internships</small></span>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
 
-      {/* Floating tags */}
-      <motion.span className="hero-float-tag tag-ai" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.1 }}>GEN AI</motion.span>
-      <motion.span className="hero-float-tag tag-cv" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.25 }}>COMPUTER VISION</motion.span>
-      <motion.span className="hero-float-tag tag-eng" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.4 }}>AI ENGINEER</motion.span>
+        {/* Dedicated Portrait Frame Column */}
+        <motion.div className="hero-portrait-col" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.45, duration: 0.85 }}>
+          <div className="portrait-frame">
+            <div className="portrait-glow" />
+            <div className="portrait-border-ring" />
+            <img src="/assets/rahul-profile.png" alt="Rahul Bariki" loading="eager" />
+            
+            <motion.span className="hero-float-tag tag-ai" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.9 }}>GEN AI</motion.span>
+            <motion.span className="hero-float-tag tag-cv" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.05 }}>COMPUTER VISION</motion.span>
+            <motion.span className="hero-float-tag tag-eng" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.2 }}>AI ENGINEER</motion.span>
+          </div>
+        </motion.div>
+      </div>
 
       <div className="hero-scroll-hint" aria-hidden="true">
         <motion.span animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>↓</motion.span>
