@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { ArrowDown, ArrowUpRight, Award, BrainCircuit, Calendar, Code2, Cpu, ExternalLink, Eye, Github, Layers3, Linkedin, Mail, Medal, Menu, MoveUpRight, Sparkles, Trophy, X } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, Award, BrainCircuit, Calendar, Code2, Cpu, ExternalLink, Eye, Github, Layers3, Linkedin, Mail, Medal, Menu, MoveUpRight, Newspaper, Sparkles, Trophy, X } from 'lucide-react'
 
 const projects = [
   {
@@ -46,6 +46,18 @@ const capabilities = [
 ]
 
 const hackathons = [
+  {
+    title: 'GenAI Forge Hackathon 2026',
+    organizer: 'SmartBridge & NASSCOM FutureSkills Prime',
+    date: 'Feb 11 — Feb 14, 2026',
+    role: '1st Runner Up Winner 🏆',
+    award: '1st Runner Up Winner 🥇',
+    description: 'Won 1st Runner Up in a 4-day intensive GenAI bootcamp & hackathon organized by SmartBridge and NASSCOM FutureSkills Prime at Santhiram Engineering College. Featured in Nandi Patrika national press.',
+    tags: ['GenAI Forge', 'SmartBridge', 'NASSCOM', '1st Runner Up', 'Press Featured'],
+    image: '/assets/cert-genai-forge-hackathon-2026.png',
+    newsImage: '/assets/news-genai-forge-hackathon-2026.jpg',
+    tone: 'lime',
+  },
   {
     title: 'GenAI Innovation Hackathon',
     organizer: 'National AI Sprint',
@@ -230,6 +242,19 @@ const certifications = [
   // --- WINNINGS & AWARDS ---
   {
     category: 'winnings',
+    title: 'GenAI Forge Hackathon 2026 — 1st Runner Up',
+    kicker: 'SmartBridge & NASSCOM FutureSkills Prime Winner',
+    issuer: 'SmartBridge & NASSCOM',
+    date: 'Feb 14, 2026',
+    certId: '1st Runner Up Winner 🏆',
+    skills: ['GenAI Forge', 'NASSCOM Certified', 'SmartBridge', '1st Runner Up', 'Press Featured'],
+    image: '/assets/cert-genai-forge-hackathon-2026.png',
+    newsImage: '/assets/news-genai-forge-hackathon-2026.jpg',
+    credentialUrl: '/assets/cert-genai-forge-hackathon-2026.png',
+    tone: 'lime',
+  },
+  {
+    category: 'winnings',
     title: 'GenAI Innovation Hackathon Award',
     kicker: 'National Level AI Sprint Winner',
     issuer: 'National AI Sprint',
@@ -238,7 +263,7 @@ const certifications = [
     skills: ['GenAI Workflow', 'Rapid Prototyping', 'FastAPI'],
     image: null,
     credentialUrl: 'https://github.com/Rahulbariki',
-    tone: 'lime',
+    tone: 'cyan',
   },
   {
     category: 'winnings',
@@ -250,7 +275,7 @@ const certifications = [
     skills: ['CampusPulse Portal', 'Full Stack', 'Event Intelligence'],
     image: null,
     credentialUrl: 'https://github.com/Rahulbariki',
-    tone: 'cyan',
+    tone: 'violet',
   },
 ]
 
@@ -612,7 +637,7 @@ function Capabilities() {
   )
 }
 
-function Hackathons() {
+function Hackathons({ onSelectImage }) {
   return (
     <section className="hackathons section-shell" id="hackathons">
       <div className="section-heading compact">
@@ -639,6 +664,42 @@ function Hackathons() {
               <span>{item.organizer}</span> • <span>{item.role}</span>
             </div>
             <p>{item.description}</p>
+
+            {/* If hackathon has certificate image or newspaper feature preview */}
+            {item.image && (
+              <div className="hack-preview-row">
+                <div
+                  className="cert-img-thumb hack-thumb"
+                  onClick={() => onSelectImage({ title: item.title, img: item.image, newsImg: item.newsImage })}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`View award certificate for ${item.title}`}
+                >
+                  <img src={item.image} alt={`${item.title} award certificate`} loading="lazy" />
+                  <div className="thumb-overlay">
+                    <Eye size={16} />
+                    <span>View Award</span>
+                  </div>
+                </div>
+
+                {item.newsImage && (
+                  <div
+                    className="cert-img-thumb hack-thumb"
+                    onClick={() => onSelectImage({ title: `${item.title} — Press Feature`, img: item.newsImage })}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`View newspaper press coverage for ${item.title}`}
+                  >
+                    <img src={item.newsImage} alt={`${item.title} newspaper press feature`} loading="lazy" />
+                    <div className="thumb-overlay">
+                      <Newspaper size={16} />
+                      <span>Press Feature</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
             <div className="hack-tags">
               {item.tags.map((t) => <span key={t}>{t}</span>)}
             </div>
@@ -649,9 +710,8 @@ function Hackathons() {
   )
 }
 
-function Certifications() {
+function Certifications({ onSelectImage }) {
   const [activeTab, setActiveTab] = useState('all')
-  const [selectedImage, setSelectedImage] = useState(null)
 
   const filteredCerts = activeTab === 'all'
     ? certifications
@@ -710,18 +770,36 @@ function Certifications() {
 
                 {/* Certificate Image Thumbnail Preview */}
                 {cert.image && (
-                  <div
-                    className="cert-img-thumb"
-                    onClick={() => setSelectedImage({ title: cert.title, img: cert.image })}
-                    role="button"
-                    tabIndex={0}
-                    aria-label={`View certificate image for ${cert.title}`}
-                  >
-                    <img src={cert.image} alt={`${cert.title} certificate`} loading="lazy" />
-                    <div className="thumb-overlay">
-                      <Eye size={18} />
-                      <span>View Certificate</span>
+                  <div className="cert-img-thumb-container">
+                    <div
+                      className="cert-img-thumb"
+                      onClick={() => onSelectImage({ title: cert.title, img: cert.image, newsImg: cert.newsImage })}
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`View certificate image for ${cert.title}`}
+                    >
+                      <img src={cert.image} alt={`${cert.title} certificate`} loading="lazy" />
+                      <div className="thumb-overlay">
+                        <Eye size={18} />
+                        <span>View Certificate</span>
+                      </div>
                     </div>
+
+                    {cert.newsImage && (
+                      <div
+                        className="cert-img-thumb cert-news-thumb"
+                        onClick={() => onSelectImage({ title: `${cert.title} — Press Feature`, img: cert.newsImage })}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`View press coverage for ${cert.title}`}
+                      >
+                        <img src={cert.newsImage} alt={`${cert.title} news feature`} loading="lazy" />
+                        <div className="thumb-overlay">
+                          <Newspaper size={18} />
+                          <span>Press Feature</span>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -732,13 +810,24 @@ function Certifications() {
 
               <div className="cert-card-footer">
                 {cert.image ? (
-                  <button
-                    type="button"
-                    className="cert-view-btn"
-                    onClick={() => setSelectedImage({ title: cert.title, img: cert.image })}
-                  >
-                    <Eye size={15} /> View Image
-                  </button>
+                  <div className="cert-btn-group">
+                    <button
+                      type="button"
+                      className="cert-view-btn"
+                      onClick={() => onSelectImage({ title: cert.title, img: cert.image, newsImg: cert.newsImage })}
+                    >
+                      <Eye size={15} /> Certificate
+                    </button>
+                    {cert.newsImage && (
+                      <button
+                        type="button"
+                        className="cert-view-btn cert-news-btn"
+                        onClick={() => onSelectImage({ title: `${cert.title} — Press Feature`, img: cert.newsImage })}
+                      >
+                        <Newspaper size={15} /> Press Feature
+                      </button>
+                    )}
+                  </div>
                 ) : (
                   <a href={cert.credentialUrl} target="_blank" rel="noopener noreferrer" className="cert-link" aria-label={`View credential for ${cert.title}`}>
                     <ExternalLink size={18} />
@@ -749,37 +838,6 @@ function Certifications() {
           ))}
         </AnimatePresence>
       </div>
-
-      {/* Lightbox Modal for Certificate Image */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div
-            className="cert-modal-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
-          >
-            <motion.div
-              className="cert-modal-content"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="cert-modal-header">
-                <h3>{selectedImage.title}</h3>
-                <button type="button" onClick={() => setSelectedImage(null)} className="cert-modal-close" aria-label="Close modal">
-                  <X size={20} />
-                </button>
-              </div>
-              <div className="cert-modal-body">
-                <img src={selectedImage.img} alt={selectedImage.title} />
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   )
 }
@@ -838,6 +896,7 @@ function Contact() {
 export function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [loaded, setLoaded] = useState(false)
+  const [selectedImage, setSelectedImage] = useState(null)
   const { scrollYProgress } = useScroll()
   const { springX, springY } = usePointer()
   useEffect(() => {
@@ -867,11 +926,48 @@ export function App() {
         <Manifesto />
         <Work />
         <Capabilities />
-        <Hackathons />
-        <Certifications />
+        <Hackathons onSelectImage={setSelectedImage} />
+        <Certifications onSelectImage={setSelectedImage} />
         <Experience />
         <Contact />
       </main>
+
+      {/* Global Lightbox Modal for Certificate / Press Images */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            className="cert-modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+          >
+            <motion.div
+              className="cert-modal-content"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="cert-modal-header">
+                <h3>{selectedImage.title}</h3>
+                <button type="button" onClick={() => setSelectedImage(null)} className="cert-modal-close" aria-label="Close modal">
+                  <X size={20} />
+                </button>
+              </div>
+              <div className="cert-modal-body">
+                <img src={selectedImage.img} alt={selectedImage.title} />
+                {selectedImage.newsImg && (
+                  <div className="cert-modal-news-block">
+                    <h4>Nandi Patrika Press Coverage</h4>
+                    <img src={selectedImage.newsImg} alt={`${selectedImage.title} Nandi Patrika Press Coverage`} />
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }
