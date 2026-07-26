@@ -627,16 +627,34 @@ function Hero() {
             <span className="hero-line hero-line-last"><motion.span initial={{ y: '120%' }} animate={{ y: 0 }} transition={{ duration: 1.1, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}>Bariki</motion.span></span>
           </h1>
 
+          {/* User Requested Memorable Headline */}
+          <h2 className="hero-tagline">
+            Building AI Products that Solve Real Problems.
+          </h2>
+
+          {/* User Requested Subtext / Bio */}
           <p className="hero-desc">
-            Results-driven Software Engineer with expertise in Generative AI, AI Engineering, and UI/UX Design. I specialize in building intelligent AI agents, intuitive user interfaces, and software solutions for real-time problems.
+            Final-year AI & ML student specializing in AI Agents, Automation, and Full-Stack Development.
           </p>
 
           {/* Interactive AI Agent Live Terminal Widget */}
           <HeroTerminal />
 
+          {/* User Requested 3 Action Buttons */}
           <div className="hero-actions">
-            <a href="mailto:rahulbariki24@gmail.com" className="hero-cta-primary">Let's Talk <ArrowUpRight /></a>
-            <a href="tel:+916281769623" className="hero-cta-secondary"><Phone size={15} /> +91 62817 69623</a>
+            <a href="#work" className="hero-cta-primary">
+              View Projects <ArrowUpRight />
+            </a>
+            <a 
+              href="mailto:rahulbariki24@gmail.com?subject=Request%20for%20Rahul%20Bariki%20Resume" 
+              className="hero-cta-secondary"
+              aria-label="Download Resume of Rahul Bariki"
+            >
+              <ArrowDown size={15} /> Download Resume
+            </a>
+            <a href="#contact" className="hero-cta-secondary hero-cta-outline">
+              <Mail size={15} /> Contact Me
+            </a>
           </div>
 
           <div className="hero-stats">

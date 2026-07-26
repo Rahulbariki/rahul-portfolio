@@ -466,11 +466,23 @@ main {
 }
 
 /* CTA buttons */
+.hero-tagline {
+  font-size: clamp(20px, 2.6vw, 34px);
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  margin: 14px 0 8px;
+  background: linear-gradient(135deg, #ffffff 40%, #c4b5fd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .hero-actions {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-top: 6px;
+  flex-wrap: wrap;
 }
 
 .hero-cta-primary, .hero-cta-secondary {
@@ -480,10 +492,10 @@ main {
   padding: 14px 22px;
   text-decoration: none;
   text-transform: uppercase;
-  font: 500 10px 'DM Mono';
-  letter-spacing: .06em;
+  font: 500 10px 'DM Mono', monospace;
+  letter-spacing: 0.06em;
   border-radius: 100px;
-  transition: all .3s;
+  transition: all 0.3s ease;
 }
 
 .hero-cta-primary {
@@ -499,14 +511,27 @@ main {
 }
 
 .hero-cta-secondary {
-  border: 1px solid var(--line);
-  color: var(--paper);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
   background: rgba(255, 255, 255, .04);
 }
 
 .hero-cta-secondary:hover {
   background: rgba(255, 255, 255, .1);
-  border-color: rgba(255, 255, 255, .25);
+  border-color: rgba(255, 255, 255, .3);
+  transform: translateY(-2px);
+}
+
+.hero-cta-outline {
+  border-color: rgba(167, 139, 250, 0.4);
+  background: rgba(167, 139, 250, 0.08);
+  color: #c4b5fd;
+}
+
+.hero-cta-outline:hover {
+  background: rgba(167, 139, 250, 0.2);
+  color: #ffffff;
+  border-color: rgba(167, 139, 250, 0.7);
 }
 
 .hero-cta-primary svg, .hero-cta-secondary svg {
