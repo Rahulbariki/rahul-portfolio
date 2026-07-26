@@ -562,7 +562,7 @@ function Contact() {
       <div className="social-row">
         <a href="mailto:rahulbariki24@gmail.com"><Mail />Email</a>
         <a href="https://github.com/rahulbariki" target="_blank" rel="noopener noreferrer"><Github />GitHub</a>
-        <a href="https://www.linkedin.com/in/rahul-bariki/" target="_blank" rel="noopener noreferrer"><Linkedin />LinkedIn</a>
+        <a href="https://www.linkedin.com/in/rahulbariki24" target="_blank" rel="noopener noreferrer"><Linkedin />LinkedIn</a>
       </div>
       <footer>
         <span>Rahul Bariki © 2026</span>
