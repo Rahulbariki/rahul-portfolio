@@ -1,6 +1,128 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { ArrowDown, ArrowUpRight, Award, BrainCircuit, Calendar, Camera, Code2, Cpu, ExternalLink, Eye, Github, GraduationCap, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MoveUpRight, Newspaper, Phone, Sparkles, Terminal, Trophy, Wrench, X } from 'lucide-react'
+import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Calendar, Camera, CheckCircle, ChevronDown, Clock, Code2, Cpu, ExternalLink, Eye, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Terminal, Trophy, Wrench, X } from 'lucide-react'
+
+const skillProficiencies = [
+  { name: 'Generative AI & LLM Pipelines', percent: 94, level: 'Advanced / Agentic AI', tone: 'violet' },
+  { name: 'Python & AI Engineering', percent: 95, level: 'Core Stack Specialist', tone: 'lime' },
+  { name: 'React.js & Modern Frontend', percent: 90, level: 'Full-Stack UI Specialist', tone: 'cyan' },
+  { name: 'FastAPI, Node.js & Supabase Backend', percent: 88, level: 'REST APIs & DB Architecture', tone: 'violet' },
+  { name: 'UI/UX Design Thinking & Wireframing', percent: 92, level: 'Figma & Design Systems', tone: 'lime' },
+  { name: 'Cloud, Docker & DevOps Workflows', percent: 82, level: 'Containerization & Vercel', tone: 'cyan' },
+]
+
+const timelineEvents = [
+  {
+    year: '2026 — 2027 (Current)',
+    title: 'Co-Building IntelliAttend Startup & GenAI Breakthroughs',
+    role: 'AI Software Engineer & Startup Co-Developer',
+    detail: 'Co-building IntelliAttend attendance intelligence platform. Won 1st Runner Up in GenAI Forge Hackathon 2026 (NASSCOM/SmartBridge) and 1st Prize in DEFEND-X Prompt Engineering.',
+    badge: 'Active Startup ⚡',
+    tone: 'lime',
+  },
+  {
+    year: '2025',
+    title: 'IEEE Student Branch Secretary & Competitive Coding',
+    role: 'Secretary @ IEEE SEC (E25)',
+    detail: 'Appointed Secretary for IEEE Student Branch (E25) at SEC. Competed in LeetCode Club Grand Event 2K25 and authored 5+ IEEE tech event series.',
+    badge: 'IEEE Secretary 🎓',
+    tone: 'cyan',
+  },
+  {
+    year: '2024',
+    title: 'AI Virtual Internships & SHOWLINK Stage Demo',
+    role: 'Google AI-ML & Zcalar AI Intern',
+    detail: 'Completed Google AI-ML and Zcalar AI Virtual Internships. Built SHOWLINK college portal and presented live on auditorium stage at INSW 2K24.',
+    badge: 'Stage Demo 🏆',
+    tone: 'violet',
+  },
+  {
+    year: '2023',
+    title: 'Admitted to B.Tech CSE (AI & ML) @ Santhiram Engg. College',
+    role: 'Undergraduate AI & ML Student',
+    detail: 'Enrolled in Autonomous B.Tech Artificial Intelligence & Machine Learning program, maintaining a high academic standing of 8.46 CGPA.',
+    badge: '8.46 CGPA 🌟',
+    tone: 'lime',
+  },
+  {
+    year: '2021 — 2023',
+    title: 'Class XII Intermediate MPC & Top 58k JEE Mains Rank',
+    role: 'Student @ Narayana Junior College',
+    detail: 'Achieved 79% score in MPC curriculum and secured top 58,055 All India Rank in JEE Mains entrance examination.',
+    badge: 'JEE 58k Rank 🎯',
+    tone: 'cyan',
+  },
+]
+
+const testimonials = [
+  {
+    quote: 'Rahul demonstrates an exceptional ability to bridge high-level Generative AI concepts with clean, production-ready full-stack implementations. His work on IntelliAttend is outstanding.',
+    author: 'Dr. G. Kishor Kumar',
+    role: 'HOD — Dept. of CSE (AI & ML), Santhiram Engineering College',
+    tag: 'Academic Recommendation',
+    tone: 'cyan',
+  },
+  {
+    quote: 'An extraordinarily driven student leader and developer. Rahul organized high-impact IEEE technical workshops while building state-of-the-art AI applications.',
+    author: 'IEEE Student Branch Counselor',
+    role: 'IEEE Student Branch SEC (E25)',
+    tag: 'Leadership Endorsement',
+    tone: 'violet',
+  },
+  {
+    quote: 'In our GenAI hackathon, Rahul’s multi-agent workflow solution stood out for its architectural clarity and speed. He is a natural problem solver.',
+    author: 'SmartBridge & NASSCOM Evaluation Panel',
+    role: 'GenAI Forge Hackathon 2026',
+    tag: 'Hackathon Award Panel',
+    tone: 'lime',
+  },
+]
+
+const blogPosts = [
+  {
+    title: 'Architecting Zero-Proxy AI Attendance Systems with Facial Verification',
+    date: 'Feb 2026',
+    readTime: '5 min read',
+    snippet: 'How we built IntelliAttend to process real-time attendance tracking with computer vision, instant fraud detection, and automated parent alerts.',
+    tags: ['AI Agents', 'Computer Vision', 'FastAPI', 'IntelliAttend'],
+    url: 'https://dashboard.intelliattend.app/login',
+  },
+  {
+    title: 'From 0 to Identity: Prompt Engineering Pipelines for Brand Automation',
+    date: 'Jan 2026',
+    readTime: '4 min read',
+    snippet: 'Exploring how BrandNova leverages multi-step LLM chains and vector SVG asset generators to create complete brand identity kits in under 30 seconds.',
+    tags: ['Generative AI', 'LLMs', 'Prompt Engineering', 'BrandNova'],
+    url: 'https://brandnova-brand-automation.vercel.app/',
+  },
+  {
+    title: 'Building Responsive Glassmorphic Web Portals with React & Framer Motion',
+    date: 'Dec 2025',
+    readTime: '6 min read',
+    snippet: 'A deep dive into crafting hardware-accelerated dark cyber interfaces, fluid typography clamp rules, and 3D card tilt interactions.',
+    tags: ['React', 'UI/UX Design', 'CSS3', 'Web Dev'],
+    url: 'https://showlink.vercel.app/',
+  },
+]
+
+const faqItems = [
+  {
+    question: 'Are you available for full-time roles, internships, or startup collaborations?',
+    answer: 'Yes! As a final-year B.Tech CSE (AI & ML) student graduating in 2027, I am actively seeking full-time AI Engineering roles, Generative AI internships, and ambitious co-building opportunities.',
+  },
+  {
+    question: 'What AI frameworks, models, and tech stacks do you specialize in?',
+    answer: 'My primary stack centers on Python, OpenAI / LLM APIs, LangChain, AI Agents, FastAPI, React.js, Tailwind CSS, PostgreSQL, and Supabase. I am experienced in prompt engineering, computer vision pipelines, and building scalable full-stack web applications.',
+  },
+  {
+    question: 'What is IntelliAttend and what is your role in the startup?',
+    answer: 'IntelliAttend is an AI-powered smart attendance and real-time analytics platform designed for modern educational institutions. I am a Co-Developer & AI Engineer building the core portal, backend services, and analytics infrastructure.',
+  },
+  {
+    question: 'How can I contact you for a technical interview or project discussion?',
+    answer: 'You can reach me directly via email at rahulbariki24@gmail.com or call me at +91 62817 69623. You can also connect with me on LinkedIn at linkedin.com/in/rahulbariki24.',
+  },
+]
 
 const projects = [
   {
@@ -850,97 +972,7 @@ function ProjectCard({ project, onSelectImage }) {
   )
 }
 
-function Work({ onSelectImage }) {
-  return (
-    <section className="work section-shell" id="work">
-      <div className="section-heading">
-        <div><span>Selected systems</span><span>02 / 07</span></div>
-        <h2>Work that moves<br /><em>ideas forward.</em></h2>
-      </div>
-      <div className="project-grid">
-        {projects.map((project) => (
-          <ProjectCard project={project} onSelectImage={onSelectImage} key={project.title} />
-        ))}
-      </div>
-    </section>
-  )
-}
 
-function Capabilities() {
-  return (
-    <section className="capabilities section-shell" id="skills">
-      <div className="section-heading compact">
-        <div><span>Technical Skills & Capabilities</span><span>03 / 07</span></div>
-        <h2>Engineering stacks &<br /><em>core AI expertise.</em></h2>
-      </div>
-
-      <div className="capability-list">
-        {capabilities.map(({ icon: Icon, title, text }, index) => (
-          <motion.article key={title} initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }}>
-            <span>0{index + 1}</span>
-            <Icon />
-            <h3>{title}</h3>
-            <p>{text}</p>
-            <ArrowUpRight />
-          </motion.article>
-        ))}
-      </div>
-
-      {/* Categorized Skill Badges Matrix */}
-      <div className="skills-matrix-container">
-        {skillGroups.map((group) => {
-          const Icon = group.icon
-          return (
-            <div className={`skill-cat-card ${group.tone}`} key={group.category}>
-              <div className="skill-cat-header">
-                <Icon size={20} /> <h3>{group.category}</h3>
-              </div>
-              <div className="skill-tags">
-                {group.skills.map((s) => (
-                  <span key={s} className="skill-tag tech">
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )
-        })}
-      </div>
-
-      <div className="ticker" aria-hidden="true">
-        <div>PYTHON · GENERATIVE AI · AI AGENTS · MACHINE LEARNING · NATURAL LANGUAGE PROCESSING · FASTAPI · REACT · PROMPT ENGINEERING · </div>
-        <div>PYTHON · GENERATIVE AI · AI AGENTS · MACHINE LEARNING · NATURAL LANGUAGE PROCESSING · FASTAPI · REACT · PROMPT ENGINEERING · </div>
-      </div>
-    </section>
-  )
-}
-
-function Experience() {
-  return (
-    <section className="experience section-shell" id="experience">
-      <div className="section-heading compact">
-        <div><span>Field Notes & Internships</span><span>04 / 07</span></div>
-        <h2>Learning & leading<br /><em>in practice.</em></h2>
-      </div>
-      <div className="experience-grid">
-        <div className="experience-intro">
-          <span>Current chapter</span>
-          <p>B.Tech Artificial Intelligence & Machine Learning student at Santhiram Engineering College, turning coursework and curiosity into useful systems.</p>
-        </div>
-        <div className="experience-list">
-          {experiences.map((item, index) => (
-            <motion.article key={item.company} initial={{ opacity: 0, y: 35 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}>
-              <div><span>0{index + 1}</span><span>{item.period}</span></div>
-              <h3>{item.company}</h3>
-              <h4>{item.role}</h4>
-              <p>{item.text}</p>
-            </motion.article>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
 
 function Achievements({ onSelectImage }) {
   const [activeTab, setActiveTab] = useState('hackathons')
@@ -1282,34 +1314,281 @@ function Education() {
   )
 }
 
-function Contact() {
+function CurrentlyBuildingBanner() {
   return (
-    <section className="contact section-shell" id="contact">
-      <div className="contact-glow" />
-      <div className="section-kicker">Next Chapter / 07 / 07</div>
-      <h2>Have an ambitious<br />project? <em>Let's connect.</em></h2>
-      <p>I’m looking for ambitious teams, serious AI challenges, and opportunities to engineer intelligent systems that scale.</p>
-      
-      <div className="contact-actions-row">
-        <a className="contact-cta" href="mailto:rahulbariki24@gmail.com">
-          <span>Email Me</span><ArrowUpRight />
-        </a>
-        <a className="contact-cta contact-cta-phone" href="tel:+916281769623">
-          <span>Call: +91 62817 69623</span><Phone size={18} />
+    <div className="currently-building-banner">
+      <div className="cb-inner">
+        <span className="cb-pulse" />
+        <span className="cb-label">CURRENTLY BUILDING:</span>
+        <span className="cb-text">IntelliAttend v2.0 & Multi-Modal AI Agent Workflows</span>
+        <a href="https://dashboard.intelliattend.app/login" target="_blank" rel="noopener noreferrer" className="cb-link">
+          Live Portal <ExternalLink size={12} />
         </a>
       </div>
+    </div>
+  )
+}
 
-      <div className="social-row">
-        <a href="mailto:rahulbariki24@gmail.com"><Mail /> rahulbariki24@gmail.com</a>
-        <a href="tel:+916281769623"><Phone /> +91 62817 69623</a>
-        <a href="https://github.com/rahulbariki" target="_blank" rel="noopener noreferrer"><Github /> GitHub</a>
-        <a href="https://www.linkedin.com/in/rahulbariki24" target="_blank" rel="noopener noreferrer"><Linkedin /> LinkedIn</a>
+function FeaturedSpotlightHero({ onSelectImage }) {
+  return (
+    <motion.div 
+      className="featured-spotlight-card"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="spotlight-badge">
+        <Sparkles size={14} /> <span>FEATURED STARTUP SPOTLIGHT PROJECT</span>
       </div>
-      <footer>
-        <span>Rahul Bariki © 2026</span>
-        <span>Gen-AI Engineer • Nandyal, AP, India</span>
-        <a href="#top">Back to top ↑</a>
-      </footer>
+      <div className="spotlight-grid">
+        <div className="spotlight-left">
+          <h2>IntelliAttend</h2>
+          <p className="spotlight-subtitle">AI-Powered Smart Attendance & Institutional Analytics Platform</p>
+          <p className="spotlight-desc">
+            Co-engineering an enterprise-grade automated attendance management engine leveraging Computer Vision facial recognition, real-time analytics dashboards, and automated fraud-prevention systems for academic institutions.
+          </p>
+          <div className="spotlight-metrics">
+            <div><strong>45+ Mins</strong><small>Daily Time Saved</small></div>
+            <div><strong>99.4%</strong><small>Verification Accuracy</small></div>
+            <div><strong>Active ⚡</strong><small>Startup Status</small></div>
+          </div>
+          <div className="spotlight-actions">
+            <a href="https://dashboard.intelliattend.app/login" target="_blank" rel="noopener noreferrer" className="btn-spotlight-live">
+              <span>Launch Live Startup Portal</span> <ExternalLink size={15} />
+            </a>
+            <button 
+              type="button"
+              className="btn-spotlight-case"
+              onClick={() => onSelectImage({
+                title: 'IntelliAttend Startup Architecture',
+                img: '/assets/intelliattend-logo.png',
+                imgTitle: 'IntelliAttend AI Attendance Platform — Enterprise System Architecture'
+              })}
+            >
+              <span>Explore Architecture</span> <Eye size={15} />
+            </button>
+          </div>
+        </div>
+        <div className="spotlight-right">
+          <div className="spotlight-img-frame">
+            <img src="/assets/intelliattend-logo.png" alt="IntelliAttend Startup Logo & AI Dashboard" />
+            <span className="spotlight-live-pill">LIVE ON PROD 🟢</span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+function TechProficiencyRadar() {
+  return (
+    <div className="tech-radar-container">
+      <div className="tech-radar-header">
+        <Activity size={18} /> <h3>Skill Competency & Tech Proficiency Radar</h3>
+      </div>
+      <div className="radar-grid">
+        {skillProficiencies.map((item) => (
+          <div key={item.name} className="radar-item">
+            <div className="radar-meta">
+              <span className="radar-name">{item.name}</span>
+              <span className="radar-percent">{item.percent}%</span>
+            </div>
+            <div className="radar-bar-bg">
+              <motion.div 
+                className={`radar-bar-fill ${item.tone}`}
+                initial={{ width: 0 }}
+                whileInView={{ width: `${item.percent}%` }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, ease: 'easeOut' }}
+              />
+            </div>
+            <span className="radar-level">{item.level}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function GitHubActivityWidget() {
+  return (
+    <motion.div 
+      className="github-activity-card"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      <div className="gh-header">
+        <div className="gh-title">
+          <Github size={20} /> <h3>GitHub Contribution & Open Source Activity</h3>
+        </div>
+        <a href="https://github.com/rahulbariki" target="_blank" rel="noopener noreferrer" className="gh-profile-btn">
+          <span>@rahulbariki</span> <ExternalLink size={13} />
+        </a>
+      </div>
+      <p className="gh-desc">Active commit activity across Generative AI repositories, AI Agent tools, full-stack React applications, and FastAPI backends.</p>
+      <div className="gh-stats-row">
+        <div className="gh-stat">
+          <GitCommit size={16} />
+          <strong>150+</strong>
+          <span>Commits Built</span>
+        </div>
+        <div className="gh-stat">
+          <Code2 size={16} />
+          <strong>Python / JS</strong>
+          <span>Primary Stack</span>
+        </div>
+        <div className="gh-stat">
+          <TrendingUp size={16} />
+          <strong>4 Live</strong>
+          <span>Deploys on Vercel</span>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+function InteractiveTimeline() {
+  return (
+    <div className="interactive-timeline-container">
+      <div className="timeline-header">
+        <Clock size={18} /> <h3>Career Journey & Strategic Milestones</h3>
+      </div>
+      <div className="timeline-track">
+        {timelineEvents.map((event, index) => (
+          <motion.div 
+            key={event.title}
+            className={`timeline-step ${event.tone}`}
+            initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.1 }}
+          >
+            <div className="timeline-node" />
+            <div className="timeline-card">
+              <div className="timeline-top">
+                <span className="timeline-year"><Calendar size={12} /> {event.year}</span>
+                <span className="timeline-badge">{event.badge}</span>
+              </div>
+              <h4>{event.title}</h4>
+              <p className="timeline-role">{event.role}</p>
+              <p className="timeline-detail">{event.detail}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function Testimonials() {
+  return (
+    <section className="testimonials section-shell" id="testimonials">
+      <div className="section-heading compact">
+        <div><span>Peer & Mentor Endorsements</span><span>05.5 / 07</span></div>
+        <h2>Recommendations &<br /><em>leadership feedback.</em></h2>
+      </div>
+      <div className="testimonials-grid">
+        {testimonials.map((item, index) => (
+          <motion.article 
+            key={item.author}
+            className={`testimonial-card ${item.tone}`}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.12 }}
+          >
+            <Quote className="quote-icon" size={24} />
+            <p className="testimonial-text">"{item.quote}"</p>
+            <div className="testimonial-author">
+              <strong>{item.author}</strong>
+              <span>{item.role}</span>
+              <span className="testimonial-tag">{item.tag}</span>
+            </div>
+          </motion.article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function TechnicalBlog() {
+  return (
+    <section className="blog-section section-shell" id="blog">
+      <div className="section-heading compact">
+        <div><span>Technical Insights & Engineering Notes</span><span>05.8 / 07</span></div>
+        <h2>Writing on AI agents,<br /><em>prompting & full-stack systems.</em></h2>
+      </div>
+      <div className="blog-grid">
+        {blogPosts.map((post, index) => (
+          <motion.article 
+            key={post.title}
+            className="blog-card"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.1 }}
+          >
+            <div className="blog-meta">
+              <span><Calendar size={12} /> {post.date}</span>
+              <span><Clock size={12} /> {post.readTime}</span>
+            </div>
+            <h3>{post.title}</h3>
+            <p>{post.snippet}</p>
+            <div className="blog-tags">
+              {post.tags.map((t) => <span key={t}>{t}</span>)}
+            </div>
+            <a href={post.url} target="_blank" rel="noopener noreferrer" className="blog-read-link">
+              <span>Read Insight</span> <ArrowUpRight size={14} />
+            </a>
+          </motion.article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function FAQAccordion() {
+  const [openIndex, setOpenIndex] = useState(0)
+
+  return (
+    <section className="faq-section section-shell" id="faq">
+      <div className="section-heading compact">
+        <div><span>Recruiter & Client FAQ</span><span>06.5 / 07</span></div>
+        <h2>Frequently asked<br /><em>questions.</em></h2>
+      </div>
+      <div className="faq-list">
+        {faqItems.map((item, index) => {
+          const isOpen = openIndex === index
+          return (
+            <div key={item.question} className={`faq-item ${isOpen ? 'open' : ''}`}>
+              <button 
+                type="button" 
+                className="faq-question-btn"
+                onClick={() => setOpenIndex(isOpen ? null : index)}
+                aria-expanded={isOpen}
+              >
+                <span>{item.question}</span>
+                <ChevronDown className={`faq-icon ${isOpen ? 'rotated' : ''}`} size={18} />
+              </button>
+              <AnimatePresence>
+                {isOpen && (
+                  <motion.div 
+                    className="faq-answer"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <p>{item.answer}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )
+        })}
+      </div>
     </section>
   )
 }
@@ -1343,13 +1622,97 @@ export function App() {
       <Navigation onOpen={() => setMenuOpen(true)} />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
       <main>
+        <CurrentlyBuildingBanner />
         <Hero />
         <Manifesto />
-        <Work onSelectImage={setSelectedImage} />
-        <Capabilities />
-        <Experience />
+        <section className="work section-shell" id="work">
+          <div className="section-heading">
+            <div><span>Selected systems</span><span>02 / 07</span></div>
+            <h2>Work that moves<br /><em>ideas forward.</em></h2>
+          </div>
+          <FeaturedSpotlightHero onSelectImage={setSelectedImage} />
+          <div className="project-grid">
+            {projects.map((project) => (
+              <ProjectCard project={project} onSelectImage={setSelectedImage} key={project.title} />
+            ))}
+          </div>
+        </section>
+        <section className="capabilities section-shell" id="skills">
+          <div className="section-heading compact">
+            <div><span>Technical Skills & Capabilities</span><span>03 / 07</span></div>
+            <h2>Engineering stacks &<br /><em>core AI expertise.</em></h2>
+          </div>
+
+          <div className="capability-list">
+            {capabilities.map(({ icon: Icon, title, text }, index) => (
+              <motion.article key={title} initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }}>
+                <span>0{index + 1}</span>
+                <Icon />
+                <h3>{title}</h3>
+                <p>{text}</p>
+                <ArrowUpRight />
+              </motion.article>
+            ))}
+          </div>
+
+          <TechProficiencyRadar />
+
+          {/* Categorized Skill Badges Matrix */}
+          <div className="skills-matrix-container">
+            {skillGroups.map((group) => {
+              const Icon = group.icon
+              return (
+                <div className={`skill-cat-card ${group.tone}`} key={group.category}>
+                  <div className="skill-cat-header">
+                    <Icon size={20} /> <h3>{group.category}</h3>
+                  </div>
+                  <div className="skill-tags">
+                    {group.skills.map((s) => (
+                      <span key={s} className="skill-tag tech">
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          <GitHubActivityWidget />
+
+          <div className="ticker" aria-hidden="true">
+            <div>PYTHON · GENERATIVE AI · AI AGENTS · MACHINE LEARNING · NATURAL LANGUAGE PROCESSING · FASTAPI · REACT · PROMPT ENGINEERING · </div>
+            <div>PYTHON · GENERATIVE AI · AI AGENTS · MACHINE LEARNING · NATURAL LANGUAGE PROCESSING · FASTAPI · REACT · PROMPT ENGINEERING · </div>
+          </div>
+        </section>
+        <section className="experience section-shell" id="experience">
+          <div className="section-heading compact">
+            <div><span>Field Notes & Internships</span><span>04 / 07</span></div>
+            <h2>Learning & leading<br /><em>in practice.</em></h2>
+          </div>
+          <div className="experience-grid">
+            <div className="experience-intro">
+              <span>Current chapter</span>
+              <p>B.Tech Artificial Intelligence & Machine Learning student at Santhiram Engineering College, turning coursework and curiosity into useful systems.</p>
+            </div>
+            <div className="experience-list">
+              {experiences.map((item, index) => (
+                <motion.article key={item.company} initial={{ opacity: 0, y: 35 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}>
+                  <div><span>0{index + 1}</span><span>{item.period}</span></div>
+                  <h3>{item.company}</h3>
+                  <h4>{item.role}</h4>
+                  <p>{item.text}</p>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+          <InteractiveTimeline />
+        </section>
         <Achievements onSelectImage={setSelectedImage} />
+        <Testimonials />
         <Education />
+        <TechnicalBlog />
+        <FAQAccordion />
         <Contact />
       </main>
 
