@@ -264,7 +264,7 @@ function Hero() {
           </p>
 
           <div className="hero-actions">
-            <a href="mailto:rahulbarik24@gmail.com" className="hero-cta-primary">Let's Talk <ArrowUpRight /></a>
+            <a href="mailto:rahulbariki24@gmail.com" className="hero-cta-primary">Let's Talk <ArrowUpRight /></a>
             <a href="#work" className="hero-cta-secondary">View Work <ArrowDown /></a>
           </div>
 
@@ -436,11 +436,11 @@ function Contact() {
       <div className="section-kicker">Next chapter / 05</div>
       <h2>Have an impossible<br />idea? <em>Good.</em></h2>
       <p>I’m looking for ambitious teams, serious AI problems, and ideas with enough energy to change shape while we build them.</p>
-      <a className="contact-cta" href="mailto:rahulbarik24@gmail.com">
+      <a className="contact-cta" href="mailto:rahulbariki24@gmail.com">
         <span>Start a conversation</span><ArrowUpRight />
       </a>
       <div className="social-row">
-        <a href="mailto:rahulbarik24@gmail.com"><Mail />Email</a>
+        <a href="mailto:rahulbariki24@gmail.com"><Mail />Email</a>
         <a href="https://github.com/rahulbariki" target="_blank" rel="noopener noreferrer"><Github />GitHub</a>
         <a href="https://www.linkedin.com/in/rahul-bariki/" target="_blank" rel="noopener noreferrer"><Linkedin />LinkedIn</a>
       </div>
