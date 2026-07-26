@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { ArrowDown, ArrowUpRight, Award, BrainCircuit, Calendar, Code2, Cpu, ExternalLink, Eye, Github, GraduationCap, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MoveUpRight, Newspaper, Phone, Sparkles, Terminal, Trophy, Wrench, X } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, Award, BrainCircuit, Calendar, Camera, Code2, Cpu, ExternalLink, Eye, Github, GraduationCap, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MoveUpRight, Newspaper, Phone, Sparkles, Terminal, Trophy, Wrench, X } from 'lucide-react'
 
 const projects = [
   {
@@ -39,6 +39,15 @@ const projects = [
     stageTitle: 'Live Auditorium Stage Presentation of SHOWLINK Project',
     url: 'https://github.com/Rahulbariki/SHOWLINK',
   },
+]
+
+const skillProficiencies = [
+  { name: 'Generative AI & AI Agent Systems', level: 95 },
+  { name: 'Prompt Engineering & LLM Optimization', level: 94 },
+  { name: 'Python Engineering & Automation', level: 92 },
+  { name: 'Full-Stack Web (React, FastAPI, Node.js)', level: 88 },
+  { name: 'Machine Learning & NLP Pipelines', level: 86 },
+  { name: 'Algorithms & Data Structures', level: 85 },
 ]
 
 const technicalSkills = {
@@ -170,11 +179,11 @@ const hackathons = [
 ]
 
 const certCategories = [
-  { id: 'all', label: 'All Credentials' },
-  { id: 'ieee', label: 'IEEE Certifications' },
-  { id: 'course', label: 'Course Certifications' },
-  { id: 'participation', label: 'Participations & Workshops' },
-  { id: 'winnings', label: 'Winnings & Awards' },
+  { id: 'all', label: 'All Credentials (14)' },
+  { id: 'winnings', label: '🏆 Winnings & Awards (3)' },
+  { id: 'ieee', label: '🎓 IEEE Certifications (5)' },
+  { id: 'participation', label: '💻 Workshops & Competitions (2)' },
+  { id: 'course', label: '📜 Course Certifications (4)' },
 ]
 
 const certifications = [
@@ -379,30 +388,6 @@ const certifications = [
     credentialUrl: '/assets/cert-genai-forge-hackathon-2026.png',
     tone: 'cyan',
   },
-  {
-    category: 'winnings',
-    title: 'GenAI Innovation Hackathon Award',
-    kicker: 'National Level AI Sprint Winner',
-    issuer: 'National AI Sprint',
-    date: '2024',
-    certId: 'Featured Innovator Award',
-    skills: ['GenAI Workflow', 'Rapid Prototyping', 'FastAPI'],
-    image: null,
-    credentialUrl: 'https://github.com/Rahulbariki',
-    tone: 'violet',
-  },
-  {
-    category: 'winnings',
-    title: 'Smart Campus AI Challenge Award',
-    kicker: 'SEC Tech Fest Innovation Award',
-    issuer: 'Santhiram Engineering College',
-    date: '2024',
-    certId: 'Top 3 Finalist',
-    skills: ['CampusPulse Portal', 'Full Stack', 'Event Intelligence'],
-    image: null,
-    credentialUrl: 'https://github.com/Rahulbariki',
-    tone: 'lime',
-  },
 ]
 
 const educationList = [
@@ -433,6 +418,15 @@ const experiences = [
   { period: 'Jan 2024 — Mar 2024', company: 'Google AI-ML Virtual Internship', role: 'AI / Machine Learning Intern', text: 'Studied end-to-end machine learning workflows, model development, and practical AI foundations.' },
   { period: '2024', company: 'Zcalar AI Internship', role: 'AI Developer Intern', text: 'Developed intelligent chatbot systems and explored useful, product-focused NLP experiences.' },
 ]
+
+function getMediaCount(item) {
+  let count = 0
+  if (item.image) count++
+  if (item.newsImage) count++
+  if (item.stageImage) count++
+  if (item.secImage) count++
+  return count
+}
 
 const navItems = ['About', 'Work', 'Skills', 'Hackathons', 'Certifications', 'Education', 'Experience', 'Contact']
 
@@ -782,7 +776,35 @@ function Capabilities() {
         ))}
       </div>
 
-      {/* Comprehensive Skill Category Badges Matrix */}
+      {/* Visual Proficiency Progress Meters */}
+      <div className="skill-proficiency-grid">
+        {skillProficiencies.map((item, idx) => (
+          <motion.div
+            key={item.name}
+            className="skill-meter-card"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: idx * 0.08 }}
+          >
+            <div className="skill-meter-header">
+              <span>{item.name}</span>
+              <span>{item.level}%</span>
+            </div>
+            <div className="skill-bar-bg">
+              <motion.div
+                className="skill-bar-fill"
+                initial={{ width: 0 }}
+                whileInView={{ width: `${item.level}%` }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.2 + idx * 0.08 }}
+              />
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Comprehensive Categorized Skill Badges Matrix */}
       <div className="skills-matrix-container">
         <div className="skill-cat-card">
           <div className="skill-cat-header">
@@ -829,61 +851,39 @@ function Hackathons({ onSelectImage }) {
         <h2>Building under<br /><em>pressure & speed.</em></h2>
       </div>
       <div className="hackathon-grid">
-        {hackathons.map((item, index) => (
-          <motion.article
-            key={item.title}
-            className={`hackathon-card ${item.tone}`}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.12 }}
-            data-cursor
-          >
-            <div className="hack-header">
-              <span className="hack-badge"><Trophy size={14} /> {item.award}</span>
-              <span className="hack-date"><Calendar size={13} /> {item.date}</span>
-            </div>
-            <h3>{item.title}</h3>
-            <div className="hack-meta">
-              <span>{item.organizer}</span> • <span>{item.role}</span>
-            </div>
-            <p>{item.description}</p>
+        {hackathons.map((item, index) => {
+          const mediaCount = getMediaCount(item)
+          return (
+            <motion.article
+              key={item.title}
+              className={`hackathon-card ${item.tone}`}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.12 }}
+              data-cursor
+            >
+              <div className="hack-header">
+                <span className="hack-badge"><Trophy size={14} /> {item.award}</span>
+                <span className="hack-date"><Calendar size={13} /> {item.date}</span>
+              </div>
+              <h3>{item.title}</h3>
+              <div className="hack-meta">
+                <span>{item.organizer}</span> • <span>{item.role}</span>
+              </div>
+              <p>{item.description}</p>
 
-            {/* If hackathon has certificate image or secondary media preview */}
-            {item.image && (
-              <div className="hack-preview-row">
-                <div
-                  className="cert-img-thumb hack-thumb"
-                  onClick={() => onSelectImage({
-                    title: item.title,
-                    img: item.image,
-                    imgTitle: item.imageTitle,
-                    newsImg: item.newsImage,
-                    newsTitle: item.newsTitle,
-                    stageImg: item.stageImage,
-                    stageTitle: item.stageTitle,
-                    secImg: item.secImage,
-                    secTitle: item.secTitle
-                  })}
-                  role="button"
-                  tabIndex={0}
-                  aria-label={`View credential for ${item.title}`}
-                >
-                  <img src={item.image} alt={item.imageTitle || item.title} loading="lazy" />
-                  <div className="thumb-overlay">
-                    <Eye size={16} />
-                    <span>View Certificate</span>
-                  </div>
-                </div>
-
-                {item.newsImage && (
+              {/* If hackathon has certificate image or secondary media preview */}
+              {item.image && (
+                <div className="hack-preview-row">
                   <div
                     className="cert-img-thumb hack-thumb"
                     onClick={() => onSelectImage({
                       title: item.title,
-                      img: item.newsImage,
-                      imgTitle: item.newsTitle,
-                      newsImg: null,
+                      img: item.image,
+                      imgTitle: item.imageTitle,
+                      newsImg: item.newsImage,
+                      newsTitle: item.newsTitle,
                       stageImg: item.stageImage,
                       stageTitle: item.stageTitle,
                       secImg: item.secImage,
@@ -891,23 +891,53 @@ function Hackathons({ onSelectImage }) {
                     })}
                     role="button"
                     tabIndex={0}
-                    aria-label={`View press feature for ${item.title}`}
+                    aria-label={`View credential for ${item.title}`}
                   >
-                    <img src={item.newsImage} alt={item.newsTitle || `${item.title} Press Feature`} loading="lazy" />
+                    <img src={item.image} alt={item.imageTitle || item.title} loading="lazy" />
+                    {mediaCount > 1 && (
+                      <span className="media-count-badge">
+                        <Camera size={11} /> {mediaCount} Media
+                      </span>
+                    )}
                     <div className="thumb-overlay">
-                      <Newspaper size={16} />
-                      <span>Press Feature</span>
+                      <Eye size={16} />
+                      <span>View Certificate</span>
                     </div>
                   </div>
-                )}
-              </div>
-            )}
 
-            <div className="hack-tags">
-              {item.tags.map((t) => <span key={t}>{t}</span>)}
-            </div>
-          </motion.article>
-        ))}
+                  {item.newsImage && (
+                    <div
+                      className="cert-img-thumb hack-thumb"
+                      onClick={() => onSelectImage({
+                        title: item.title,
+                        img: item.newsImage,
+                        imgTitle: item.newsTitle,
+                        newsImg: null,
+                        stageImg: item.stageImage,
+                        stageTitle: item.stageTitle,
+                        secImg: item.secImage,
+                        secTitle: item.secTitle
+                      })}
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`View press feature for ${item.title}`}
+                    >
+                      <img src={item.newsImage} alt={item.newsTitle || `${item.title} Press Feature`} loading="lazy" />
+                      <div className="thumb-overlay">
+                        <Newspaper size={16} />
+                        <span>Press Feature</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              <div className="hack-tags">
+                {item.tags.map((t) => <span key={t}>{t}</span>)}
+              </div>
+            </motion.article>
+          )
+        })}
       </div>
     </section>
   )
@@ -943,69 +973,47 @@ function Certifications({ onSelectImage }) {
 
       <div className="cert-grid">
         <AnimatePresence mode="wait">
-          {filteredCerts.map((cert, index) => (
-            <motion.article
-              key={cert.title}
-              className={`cert-card ${cert.tone}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ delay: index * 0.05 }}
-              data-cursor
-            >
-              <div className="cert-top-row">
-                <div className="cert-icon-wrapper">
-                  <Medal size={24} className="cert-icon" />
+          {filteredCerts.map((cert, index) => {
+            const mediaCount = getMediaCount(cert)
+            return (
+              <motion.article
+                key={cert.title}
+                className={`cert-card ${cert.tone}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ delay: index * 0.05 }}
+                data-cursor
+              >
+                <div className="cert-top-row">
+                  <div className="cert-icon-wrapper">
+                    <Medal size={24} className="cert-icon" />
+                  </div>
+                  <div className="cert-top-meta">
+                    <span className="cert-issuer">{cert.issuer}</span>
+                    <span className="cert-date">{cert.date}</span>
+                  </div>
                 </div>
-                <div className="cert-top-meta">
-                  <span className="cert-issuer">{cert.issuer}</span>
-                  <span className="cert-date">{cert.date}</span>
-                </div>
-              </div>
 
-              <div className="cert-content">
-                <h3>{cert.title}</h3>
-                {cert.kicker && (
-                  <p className="cert-kicker">
-                    {cert.kicker} {cert.certId && <span className="cert-id">• {cert.certId}</span>}
-                  </p>
-                )}
+                <div className="cert-content">
+                  <h3>{cert.title}</h3>
+                  {cert.kicker && (
+                    <p className="cert-kicker">
+                      {cert.kicker} {cert.certId && <span className="cert-id">• {cert.certId}</span>}
+                    </p>
+                  )}
 
-                {/* Certificate Image Thumbnail Preview */}
-                {cert.image && (
-                  <div className="cert-img-thumb-container">
-                    <div
-                      className="cert-img-thumb"
-                      onClick={() => onSelectImage({
-                        title: cert.title,
-                        img: cert.image,
-                        imgTitle: cert.imageTitle,
-                        newsImg: cert.newsImage,
-                        newsTitle: cert.newsTitle,
-                        stageImg: cert.stageImage,
-                        stageTitle: cert.stageTitle,
-                        secImg: cert.secImage,
-                        secTitle: cert.secTitle
-                      })}
-                      role="button"
-                      tabIndex={0}
-                      aria-label={`View certificate image for ${cert.title}`}
-                    >
-                      <img src={cert.image} alt={cert.imageTitle || `${cert.title} certificate`} loading="lazy" />
-                      <div className="thumb-overlay">
-                        <Eye size={18} />
-                        <span>View Certificate</span>
-                      </div>
-                    </div>
-
-                    {cert.newsImage && (
+                  {/* Certificate Image Thumbnail Preview */}
+                  {cert.image && (
+                    <div className="cert-img-thumb-container">
                       <div
-                        className="cert-img-thumb cert-news-thumb"
+                        className="cert-img-thumb"
                         onClick={() => onSelectImage({
                           title: cert.title,
-                          img: cert.newsImage,
-                          imgTitle: cert.newsTitle,
-                          newsImg: null,
+                          img: cert.image,
+                          imgTitle: cert.imageTitle,
+                          newsImg: cert.newsImage,
+                          newsTitle: cert.newsTitle,
                           stageImg: cert.stageImage,
                           stageTitle: cert.stageTitle,
                           secImg: cert.secImage,
@@ -1013,70 +1021,100 @@ function Certifications({ onSelectImage }) {
                         })}
                         role="button"
                         tabIndex={0}
-                        aria-label={`View press coverage for ${cert.title}`}
+                        aria-label={`View certificate image for ${cert.title}`}
                       >
-                        <img src={cert.newsImage} alt={cert.newsTitle || `${cert.title} press feature`} loading="lazy" />
+                        <img src={cert.image} alt={cert.imageTitle || `${cert.title} certificate`} loading="lazy" />
+                        {mediaCount > 1 && (
+                          <span className="media-count-badge">
+                            <Camera size={11} /> {mediaCount} Media
+                          </span>
+                        )}
                         <div className="thumb-overlay">
-                          <Newspaper size={18} />
-                          <span>Press Feature</span>
+                          <Eye size={18} />
+                          <span>View Certificate</span>
                         </div>
                       </div>
-                    )}
+
+                      {cert.newsImage && (
+                        <div
+                          className="cert-img-thumb cert-news-thumb"
+                          onClick={() => onSelectImage({
+                            title: cert.title,
+                            img: cert.newsImage,
+                            imgTitle: cert.newsTitle,
+                            newsImg: null,
+                            stageImg: cert.stageImage,
+                            stageTitle: cert.stageTitle,
+                            secImg: cert.secImage,
+                            secTitle: cert.secTitle
+                          })}
+                          role="button"
+                          tabIndex={0}
+                          aria-label={`View press coverage for ${cert.title}`}
+                        >
+                          <img src={cert.newsImage} alt={cert.newsTitle || `${cert.title} press feature`} loading="lazy" />
+                          <div className="thumb-overlay">
+                            <Newspaper size={18} />
+                            <span>Press Feature</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="cert-skills">
+                    {cert.skills.map((s) => <span key={s}>{s}</span>)}
                   </div>
-                )}
-
-                <div className="cert-skills">
-                  {cert.skills.map((s) => <span key={s}>{s}</span>)}
                 </div>
-              </div>
 
-              <div className="cert-card-footer">
-                {cert.image ? (
-                  <div className="cert-btn-group">
-                    <button
-                      type="button"
-                      className="cert-view-btn"
-                      onClick={() => onSelectImage({
-                        title: cert.title,
-                        img: cert.image,
-                        imgTitle: cert.imageTitle,
-                        newsImg: cert.newsImage,
-                        newsTitle: cert.newsTitle,
-                        stageImg: cert.stageImage,
-                        stageTitle: cert.stageTitle,
-                        secImg: cert.secImage,
-                        secTitle: cert.secTitle
-                      })}
-                    >
-                      <Eye size={15} /> Certificate
-                    </button>
-                    {cert.newsImage && (
+                <div className="cert-card-footer">
+                  {cert.image ? (
+                    <div className="cert-btn-group">
                       <button
                         type="button"
-                        className="cert-view-btn cert-news-btn"
+                        className="cert-view-btn"
                         onClick={() => onSelectImage({
                           title: cert.title,
-                          img: cert.newsImage,
-                          imgTitle: cert.newsTitle,
-                          newsImg: null,
+                          img: cert.image,
+                          imgTitle: cert.imageTitle,
+                          newsImg: cert.newsImage,
+                          newsTitle: cert.newsTitle,
                           stageImg: cert.stageImage,
                           stageTitle: cert.stageTitle,
                           secImg: cert.secImage,
                           secTitle: cert.secTitle
                         })}
                       >
-                        <Newspaper size={15} /> Press Feature
+                        <Eye size={15} /> Certificate ({mediaCount})
                       </button>
-                    )}
-                  </div>
-                ) : (
-                  <a href={cert.credentialUrl} target="_blank" rel="noopener noreferrer" className="cert-link" aria-label={`View credential for ${cert.title}`}>
-                    <ExternalLink size={18} />
-                  </a>
-                )}
-              </div>
-            </motion.article>
-          ))}
+                      {cert.newsImage && (
+                        <button
+                          type="button"
+                          className="cert-view-btn cert-news-btn"
+                          onClick={() => onSelectImage({
+                            title: cert.title,
+                            img: cert.newsImage,
+                            imgTitle: cert.newsTitle,
+                            newsImg: null,
+                            stageImg: cert.stageImage,
+                            stageTitle: cert.stageTitle,
+                            secImg: cert.secImage,
+                            secTitle: cert.secTitle
+                          })}
+                        >
+                          <Newspaper size={15} /> Press Feature
+                        </button>
+                      )}
+                    </div>
+                  ) : (
+                    <a href={cert.credentialUrl} target="_blank" rel="noopener noreferrer" className="cert-link" aria-label={`View credential for ${cert.title}`}>
+                      <ExternalLink size={18} />
+                    </a>
+                  )}
+                </div>
+              </motion.article>
+            )
+          })}
         </AnimatePresence>
       </div>
     </section>

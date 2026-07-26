@@ -1696,6 +1696,73 @@ footer a:hover {
   color: #818cf8;
 }
 
+/* Skill Proficiency Meters */
+.skill-proficiency-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  margin-top: 35px;
+}
+
+.skill-meter-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 16px 20px;
+  transition: border-color 0.3s ease;
+}
+
+.skill-meter-card:hover {
+  border-color: rgba(167, 139, 250, 0.4);
+}
+
+.skill-meter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: 400 11px 'DM Mono', monospace;
+  color: var(--paper);
+  margin-bottom: 10px;
+}
+
+.skill-meter-header span:last-child {
+  color: #a78bfa;
+  font-weight: 600;
+}
+
+.skill-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #818cf8, #a78bfa, #c4b5fd);
+  border-radius: 100px;
+  transition: width 1s ease-in-out;
+}
+
+/* Media Attachments Count Badge on Thumbnails */
+.media-count-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font: 500 9px 'DM Mono', monospace;
+  background: rgba(0, 0, 0, 0.85);
+  color: #c4b5fd;
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  padding: 3px 8px;
+  border-radius: 100px;
+  backdrop-filter: blur(4px);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes spin-reverse { to { transform: rotate(-360deg); } }
 @keyframes pulse-ring { 50% { transform: scale(1.12); opacity: .1; } }
