@@ -58,28 +58,31 @@ const projects = [
 ]
 
 const technicalSkills = {
-  languages: ['Python', 'C', 'C++'],
+  languages: ['Python', 'C', 'C++', 'HTML5', 'CSS3', 'JavaScript'],
   technologies: [
+    'Generative AI',
+    'AI Engineering',
     'Artificial Intelligence',
     'Machine Learning',
     'Natural Language Processing (NLP)',
-    'Generative AI',
     'AI Agents',
+    'UI/UX Design',
+    'User Experience & Wireframing',
     'Web Development',
     'API Integration',
     'Chatbot Development',
     'Automation Systems',
     'Prompt Engineering',
   ],
-  tools: ['Git', 'GitHub', 'VS Code', 'Antigravity', 'PowerBI', 'Supabase', 'FastAPI'],
-  softSkills: ['Problem Solving', 'Technical Presentation'],
+  tools: ['Git', 'GitHub', 'VS Code', 'Antigravity', 'PowerBI', 'Supabase', 'FastAPI', 'Vercel', 'UI/UX Tools'],
+  softSkills: ['Real-Time Problem Solving', 'Technical Presentation', 'UI/UX Design Thinking'],
 }
 
 const capabilities = [
-  { icon: BrainCircuit, title: 'AI & GenAI Systems', text: 'Architecting intelligent AI agents, prompt engineering pipelines, and multi-step generative workflows.' },
-  { icon: Layers3, title: 'Generative Automation', text: 'Building end-to-end NLP engines, chatbot architectures, and automated content generation pipelines.' },
-  { icon: Cpu, title: 'Full-Stack Development', text: 'Engineering responsive web applications with React, Python, FastAPI, Node.js, Express, and SQL.' },
-  { icon: Code2, title: 'Rapid Prototyping', text: 'Moving from complex software design to a testable, polished product with exceptional speed.' },
+  { icon: BrainCircuit, title: 'Generative AI Engineering', text: 'Architecting intelligent AI agents, prompt engineering pipelines, LLM workflows, and multi-step generative automation.' },
+  { icon: Cpu, title: 'AI Engineering & ML Systems', text: 'Building end-to-end NLP engines, chatbot architectures, machine learning models, and automated intelligence systems.' },
+  { icon: Layers3, title: 'UI/UX Design & Frontend', text: 'Designing intuitive, user-centric interfaces, visual design systems, wireframes, and seamless digital user experiences.' },
+  { icon: Code2, title: 'Real-Time Problem Solutions', text: 'Architecting software platforms and scalable solutions engineered to solve complex, real-time real-world problems.' },
 ]
 
 const hackathons = [
@@ -631,7 +634,7 @@ function Hero() {
 
       {/* Top status bar */}
       <motion.div className="hero-topbar" style={{ opacity }} initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-        <div className="eyebrow"><span className="signal" /> Gen-AI ENGINEER — Available for AI Projects</div>
+        <div className="eyebrow"><span className="signal" /> GENERATIVE AI ENGINEER · AI ENGINEER · UI/UX DESIGNER</div>
         <div className="hero-topbar-right">
           <span className="hero-location"><MapPin size={13} /> Nandyal, Andhra Pradesh, India</span>
         </div>
@@ -646,7 +649,7 @@ function Hero() {
           </h1>
 
           <p className="hero-desc">
-            Results-driven Software Engineer specializing in AI engineering and full-stack development. I leverage Python to design intelligent AI agents, generative systems, and scalable software solutions.
+            Results-driven Software Engineer with expertise in Generative AI, AI Engineering, and UI/UX Design. I specialize in building intelligent AI agents, intuitive user interfaces, and software solutions for real-time problems.
           </p>
 
           <div className="hero-actions">
@@ -667,11 +670,11 @@ function Hero() {
           <div className="portrait-frame">
             <div className="portrait-glow" />
             <div className="portrait-border-ring" />
-            <img src="/assets/rahul-profile.png" alt="Rahul Bariki - Gen-AI Engineer" loading="eager" />
+            <img src="/assets/rahul-profile.png" alt="Rahul Bariki - Gen-AI Engineer & UI/UX Designer" loading="eager" />
             
-            <motion.span className="hero-float-tag tag-ai" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.9 }}>GEN AI</motion.span>
-            <motion.span className="hero-float-tag tag-cv" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.05 }}>FULL-STACK</motion.span>
-            <motion.span className="hero-float-tag tag-eng" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.2 }}>AI ENGINEER</motion.span>
+            <motion.span className="hero-float-tag tag-ai" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.9 }}>GEN-AI ENGINEER</motion.span>
+            <motion.span className="hero-float-tag tag-cv" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.05 }}>UI/UX DESIGNER</motion.span>
+            <motion.span className="hero-float-tag tag-eng" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.2 }}>REAL-TIME SOLUTIONS</motion.span>
           </div>
         </motion.div>
       </div>
@@ -689,12 +692,12 @@ function Manifesto() {
     <section className="manifesto" id="about">
       <div className="section-kicker">Professional Summary / 01</div>
       <motion.p initial={{ opacity: 0.2 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 1.2 }}>
-        Results-driven Software Engineer with expertise in AI engineering and full-stack development, leveraging Python to design and implement intelligent AI agents and scalable software solutions.
+        Results-driven Software Engineer with expertise in AI engineering, Generative AI, and UI/UX design. Passionate about architecting intelligent AI agents, intuitive user-centric platforms, and developing software solutions to solve real-time problems.
       </motion.p>
       <div className="manifesto-meta">
         <span>📍 Nandyal, Andhra Pradesh, India</span>
         <span>🎓 B.Tech CSE (AI & ML) — 8.46 CGPA</span>
-        <span>💼 Gen-AI Engineer</span>
+        <span>💼 Target Roles: Generative AI Engineer | AI Engineer | UI/UX Designer</span>
       </div>
     </section>
   )
