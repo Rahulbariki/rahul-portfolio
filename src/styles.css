@@ -211,16 +211,21 @@ button {
   padding: 30px 4vw;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .menu-close {
   align-self: flex-end;
   border-color: rgba(255, 255, 255, .3);
+  flex-shrink: 0;
 }
 
 .menu-list {
   margin: auto 0;
   display: grid;
+  flex-shrink: 1;
+  min-height: 0;
 }
 
 .menu-list a {
