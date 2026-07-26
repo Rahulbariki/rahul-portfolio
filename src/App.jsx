@@ -70,25 +70,51 @@ const hackathons = [
 
 const certifications = [
   {
+    title: 'National Level Short Term Training Program (NSTTP 2K24)',
+    kicker: 'JAVA Full Stack with React JS & AI',
+    issuer: 'Santhiram Engg. College, Brainovision & AICTE',
+    date: 'Dec 2 — Dec 22, 2024',
+    certId: 'ID: NSTTP-B-SEC286',
+    skills: ['Java Full Stack', 'React JS', 'AI Integration', 'AICTE Approved'],
+    credentialUrl: 'https://www.brainovision.in',
+    tone: 'cyan',
+  },
+  {
+    title: 'International Level Student Workshop (INSW 2k24)',
+    kicker: 'Data Science using Python',
+    issuer: 'Santhiram Engg. College, Brainovision & AICTE',
+    date: 'Feb 19 — Feb 23, 2024',
+    certId: 'ID: INSW24BOVSEC938',
+    skills: ['Data Science', 'Python', 'Data Analytics', 'AICTE Approved'],
+    credentialUrl: 'https://www.brainovision.in',
+    tone: 'violet',
+  },
+  {
     title: 'IEEE Education Society Student Member',
+    kicker: 'Professional Student Branch Member',
     issuer: 'IEEE Education Society',
     date: '2024 — Present',
+    certId: 'IEEE Student Branch',
     skills: ['IEEE Member', 'Educational Tech', 'Engineering Community'],
     credentialUrl: 'https://www.ieee.org/',
     tone: 'lime',
   },
   {
     title: 'Google AI-ML Virtual Internship Certification',
+    kicker: 'AI & Machine Learning Foundations',
     issuer: 'Google & EduSkills',
     date: 'Jan 2024 — Mar 2024',
+    certId: 'Google AI-ML',
     skills: ['Machine Learning', 'Model Workflows', 'TensorFlow Foundations'],
     credentialUrl: 'https://github.com/Rahulbariki',
     tone: 'cyan',
   },
   {
     title: 'AI Developer Internship Certification',
+    kicker: 'NLP & Chatbot Development',
     issuer: 'Zcalar AI',
     date: '2024',
+    certId: 'Zcalar AI',
     skills: ['NLP Systems', 'Chatbot Architectures', 'Python Automation'],
     credentialUrl: 'https://github.com/Rahulbariki',
     tone: 'violet',
@@ -494,8 +520,8 @@ function Certifications() {
   return (
     <section className="certifications section-shell" id="certifications">
       <div className="section-heading compact">
-        <div><span>Verified Credentials</span><span>05 / 07</span></div>
-        <h2>Continuous learning &<br /><em>specializations.</em></h2>
+        <div><span>Verified Credentials & Workshops</span><span>05 / 07</span></div>
+        <h2>Workshops &<br /><em>certifications.</em></h2>
       </div>
       <div className="cert-grid">
         {certifications.map((cert, index) => (
@@ -517,6 +543,11 @@ function Certifications() {
                 <span className="cert-date">{cert.date}</span>
               </div>
               <h3>{cert.title}</h3>
+              {cert.kicker && (
+                <p className="cert-kicker">
+                  {cert.kicker} {cert.certId && <span className="cert-id">• {cert.certId}</span>}
+                </p>
+              )}
               <div className="cert-skills">
                 {cert.skills.map((s) => <span key={s}>{s}</span>)}
               </div>

@@ -1124,9 +1124,21 @@ em {
   font-size: clamp(20px, 2.5vw, 30px);
   letter-spacing: -.04em;
   font-weight: 500;
-  margin: 0 0 14px;
+  margin: 0 0 10px;
   color: var(--paper);
   line-height: 1.2;
+}
+
+.cert-kicker {
+  font: 400 11px 'DM Mono';
+  color: #a8a8a2;
+  letter-spacing: .06em;
+  margin: -4px 0 14px;
+}
+
+.cert-id {
+  color: #777;
+  font-size: 10px;
 }
 
 .cert-skills {
