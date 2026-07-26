@@ -70,6 +70,61 @@ const hackathons = [
 
 const certifications = [
   {
+    title: 'Certificate of IEEE Volunteering (Secretary)',
+    kicker: 'Secretary — Santhiram Engineering College (E25)',
+    issuer: 'IEEE Student Branch',
+    date: 'Feb 2025 — Feb 2027',
+    certId: 'IEEE Secretary E25',
+    skills: ['Leadership', 'IEEE Secretary', 'Event Management', 'Student Branch'],
+    image: '/assets/cert-ieee-volunteering-secretary.png',
+    credentialUrl: '/assets/cert-ieee-volunteering-secretary.png',
+    tone: 'lime',
+  },
+  {
+    title: '2025 Certificate of IEEE Membership',
+    kicker: 'Global Student Member in Good Standing',
+    issuer: 'IEEE',
+    date: 'Through Dec 2025',
+    certId: 'IEEE Global Member',
+    skills: ['IEEE Member', 'Technology Advancement', 'Global Engineering'],
+    image: '/assets/cert-ieee-membership-2025.png',
+    credentialUrl: '/assets/cert-ieee-membership-2025.png',
+    tone: 'cyan',
+  },
+  {
+    title: '2025 Certificate of Membership — IEEE Education Society',
+    kicker: 'Student Member in Good Standing',
+    issuer: 'IEEE Education Society',
+    date: '2025',
+    certId: 'IEEE Education Society',
+    skills: ['Education Society', 'Educational Tech', 'Engineering Learning'],
+    image: '/assets/cert-ieee-education-society-2025.png',
+    credentialUrl: '/assets/cert-ieee-education-society-2025.png',
+    tone: 'violet',
+  },
+  {
+    title: '2025 Certificate of Participation — IEEE Sensors Council',
+    kicker: 'Sensor Systems & IoT Student Member',
+    issuer: 'IEEE Sensors Council',
+    date: '2025',
+    certId: 'IEEE Sensors Council',
+    skills: ['Sensors Council', 'Sensor Tech', 'IoT Systems'],
+    image: '/assets/cert-ieee-sensors-council-2025.png',
+    credentialUrl: '/assets/cert-ieee-sensors-council-2025.png',
+    tone: 'cyan',
+  },
+  {
+    title: '2025 Certificate of Participation — IEEE CRFID',
+    kicker: 'IEEE Council on RFID Student Member',
+    issuer: 'IEEE Council on RFID',
+    date: '2025',
+    certId: 'IEEE CRFID',
+    skills: ['Council on RFID', 'RFID Tech', 'Digital Physical Integration'],
+    image: '/assets/cert-ieee-crfid-2025.png',
+    credentialUrl: '/assets/cert-ieee-crfid-2025.png',
+    tone: 'violet',
+  },
+  {
     title: 'National Level Short Term Training Program (NSTTP 2K24)',
     kicker: 'JAVA Full Stack with React JS & AI',
     issuer: 'Santhiram Engg. College, Brainovision & AICTE',
@@ -90,17 +145,6 @@ const certifications = [
     image: '/assets/cert-insw-2k24.png',
     credentialUrl: '/assets/cert-insw-2k24.png',
     tone: 'violet',
-  },
-  {
-    title: 'IEEE Education Society Student Member',
-    kicker: 'Professional Student Branch Member',
-    issuer: 'IEEE Education Society',
-    date: '2024 — Present',
-    certId: 'IEEE Student Branch',
-    skills: ['IEEE Member', 'Educational Tech', 'Engineering Community'],
-    image: null,
-    credentialUrl: 'https://www.ieee.org/',
-    tone: 'lime',
   },
   {
     title: 'Google AI-ML Virtual Internship Certification',
@@ -127,7 +171,7 @@ const certifications = [
 ]
 
 const experiences = [
-  { period: '2024 — Present', company: 'IEEE Education Society', role: 'Student Member — Santhiram Engineering College', text: 'Active student member of IEEE Education Society at Santhiram Engineering College, engaging in technical initiatives, learning workshops, and engineering community events.' },
+  { period: 'Feb 2025 — Feb 2027', company: 'IEEE Student Branch — Santhiram Engg. College (E25)', role: 'Secretary', text: 'Appointed as Secretary for IEEE Student Branch (E25) at Santhiram Engineering College, leading technical events, student initiatives, and managing branch operations.' },
   { period: 'Jan 2024 — Mar 2024', company: 'Google AI-ML Virtual Internship', role: 'AI / Machine Learning Intern', text: 'Studied end-to-end machine learning workflows, model development, and practical AI foundations.' },
   { period: '2024', company: 'Zcalar AI Internship', role: 'AI Developer Intern', text: 'Developed intelligent chatbot systems and explored useful, product-focused NLP experiences.' },
 ]
