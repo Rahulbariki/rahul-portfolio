@@ -1814,12 +1814,17 @@ footer a:hover {
 @keyframes pulse-ring { 50% { transform: scale(1.12); opacity: .1; } }
 @keyframes marquee { to { transform: translateX(-100%); } }
 
+/* ==========================================================================
+   RESPONSIVE LAYOUT OPTIMIZATION (Desktop, Tablet & Mobile Views)
+   ========================================================================== */
+
+/* Tablets & Laptops (max-width: 1024px) */
 @media (max-width: 1024px) {
   .hero-main-grid {
     grid-template-columns: 1fr;
-    gap: 35px;
+    gap: 40px;
     text-align: center;
-    padding-top: 10px;
+    padding-top: 20px;
   }
 
   .hero-text-col {
@@ -1828,63 +1833,203 @@ footer a:hover {
 
   .hero-desc {
     max-width: 100%;
+    margin: 0 auto;
   }
 
   .portrait-frame {
-    width: clamp(260px, 45vw, 360px);
+    width: clamp(260px, 42vw, 360px);
   }
 
-  .tag-ai { left: 0; }
-  .tag-cv { right: 0; }
-  .tag-eng { left: 10px; }
+  .skills-matrix-container {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .education-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  .cert-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
 }
 
-@media (max-width: 900px) {
-  .nav-links { display: none; }
-  .hero { padding: 90px 5vw 50px; }
-  .hero-text-col h1 { font-size: clamp(52px, 13vw, 110px); }
-  .manifesto { min-height: 70vh; padding: 110px 5vw; }
-  .manifesto p { margin: 45px 0; }
-  .project-card, .project-card:nth-child(3) { grid-column: 1 / -1; min-height: auto; }
-  .capability-list article { grid-template-columns: 35px 35px 1fr 25px; gap: 12px; padding: 22px 0; }
-  .capability-list p { grid-column: 3 / -1; margin: 0; }
-  .experience-intro, .experience-list { grid-column: 1 / -1; }
-  .experience-intro { position: static; margin-bottom: 45px; }
-  .contact > p { margin-left: 0; }
+/* Mobile Devices & Small Tablets (max-width: 768px) */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .hero {
+    padding: 100px 6vw 50px;
+    min-height: auto;
+  }
+
+  .hero-text-col h1 {
+    font-size: clamp(48px, 12vw, 84px);
+  }
+
+  .hero-stats {
+    flex-wrap: wrap;
+    gap: 20px 30px;
+    justify-content: center;
+  }
+
+  .manifesto {
+    padding: 90px 6vw;
+    min-height: auto;
+  }
+
+  .manifesto p {
+    font-size: clamp(22px, 5.5vw, 36px);
+    margin: 30px 0;
+  }
+
+  .section-shell {
+    padding: 85px 6vw;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(32px, 8vw, 48px);
+  }
+
+  .capabilities .section-heading h2 {
+    font-size: clamp(30px, 7.5vw, 44px);
+  }
+
+  .project-copy h3 {
+    font-size: clamp(32px, 8vw, 48px);
+  }
+
+  .cert-filter-tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 30px;
+  }
+
+  .cert-tab-btn {
+    font-size: 11px;
+    padding: 8px 14px;
+  }
+
+  .contact-actions-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .contact-actions-row .contact-cta {
+    min-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .social-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
 }
 
-@media (max-width: 600px) {
-  body, a, button { cursor: auto; }
-  .cursor { display: none; }
-  .nav { height: 66px; padding: 0 18px; }
-  .hero { padding: 85px 18px 40px; min-height: 100svh; }
-  .hero-text-col h1 { font-size: clamp(44px, 14vw, 76px); }
-  .portrait-frame { width: clamp(220px, 60vw, 290px); }
-  .hero-topbar-right { display: none; }
-  .hero-actions { flex-wrap: wrap; justify-content: center; gap: 8px; }
-  .hero-cta-primary, .hero-cta-secondary { padding: 12px 16px; font-size: 9px; }
-  .hero-stats { gap: 25px; justify-content: center; }
-  .hero-stats strong { font-size: 24px; }
-  .hero-scroll-hint { display: none; }
-  .manifesto-meta { gap: 15px; flex-wrap: wrap; }
-  .section-shell { padding: 95px 18px; }
-  .section-heading { margin-bottom: 50px; }
-  .section-heading h2 { margin-top: 35px; font-size: 53px; }
-  .project-grid { display: block; }
-  .project-card { margin-bottom: 18px; padding: 15px; }
-  .project-visual { height: 270px; margin: 40px 0 25px; }
-  .project-copy h3 { font-size: 52px; }
-  .project-footer { gap: 10px; align-items: flex-end; }
-  .capabilities { padding-bottom: 0; }
-  .capabilities .section-heading h2 { font-size: 48px; }
-  .capability-list article { grid-template-columns: 25px 30px 1fr 20px; }
-  .capability-list h3 { font-size: 20px; }
-  .contact h2 { font-size: 59px; }
-  .contact-cta { margin: 45px 0; padding: 20px; font-size: 19px; }
-  .social-row { flex-wrap: wrap; }
-  footer { gap: 15px; flex-wrap: wrap; }
-  footer span:nth-child(2) { display: none; }
-  .menu-list a { grid-template-columns: 35px 1fr 25px; font-size: 48px; padding: 18px 0; }
+/* Mobile Phones (max-width: 480px) */
+@media (max-width: 480px) {
+  body, a, button {
+    cursor: auto;
+  }
+
+  .cursor {
+    display: none;
+  }
+
+  .nav {
+    height: 60px;
+    padding: 0 16px;
+  }
+
+  .monogram {
+    font-size: 18px;
+  }
+
+  .hero {
+    padding: 85px 16px 35px;
+  }
+
+  .hero-text-col h1 {
+    font-size: clamp(40px, 13vw, 60px);
+  }
+
+  .hero-desc {
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .hero-cta-primary, .hero-cta-secondary {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+    font-size: 11px;
+    box-sizing: border-box;
+  }
+
+  .portrait-frame {
+    width: clamp(220px, 70vw, 290px);
+  }
+
+  .portrait-sub-tags span {
+    font-size: 9px;
+    padding: 5px 12px;
+  }
+
+  .skills-matrix-container,
+  .education-grid,
+  .hackathon-grid,
+  .cert-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .skill-cat-card,
+  .education-card,
+  .hackathon-card,
+  .cert-card {
+    padding: 22px 18px;
+  }
+
+  .education-card h3 {
+    font-size: 20px;
+  }
+
+  .edu-score-pill {
+    font-size: 12px;
+    padding: 10px 14px;
+  }
+
+  .edu-details {
+    font-size: 13px;
+  }
+
+  .contact h2 {
+    font-size: clamp(36px, 10vw, 56px);
+  }
+
+  .menu-list a {
+    font-size: clamp(32px, 9vw, 44px);
+    grid-template-columns: 30px 1fr 20px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
