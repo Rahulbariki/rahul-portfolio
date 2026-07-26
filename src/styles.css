@@ -1056,25 +1056,6 @@ em {
   box-shadow: 0 6px 20px rgba(124, 58, 237, 0.55);
 }
 
-.btn-project-github {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #ffffff !important;
-  text-decoration: none;
-  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-}
-
-.btn-project-github:hover {
-  transform: scale(1.08);
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
 .capabilities {
   background: transparent;
   color: #ffffff;
