@@ -169,11 +169,10 @@ const hackathons = [
 ]
 
 const certCategories = [
-  { id: 'all', label: 'All Credentials (14)' },
-  { id: 'winnings', label: '🏆 Winnings & Awards (3)' },
+  { id: 'all', label: 'All Verified Credentials (11)' },
   { id: 'ieee', label: '🎓 IEEE Certifications (5)' },
-  { id: 'participation', label: '💻 Workshops & Competitions (2)' },
-  { id: 'course', label: '📜 Course Certifications (4)' },
+  { id: 'course', label: '📜 Course & Virtual Internships (4)' },
+  { id: 'participation', label: '💻 Training Programs & Workshops (2)' },
 ]
 
 const certifications = [
@@ -322,61 +321,6 @@ const certifications = [
     imageTitle: 'International Level Student Workshop (INSW 2k24) Certificate',
     credentialUrl: '/assets/cert-insw-2k24.png',
     tone: 'violet',
-  },
-
-  // --- WINNINGS & AWARDS ---
-  {
-    category: 'winnings',
-    title: 'EMINENCE-SIGMA-2K25 — 3rd Prize Winner ("Challenge AI")',
-    kicker: '14th National Level Technical Symposium (Dept of ECE & Basic Sciences)',
-    issuer: 'Santhiram Engineering College (Autonomous)',
-    date: 'Feb 28 — Mar 1, 2025',
-    certId: '3rd Prize Award 🥉',
-    skills: ['Challenge AI', 'AI Problem Solving', 'EMINENCE-SIGMA', 'National Symposium', 'Live Demo'],
-    image: '/assets/cert-challenge-ai-merit-3rd-prize.jpg',
-    imageTitle: 'Certificate of Merit — 3rd Prize Winner in Challenge AI',
-    newsImage: '/assets/cert-challenge-ai-participation.jpg',
-    newsTitle: 'Certificate of Participation — Challenge AI',
-    stageImage: '/assets/photo-challenge-ai-trophy.jpg',
-    stageTitle: '3rd Prize Trophy Memento Presentation by Principal',
-    secImage: '/assets/photo-challenge-ai-presentation-1.jpg',
-    secTitle: 'Live Python AI Assistant Demo on Smart Digital Screen',
-    credentialUrl: '/assets/cert-challenge-ai-merit-3rd-prize.jpg',
-    tone: 'violet',
-  },
-  {
-    category: 'winnings',
-    title: 'DEFEND-X National Symposium — 2nd Prize Winner',
-    kicker: 'Prompt Engineering Competition (Dept of CSE - Cyber Security, RGMCET)',
-    issuer: 'RGMCET (Autonomous)',
-    date: 'Mar 9 — 10, 2026',
-    certId: '2nd Prize & Cash Award 🥈',
-    skills: ['Prompt Engineering', 'AI Optimization', 'DEFEND-X Winner', 'Press Featured'],
-    image: '/assets/cert-defendx-prompt-engineering.jpg',
-    imageTitle: 'Certificate of Merit — 2nd Prize Winner in Prompt Engineering',
-    newsImage: '/assets/news-defendx-prompt-engineering.jpg',
-    newsTitle: 'Major News Telugu Press Feature (12 March 2026)',
-    stageImage: '/assets/photo-defendx-stage-award.jpg',
-    stageTitle: 'On-Stage Award Presentation at RGMCET Auditorium',
-    secImage: '/assets/photo-defendx-sec-felicitation.jpg',
-    secTitle: 'Felicitation by Santhiram Engineering College Principal',
-    credentialUrl: '/assets/cert-defendx-prompt-engineering.jpg',
-    tone: 'lime',
-  },
-  {
-    category: 'winnings',
-    title: 'GenAI Forge Hackathon 2026 — 1st Runner Up',
-    kicker: 'SmartBridge & NASSCOM FutureSkills Prime Winner',
-    issuer: 'SmartBridge & NASSCOM',
-    date: 'Feb 14, 2026',
-    certId: '1st Runner Up Winner 🏆',
-    skills: ['GenAI Forge', 'NASSCOM Certified', 'SmartBridge', '1st Runner Up', 'Press Featured'],
-    image: '/assets/cert-genai-forge-hackathon-2026.png',
-    imageTitle: 'GenAI Forge Hackathon 2026 — 1st Runner Up Certificate of Recognition',
-    newsImage: '/assets/news-genai-forge-hackathon-2026.jpg',
-    newsTitle: 'Nandi Patrika National Press Coverage (15 Feb 2026)',
-    credentialUrl: '/assets/cert-genai-forge-hackathon-2026.png',
-    tone: 'cyan',
   },
 ]
 
