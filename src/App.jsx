@@ -302,12 +302,12 @@ const certifications = [
   },
   {
     category: 'course',
-    title: 'AI Developer Internship Certification',
-    kicker: 'NLP & Chatbot Development',
+    title: 'AI Developer Virtual Internship Certification',
+    kicker: 'Virtual Internship — NLP & Chatbot Development',
     issuer: 'Zcalar AI',
     date: '2024',
-    certId: 'Zcalar AI',
-    skills: ['NLP Systems', 'Chatbot Architectures', 'Python Automation'],
+    certId: 'Zcalar AI Virtual',
+    skills: ['NLP Systems', 'Chatbot Architectures', 'Python Automation', 'Virtual Internship'],
     image: null,
     credentialUrl: 'https://github.com/Rahulbariki',
     tone: 'violet',
@@ -423,8 +423,8 @@ const educationList = [
 const experiences = [
   { period: 'Present (Active Startup)', company: 'IntelliAttend Startup Team', role: 'AI Software Engineer & Co-Developer', text: 'Co-engineering IntelliAttend (dashboard.intelliattend.app/login), an AI-driven smart attendance intelligence & real-time analytics platform for modern educational institutions.' },
   { period: 'Feb 2025 — Feb 2027', company: 'IEEE Student Branch — Santhiram Engg. College (E25)', role: 'Secretary', text: 'Appointed as Secretary for IEEE Student Branch (E25) at Santhiram Engineering College, leading technical events, student initiatives, and managing branch operations.' },
-  { period: 'Jan 2024 — Mar 2024', company: 'Google AI-ML Virtual Internship', role: 'AI / Machine Learning Intern', text: 'Studied end-to-end machine learning workflows, model development, and practical AI foundations.' },
-  { period: '2024', company: 'Zcalar AI Internship', role: 'AI Developer Intern', text: 'Developed intelligent chatbot systems and explored useful, product-focused NLP experiences.' },
+  { period: 'Jan 2024 — Mar 2024', company: 'Google AI-ML Virtual Internship', role: 'AI / Machine Learning Virtual Intern', text: 'Completed a virtual internship studying end-to-end machine learning workflows, model development, and practical AI foundations powered by Google & EduSkills.' },
+  { period: '2024', company: 'Zcalar AI Virtual Internship', role: 'AI Developer Virtual Intern', text: 'Completed a virtual internship developing intelligent chatbot systems and exploring useful, product-focused NLP experiences.' },
 ]
 
 function getMediaCount(item) {
