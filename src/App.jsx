@@ -192,6 +192,18 @@ const certifications = [
   // --- PARTICIPATIONS & WORKSHOPS ---
   {
     category: 'participation',
+    title: 'Building Blocks of the Web (HTML, CSS & JavaScript)',
+    kicker: 'One-Week Intensive Web Certificate Program',
+    issuer: 'Santhiram Engg. College & Brainovision',
+    date: 'Apr 22 — Apr 27, 2024',
+    certId: 'Dept of Basic Sciences (SEC)',
+    skills: ['HTML5', 'CSS3', 'JavaScript', 'Web Fundamentals'],
+    image: '/assets/cert-building-blocks-web-2024.png',
+    credentialUrl: '/assets/cert-building-blocks-web-2024.png',
+    tone: 'lime',
+  },
+  {
+    category: 'participation',
     title: 'National Level Short Term Training Program (NSTTP 2K24)',
     kicker: 'JAVA Full Stack with React JS & AI',
     issuer: 'Santhiram Engg. College, Brainovision & AICTE',
