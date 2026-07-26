@@ -3,9 +3,39 @@ import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTrans
 import { ArrowDown, ArrowUpRight, Bot, BrainCircuit, Code2, Cpu, Github, Layers3, Linkedin, Mail, Menu, MoveUpRight, Sparkles, X } from 'lucide-react'
 
 const projects = [
-  { number: '01', title: 'BrandNova', kicker: 'AI brand operating system', description: 'A generative intelligence platform that transforms a raw startup idea into a coherent, launch-ready brand.', result: '0 → identity', tags: ['GenAI', 'Product systems', 'Automation'], tone: 'cyan', icon: Sparkles },
-  { number: '02', title: 'Jarvis AI', kicker: 'Ambient intelligence', description: 'A voice-first assistant designed around natural commands, modular capabilities, and useful real-world automation.', result: 'Voice → action', tags: ['Python', 'Speech', 'Agents'], tone: 'violet', icon: Bot },
-  { number: '03', title: 'Vision Lab', kicker: 'Computer vision experiments', description: 'A collection of gesture interfaces, spatial canvases, object detection systems, and playful visual prototypes.', result: '9+ experiments', tags: ['OpenCV', 'MediaPipe', 'YOLO'], tone: 'lime', icon: Cpu },
+  {
+    number: '01',
+    title: 'BrandNova',
+    kicker: 'AI brand operating system',
+    description: 'A generative intelligence platform that transforms a raw startup idea into a coherent, launch-ready brand.',
+    result: '0 → identity',
+    tags: ['GenAI', 'Product systems', 'Automation'],
+    tone: 'cyan',
+    icon: Sparkles,
+    url: 'https://github.com/Rahulbariki/brand-automation',
+  },
+  {
+    number: '02',
+    title: 'Jarvis AI',
+    kicker: 'Ambient intelligence',
+    description: 'A voice-first assistant designed around natural commands, modular capabilities, and useful real-world automation.',
+    result: 'Voice → action',
+    tags: ['Python', 'Speech', 'Agents'],
+    tone: 'violet',
+    icon: Bot,
+    url: 'https://github.com/Rahulbariki',
+  },
+  {
+    number: '03',
+    title: 'Vision Lab',
+    kicker: 'Computer vision experiments',
+    description: 'A collection of gesture interfaces, spatial canvases, object detection systems, and playful visual prototypes.',
+    result: '9+ experiments',
+    tags: ['OpenCV', 'MediaPipe', 'YOLO'],
+    tone: 'lime',
+    icon: Cpu,
+    url: 'https://github.com/Rahulbariki',
+  },
 ]
 
 const capabilities = [
@@ -20,7 +50,7 @@ const experiences = [
   { period: '2024', company: 'Zcalar AI Internship', role: 'AI Developer Intern', text: 'Developed intelligent chatbot systems and explored useful, product-focused NLP experiences.' },
 ]
 
-const navItems = ['Work', 'Capabilities', 'Experience', 'Contact']
+const navItems = ['About', 'Work', 'Capabilities', 'Experience', 'Contact']
 
 function usePointer() {
   const x = useMotionValue(-100)
@@ -29,13 +59,20 @@ function usePointer() {
   const springY = useSpring(y, { stiffness: 500, damping: 45 })
   useEffect(() => {
     const move = (event) => {
-      x.set(event.clientX)
-      y.set(event.clientY)
-      document.documentElement.style.setProperty('--mx', `${event.clientX}px`)
-      document.documentElement.style.setProperty('--my', `${event.clientY}px`)
+      const clientX = event.touches ? event.touches[0].clientX : event.clientX
+      const clientY = event.touches ? event.touches[0].clientY : event.clientY
+      if (clientX === undefined) return
+      x.set(clientX)
+      y.set(clientY)
+      document.documentElement.style.setProperty('--mx', `${clientX}px`)
+      document.documentElement.style.setProperty('--my', `${clientY}px`)
     }
     window.addEventListener('pointermove', move)
-    return () => window.removeEventListener('pointermove', move)
+    window.addEventListener('touchmove', move, { passive: true })
+    return () => {
+      window.removeEventListener('pointermove', move)
+      window.removeEventListener('touchmove', move)
+    }
   }, [x, y])
   return { springX, springY }
 }
@@ -44,7 +81,9 @@ function ParticleField() {
   const canvasRef = useRef(null)
   useEffect(() => {
     const canvas = canvasRef.current
+    if (!canvas) return
     const context = canvas.getContext('2d')
+    if (!context) return
     let frame
     let particles = []
     let width = 0
@@ -52,7 +91,7 @@ function ParticleField() {
     const pointer = { x: -1000, y: -1000 }
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const resize = () => {
-      const ratio = Math.min(window.devicePixelRatio, 2)
+      const ratio = Math.min(window.devicePixelRatio || 1, 2)
       width = window.innerWidth
       height = window.innerHeight
       canvas.width = width * ratio
@@ -60,15 +99,30 @@ function ParticleField() {
       canvas.style.width = `${width}px`
       canvas.style.height = `${height}px`
       context.setTransform(ratio, 0, 0, ratio, 0, 0)
-      particles = Array.from({ length: Math.min(95, Math.floor(width / 15)) }, () => ({
-        x: Math.random() * width, y: Math.random() * height, vx: (Math.random() - 0.5) * 0.18, vy: (Math.random() - 0.5) * 0.18, radius: Math.random() * 1.4 + 0.3,
+      particles = Array.from({ length: Math.min(95, Math.max(20, Math.floor(width / 15))) }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: (Math.random() - 0.5) * 0.18,
+        radius: Math.random() * 1.4 + 0.3,
       }))
     }
-    const move = (event) => { pointer.x = event.clientX; pointer.y = event.clientY }
+    const move = (event) => {
+      if (event.touches && event.touches[0]) {
+        pointer.x = event.touches[0].clientX
+        pointer.y = event.touches[0].clientY
+      } else if (event.clientX !== undefined) {
+        pointer.x = event.clientX
+        pointer.y = event.clientY
+      }
+    }
     const draw = () => {
       context.clearRect(0, 0, width, height)
       particles.forEach((particle, index) => {
-        if (!reduced) { particle.x += particle.vx; particle.y += particle.vy }
+        if (!reduced) {
+          particle.x += particle.vx
+          particle.y += particle.vy
+        }
         if (particle.x < 0 || particle.x > width) particle.vx *= -1
         if (particle.y < 0 || particle.y > height) particle.vy *= -1
         const pointerDistance = Math.hypot(particle.x - pointer.x, particle.y - pointer.y)
@@ -89,10 +143,17 @@ function ParticleField() {
       })
       frame = requestAnimationFrame(draw)
     }
-    resize(); draw()
+    resize()
+    draw()
     window.addEventListener('resize', resize)
     window.addEventListener('pointermove', move)
-    return () => { cancelAnimationFrame(frame); window.removeEventListener('resize', resize); window.removeEventListener('pointermove', move) }
+    window.addEventListener('touchmove', move, { passive: true })
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('resize', resize)
+      window.removeEventListener('pointermove', move)
+      window.removeEventListener('touchmove', move)
+    }
   }, [])
   return <canvas ref={canvasRef} className="particle-field" aria-hidden="true" />
 }
@@ -100,21 +161,40 @@ function ParticleField() {
 function Cursor({ x, y }) {
   const [active, setActive] = useState(false)
   useEffect(() => {
-    const enter = () => setActive(true)
-    const leave = () => setActive(false)
-    const targets = document.querySelectorAll('a, button, [data-cursor]')
-    targets.forEach((target) => { target.addEventListener('pointerenter', enter); target.addEventListener('pointerleave', leave) })
-    return () => targets.forEach((target) => { target.removeEventListener('pointerenter', enter); target.removeEventListener('pointerleave', leave) })
+    const handlePointerOver = (e) => {
+      if (e.target && e.target.closest && e.target.closest('a, button, [data-cursor], input, textarea')) {
+        setActive(true)
+      }
+    }
+    const handlePointerOut = (e) => {
+      if (e.target && e.target.closest && e.target.closest('a, button, [data-cursor], input, textarea')) {
+        setActive(false)
+      }
+    }
+    window.addEventListener('pointerover', handlePointerOver)
+    window.addEventListener('pointerout', handlePointerOut)
+    return () => {
+      window.removeEventListener('pointerover', handlePointerOver)
+      window.removeEventListener('pointerout', handlePointerOut)
+    }
   }, [])
-  return <motion.div className={`cursor ${active ? 'cursor-active' : ''}`} style={{ x, y }} />
+  return <motion.div className={`cursor ${active ? 'cursor-active' : ''}`} style={{ x, y }} aria-hidden="true" />
 }
 
 function Navigation({ onOpen }) {
   return (
     <motion.header className="nav" initial={{ y: -80 }} animate={{ y: 0 }} transition={{ delay: 0.8, duration: 0.8 }}>
       <a className="monogram" href="#top" aria-label="Rahul Bariki home">RB<span>®</span></a>
-      <nav className="nav-links" aria-label="Primary navigation">{navItems.map((item, index) => <a key={item} href={`#${item.toLowerCase()}`}><span>0{index + 1}</span>{item}</a>)}</nav>
-      <button className="menu-button" type="button" onClick={onOpen} aria-label="Open menu"><Menu size={18} /> Menu</button>
+      <nav className="nav-links" aria-label="Primary navigation">
+        {navItems.map((item, index) => (
+          <a key={item} href={`#${item.toLowerCase()}`}>
+            <span>0{index + 1}</span>{item}
+          </a>
+        ))}
+      </nav>
+      <button className="menu-button" type="button" onClick={onOpen} aria-label="Open menu">
+        <Menu size={18} /> Menu
+      </button>
     </motion.header>
   )
 }
@@ -136,8 +216,14 @@ function MenuOverlay({ open, onClose }) {
     <AnimatePresence>
       {open && (
         <motion.div className="menu-overlay" role="dialog" aria-modal="true" aria-label="Site navigation" initial={{ clipPath: 'inset(0 0 100% 0)' }} animate={{ clipPath: 'inset(0 0 0% 0)' }} exit={{ clipPath: 'inset(0 0 100% 0)' }} transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}>
-          <button type="button" onClick={onClose} className="menu-close"><X /> Close</button>
-          <div className="menu-list">{navItems.map((item, index) => <motion.a key={item} href={`#${item.toLowerCase()}`} onClick={onClose} initial={{ y: 80, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.15 + index * 0.08 }}><span>0{index + 1}</span>{item}<ArrowUpRight /></motion.a>)}</div>
+          <button type="button" onClick={onClose} className="menu-close" aria-label="Close navigation menu"><X /> Close</button>
+          <div className="menu-list">
+            {navItems.map((item, index) => (
+              <motion.a key={item} href={`#${item.toLowerCase()}`} onClick={onClose} initial={{ y: 80, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.15 + index * 0.08 }}>
+                <span>0{index + 1}</span>{item}<ArrowUpRight />
+              </motion.a>
+            ))}
+          </div>
           <p>Available for internships, ambitious ideas, and teams building what comes next.</p>
         </motion.div>
       )}
@@ -177,7 +263,7 @@ function Hero() {
       {/* Portrait - overlapping the name */}
       <motion.div className="hero-portrait" style={{ y: portraitY, scale: portraitScale }}>
         <div className="portrait-glow" />
-        <img src="/assets/rahul-profile.png" alt="Rahul Bariki" />
+        <img src="/assets/rahul-profile.png" alt="Rahul Bariki" loading="eager" />
       </motion.div>
 
       {/* Bottom content area */}
@@ -212,7 +298,19 @@ function Hero() {
 }
 
 function Manifesto() {
-  return <section className="manifesto" id="about"><div className="section-kicker">Principle / 01</div><motion.p initial={{ opacity: 0.2 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 1.2 }}>AI is only remarkable when it feels <em>inevitable.</em> I combine engineering, experimentation, and product instinct to make complex systems feel beautifully simple.</motion.p><div className="manifesto-meta"><span>Based in India</span><span>Building globally</span><span>Available now</span></div></section>
+  return (
+    <section className="manifesto" id="about">
+      <div className="section-kicker">Principle / 01</div>
+      <motion.p initial={{ opacity: 0.2 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 1.2 }}>
+        AI is only remarkable when it feels <em>inevitable.</em> I combine engineering, experimentation, and product instinct to make complex systems feel beautifully simple.
+      </motion.p>
+      <div className="manifesto-meta">
+        <span>Based in India</span>
+        <span>Building globally</span>
+        <span>Available now</span>
+      </div>
+    </section>
+  )
 }
 
 function ProjectCard({ project }) {
@@ -222,30 +320,138 @@ function ProjectCard({ project }) {
   const y = useMotionValue(0)
   const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [7, -7]), { stiffness: 220, damping: 25 })
   const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-7, 7]), { stiffness: 220, damping: 25 })
-  const move = (event) => { const box = cardRef.current.getBoundingClientRect(); x.set((event.clientX - box.left) / box.width - 0.5); y.set((event.clientY - box.top) / box.height - 0.5) }
+  const move = (event) => {
+    if (!cardRef.current) return
+    if (!window.matchMedia('(pointer: fine)').matches) return
+    const box = cardRef.current.getBoundingClientRect()
+    x.set((event.clientX - box.left) / box.width - 0.5)
+    y.set((event.clientY - box.top) / box.height - 0.5)
+  }
   return (
-    <motion.article ref={cardRef} className={`project-card ${project.tone}`} onPointerMove={move} onPointerLeave={() => { x.set(0); y.set(0) }} style={{ rotateX, rotateY, transformPerspective: 1000 }} initial={{ opacity: 0, y: 80 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.8 }} data-cursor>
+    <motion.article
+      ref={cardRef}
+      className={`project-card ${project.tone}`}
+      onPointerMove={move}
+      onPointerLeave={() => { x.set(0); y.set(0) }}
+      style={{ rotateX, rotateY, transformPerspective: 1000 }}
+      initial={{ opacity: 0, y: 80 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.8 }}
+      data-cursor
+    >
       <div className="project-top"><span>{project.number} / Featured</span><Icon /></div>
-      <div className="project-visual"><div className="visual-ring ring-a" /><div className="visual-ring ring-b" /><div className="visual-grid" /><Icon className="visual-icon" /><span>{project.result}</span></div>
-      <div className="project-copy"><p>{project.kicker}</p><h3>{project.title}</h3><p>{project.description}</p><div className="project-footer"><div>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><a href="https://github.com/rahulbariki" target="_blank" rel="noreferrer" aria-label={`View ${project.title} on GitHub`}><MoveUpRight /></a></div></div>
+      <div className="project-visual">
+        <div className="visual-ring ring-a" />
+        <div className="visual-ring ring-b" />
+        <div className="visual-grid" />
+        <Icon className="visual-icon" />
+        <span>{project.result}</span>
+      </div>
+      <div className="project-copy">
+        <p>{project.kicker}</p>
+        <h3>{project.title}</h3>
+        <p>{project.description}</p>
+        <div className="project-footer">
+          <div>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+          <a href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} on GitHub`}>
+            <MoveUpRight />
+          </a>
+        </div>
+      </div>
     </motion.article>
   )
 }
 
 function Work() {
-  return <section className="work section-shell" id="work"><div className="section-heading"><div><span>Selected systems</span><span>02 / 05</span></div><h2>Work that moves<br /><em>ideas forward.</em></h2></div><div className="project-grid">{projects.map((project) => <ProjectCard project={project} key={project.title} />)}</div></section>
+  return (
+    <section className="work section-shell" id="work">
+      <div className="section-heading">
+        <div><span>Selected systems</span><span>02 / 05</span></div>
+        <h2>Work that moves<br /><em>ideas forward.</em></h2>
+      </div>
+      <div className="project-grid">
+        {projects.map((project) => <ProjectCard project={project} key={project.title} />)}
+      </div>
+    </section>
+  )
 }
 
 function Capabilities() {
-  return <section className="capabilities section-shell" id="capabilities"><div className="section-heading compact"><div><span>What I bring</span><span>03 / 05</span></div><h2>From possibility<br />to <em>working product.</em></h2></div><div className="capability-list">{capabilities.map(({ icon: Icon, title, text }, index) => <motion.article key={title} initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }}><span>0{index + 1}</span><Icon /><h3>{title}</h3><p>{text}</p><ArrowUpRight /></motion.article>)}</div><div className="ticker" aria-hidden="true"><div>GENERATIVE AI · COMPUTER VISION · AGENTIC SYSTEMS · PRODUCT ENGINEERING · RAPID PROTOTYPING · </div><div>GENERATIVE AI · COMPUTER VISION · AGENTIC SYSTEMS · PRODUCT ENGINEERING · RAPID PROTOTYPING · </div></div></section>
+  return (
+    <section className="capabilities section-shell" id="capabilities">
+      <div className="section-heading compact">
+        <div><span>What I bring</span><span>03 / 05</span></div>
+        <h2>From possibility<br />to <em>working product.</em></h2>
+      </div>
+      <div className="capability-list">
+        {capabilities.map(({ icon: Icon, title, text }, index) => (
+          <motion.article key={title} initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }}>
+            <span>0{index + 1}</span>
+            <Icon />
+            <h3>{title}</h3>
+            <p>{text}</p>
+            <ArrowUpRight />
+          </motion.article>
+        ))}
+      </div>
+      <div className="ticker" aria-hidden="true">
+        <div>GENERATIVE AI · COMPUTER VISION · AGENTIC SYSTEMS · PRODUCT ENGINEERING · RAPID PROTOTYPING · </div>
+        <div>GENERATIVE AI · COMPUTER VISION · AGENTIC SYSTEMS · PRODUCT ENGINEERING · RAPID PROTOTYPING · </div>
+      </div>
+    </section>
+  )
 }
 
 function Experience() {
-  return <section className="experience section-shell" id="experience"><div className="section-heading compact"><div><span>Field notes</span><span>04 / 05</span></div><h2>Learning by<br /><em>building in public.</em></h2></div><div className="experience-grid"><div className="experience-intro"><span>Current chapter</span><p>B.Tech Artificial Intelligence & Machine Learning student at Santhiram Engineering College, turning coursework and curiosity into useful systems.</p></div><div className="experience-list">{experiences.map((item, index) => <motion.article key={item.company} initial={{ opacity: 0, y: 35 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}><div><span>0{index + 1}</span><span>{item.period}</span></div><h3>{item.company}</h3><h4>{item.role}</h4><p>{item.text}</p></motion.article>)}</div></div></section>
+  return (
+    <section className="experience section-shell" id="experience">
+      <div className="section-heading compact">
+        <div><span>Field notes</span><span>04 / 05</span></div>
+        <h2>Learning by<br /><em>building in public.</em></h2>
+      </div>
+      <div className="experience-grid">
+        <div className="experience-intro">
+          <span>Current chapter</span>
+          <p>B.Tech Artificial Intelligence & Machine Learning student at Santhiram Engineering College, turning coursework and curiosity into useful systems.</p>
+        </div>
+        <div className="experience-list">
+          {experiences.map((item, index) => (
+            <motion.article key={item.company} initial={{ opacity: 0, y: 35 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}>
+              <div><span>0{index + 1}</span><span>{item.period}</span></div>
+              <h3>{item.company}</h3>
+              <h4>{item.role}</h4>
+              <p>{item.text}</p>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
 }
 
 function Contact() {
-  return <section className="contact section-shell" id="contact"><div className="contact-glow" /><div className="section-kicker">Next chapter / 05</div><h2>Have an impossible<br />idea? <em>Good.</em></h2><p>I’m looking for ambitious teams, serious AI problems, and ideas with enough energy to change shape while we build them.</p><a className="contact-cta" href="mailto:rahulbarik24@gmail.com"><span>Start a conversation</span><ArrowUpRight /></a><div className="social-row"><a href="mailto:rahulbarik24@gmail.com"><Mail />Email</a><a href="https://github.com/rahulbariki" target="_blank" rel="noreferrer"><Github />GitHub</a><a href="https://www.linkedin.com/in/rahul-bariki/" target="_blank" rel="noreferrer"><Linkedin />LinkedIn</a></div><footer><span>Rahul Bariki © 2026</span><span>AI systems / intelligent products</span><a href="#top">Back to top ↑</a></footer></section>
+  return (
+    <section className="contact section-shell" id="contact">
+      <div className="contact-glow" />
+      <div className="section-kicker">Next chapter / 05</div>
+      <h2>Have an impossible<br />idea? <em>Good.</em></h2>
+      <p>I’m looking for ambitious teams, serious AI problems, and ideas with enough energy to change shape while we build them.</p>
+      <a className="contact-cta" href="mailto:rahulbarik24@gmail.com">
+        <span>Start a conversation</span><ArrowUpRight />
+      </a>
+      <div className="social-row">
+        <a href="mailto:rahulbarik24@gmail.com"><Mail />Email</a>
+        <a href="https://github.com/rahulbariki" target="_blank" rel="noopener noreferrer"><Github />GitHub</a>
+        <a href="https://www.linkedin.com/in/rahul-bariki/" target="_blank" rel="noopener noreferrer"><Linkedin />LinkedIn</a>
+      </div>
+      <footer>
+        <span>Rahul Bariki © 2026</span>
+        <span>AI systems / intelligent products</span>
+        <a href="#top">Back to top ↑</a>
+      </footer>
+    </section>
+  )
 }
 
 export function App() {
@@ -253,6 +459,36 @@ export function App() {
   const [loaded, setLoaded] = useState(false)
   const { scrollYProgress } = useScroll()
   const { springX, springY } = usePointer()
-  useEffect(() => { const timer = window.setTimeout(() => setLoaded(true), 1200); return () => window.clearTimeout(timer) }, [])
-  return <><AnimatePresence>{!loaded && <motion.div className="loader" exit={{ y: '-100%' }} transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}><motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }}>INITIALIZING INTELLIGENCE</motion.span><motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.1 }} /></motion.div>}</AnimatePresence><motion.div className="progress" style={{ scaleX: scrollYProgress }} /><div className="noise" /><div className="pointer-glow" /><ParticleField /><Cursor x={springX} y={springY} /><Navigation onOpen={() => setMenuOpen(true)} /><MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} /><main><Hero /><Manifesto /><Work /><Capabilities /><Experience /><Contact /></main></>
+  useEffect(() => {
+    const timer = window.setTimeout(() => setLoaded(true), 1200)
+    return () => window.clearTimeout(timer)
+  }, [])
+
+  return (
+    <>
+      <AnimatePresence>
+        {!loaded && (
+          <motion.div className="loader" exit={{ y: '-100%' }} transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}>
+            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }}>INITIALIZING INTELLIGENCE</motion.span>
+            <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.1 }} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <motion.div className="progress" style={{ scaleX: scrollYProgress }} />
+      <div className="noise" />
+      <div className="pointer-glow" />
+      <ParticleField />
+      <Cursor x={springX} y={springY} />
+      <Navigation onOpen={() => setMenuOpen(true)} />
+      <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
+      <main>
+        <Hero />
+        <Manifesto />
+        <Work />
+        <Capabilities />
+        <Experience />
+        <Contact />
+      </main>
+    </>
+  )
 }
