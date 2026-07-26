@@ -230,6 +230,19 @@ const certifications = [
   // --- PARTICIPATIONS & WORKSHOPS ---
   {
     category: 'participation',
+    title: 'LeetCode Club Grand Event - 2K25',
+    kicker: 'Algorithmic Coding & Problem Solving Event',
+    issuer: 'LeetCode Club & IEEE Computer Society',
+    date: 'Feb 22, 2025',
+    certId: 'IEEE Computer Society (SEC)',
+    skills: ['LeetCode', 'Algorithms', 'Data Structures', 'Competitive Coding'],
+    image: '/assets/cert-leetcode-club-2k25.jpg',
+    stageImage: '/assets/photo-leetcode-club-2k25.jpg',
+    credentialUrl: '/assets/cert-leetcode-club-2k25.jpg',
+    tone: 'cyan',
+  },
+  {
+    category: 'participation',
     title: 'Building Blocks of the Web (HTML, CSS & JavaScript)',
     kicker: 'One-Week Intensive Web Certificate Program',
     issuer: 'Santhiram Engg. College & Brainovision',
