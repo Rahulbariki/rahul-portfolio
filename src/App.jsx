@@ -1,47 +1,47 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { ArrowDown, ArrowUpRight, Bot, BrainCircuit, Code2, Cpu, Github, Layers3, Linkedin, Mail, Menu, MoveUpRight, Sparkles, X } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, BrainCircuit, Code2, Cpu, Github, Layers3, Linkedin, Mail, Menu, MoveUpRight, Sparkles, X } from 'lucide-react'
 
 const projects = [
   {
     number: '01',
     title: 'BrandNova',
-    kicker: 'AI brand operating system',
-    description: 'A generative intelligence platform that transforms a raw startup idea into a coherent, launch-ready brand.',
+    kicker: 'AI Brand Automation Platform',
+    description: 'Built an AI-powered branding suite that generates logos, brand names, and marketing content, leveraging LLM APIs and generative AI models to automate brand identity creation for startups.',
     result: '0 → identity',
-    tags: ['GenAI', 'Product systems', 'Automation'],
+    tags: ['React', 'Python', 'FastAPI', 'Supabase', 'Vercel'],
     tone: 'cyan',
     icon: Sparkles,
     url: 'https://github.com/Rahulbariki/brand-automation',
   },
   {
     number: '02',
-    title: 'Jarvis AI',
-    kicker: 'Ambient intelligence',
-    description: 'A voice-first assistant designed around natural commands, modular capabilities, and useful real-world automation.',
-    result: 'Voice → action',
-    tags: ['Python', 'Speech', 'Agents'],
+    title: 'CampusPulse',
+    kicker: 'Smart Campus Event Management',
+    description: 'A smart campus event management platform designed to solve the problem of students missing important college events due to scattered information across multiple platforms.',
+    result: 'Events → Unified',
+    tags: ['React', 'FastAPI', 'Node.js', 'Express', 'PostgreSQL'],
     tone: 'violet',
-    icon: Bot,
-    url: 'https://github.com/Rahulbariki',
+    icon: Layers3,
+    url: 'https://github.com/Rahulbariki/campus-achievement-intelligence',
   },
   {
     number: '03',
-    title: 'Vision Lab',
-    kicker: 'Computer vision experiments',
-    description: 'A collection of gesture interfaces, spatial canvases, object detection systems, and playful visual prototypes.',
-    result: '9+ experiments',
-    tags: ['OpenCV', 'MediaPipe', 'YOLO'],
+    title: 'SHOWLINK',
+    kicker: 'College Search & Discovery',
+    description: 'Designed and developed a user-friendly web platform that lists colleges and their detailed brochures, enabling students to easily search and compare college information.',
+    result: 'Search → Compare',
+    tags: ['HTML', 'CSS', 'JavaScript'],
     tone: 'lime',
-    icon: Cpu,
-    url: 'https://github.com/Rahulbariki',
+    icon: Code2,
+    url: 'https://github.com/Rahulbariki/SHOWLINK',
   },
 ]
 
 const capabilities = [
   { icon: BrainCircuit, title: 'AI product engineering', text: 'Turning model capability into focused, useful, human-centered product experiences.' },
   { icon: Layers3, title: 'Generative systems', text: 'Designing multi-step generation workflows, agents, and automation that hold together.' },
-  { icon: Cpu, title: 'Computer vision', text: 'Building responsive visual interfaces with OpenCV, MediaPipe, and object detection.' },
+  { icon: Cpu, title: 'Full-stack development', text: 'Building responsive, data-driven web applications with React, FastAPI, Node.js, and SQL.' },
   { icon: Code2, title: 'Rapid prototyping', text: 'Moving from an ambitious idea to a testable, polished product with unusual speed.' },
 ]
 
@@ -260,7 +260,7 @@ function Hero() {
           </h1>
 
           <p className="hero-desc">
-            I build intelligent AI products, generative systems, and computer vision experiences that make ambitious ideas useful.
+            I build intelligent AI products, generative systems, and full-stack web platforms that make ambitious ideas useful.
           </p>
 
           <div className="hero-actions">
@@ -269,7 +269,7 @@ function Hero() {
           </div>
 
           <div className="hero-stats">
-            <span><strong>9+</strong><small>Projects built</small></span>
+            <span><strong>3+</strong><small>Featured projects</small></span>
             <span><strong>02</strong><small>AI internships</small></span>
           </div>
         </motion.div>
@@ -282,7 +282,7 @@ function Hero() {
             <img src="/assets/rahul-profile.png" alt="Rahul Bariki" loading="eager" />
             
             <motion.span className="hero-float-tag tag-ai" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.9 }}>GEN AI</motion.span>
-            <motion.span className="hero-float-tag tag-cv" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.05 }}>COMPUTER VISION</motion.span>
+            <motion.span className="hero-float-tag tag-cv" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.05 }}>FULL-STACK</motion.span>
             <motion.span className="hero-float-tag tag-eng" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.2 }}>AI ENGINEER</motion.span>
           </div>
         </motion.div>
@@ -395,8 +395,8 @@ function Capabilities() {
         ))}
       </div>
       <div className="ticker" aria-hidden="true">
-        <div>GENERATIVE AI · COMPUTER VISION · AGENTIC SYSTEMS · PRODUCT ENGINEERING · RAPID PROTOTYPING · </div>
-        <div>GENERATIVE AI · COMPUTER VISION · AGENTIC SYSTEMS · PRODUCT ENGINEERING · RAPID PROTOTYPING · </div>
+        <div>GENERATIVE AI · FULL-STACK DEVELOPMENT · AGENTIC SYSTEMS · PRODUCT ENGINEERING · RAPID PROTOTYPING · </div>
+        <div>GENERATIVE AI · FULL-STACK DEVELOPMENT · AGENTIC SYSTEMS · PRODUCT ENGINEERING · RAPID PROTOTYPING · </div>
       </div>
     </section>
   )
