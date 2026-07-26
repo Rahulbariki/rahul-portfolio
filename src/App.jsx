@@ -41,15 +41,6 @@ const projects = [
   },
 ]
 
-const skillProficiencies = [
-  { name: 'Generative AI & AI Agent Systems', level: 95 },
-  { name: 'Prompt Engineering & LLM Optimization', level: 94 },
-  { name: 'Python Engineering & Automation', level: 92 },
-  { name: 'Full-Stack Web (React, FastAPI, Node.js)', level: 88 },
-  { name: 'Machine Learning & NLP Pipelines', level: 86 },
-  { name: 'Algorithms & Data Structures', level: 85 },
-]
-
 const technicalSkills = {
   languages: ['Python', 'C', 'C++'],
   technologies: [
@@ -776,42 +767,22 @@ function Capabilities() {
         ))}
       </div>
 
-      {/* Visual Proficiency Progress Meters */}
-      <div className="skill-proficiency-grid">
-        {skillProficiencies.map((item, idx) => (
-          <motion.div
-            key={item.name}
-            className="skill-meter-card"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.08 }}
-          >
-            <div className="skill-meter-header">
-              <span>{item.name}</span>
-              <span>{item.level}%</span>
-            </div>
-            <div className="skill-bar-bg">
-              <motion.div
-                className="skill-bar-fill"
-                initial={{ width: 0 }}
-                whileInView={{ width: `${item.level}%` }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.2 + idx * 0.08 }}
-              />
-            </div>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Comprehensive Categorized Skill Badges Matrix */}
+      {/* Categorized Skill Badges Matrix */}
       <div className="skills-matrix-container">
         <div className="skill-cat-card">
           <div className="skill-cat-header">
-            <Terminal size={18} /> <h3>Languages & Core Technologies</h3>
+            <Terminal size={18} /> <h3>Programming Languages & Core</h3>
           </div>
           <div className="skill-tags">
             {technicalSkills.languages.map((s) => <span key={s} className="skill-tag lang">{s}</span>)}
+          </div>
+        </div>
+
+        <div className="skill-cat-card">
+          <div className="skill-cat-header">
+            <BrainCircuit size={18} /> <h3>AI, GenAI & Machine Learning</h3>
+          </div>
+          <div className="skill-tags">
             {technicalSkills.technologies.map((s) => <span key={s} className="skill-tag tech">{s}</span>)}
           </div>
         </div>
@@ -827,7 +798,7 @@ function Capabilities() {
 
         <div className="skill-cat-card">
           <div className="skill-cat-header">
-            <BrainCircuit size={18} /> <h3>Soft Skills & Strengths</h3>
+            <Sparkles size={18} /> <h3>Soft Skills & Strengths</h3>
           </div>
           <div className="skill-tags">
             {technicalSkills.softSkills.map((s) => <span key={s} className="skill-tag soft">{s}</span>)}
