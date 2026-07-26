@@ -166,26 +166,6 @@ const hackathons = [
     secTitle: 'SHOWLINK Web Portal Demo Day Presentation',
     tone: 'lime',
   },
-  {
-    title: 'GenAI Innovation Hackathon',
-    organizer: 'National AI Sprint',
-    date: '2024',
-    role: 'Team Lead & AI Architect',
-    award: 'Featured Innovator',
-    description: 'Built a generative AI automation system under 24 hours to accelerate startup branding workflows.',
-    tags: ['GenAI', 'FastAPI', 'React'],
-    tone: 'violet',
-  },
-  {
-    title: 'Smart Campus AI Challenge',
-    organizer: 'SEC Tech Fest',
-    date: '2024',
-    role: 'Full-Stack Developer',
-    award: 'Top Finalist',
-    description: 'Engineered CampusPulse, a centralized event intelligence portal solving fragmented student communications.',
-    tags: ['React', 'Node.js', 'PostgreSQL'],
-    tone: 'cyan',
-  },
 ]
 
 const certCategories = [

@@ -978,179 +978,200 @@ em {
   margin: 0 0 25px;
 }
 
-/* HACKATHONS */
+/* ==========================================================================
+   HACKATHONS, SPRINTS & COMPETITIONS (High-Energy Dark Cyber Aesthetic)
+   ========================================================================== */
 .hackathons {
-  border-bottom: 1px solid var(--line);
+  background: #08090e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .hackathon-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 28px;
 }
 
 .hackathon-card {
   position: relative;
-  border: 1px solid var(--line);
-  border-radius: 4px;
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  border-radius: 10px;
   padding: 30px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .01));
+  background: linear-gradient(150deg, rgba(20, 20, 32, 0.8), rgba(12, 12, 20, 0.95));
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .hackathon-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(167, 139, 250, .4);
+  transform: translateY(-5px);
+  border-color: rgba(167, 139, 250, 0.65);
+  box-shadow: 0 15px 40px rgba(124, 58, 237, 0.25);
 }
 
 .hack-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .hack-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
+  gap: 8px;
+  padding: 7px 14px;
   border-radius: 100px;
-  background: rgba(167, 139, 250, .15);
-  color: #a78bfa;
-  font: 500 9px 'DM Mono';
-  letter-spacing: .12em;
+  background: rgba(234, 179, 8, 0.15);
+  border: 1px solid rgba(234, 179, 8, 0.45);
+  color: #fef08a;
+  font: 600 11px 'DM Mono', monospace;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  box-shadow: 0 2px 10px rgba(234, 179, 8, 0.15);
 }
 
 .hack-date {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: #777;
-  font: 400 9px 'DM Mono';
-  letter-spacing: .1em;
+  color: #a5b4fc;
+  font: 500 11px 'DM Mono', monospace;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .hackathon-card h3 {
-  font-size: clamp(24px, 3.5vw, 42px);
-  letter-spacing: -.05em;
-  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+  font-weight: 600;
   margin: 0 0 10px;
-  color: var(--paper);
+  color: #ffffff;
 }
 
 .hack-meta {
-  font: 400 10px 'DM Mono';
-  color: #999;
-  letter-spacing: .1em;
+  font: 500 12px 'DM Mono', monospace;
+  color: #c4b5fd;
   text-transform: uppercase;
+  letter-spacing: 0.06em;
   margin-bottom: 16px;
 }
 
 .hackathon-card p {
-  color: #999;
-  font-size: 13px;
-  line-height: 1.7;
-  margin: 0 0 22px;
+  color: #d1d5db;
+  font-size: 14px;
+  line-height: 1.75;
+  margin: 0 0 20px;
+}
+
+.hack-preview-row {
+  display: flex;
+  gap: 12px;
+  margin: 14px 0 20px;
 }
 
 .hack-tags {
   margin-top: auto;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 }
 
 .hack-tags span {
-  border: 1px solid var(--line);
+  border: 1px solid rgba(167, 139, 250, 0.35);
   border-radius: 100px;
-  padding: 5px 10px;
-  color: #aaa;
-  font: 400 8px 'DM Mono';
+  padding: 6px 12px;
+  color: #ddd6fe;
+  background: rgba(167, 139, 250, 0.1);
+  font: 500 10px 'DM Mono', monospace;
   text-transform: uppercase;
 }
 
-/* CERTIFICATIONS */
+/* ==========================================================================
+   VERIFIED CERTIFICATIONS & LICENSES (Formal Slate Credential Ledger Aesthetic)
+   ========================================================================== */
 .certifications {
-  border-bottom: 1px solid var(--line);
+  background: #0d0e15;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .cert-filter-tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 32px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--line);
+  gap: 12px;
+  margin-bottom: 35px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .cert-tab-btn {
-  padding: 10px 20px;
+  padding: 11px 22px;
   border-radius: 100px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.03);
-  color: #aaa;
-  font: 500 10px 'DM Mono';
-  letter-spacing: .08em;
+  color: #9ca3af;
+  font: 500 11px 'DM Mono', monospace;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.25s ease;
 }
 
 .cert-tab-btn:hover {
-  border-color: rgba(167, 139, 250, .4);
-  color: #fff;
+  border-color: rgba(167, 139, 250, 0.5);
+  color: #ffffff;
 }
 
 .cert-tab-btn.active {
-  background: linear-gradient(135deg, rgba(167, 139, 250, .25), rgba(99, 102, 241, .25));
-  color: #a78bfa;
-  border-color: rgba(167, 139, 250, .7);
-  box-shadow: 0 0 20px rgba(167, 139, 250, 0.25);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.35), rgba(99, 102, 241, 0.35));
+  color: #ffffff;
+  border-color: rgba(167, 139, 250, 0.8);
+  box-shadow: 0 4px 18px rgba(124, 58, 237, 0.3);
 }
 
 .cert-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 28px;
 }
 
 .cert-card {
   position: relative;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 26px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, .01));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.02);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  gap: 18px;
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
 
 .cert-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(167, 139, 250, .4);
+  transform: translateY(-4px);
+  border-color: rgba(167, 139, 250, 0.5);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .cert-top-row {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 .cert-icon-wrapper {
-  width: 46px;
-  height: 46px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background: rgba(167, 139, 250, .12);
-  border: 1px solid rgba(167, 139, 250, .3);
+  background: rgba(167, 139, 250, 0.15);
+  border: 1px solid rgba(167, 139, 250, 0.4);
   display: grid;
   place-items: center;
-  color: #a78bfa;
+  color: #c4b5fd;
   flex-shrink: 0;
 }
 
@@ -1159,17 +1180,18 @@ em {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  font: 400 9px 'DM Mono';
+  font: 500 11px 'DM Mono', monospace;
   text-transform: uppercase;
-  letter-spacing: .12em;
+  letter-spacing: 0.08em;
 }
 
 .cert-issuer {
   color: #a78bfa;
+  font-weight: 600;
 }
 
 .cert-date {
-  color: #777;
+  color: #9ca3af;
 }
 
 .cert-content {
@@ -1177,24 +1199,24 @@ em {
 }
 
 .cert-card h3 {
-  font-size: clamp(20px, 2.2vw, 28px);
-  letter-spacing: -.04em;
-  font-weight: 500;
-  margin: 0 0 6px;
-  color: var(--paper);
-  line-height: 1.25;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: #ffffff;
+  line-height: 1.3;
 }
 
 .cert-kicker {
-  font: 400 11px 'DM Mono';
-  color: #a8a8a2;
-  letter-spacing: .06em;
+  font: 500 12px 'DM Mono', monospace;
+  color: #d1d5db;
+  letter-spacing: 0.04em;
   margin: 0 0 14px;
 }
 
 .cert-id {
-  color: #777;
-  font-size: 10px;
+  color: #a5b4fc;
+  font-size: 11px;
 }
 
 /* Thumbnail */
@@ -1205,7 +1227,7 @@ em {
   border-radius: 6px;
   overflow: hidden;
   margin: 12px 0 16px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   cursor: pointer;
   background: #000;
 }
@@ -1234,8 +1256,8 @@ em {
   opacity: 0;
   transition: opacity 0.3s ease;
   color: #a78bfa;
-  font: 500 10px 'DM Mono';
-  letter-spacing: .12em;
+  font: 500 10px 'DM Mono', monospace;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -1269,17 +1291,18 @@ em {
 .cert-skills {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 10px;
+  gap: 8px;
+  margin-top: 12px;
 }
 
 .cert-skills span {
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 100px;
-  padding: 4px 8px;
-  color: #888;
-  font: 400 8px 'DM Mono';
+  padding: 5px 12px;
+  color: #9ca3af;
+  font: 500 10px 'DM Mono', monospace;
   text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .cert-card-footer {
@@ -1295,14 +1318,14 @@ em {
 }
 
 .cert-news-btn {
-  border-color: rgba(234, 179, 8, .4);
-  background: rgba(234, 179, 8, .1);
-  color: #eab308;
+  border-color: rgba(234, 179, 8, 0.4);
+  background: rgba(234, 179, 8, 0.1);
+  color: #fef08a;
 }
 
 .cert-news-btn:hover {
   background: #eab308;
-  color: var(--ink);
+  color: #000000;
 }
 
 .cert-view-btn {
@@ -1311,11 +1334,11 @@ em {
   gap: 6px;
   padding: 8px 16px;
   border-radius: 100px;
-  border: 1px solid rgba(167, 139, 250, .4);
-  background: rgba(167, 139, 250, .1);
-  color: #a78bfa;
-  font: 400 9px 'DM Mono';
-  letter-spacing: .1em;
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  background: rgba(167, 139, 250, 0.12);
+  color: #c4b5fd;
+  font: 500 10px 'DM Mono', monospace;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -1323,14 +1346,14 @@ em {
 
 .cert-view-btn:hover {
   background: #a78bfa;
-  color: var(--ink);
+  color: #000000;
 }
 
 .cert-link {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   display: grid;
   place-items: center;
   color: #aaa;
@@ -1339,7 +1362,7 @@ em {
 
 .cert-link:hover {
   background: #a78bfa;
-  color: var(--ink);
+  color: #000000;
   border-color: #a78bfa;
 }
 
