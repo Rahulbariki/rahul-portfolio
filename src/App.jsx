@@ -28,12 +28,15 @@ const projects = [
   {
     number: '03',
     title: 'SHOWLINK',
-    kicker: 'College Search & Discovery',
-    description: 'Designed and developed a user-friendly web platform that lists colleges and their detailed brochures, enabling students to easily search and compare college information.',
+    kicker: 'College Search & Discovery Portal',
+    description: 'Designed and developed during the one-week "Building Blocks of the Web" workshop. SHOWLINK is a user-friendly platform that lists colleges and detailed brochures, enabling students to search and compare college information. Presented live on stage.',
     result: 'Search → Compare',
-    tags: ['HTML', 'CSS', 'JavaScript'],
+    tags: ['HTML5', 'CSS3', 'JavaScript', 'Workshop Built', 'Live Presented'],
     tone: 'lime',
     icon: Code2,
+    image: '/assets/showlink-logo.png',
+    stageImage: '/assets/photo-showlink-presentation-1.jpg',
+    stageTitle: 'Live Auditorium Stage Presentation of SHOWLINK Project',
     url: 'https://github.com/Rahulbariki/SHOWLINK',
   },
 ]
@@ -55,9 +58,13 @@ const hackathons = [
     description: 'Secured 2nd Prize in the Prompt Engineering competition at DEFEND-X (RIPPLE 2K26), competing against top engineering students. Awarded Certificate of Merit, cash prize, on-stage recognition, and featured in Major News Telugu newspaper press.',
     tags: ['Prompt Engineering', 'DEFEND-X', 'RGMCET', '2nd Prize Winner', 'Press Featured'],
     image: '/assets/cert-defendx-prompt-engineering.jpg',
+    imageTitle: 'Certificate of Merit — 2nd Prize Winner in Prompt Engineering',
     newsImage: '/assets/news-defendx-prompt-engineering.jpg',
+    newsTitle: 'Major News Telugu Press Feature (12 March 2026)',
     stageImage: '/assets/photo-defendx-stage-award.jpg',
+    stageTitle: 'On-Stage Award Presentation at RGMCET Auditorium',
     secImage: '/assets/photo-defendx-sec-felicitation.jpg',
+    secTitle: 'Felicitation by Santhiram Engineering College Principal',
     tone: 'lime',
   },
   {
@@ -69,9 +76,13 @@ const hackathons = [
     description: 'Secured 3rd Prize in the Challenge AI competition at the 14th National Level Technical Symposium (EMINENCE-SIGMA-2K25). Presented a live Python AI assistant & speech recognition system on stage before faculty judges.',
     tags: ['Challenge AI', 'EMINENCE-SIGMA', '3rd Prize Winner', 'AI Competition', 'Live Demo'],
     image: '/assets/cert-challenge-ai-merit-3rd-prize.jpg',
+    imageTitle: 'Certificate of Merit — 3rd Prize Winner in Challenge AI',
     newsImage: '/assets/cert-challenge-ai-participation.jpg',
+    newsTitle: 'Certificate of Participation — Challenge AI',
     stageImage: '/assets/photo-challenge-ai-trophy.jpg',
+    stageTitle: '3rd Prize Trophy Memento Presentation by Principal',
     secImage: '/assets/photo-challenge-ai-presentation-1.jpg',
+    secTitle: 'Live Python AI Assistant Demo on Smart Digital Screen',
     tone: 'violet',
   },
   {
@@ -83,7 +94,9 @@ const hackathons = [
     description: 'Won 1st Runner Up in a 4-day intensive GenAI bootcamp & hackathon organized by SmartBridge and NASSCOM FutureSkills Prime at Santhiram Engineering College. Featured in Nandi Patrika national press.',
     tags: ['GenAI Forge', 'SmartBridge', 'NASSCOM', '1st Runner Up', 'Press Featured'],
     image: '/assets/cert-genai-forge-hackathon-2026.png',
+    imageTitle: 'GenAI Forge Hackathon 2026 — 1st Runner Up Certificate of Recognition',
     newsImage: '/assets/news-genai-forge-hackathon-2026.jpg',
+    newsTitle: 'Nandi Patrika National Press Coverage (15 Feb 2026)',
     tone: 'cyan',
   },
   {
@@ -95,7 +108,9 @@ const hackathons = [
     description: 'Participated in the LeetCode Club Grand Event - 2K25 organized by LeetCode Club, IEEE Computer Society, and Dept of CSE (AI & ML) at Santhiram Engineering College, focusing on data structures, algorithms, and rapid problem solving.',
     tags: ['LeetCode', 'Algorithms', 'Data Structures', 'Competitive Coding', 'IEEE'],
     image: '/assets/cert-leetcode-club-2k25.jpg',
+    imageTitle: 'Certificate of Participation — LeetCode Club Grand Event - 2K25',
     stageImage: '/assets/photo-leetcode-club-2k25.jpg',
+    stageTitle: 'On-Stage Certificate Felicitation with Resource Persons',
     tone: 'cyan',
   },
   {
@@ -107,8 +122,11 @@ const hackathons = [
     description: 'Completed an intensive one-week web development program. Developed and presented SHOWLINK (College Search & Discovery Portal) live on stage in the college auditorium before faculty and peers.',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'SHOWLINK', 'Stage Presentation'],
     image: '/assets/cert-building-blocks-web-2024.png',
+    imageTitle: 'Certificate of Participation — One-Week Web Development Program',
     stageImage: '/assets/photo-showlink-presentation-1.jpg',
+    stageTitle: 'Live Auditorium Stage Presentation of SHOWLINK Project',
     secImage: '/assets/photo-showlink-presentation-2.jpg',
+    secTitle: 'SHOWLINK Web Portal Demo Day Presentation',
     tone: 'lime',
   },
   {
@@ -152,6 +170,7 @@ const certifications = [
     certId: 'IEEE Secretary E25',
     skills: ['Leadership', 'IEEE Secretary', 'Event Management', 'Student Branch'],
     image: '/assets/cert-ieee-volunteering-secretary.png',
+    imageTitle: 'Certificate of IEEE Volunteering — Secretary (Santhiram Engg. College)',
     credentialUrl: '/assets/cert-ieee-volunteering-secretary.png',
     tone: 'lime',
   },
@@ -164,6 +183,7 @@ const certifications = [
     certId: 'IEEE Global Member',
     skills: ['IEEE Member', 'Technology Advancement', 'Global Engineering'],
     image: '/assets/cert-ieee-membership-2025.png',
+    imageTitle: '2025 Certificate of IEEE Global Membership',
     credentialUrl: '/assets/cert-ieee-membership-2025.png',
     tone: 'cyan',
   },
@@ -176,6 +196,7 @@ const certifications = [
     certId: 'IEEE Education Society',
     skills: ['Education Society', 'Educational Tech', 'Engineering Learning'],
     image: '/assets/cert-ieee-education-society-2025.png',
+    imageTitle: '2025 Certificate of Membership — IEEE Education Society',
     credentialUrl: '/assets/cert-ieee-education-society-2025.png',
     tone: 'violet',
   },
@@ -188,6 +209,7 @@ const certifications = [
     certId: 'IEEE Sensors Council',
     skills: ['Sensors Council', 'Sensor Tech', 'IoT Systems'],
     image: '/assets/cert-ieee-sensors-council-2025.png',
+    imageTitle: '2025 Certificate of Participation — IEEE Sensors Council',
     credentialUrl: '/assets/cert-ieee-sensors-council-2025.png',
     tone: 'cyan',
   },
@@ -200,6 +222,7 @@ const certifications = [
     certId: 'IEEE CRFID',
     skills: ['Council on RFID', 'RFID Tech', 'Digital Physical Integration'],
     image: '/assets/cert-ieee-crfid-2025.png',
+    imageTitle: '2025 Certificate of Participation — IEEE Council on RFID',
     credentialUrl: '/assets/cert-ieee-crfid-2025.png',
     tone: 'violet',
   },
@@ -214,6 +237,7 @@ const certifications = [
     certId: 'ID: 47a1746469714c89d998f58239be87a9',
     skills: ['Microsoft Copilot', 'Generative AI', 'Responsible AI'],
     image: '/assets/cert-microsoft-genai.png',
+    imageTitle: 'Career Essentials in Generative AI by Microsoft & LinkedIn',
     credentialUrl: '/assets/cert-microsoft-genai.png',
     tone: 'cyan',
   },
@@ -226,6 +250,7 @@ const certifications = [
     certId: 'Serial: 07fa596e-4b08-4da0',
     skills: ['AI Concepts', 'Business Applications', 'Ethical AI'],
     image: '/assets/cert-hp-life-ai.png',
+    imageTitle: 'Certificate of Completion — HP LIFE AI for Beginners',
     credentialUrl: '/assets/cert-hp-life-ai.png',
     tone: 'violet',
   },
@@ -264,6 +289,7 @@ const certifications = [
     certId: 'ID: NSTTP-B-SEC286',
     skills: ['Java Full Stack', 'React JS', 'AI Integration', 'AICTE Approved'],
     image: '/assets/cert-nsttp-2k24.png',
+    imageTitle: 'National Level Short Term Training Program (NSTTP 2K24) Certificate',
     credentialUrl: '/assets/cert-nsttp-2k24.png',
     tone: 'cyan',
   },
@@ -276,6 +302,7 @@ const certifications = [
     certId: 'ID: INSW24BOVSEC938',
     skills: ['Data Science', 'Python', 'Data Analytics', 'AICTE Approved'],
     image: '/assets/cert-insw-2k24.png',
+    imageTitle: 'International Level Student Workshop (INSW 2k24) Certificate',
     credentialUrl: '/assets/cert-insw-2k24.png',
     tone: 'violet',
   },
@@ -290,9 +317,13 @@ const certifications = [
     certId: '3rd Prize Award 🥉',
     skills: ['Challenge AI', 'AI Problem Solving', 'EMINENCE-SIGMA', 'National Symposium', 'Live Demo'],
     image: '/assets/cert-challenge-ai-merit-3rd-prize.jpg',
+    imageTitle: 'Certificate of Merit — 3rd Prize Winner in Challenge AI',
     newsImage: '/assets/cert-challenge-ai-participation.jpg',
+    newsTitle: 'Certificate of Participation — Challenge AI',
     stageImage: '/assets/photo-challenge-ai-trophy.jpg',
+    stageTitle: '3rd Prize Trophy Memento Presentation by Principal',
     secImage: '/assets/photo-challenge-ai-presentation-1.jpg',
+    secTitle: 'Live Python AI Assistant Demo on Smart Digital Screen',
     credentialUrl: '/assets/cert-challenge-ai-merit-3rd-prize.jpg',
     tone: 'violet',
   },
@@ -305,9 +336,13 @@ const certifications = [
     certId: '2nd Prize & Cash Award 🥈',
     skills: ['Prompt Engineering', 'AI Optimization', 'DEFEND-X Winner', 'Press Featured'],
     image: '/assets/cert-defendx-prompt-engineering.jpg',
+    imageTitle: 'Certificate of Merit — 2nd Prize Winner in Prompt Engineering',
     newsImage: '/assets/news-defendx-prompt-engineering.jpg',
+    newsTitle: 'Major News Telugu Press Feature (12 March 2026)',
     stageImage: '/assets/photo-defendx-stage-award.jpg',
+    stageTitle: 'On-Stage Award Presentation at RGMCET Auditorium',
     secImage: '/assets/photo-defendx-sec-felicitation.jpg',
+    secTitle: 'Felicitation by Santhiram Engineering College Principal',
     credentialUrl: '/assets/cert-defendx-prompt-engineering.jpg',
     tone: 'lime',
   },
@@ -320,7 +355,9 @@ const certifications = [
     certId: '1st Runner Up Winner 🏆',
     skills: ['GenAI Forge', 'NASSCOM Certified', 'SmartBridge', '1st Runner Up', 'Press Featured'],
     image: '/assets/cert-genai-forge-hackathon-2026.png',
+    imageTitle: 'GenAI Forge Hackathon 2026 — 1st Runner Up Certificate of Recognition',
     newsImage: '/assets/news-genai-forge-hackathon-2026.jpg',
+    newsTitle: 'Nandi Patrika National Press Coverage (15 Feb 2026)',
     credentialUrl: '/assets/cert-genai-forge-hackathon-2026.png',
     tone: 'cyan',
   },
@@ -736,32 +773,51 @@ function Hackathons({ onSelectImage }) {
             </div>
             <p>{item.description}</p>
 
-            {/* If hackathon has certificate image or newspaper feature preview */}
+            {/* If hackathon has certificate image or secondary media preview */}
             {item.image && (
               <div className="hack-preview-row">
                 <div
                   className="cert-img-thumb hack-thumb"
-                  onClick={() => onSelectImage({ title: item.title, img: item.image, newsImg: item.newsImage, stageImg: item.stageImage, secImg: item.secImage })}
+                  onClick={() => onSelectImage({
+                    title: item.title,
+                    img: item.image,
+                    imgTitle: item.imageTitle,
+                    newsImg: item.newsImage,
+                    newsTitle: item.newsTitle,
+                    stageImg: item.stageImage,
+                    stageTitle: item.stageTitle,
+                    secImg: item.secImage,
+                    secTitle: item.secTitle
+                  })}
                   role="button"
                   tabIndex={0}
-                  aria-label={`View award certificate for ${item.title}`}
+                  aria-label={`View credential for ${item.title}`}
                 >
-                  <img src={item.image} alt={`${item.title} award certificate`} loading="lazy" />
+                  <img src={item.image} alt={item.imageTitle || item.title} loading="lazy" />
                   <div className="thumb-overlay">
                     <Eye size={16} />
-                    <span>View Award</span>
+                    <span>View Certificate</span>
                   </div>
                 </div>
 
                 {item.newsImage && (
                   <div
                     className="cert-img-thumb hack-thumb"
-                    onClick={() => onSelectImage({ title: `${item.title} — Press Feature`, img: item.newsImage, stageImg: item.stageImage, secImg: item.secImage })}
+                    onClick={() => onSelectImage({
+                      title: item.title,
+                      img: item.newsImage,
+                      imgTitle: item.newsTitle,
+                      newsImg: null,
+                      stageImg: item.stageImage,
+                      stageTitle: item.stageTitle,
+                      secImg: item.secImage,
+                      secTitle: item.secTitle
+                    })}
                     role="button"
                     tabIndex={0}
-                    aria-label={`View newspaper press coverage for ${item.title}`}
+                    aria-label={`View press feature for ${item.title}`}
                   >
-                    <img src={item.newsImage} alt={`${item.title} newspaper press feature`} loading="lazy" />
+                    <img src={item.newsImage} alt={item.newsTitle || `${item.title} Press Feature`} loading="lazy" />
                     <div className="thumb-overlay">
                       <Newspaper size={16} />
                       <span>Press Feature</span>
@@ -844,12 +900,22 @@ function Certifications({ onSelectImage }) {
                   <div className="cert-img-thumb-container">
                     <div
                       className="cert-img-thumb"
-                      onClick={() => onSelectImage({ title: cert.title, img: cert.image, newsImg: cert.newsImage, stageImg: cert.stageImage, secImg: cert.secImage })}
+                      onClick={() => onSelectImage({
+                        title: cert.title,
+                        img: cert.image,
+                        imgTitle: cert.imageTitle,
+                        newsImg: cert.newsImage,
+                        newsTitle: cert.newsTitle,
+                        stageImg: cert.stageImage,
+                        stageTitle: cert.stageTitle,
+                        secImg: cert.secImage,
+                        secTitle: cert.secTitle
+                      })}
                       role="button"
                       tabIndex={0}
                       aria-label={`View certificate image for ${cert.title}`}
                     >
-                      <img src={cert.image} alt={`${cert.title} certificate`} loading="lazy" />
+                      <img src={cert.image} alt={cert.imageTitle || `${cert.title} certificate`} loading="lazy" />
                       <div className="thumb-overlay">
                         <Eye size={18} />
                         <span>View Certificate</span>
@@ -859,12 +925,21 @@ function Certifications({ onSelectImage }) {
                     {cert.newsImage && (
                       <div
                         className="cert-img-thumb cert-news-thumb"
-                        onClick={() => onSelectImage({ title: `${cert.title} — Press Feature`, img: cert.newsImage, stageImg: cert.stageImage, secImg: cert.secImage })}
+                        onClick={() => onSelectImage({
+                          title: cert.title,
+                          img: cert.newsImage,
+                          imgTitle: cert.newsTitle,
+                          newsImg: null,
+                          stageImg: cert.stageImage,
+                          stageTitle: cert.stageTitle,
+                          secImg: cert.secImage,
+                          secTitle: cert.secTitle
+                        })}
                         role="button"
                         tabIndex={0}
                         aria-label={`View press coverage for ${cert.title}`}
                       >
-                        <img src={cert.newsImage} alt={`${cert.title} news feature`} loading="lazy" />
+                        <img src={cert.newsImage} alt={cert.newsTitle || `${cert.title} press feature`} loading="lazy" />
                         <div className="thumb-overlay">
                           <Newspaper size={18} />
                           <span>Press Feature</span>
@@ -885,7 +960,17 @@ function Certifications({ onSelectImage }) {
                     <button
                       type="button"
                       className="cert-view-btn"
-                      onClick={() => onSelectImage({ title: cert.title, img: cert.image, newsImg: cert.newsImage, stageImg: cert.stageImage, secImg: cert.secImage })}
+                      onClick={() => onSelectImage({
+                        title: cert.title,
+                        img: cert.image,
+                        imgTitle: cert.imageTitle,
+                        newsImg: cert.newsImage,
+                        newsTitle: cert.newsTitle,
+                        stageImg: cert.stageImage,
+                        stageTitle: cert.stageTitle,
+                        secImg: cert.secImage,
+                        secTitle: cert.secTitle
+                      })}
                     >
                       <Eye size={15} /> Certificate
                     </button>
@@ -893,7 +978,16 @@ function Certifications({ onSelectImage }) {
                       <button
                         type="button"
                         className="cert-view-btn cert-news-btn"
-                        onClick={() => onSelectImage({ title: `${cert.title} — Press Feature`, img: cert.newsImage, stageImg: cert.stageImage, secImg: cert.secImage })}
+                        onClick={() => onSelectImage({
+                          title: cert.title,
+                          img: cert.newsImage,
+                          imgTitle: cert.newsTitle,
+                          newsImg: null,
+                          stageImg: cert.stageImage,
+                          stageTitle: cert.stageTitle,
+                          secImg: cert.secImage,
+                          secTitle: cert.secTitle
+                        })}
                       >
                         <Newspaper size={15} /> Press Feature
                       </button>
@@ -991,7 +1085,7 @@ export function App() {
       <ParticleField />
       <Cursor x={springX} y={springY} />
       <Navigation onOpen={() => setMenuOpen(true)} />
-      <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
+      <MenuOverlay open={open} onClose={() => setMenuOpen(false)} />
       <main>
         <Hero />
         <Manifesto />
@@ -1003,7 +1097,7 @@ export function App() {
         <Contact />
       </main>
 
-      {/* Global Lightbox Modal for Certificate / Press Images */}
+      {/* Global Lightbox Modal for Certificate & Media Images */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
@@ -1021,32 +1115,36 @@ export function App() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="cert-modal-header">
-                <h3>{selectedImage.title}</h3>
+                <div>
+                  <h3>{selectedImage.title}</h3>
+                  {selectedImage.imgTitle && <p className="cert-modal-subtitle">{selectedImage.imgTitle}</p>}
+                </div>
                 <button type="button" onClick={() => setSelectedImage(null)} className="cert-modal-close" aria-label="Close modal">
                   <X size={20} />
                 </button>
               </div>
+
               <div className="cert-modal-body">
-                <img src={selectedImage.img} alt={selectedImage.title} />
+                <img src={selectedImage.img} alt={selectedImage.imgTitle || selectedImage.title} />
 
                 {selectedImage.newsImg && (
                   <div className="cert-modal-news-block">
-                    <h4>Newspaper Press Feature</h4>
-                    <img src={selectedImage.newsImg} alt={`${selectedImage.title} Press Feature`} />
+                    <h4>{selectedImage.newsTitle || 'Press / Media Coverage'}</h4>
+                    <img src={selectedImage.newsImg} alt={selectedImage.newsTitle || `${selectedImage.title} Press Feature`} />
                   </div>
                 )}
 
                 {selectedImage.stageImg && (
                   <div className="cert-modal-news-block">
-                    <h4>On-Stage Award Presentation (RGMCET)</h4>
-                    <img src={selectedImage.stageImg} alt={`${selectedImage.title} On-Stage Award`} />
+                    <h4>{selectedImage.stageTitle || 'On-Stage Presentation / Award Ceremony'}</h4>
+                    <img src={selectedImage.stageImg} alt={selectedImage.stageTitle || `${selectedImage.title} Stage Ceremony`} />
                   </div>
                 )}
 
                 {selectedImage.secImg && (
                   <div className="cert-modal-news-block">
-                    <h4>Santhiram Engineering College Principal Felicitation</h4>
-                    <img src={selectedImage.secImg} alt={`${selectedImage.title} SEC Felicitation`} />
+                    <h4>{selectedImage.secTitle || 'Event Presentation & Demo'}</h4>
+                    <img src={selectedImage.secImg} alt={selectedImage.secTitle || `${selectedImage.title} Event Demo`} />
                   </div>
                 )}
               </div>
