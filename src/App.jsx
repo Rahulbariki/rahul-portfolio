@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { ArrowDown, ArrowUpRight, Award, BrainCircuit, Calendar, Code2, Cpu, ExternalLink, Eye, Github, Layers3, Linkedin, Mail, Medal, Menu, MoveUpRight, Newspaper, Sparkles, Trophy, X } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, Award, BrainCircuit, Calendar, Code2, Cpu, ExternalLink, Eye, Github, GraduationCap, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MoveUpRight, Newspaper, Phone, Sparkles, Terminal, Trophy, Wrench, X } from 'lucide-react'
 
 const projects = [
   {
@@ -9,7 +9,7 @@ const projects = [
     kicker: 'AI Brand Automation Platform',
     description: 'Built an AI-powered branding suite that generates logos, brand names, and marketing content, leveraging LLM APIs and generative AI models to automate brand identity creation for startups.',
     result: '0 → identity',
-    tags: ['React', 'Python', 'FastAPI', 'Supabase', 'Vercel'],
+    tags: ['React', 'Python', 'HTML', 'CSS', 'FastAPI', 'Vercel', 'Supabase'],
     tone: 'cyan',
     icon: Sparkles,
     url: 'https://github.com/Rahulbariki/brand-automation',
@@ -18,9 +18,9 @@ const projects = [
     number: '02',
     title: 'CampusPulse',
     kicker: 'Smart Campus Event Management',
-    description: 'A smart campus event management platform designed to solve the problem of students missing important college events due to scattered information across multiple platforms.',
+    description: 'CampusPulse is a smart campus event management platform designed to solve the problem of students missing important college events due to scattered information across multiple platforms such as WhatsApp groups, notice boards, emails, and social media.',
     result: 'Events → Unified',
-    tags: ['React', 'FastAPI', 'Node.js', 'Express', 'PostgreSQL'],
+    tags: ['React', 'HTML', 'CSS', 'Python', 'FastAPI', 'Node.js', 'Express.js', 'PostgreSQL'],
     tone: 'violet',
     icon: Layers3,
     url: 'https://github.com/Rahulbariki/campus-achievement-intelligence',
@@ -29,7 +29,7 @@ const projects = [
     number: '03',
     title: 'SHOWLINK',
     kicker: 'College Search & Discovery Portal',
-    description: 'Designed and developed during the one-week "Building Blocks of the Web" workshop. SHOWLINK is a user-friendly platform that lists colleges and detailed brochures, enabling students to search and compare college information. Presented live on stage.',
+    description: 'Designed and developed a user-friendly web platform that lists colleges and their detailed brochures, enabling students to easily search and compare college information. Built during the "Building Blocks of the Web" workshop and presented live on stage.',
     result: 'Search → Compare',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'Workshop Built', 'Live Presented'],
     tone: 'lime',
@@ -41,11 +41,29 @@ const projects = [
   },
 ]
 
+const technicalSkills = {
+  languages: ['Python', 'C', 'C++'],
+  technologies: [
+    'Artificial Intelligence',
+    'Machine Learning',
+    'Natural Language Processing (NLP)',
+    'Generative AI',
+    'AI Agents',
+    'Web Development',
+    'API Integration',
+    'Chatbot Development',
+    'Automation Systems',
+    'Prompt Engineering',
+  ],
+  tools: ['Git', 'GitHub', 'VS Code', 'Antigravity', 'PowerBI', 'Supabase', 'FastAPI'],
+  softSkills: ['Problem Solving', 'Technical Presentation'],
+}
+
 const capabilities = [
-  { icon: BrainCircuit, title: 'AI product engineering', text: 'Turning model capability into focused, useful, human-centered product experiences.' },
-  { icon: Layers3, title: 'Generative systems', text: 'Designing multi-step generation workflows, agents, and automation that hold together.' },
-  { icon: Cpu, title: 'Full-stack development', text: 'Building responsive, data-driven web applications with React, FastAPI, Node.js, and SQL.' },
-  { icon: Code2, title: 'Rapid prototyping', text: 'Moving from an ambitious idea to a testable, polished product with unusual speed.' },
+  { icon: BrainCircuit, title: 'AI & GenAI Systems', text: 'Architecting intelligent AI agents, prompt engineering pipelines, and multi-step generative workflows.' },
+  { icon: Layers3, title: 'Generative Automation', text: 'Building end-to-end NLP engines, chatbot architectures, and automated content generation pipelines.' },
+  { icon: Cpu, title: 'Full-Stack Development', text: 'Engineering responsive web applications with React, Python, FastAPI, Node.js, Express, and SQL.' },
+  { icon: Code2, title: 'Rapid Prototyping', text: 'Moving from complex software design to a testable, polished product with exceptional speed.' },
 ]
 
 const hackathons = [
@@ -387,13 +405,36 @@ const certifications = [
   },
 ]
 
+const educationList = [
+  {
+    period: '2023 — 2027',
+    degree: 'B.Tech in Computer Science and Engineering (AI & ML)',
+    institution: 'Santhiram Engineering College, Nandyal (Autonomous)',
+    scoreLabel: 'CGPA',
+    scoreValue: '8.46 / 10.0',
+    badge: '8.46 CGPA 🌟',
+    details: 'Specializing in Artificial Intelligence, Machine Learning, Natural Language Processing, Generative AI, AI Agents, and Full-Stack Engineering.',
+    tone: 'cyan',
+  },
+  {
+    period: '2021 — 2023',
+    degree: 'Class XII (Intermediate MPC)',
+    institution: 'Narayana Junior College, Nandyal',
+    scoreLabel: 'Score & JEE Mains Rank',
+    scoreValue: '79% Score • JEE Mains Rank: 58055',
+    badge: 'JEE Rank: 58055 🎯',
+    details: 'Completed higher secondary education in Mathematics, Physics, and Chemistry (MPC) with a 79% score and top 58k JEE Mains All India Rank.',
+    tone: 'violet',
+  },
+]
+
 const experiences = [
   { period: 'Feb 2025 — Feb 2027', company: 'IEEE Student Branch — Santhiram Engg. College (E25)', role: 'Secretary', text: 'Appointed as Secretary for IEEE Student Branch (E25) at Santhiram Engineering College, leading technical events, student initiatives, and managing branch operations.' },
   { period: 'Jan 2024 — Mar 2024', company: 'Google AI-ML Virtual Internship', role: 'AI / Machine Learning Intern', text: 'Studied end-to-end machine learning workflows, model development, and practical AI foundations.' },
   { period: '2024', company: 'Zcalar AI Internship', role: 'AI Developer Intern', text: 'Developed intelligent chatbot systems and explored useful, product-focused NLP experiences.' },
 ]
 
-const navItems = ['About', 'Work', 'Capabilities', 'Hackathons', 'Certifications', 'Experience', 'Contact']
+const navItems = ['About', 'Work', 'Skills', 'Hackathons', 'Certifications', 'Education', 'Experience', 'Contact']
 
 function usePointer() {
   const x = useMotionValue(-100)
@@ -588,9 +629,9 @@ function Hero() {
 
       {/* Top status bar */}
       <motion.div className="hero-topbar" style={{ opacity }} initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-        <div className="eyebrow"><span className="signal" /> Available for ambitious AI work</div>
+        <div className="eyebrow"><span className="signal" /> Gen-AI ENGINEER — Available for AI Projects</div>
         <div className="hero-topbar-right">
-          <span className="hero-location">Based in India</span>
+          <span className="hero-location"><MapPin size={13} /> Nandyal, Andhra Pradesh, India</span>
         </div>
       </motion.div>
 
@@ -603,17 +644,19 @@ function Hero() {
           </h1>
 
           <p className="hero-desc">
-            I build intelligent AI products, generative systems, and full-stack web platforms that make ambitious ideas useful.
+            Results-driven Software Engineer specializing in AI engineering and full-stack development. I leverage Python to design intelligent AI agents, generative systems, and scalable software solutions.
           </p>
 
           <div className="hero-actions">
             <a href="mailto:rahulbariki24@gmail.com" className="hero-cta-primary">Let's Talk <ArrowUpRight /></a>
-            <a href="#work" className="hero-cta-secondary">View Work <ArrowDown /></a>
+            <a href="tel:+916281769623" className="hero-cta-secondary"><Phone size={15} /> +91 62817 69623</a>
           </div>
 
           <div className="hero-stats">
-            <span><strong>3+</strong><small>Featured projects</small></span>
-            <span><strong>02</strong><small>AI internships</small></span>
+            <span><strong>8.46</strong><small>B.Tech CGPA</small></span>
+            <span><strong>58,055</strong><small>JEE Mains Rank</small></span>
+            <span><strong>3+</strong><small>AI Systems</small></span>
+            <span><strong>02</strong><small>AI Internships</small></span>
           </div>
         </motion.div>
 
@@ -622,7 +665,7 @@ function Hero() {
           <div className="portrait-frame">
             <div className="portrait-glow" />
             <div className="portrait-border-ring" />
-            <img src="/assets/rahul-profile.png" alt="Rahul Bariki" loading="eager" />
+            <img src="/assets/rahul-profile.png" alt="Rahul Bariki - Gen-AI Engineer" loading="eager" />
             
             <motion.span className="hero-float-tag tag-ai" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.9 }}>GEN AI</motion.span>
             <motion.span className="hero-float-tag tag-cv" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.05 }}>FULL-STACK</motion.span>
@@ -642,14 +685,14 @@ function Hero() {
 function Manifesto() {
   return (
     <section className="manifesto" id="about">
-      <div className="section-kicker">Principle / 01</div>
+      <div className="section-kicker">Professional Summary / 01</div>
       <motion.p initial={{ opacity: 0.2 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 1.2 }}>
-        AI is only remarkable when it feels <em>inevitable.</em> I combine engineering, experimentation, and product instinct to make complex systems feel beautifully simple.
+        Results-driven Software Engineer with expertise in AI engineering and full-stack development, leveraging Python to design and implement intelligent AI agents and scalable software solutions.
       </motion.p>
       <div className="manifesto-meta">
-        <span>Based in India</span>
-        <span>Building globally</span>
-        <span>Available now</span>
+        <span>📍 Nandyal, Andhra Pradesh, India</span>
+        <span>🎓 B.Tech CSE (AI & ML) — 8.46 CGPA</span>
+        <span>💼 Gen-AI Engineer</span>
       </div>
     </section>
   )
@@ -709,7 +752,7 @@ function Work() {
   return (
     <section className="work section-shell" id="work">
       <div className="section-heading">
-        <div><span>Selected systems</span><span>02 / 07</span></div>
+        <div><span>Selected systems</span><span>02 / 08</span></div>
         <h2>Work that moves<br /><em>ideas forward.</em></h2>
       </div>
       <div className="project-grid">
@@ -721,11 +764,12 @@ function Work() {
 
 function Capabilities() {
   return (
-    <section className="capabilities section-shell" id="capabilities">
+    <section className="capabilities section-shell" id="skills">
       <div className="section-heading compact">
-        <div><span>What I bring</span><span>03 / 07</span></div>
-        <h2>From possibility<br />to <em>working product.</em></h2>
+        <div><span>Technical Skills & Capabilities</span><span>03 / 08</span></div>
+        <h2>Engineering stacks &<br /><em>core AI expertise.</em></h2>
       </div>
+
       <div className="capability-list">
         {capabilities.map(({ icon: Icon, title, text }, index) => (
           <motion.article key={title} initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }}>
@@ -737,9 +781,41 @@ function Capabilities() {
           </motion.article>
         ))}
       </div>
+
+      {/* Comprehensive Skill Category Badges Matrix */}
+      <div className="skills-matrix-container">
+        <div className="skill-cat-card">
+          <div className="skill-cat-header">
+            <Terminal size={18} /> <h3>Languages & Core Technologies</h3>
+          </div>
+          <div className="skill-tags">
+            {technicalSkills.languages.map((s) => <span key={s} className="skill-tag lang">{s}</span>)}
+            {technicalSkills.technologies.map((s) => <span key={s} className="skill-tag tech">{s}</span>)}
+          </div>
+        </div>
+
+        <div className="skill-cat-card">
+          <div className="skill-cat-header">
+            <Wrench size={18} /> <h3>Tools & Frameworks</h3>
+          </div>
+          <div className="skill-tags">
+            {technicalSkills.tools.map((s) => <span key={s} className="skill-tag tool">{s}</span>)}
+          </div>
+        </div>
+
+        <div className="skill-cat-card">
+          <div className="skill-cat-header">
+            <BrainCircuit size={18} /> <h3>Soft Skills & Strengths</h3>
+          </div>
+          <div className="skill-tags">
+            {technicalSkills.softSkills.map((s) => <span key={s} className="skill-tag soft">{s}</span>)}
+          </div>
+        </div>
+      </div>
+
       <div className="ticker" aria-hidden="true">
-        <div>GENERATIVE AI · FULL-STACK DEVELOPMENT · AGENTIC SYSTEMS · PRODUCT ENGINEERING · RAPID PROTOTYPING · </div>
-        <div>GENERATIVE AI · FULL-STACK DEVELOPMENT · AGENTIC SYSTEMS · PRODUCT ENGINEERING · RAPID PROTOTYPING · </div>
+        <div>PYTHON · GENERATIVE AI · AI AGENTS · MACHINE LEARNING · NATURAL LANGUAGE PROCESSING · FASTAPI · REACT · PROMPT ENGINEERING · </div>
+        <div>PYTHON · GENERATIVE AI · AI AGENTS · MACHINE LEARNING · NATURAL LANGUAGE PROCESSING · FASTAPI · REACT · PROMPT ENGINEERING · </div>
       </div>
     </section>
   )
@@ -749,7 +825,7 @@ function Hackathons({ onSelectImage }) {
   return (
     <section className="hackathons section-shell" id="hackathons">
       <div className="section-heading compact">
-        <div><span>Sprints & Competitions</span><span>04 / 07</span></div>
+        <div><span>Sprints & Competitions</span><span>04 / 08</span></div>
         <h2>Building under<br /><em>pressure & speed.</em></h2>
       </div>
       <div className="hackathon-grid">
@@ -847,7 +923,7 @@ function Certifications({ onSelectImage }) {
   return (
     <section className="certifications section-shell" id="certifications">
       <div className="section-heading compact">
-        <div><span>Verified Credentials & Awards</span><span>05 / 07</span></div>
+        <div><span>Verified Credentials & Awards</span><span>05 / 08</span></div>
         <h2>Certifications,<br /><em>workshops & awards.</em></h2>
       </div>
 
@@ -1007,12 +1083,48 @@ function Certifications({ onSelectImage }) {
   )
 }
 
+function Education() {
+  return (
+    <section className="education section-shell" id="education">
+      <div className="section-heading compact">
+        <div><span>Academic Foundation</span><span>06 / 08</span></div>
+        <h2>Education &<br /><em>academic achievements.</em></h2>
+      </div>
+
+      <div className="education-grid">
+        {educationList.map((item, index) => (
+          <motion.article
+            key={item.degree}
+            className={`education-card ${item.tone}`}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.12 }}
+            data-cursor
+          >
+            <div className="edu-top">
+              <span className="edu-badge"><GraduationCap size={15} /> {item.badge}</span>
+              <span className="edu-period"><Calendar size={13} /> {item.period}</span>
+            </div>
+            <h3>{item.degree}</h3>
+            <p className="edu-institution">{item.institution}</p>
+            <div className="edu-score-pill">
+              <span>{item.scoreLabel}:</span> <strong>{item.scoreValue}</strong>
+            </div>
+            <p className="edu-details">{item.details}</p>
+          </motion.article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 function Experience() {
   return (
     <section className="experience section-shell" id="experience">
       <div className="section-heading compact">
-        <div><span>Field notes</span><span>06 / 07</span></div>
-        <h2>Learning by<br /><em>building in public.</em></h2>
+        <div><span>Field Notes & Internships</span><span>07 / 08</span></div>
+        <h2>Learning & leading<br /><em>in practice.</em></h2>
       </div>
       <div className="experience-grid">
         <div className="experience-intro">
@@ -1038,20 +1150,28 @@ function Contact() {
   return (
     <section className="contact section-shell" id="contact">
       <div className="contact-glow" />
-      <div className="section-kicker">Next chapter / 07</div>
-      <h2>Have an impossible<br />idea? <em>Good.</em></h2>
-      <p>I’m looking for ambitious teams, serious AI problems, and ideas with enough energy to change shape while we build them.</p>
-      <a className="contact-cta" href="mailto:rahulbariki24@gmail.com">
-        <span>Start a conversation</span><ArrowUpRight />
-      </a>
+      <div className="section-kicker">Next Chapter / 08</div>
+      <h2>Have an ambitious<br />project? <em>Let's connect.</em></h2>
+      <p>I’m looking for ambitious teams, serious AI challenges, and opportunities to engineer intelligent systems that scale.</p>
+      
+      <div className="contact-actions-row">
+        <a className="contact-cta" href="mailto:rahulbariki24@gmail.com">
+          <span>Email Me</span><ArrowUpRight />
+        </a>
+        <a className="contact-cta contact-cta-phone" href="tel:+916281769623">
+          <span>Call: +91 62817 69623</span><Phone size={18} />
+        </a>
+      </div>
+
       <div className="social-row">
-        <a href="mailto:rahulbariki24@gmail.com"><Mail />Email</a>
-        <a href="https://github.com/rahulbariki" target="_blank" rel="noopener noreferrer"><Github />GitHub</a>
-        <a href="https://www.linkedin.com/in/rahulbariki24" target="_blank" rel="noopener noreferrer"><Linkedin />LinkedIn</a>
+        <a href="mailto:rahulbariki24@gmail.com"><Mail /> rahulbariki24@gmail.com</a>
+        <a href="tel:+916281769623"><Phone /> +91 62817 69623</a>
+        <a href="https://github.com/rahulbariki" target="_blank" rel="noopener noreferrer"><Github /> GitHub</a>
+        <a href="https://www.linkedin.com/in/rahulbariki24" target="_blank" rel="noopener noreferrer"><Linkedin /> LinkedIn</a>
       </div>
       <footer>
         <span>Rahul Bariki © 2026</span>
-        <span>AI systems / intelligent products</span>
+        <span>Gen-AI Engineer • Nandyal, AP, India</span>
         <a href="#top">Back to top ↑</a>
       </footer>
     </section>
@@ -1085,7 +1205,7 @@ export function App() {
       <ParticleField />
       <Cursor x={springX} y={springY} />
       <Navigation onOpen={() => setMenuOpen(true)} />
-      <MenuOverlay open={open} onClose={() => setMenuOpen(false)} />
+      <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
       <main>
         <Hero />
         <Manifesto />
@@ -1093,6 +1213,7 @@ export function App() {
         <Capabilities />
         <Hackathons onSelectImage={setSelectedImage} />
         <Certifications onSelectImage={setSelectedImage} />
+        <Education />
         <Experience />
         <Contact />
       </main>

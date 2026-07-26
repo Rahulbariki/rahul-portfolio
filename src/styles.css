@@ -1530,6 +1530,172 @@ footer a:hover {
   color: #a78bfa;
 }
 
+/* Skills Matrix Styling */
+.skills-matrix-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.skill-cat-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 24px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.skill-cat-card:hover {
+  border-color: rgba(167, 139, 250, 0.4);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.skill-cat-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #a78bfa;
+  margin-bottom: 16px;
+}
+
+.skill-cat-header h3 {
+  font-size: 13px;
+  font-family: 'DM Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--paper);
+  margin: 0;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  font: 400 10px 'DM Mono', monospace;
+  padding: 5px 12px;
+  border-radius: 100px;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.3);
+  color: #ccc;
+  transition: all 0.2s ease;
+}
+
+.skill-tag.lang { border-color: rgba(129, 140, 248, 0.4); color: #818cf8; }
+.skill-tag.tech { border-color: rgba(167, 139, 250, 0.4); color: #a78bfa; }
+.skill-tag.tool { border-color: rgba(196, 181, 253, 0.4); color: #c4b5fd; }
+.skill-tag.soft { border-color: rgba(52, 211, 153, 0.4); color: #34d399; }
+
+/* Education Section Styling */
+.education-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+.education-card {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 28px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.education-card:hover {
+  border-color: rgba(167, 139, 250, 0.5);
+  transform: translateY(-3px);
+}
+
+.edu-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.edu-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 500 10px 'DM Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: rgba(167, 139, 250, 0.15);
+  color: #a78bfa;
+  border: 1px solid rgba(167, 139, 250, 0.3);
+}
+
+.edu-period {
+  font: 400 10px 'DM Mono', monospace;
+  color: #888;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.education-card h3 {
+  font-size: 20px;
+  color: var(--paper);
+  font-weight: 500;
+  margin: 4px 0 2px;
+}
+
+.edu-institution {
+  font: 400 12px 'DM Mono', monospace;
+  color: #a78bfa;
+}
+
+.edu-score-pill {
+  font: 400 11px 'DM Mono', monospace;
+  color: #ddd;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 14px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  margin: 4px 0;
+}
+
+.edu-score-pill strong {
+  color: #c4b5fd;
+  font-weight: 600;
+}
+
+.edu-details {
+  color: #999;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* Contact Actions Row */
+.contact-actions-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: min(100%, 760px);
+  margin: 50px auto 40px;
+}
+
+.contact-actions-row .contact-cta {
+  margin: 0;
+  flex: 1;
+  min-width: 280px;
+}
+
+.contact-cta-phone {
+  border-color: rgba(129, 140, 248, 0.5);
+  color: #818cf8;
+}
+
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes spin-reverse { to { transform: rotate(-360deg); } }
 @keyframes pulse-ring { 50% { transform: scale(1.12); opacity: .1; } }
