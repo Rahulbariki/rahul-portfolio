@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { ArrowDown, ArrowUpRight, BrainCircuit, Code2, Cpu, Github, Layers3, Linkedin, Mail, Menu, MoveUpRight, Sparkles, X } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, Award, BrainCircuit, Calendar, Code2, Cpu, ExternalLink, Github, Layers3, Linkedin, Mail, Medal, Menu, MoveUpRight, Sparkles, Trophy, X } from 'lucide-react'
 
 const projects = [
   {
@@ -45,12 +45,54 @@ const capabilities = [
   { icon: Code2, title: 'Rapid prototyping', text: 'Moving from an ambitious idea to a testable, polished product with unusual speed.' },
 ]
 
+const hackathons = [
+  {
+    title: 'GenAI Innovation Hackathon',
+    organizer: 'National AI Sprint',
+    date: '2024',
+    role: 'Team Lead & AI Architect',
+    award: 'Featured Innovator',
+    description: 'Built a generative AI automation system under 24 hours to accelerate startup branding workflows.',
+    tags: ['GenAI', 'FastAPI', 'React'],
+    tone: 'cyan',
+  },
+  {
+    title: 'Smart Campus AI Challenge',
+    organizer: 'SEC Tech Fest',
+    date: '2024',
+    role: 'Full-Stack Developer',
+    award: 'Top Finalist',
+    description: 'Engineered CampusPulse, a centralized event intelligence portal solving fragmented student communications.',
+    tags: ['React', 'Node.js', 'PostgreSQL'],
+    tone: 'violet',
+  },
+]
+
+const certifications = [
+  {
+    title: 'Google AI-ML Virtual Internship Certification',
+    issuer: 'Google & EduSkills',
+    date: 'Jan 2024 — Mar 2024',
+    skills: ['Machine Learning', 'Model Workflows', 'TensorFlow Foundations'],
+    credentialUrl: 'https://github.com/Rahulbariki',
+    tone: 'cyan',
+  },
+  {
+    title: 'AI Developer Internship Certification',
+    issuer: 'Zcalar AI',
+    date: '2024',
+    skills: ['NLP Systems', 'Chatbot Architectures', 'Python Automation'],
+    credentialUrl: 'https://github.com/Rahulbariki',
+    tone: 'violet',
+  },
+]
+
 const experiences = [
   { period: 'Jan 2024 — Mar 2024', company: 'Google AI-ML Virtual Internship', role: 'AI / Machine Learning Intern', text: 'Studied end-to-end machine learning workflows, model development, and practical AI foundations.' },
   { period: '2024', company: 'Zcalar AI Internship', role: 'AI Developer Intern', text: 'Developed intelligent chatbot systems and explored useful, product-focused NLP experiences.' },
 ]
 
-const navItems = ['About', 'Work', 'Capabilities', 'Experience', 'Contact']
+const navItems = ['About', 'Work', 'Capabilities', 'Hackathons', 'Certifications', 'Experience', 'Contact']
 
 function usePointer() {
   const x = useMotionValue(-100)
@@ -366,7 +408,7 @@ function Work() {
   return (
     <section className="work section-shell" id="work">
       <div className="section-heading">
-        <div><span>Selected systems</span><span>02 / 05</span></div>
+        <div><span>Selected systems</span><span>02 / 07</span></div>
         <h2>Work that moves<br /><em>ideas forward.</em></h2>
       </div>
       <div className="project-grid">
@@ -380,7 +422,7 @@ function Capabilities() {
   return (
     <section className="capabilities section-shell" id="capabilities">
       <div className="section-heading compact">
-        <div><span>What I bring</span><span>03 / 05</span></div>
+        <div><span>What I bring</span><span>03 / 07</span></div>
         <h2>From possibility<br />to <em>working product.</em></h2>
       </div>
       <div className="capability-list">
@@ -402,11 +444,89 @@ function Capabilities() {
   )
 }
 
+function Hackathons() {
+  return (
+    <section className="hackathons section-shell" id="hackathons">
+      <div className="section-heading compact">
+        <div><span>Sprints & Competitions</span><span>04 / 07</span></div>
+        <h2>Building under<br /><em>pressure & speed.</em></h2>
+      </div>
+      <div className="hackathon-grid">
+        {hackathons.map((item, index) => (
+          <motion.article
+            key={item.title}
+            className={`hackathon-card ${item.tone}`}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.12 }}
+            data-cursor
+          >
+            <div className="hack-header">
+              <span className="hack-badge"><Trophy size={14} /> {item.award}</span>
+              <span className="hack-date"><Calendar size={13} /> {item.date}</span>
+            </div>
+            <h3>{item.title}</h3>
+            <div className="hack-meta">
+              <span>{item.organizer}</span> • <span>{item.role}</span>
+            </div>
+            <p>{item.description}</p>
+            <div className="hack-tags">
+              {item.tags.map((t) => <span key={t}>{t}</span>)}
+            </div>
+          </motion.article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function Certifications() {
+  return (
+    <section className="certifications section-shell" id="certifications">
+      <div className="section-heading compact">
+        <div><span>Verified Credentials</span><span>05 / 07</span></div>
+        <h2>Continuous learning &<br /><em>specializations.</em></h2>
+      </div>
+      <div className="cert-grid">
+        {certifications.map((cert, index) => (
+          <motion.article
+            key={cert.title}
+            className={`cert-card ${cert.tone}`}
+            initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.1 }}
+            data-cursor
+          >
+            <div className="cert-icon-wrapper">
+              <Medal size={24} className="cert-icon" />
+            </div>
+            <div className="cert-content">
+              <div className="cert-top">
+                <span className="cert-issuer">{cert.issuer}</span>
+                <span className="cert-date">{cert.date}</span>
+              </div>
+              <h3>{cert.title}</h3>
+              <div className="cert-skills">
+                {cert.skills.map((s) => <span key={s}>{s}</span>)}
+              </div>
+            </div>
+            <a href={cert.credentialUrl} target="_blank" rel="noopener noreferrer" className="cert-link" aria-label={`View credential for ${cert.title}`}>
+              <ExternalLink size={18} />
+            </a>
+          </motion.article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 function Experience() {
   return (
     <section className="experience section-shell" id="experience">
       <div className="section-heading compact">
-        <div><span>Field notes</span><span>04 / 05</span></div>
+        <div><span>Field notes</span><span>06 / 07</span></div>
         <h2>Learning by<br /><em>building in public.</em></h2>
       </div>
       <div className="experience-grid">
@@ -433,7 +553,7 @@ function Contact() {
   return (
     <section className="contact section-shell" id="contact">
       <div className="contact-glow" />
-      <div className="section-kicker">Next chapter / 05</div>
+      <div className="section-kicker">Next chapter / 07</div>
       <h2>Have an impossible<br />idea? <em>Good.</em></h2>
       <p>I’m looking for ambitious teams, serious AI problems, and ideas with enough energy to change shape while we build them.</p>
       <a className="contact-cta" href="mailto:rahulbariki24@gmail.com">
@@ -485,6 +605,8 @@ export function App() {
         <Manifesto />
         <Work />
         <Capabilities />
+        <Hackathons />
+        <Certifications />
         <Experience />
         <Contact />
       </main>
