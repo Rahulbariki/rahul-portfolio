@@ -70,6 +70,14 @@ const hackathons = [
 
 const certifications = [
   {
+    title: 'IEEE Education Society Student Member',
+    issuer: 'IEEE Education Society',
+    date: '2024 — Present',
+    skills: ['IEEE Member', 'Educational Tech', 'Engineering Community'],
+    credentialUrl: 'https://www.ieee.org/',
+    tone: 'lime',
+  },
+  {
     title: 'Google AI-ML Virtual Internship Certification',
     issuer: 'Google & EduSkills',
     date: 'Jan 2024 — Mar 2024',
@@ -88,6 +96,7 @@ const certifications = [
 ]
 
 const experiences = [
+  { period: '2024 — Present', company: 'IEEE Education Society', role: 'Student Member — Santhiram Engineering College', text: 'Active student member of IEEE Education Society at Santhiram Engineering College, engaging in technical initiatives, learning workshops, and engineering community events.' },
   { period: 'Jan 2024 — Mar 2024', company: 'Google AI-ML Virtual Internship', role: 'AI / Machine Learning Intern', text: 'Studied end-to-end machine learning workflows, model development, and practical AI foundations.' },
   { period: '2024', company: 'Zcalar AI Internship', role: 'AI Developer Intern', text: 'Developed intelligent chatbot systems and explored useful, product-focused NLP experiences.' },
 ]
