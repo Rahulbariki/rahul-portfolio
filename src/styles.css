@@ -396,6 +396,9 @@ main {
   display: block;
   object-fit: contain;
   object-position: bottom;
+  border-radius: 50%;
+  mask-image: radial-gradient(circle at center, #000 68%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle at center, #000 68%, transparent 70%);
   filter: contrast(1.05) brightness(1.02);
 }
 
