@@ -810,9 +810,12 @@ function Hero() {
               View Projects <ArrowUpRight />
             </a>
             <a 
-              href="mailto:rahulbariki24@gmail.com?subject=Request%20for%20Rahul%20Bariki%20Resume" 
+              href="/assets/Rahul_Bariki_Resume.pdf" 
               className="hero-cta-secondary"
               aria-label="Download Resume of Rahul Bariki"
+              download="Rahul_Bariki_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <ArrowDown size={15} /> Download Resume
             </a>
