@@ -113,8 +113,8 @@ button {
 .loader {
   position: fixed;
   inset: 0;
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
   z-index: 300;
   display: grid;
   place-content: center;
@@ -125,7 +125,7 @@ button {
 
 .loader div {
   height: 2px;
-  background: var(--ink);
+  background: linear-gradient(90deg, #7c3aed, #a78bfa);
   transform-origin: left;
 }
 

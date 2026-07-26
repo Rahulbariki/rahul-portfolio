@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Calendar, Camera, CheckCircle, ChevronDown, Clock, Code2, Cpu, ExternalLink, Eye, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Terminal, Trophy, Wrench, X } from 'lucide-react'
+import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Calendar, Camera, CheckCircle, ChevronDown, Clock, Code2, Cpu, ExternalLink, Eye, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Terminal, TrendingUp, Trophy, Wrench, X } from 'lucide-react'
 
 const skillProficiencies = [
   { name: 'Generative AI & LLM Pipelines', percent: 94, level: 'Advanced / Agentic AI', tone: 'violet' },
@@ -1592,6 +1592,44 @@ function FAQAccordion() {
           )
         })}
       </div>
+    </section>
+  )
+}
+
+function Contact() {
+  return (
+    <section className="contact section-shell" id="contact">
+      <div className="contact-glow" />
+      <div className="section-heading compact">
+        <div><span>Get In Touch</span><span>07 / 07</span></div>
+        <h2>Let's build<br /><em>something great.</em></h2>
+      </div>
+
+      <div className="contact-actions-row">
+        <a href="mailto:rahulbariki24@gmail.com" className="contact-cta">
+          <span>rahulbariki24@gmail.com</span> <Mail size={20} />
+        </a>
+        <a href="tel:+916281769623" className="contact-cta contact-cta-phone">
+          <span>+91 62817 69623</span> <Phone size={20} />
+        </a>
+      </div>
+
+      <div className="social-row">
+        <a href="https://github.com/rahulbariki" target="_blank" rel="noopener noreferrer">
+          <Github size={14} /> GitHub
+        </a>
+        <a href="https://linkedin.com/in/rahulbariki24" target="_blank" rel="noopener noreferrer">
+          <Linkedin size={14} /> LinkedIn
+        </a>
+        <a href="mailto:rahulbariki24@gmail.com">
+          <Mail size={14} /> Email
+        </a>
+      </div>
+
+      <footer>
+        <span>© {new Date().getFullYear()} Rahul Bariki</span>
+        <a href="#top">Back to top ↑</a>
+      </footer>
     </section>
   )
 }
