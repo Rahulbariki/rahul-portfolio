@@ -61,6 +61,18 @@ const hackathons = [
     tone: 'lime',
   },
   {
+    title: '14th National Technical Symposium (EMINENCE-SIGMA-2K25)',
+    organizer: 'Dept of ECE & Dept of Basic Sciences, SEC',
+    date: 'Feb 28 — Mar 1, 2025',
+    role: '3rd Prize Winner — Challenge AI 🥉',
+    award: '3rd Prize Winner 🥉',
+    description: 'Secured 3rd Prize in the Challenge AI competition at the 14th National Level Technical Symposium (EMINENCE-SIGMA-2K25) organized by Department of ECE & Department of Basic Sciences, Santhiram Engineering College.',
+    tags: ['Challenge AI', 'EMINENCE-SIGMA', '3rd Prize Winner', 'AI Competition'],
+    image: '/assets/cert-challenge-ai-merit-3rd-prize.jpg',
+    newsImage: '/assets/cert-challenge-ai-participation.jpg',
+    tone: 'violet',
+  },
+  {
     title: 'GenAI Forge Hackathon 2026',
     organizer: 'SmartBridge & NASSCOM FutureSkills Prime',
     date: 'Feb 11 — Feb 14, 2026',
@@ -254,6 +266,19 @@ const certifications = [
   },
 
   // --- WINNINGS & AWARDS ---
+  {
+    category: 'winnings',
+    title: 'EMINENCE-SIGMA-2K25 — 3rd Prize Winner ("Challenge AI")',
+    kicker: '14th National Level Technical Symposium (Dept of ECE & Basic Sciences)',
+    issuer: 'Santhiram Engineering College (Autonomous)',
+    date: 'Feb 28 — Mar 1, 2025',
+    certId: '3rd Prize Award 🥉',
+    skills: ['Challenge AI', 'AI Problem Solving', 'EMINENCE-SIGMA', 'National Symposium'],
+    image: '/assets/cert-challenge-ai-merit-3rd-prize.jpg',
+    newsImage: '/assets/cert-challenge-ai-participation.jpg',
+    credentialUrl: '/assets/cert-challenge-ai-merit-3rd-prize.jpg',
+    tone: 'violet',
+  },
   {
     category: 'winnings',
     title: 'DEFEND-X National Symposium — 2nd Prize Winner',
