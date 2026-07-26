@@ -791,15 +791,18 @@ em {
   margin-top: auto;
   padding-top: 18px;
   border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.project-footer > div {
+.project-footer-top {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
 
-.project-footer span {
+.project-footer-top span {
   border: 1px solid var(--line);
   border-radius: 100px;
   padding: 6px 9px;
@@ -808,23 +811,50 @@ em {
   text-transform: uppercase;
 }
 
-.project-footer a {
-  width: 44px;
-  height: 44px;
+.project-action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-project-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 100px;
+  background: linear-gradient(135deg, #7c3aed, #6366f1);
+  color: #ffffff !important;
+  font: 500 11px 'DM Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+}
+
+.btn-project-live:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.55);
+}
+
+.btn-project-github {
+  width: 38px;
+  height: 38px;
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: currentColor;
-  transition: transform 0.2s ease;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff !important;
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
-.project-footer a:hover {
+.btn-project-github:hover {
   transform: scale(1.08);
-}
-
-.project-footer a svg {
-  color: var(--ink);
-  width: 16px;
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .capabilities {

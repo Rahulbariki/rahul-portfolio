@@ -13,6 +13,7 @@ const projects = [
     tone: 'cyan',
     icon: Sparkles,
     url: 'https://github.com/Rahulbariki/brand-automation',
+    liveUrl: 'https://brandnova-brand-automation.vercel.app/',
   },
   {
     number: '02',
@@ -24,6 +25,7 @@ const projects = [
     tone: 'violet',
     icon: Layers3,
     url: 'https://github.com/Rahulbariki/campus-achievement-intelligence',
+    liveUrl: 'https://srec-community.vercel.app/',
   },
   {
     number: '03',
@@ -38,6 +40,7 @@ const projects = [
     stageImage: '/assets/photo-showlink-presentation-1.jpg',
     stageTitle: 'Live Auditorium Stage Presentation of SHOWLINK Project',
     url: 'https://github.com/Rahulbariki/SHOWLINK',
+    liveUrl: 'https://showlink.vercel.app/',
   },
 ]
 
@@ -723,10 +726,17 @@ function ProjectCard({ project }) {
         <h3>{project.title}</h3>
         <p>{project.description}</p>
         <div className="project-footer">
-          <div>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-          <a href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} on GitHub`}>
-            <MoveUpRight />
-          </a>
+          <div className="project-footer-top">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+          <div className="project-action-buttons">
+            {project.liveUrl && (
+              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn-project-live" aria-label={`View Live Application for ${project.title}`}>
+                <span>Live Project</span> <ExternalLink size={14} />
+              </a>
+            )}
+            <a href={project.url} target="_blank" rel="noopener noreferrer" className="btn-project-github" aria-label={`View ${project.title} Source Code on GitHub`}>
+              <Github size={16} />
+            </a>
+          </div>
         </div>
       </div>
     </motion.article>
