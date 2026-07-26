@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { ArrowDown, ArrowUpRight, Award, BrainCircuit, Calendar, Code2, Cpu, ExternalLink, Github, Layers3, Linkedin, Mail, Medal, Menu, MoveUpRight, Sparkles, Trophy, X } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, Award, BrainCircuit, Calendar, Code2, Cpu, ExternalLink, Eye, Github, Layers3, Linkedin, Mail, Medal, Menu, MoveUpRight, Sparkles, Trophy, X } from 'lucide-react'
 
 const projects = [
   {
@@ -76,7 +76,8 @@ const certifications = [
     date: 'Dec 2 — Dec 22, 2024',
     certId: 'ID: NSTTP-B-SEC286',
     skills: ['Java Full Stack', 'React JS', 'AI Integration', 'AICTE Approved'],
-    credentialUrl: 'https://www.brainovision.in',
+    image: '/assets/cert-nsttp-2k24.png',
+    credentialUrl: '/assets/cert-nsttp-2k24.png',
     tone: 'cyan',
   },
   {
@@ -86,7 +87,8 @@ const certifications = [
     date: 'Feb 19 — Feb 23, 2024',
     certId: 'ID: INSW24BOVSEC938',
     skills: ['Data Science', 'Python', 'Data Analytics', 'AICTE Approved'],
-    credentialUrl: 'https://www.brainovision.in',
+    image: '/assets/cert-insw-2k24.png',
+    credentialUrl: '/assets/cert-insw-2k24.png',
     tone: 'violet',
   },
   {
@@ -96,6 +98,7 @@ const certifications = [
     date: '2024 — Present',
     certId: 'IEEE Student Branch',
     skills: ['IEEE Member', 'Educational Tech', 'Engineering Community'],
+    image: null,
     credentialUrl: 'https://www.ieee.org/',
     tone: 'lime',
   },
@@ -106,6 +109,7 @@ const certifications = [
     date: 'Jan 2024 — Mar 2024',
     certId: 'Google AI-ML',
     skills: ['Machine Learning', 'Model Workflows', 'TensorFlow Foundations'],
+    image: null,
     credentialUrl: 'https://github.com/Rahulbariki',
     tone: 'cyan',
   },
@@ -116,6 +120,7 @@ const certifications = [
     date: '2024',
     certId: 'Zcalar AI',
     skills: ['NLP Systems', 'Chatbot Architectures', 'Python Automation'],
+    image: null,
     credentialUrl: 'https://github.com/Rahulbariki',
     tone: 'violet',
   },
@@ -517,12 +522,15 @@ function Hackathons() {
 }
 
 function Certifications() {
+  const [selectedImage, setSelectedImage] = useState(null)
+
   return (
     <section className="certifications section-shell" id="certifications">
       <div className="section-heading compact">
         <div><span>Verified Credentials & Workshops</span><span>05 / 07</span></div>
         <h2>Workshops &<br /><em>certifications.</em></h2>
       </div>
+
       <div className="cert-grid">
         {certifications.map((cert, index) => (
           <motion.article
@@ -534,30 +542,95 @@ function Certifications() {
             transition={{ delay: index * 0.1 }}
             data-cursor
           >
-            <div className="cert-icon-wrapper">
-              <Medal size={24} className="cert-icon" />
-            </div>
-            <div className="cert-content">
-              <div className="cert-top">
+            <div className="cert-top-row">
+              <div className="cert-icon-wrapper">
+                <Medal size={24} className="cert-icon" />
+              </div>
+              <div className="cert-top-meta">
                 <span className="cert-issuer">{cert.issuer}</span>
                 <span className="cert-date">{cert.date}</span>
               </div>
+            </div>
+
+            <div className="cert-content">
               <h3>{cert.title}</h3>
               {cert.kicker && (
                 <p className="cert-kicker">
                   {cert.kicker} {cert.certId && <span className="cert-id">• {cert.certId}</span>}
                 </p>
               )}
+
+              {/* Certificate Image Thumbnail Preview */}
+              {cert.image && (
+                <div
+                  className="cert-img-thumb"
+                  onClick={() => setSelectedImage({ title: cert.title, img: cert.image })}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`View certificate image for ${cert.title}`}
+                >
+                  <img src={cert.image} alt={`${cert.title} certificate`} loading="lazy" />
+                  <div className="thumb-overlay">
+                    <Eye size={18} />
+                    <span>View Certificate</span>
+                  </div>
+                </div>
+              )}
+
               <div className="cert-skills">
                 {cert.skills.map((s) => <span key={s}>{s}</span>)}
               </div>
             </div>
-            <a href={cert.credentialUrl} target="_blank" rel="noopener noreferrer" className="cert-link" aria-label={`View credential for ${cert.title}`}>
-              <ExternalLink size={18} />
-            </a>
+
+            <div className="cert-card-footer">
+              {cert.image ? (
+                <button
+                  type="button"
+                  className="cert-view-btn"
+                  onClick={() => setSelectedImage({ title: cert.title, img: cert.image })}
+                >
+                  <Eye size={15} /> View Image
+                </button>
+              ) : (
+                <a href={cert.credentialUrl} target="_blank" rel="noopener noreferrer" className="cert-link" aria-label={`View credential for ${cert.title}`}>
+                  <ExternalLink size={18} />
+                </a>
+              )}
+            </div>
           </motion.article>
         ))}
       </div>
+
+      {/* Lightbox Modal for Certificate Image */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            className="cert-modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+          >
+            <motion.div
+              className="cert-modal-content"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="cert-modal-header">
+                <h3>{selectedImage.title}</h3>
+                <button type="button" onClick={() => setSelectedImage(null)} className="cert-modal-close" aria-label="Close modal">
+                  <X size={20} />
+                </button>
+              </div>
+              <div className="cert-modal-body">
+                <img src={selectedImage.img} alt={selectedImage.title} />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
