@@ -963,10 +963,76 @@ em {
   text-transform: uppercase;
 }
 
+.project-hero-img {
+  width: 80%;
+  max-height: 240px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.5));
+  transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-hero-img {
+  transform: scale(1.05);
+}
+
+.project-key-features {
+  margin: 12px 0 16px;
+  padding: 12px 14px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.project-key-features strong {
+  font: 500 11px 'DM Mono', monospace;
+  color: #c4b5fd;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.project-key-features ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.project-key-features li {
+  font: 400 12px 'Inter', sans-serif;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
 .project-action-buttons {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-project-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0 !important;
+  font: 500 11px 'DM Mono', monospace;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-project-github:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #ffffff !important;
+  transform: translateY(-2px);
 }
 
 .btn-project-live {

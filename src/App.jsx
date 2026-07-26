@@ -9,6 +9,12 @@ const projects = [
     kicker: 'AI-Powered Smart Attendance Platform (Startup Project)',
     problem: 'Manual attendance in institutions wastes 45+ minutes daily and suffers from proxy errors.',
     solution: 'Engineered an AI automated smart attendance system with facial recognition, real-time analytics & automated reporting.',
+    keyFeatures: [
+      'Facial recognition attendance verification engine',
+      'Real-time attendance analytics & institutional charts',
+      'Automated parent/admin notifications for low attendance',
+      'Secure multi-role dashboard for students, faculty & admins'
+    ],
     impact: 'Active Startup Portal ⚡',
     description: 'Currently co-engineering an intelligent, automated attendance management portal with a startup team. IntelliAttend leverages AI algorithms to streamline attendance tracking, real-time analytics, and automated reporting for institutions.',
     result: 'Active Startup ⚡',
@@ -25,10 +31,16 @@ const projects = [
     kicker: 'AI Brand Automation Platform',
     problem: 'Early-stage founders spend weeks and thousands of dollars generating startup brand assets.',
     solution: 'Architected a Generative AI suite powered by LLM pipelines & prompt engineering to generate complete brand kits instantly.',
+    keyFeatures: [
+      'Generative AI logo & brand identity engine',
+      'LLM prompt engineering for marketing copy & taglines',
+      'Automated color palette & typography kit generator',
+      'Instant vector SVG & PDF asset export'
+    ],
     impact: 'Instant 0 → Identity',
     description: 'Built an AI-powered branding suite that generates logos, brand names, and marketing content, leveraging LLM APIs and generative AI models to automate brand identity creation for startups.',
     result: '0 → identity',
-    tags: ['React', 'Python', 'HTML', 'CSS', 'FastAPI', 'Vercel', 'Supabase'],
+    tags: ['React', 'Python', 'LLMs', 'LangChain', 'FastAPI', 'Vercel', 'Supabase'],
     tone: 'cyan',
     icon: Sparkles,
     url: 'https://github.com/Rahulbariki/brand-automation',
@@ -40,10 +52,16 @@ const projects = [
     kicker: 'Smart Campus Event Management',
     problem: 'Fragmented college notices across WhatsApp groups and boards lead to missed event opportunities.',
     solution: 'Built a centralized intelligence portal unifying campus event discovery, instant registration, and automated alerts.',
+    keyFeatures: [
+      'Centralized event discovery & smart filtering',
+      'One-click student event registrations & QR entry tickets',
+      'Multi-department announcement aggregation engine',
+      'Real-time student participation analytics'
+    ],
     impact: 'Unified Campus Intelligence',
     description: 'CampusPulse is a smart campus event management platform designed to solve the problem of students missing important college events due to scattered information across multiple platforms such as WhatsApp groups, notice boards, emails, and social media.',
     result: 'Events → Unified',
-    tags: ['React', 'HTML', 'CSS', 'Python', 'FastAPI', 'Node.js', 'Express.js', 'PostgreSQL'],
+    tags: ['React', 'Node.js', 'Express.js', 'Python', 'FastAPI', 'PostgreSQL', 'Tailwind'],
     tone: 'violet',
     icon: Layers3,
     url: 'https://github.com/Rahulbariki/campus-achievement-intelligence',
@@ -55,6 +73,12 @@ const projects = [
     kicker: 'College Search & Discovery Portal',
     problem: 'Prospective students lack a streamlined portal to compare engineering college metrics and brochures.',
     solution: 'Developed an intuitive college discovery search engine with side-by-side brochure comparison.',
+    keyFeatures: [
+      'Comprehensive engineering college database search',
+      'Side-by-side college metrics & cutoff score comparison',
+      'Interactive digital brochure PDF preview engine',
+      'Presented live on auditorium stage before 300+ students'
+    ],
     impact: 'Presented Live on Stage 🏆',
     description: 'Designed and developed a user-friendly web platform that lists colleges and their detailed brochures, enabling students to easily search and compare college information. Built during the "Building Blocks of the Web" workshop and presented live on stage.',
     result: 'Search → Compare',
@@ -69,26 +93,32 @@ const projects = [
   },
 ]
 
-const technicalSkills = {
-  languages: ['Python', 'C', 'C++', 'HTML5', 'CSS3', 'JavaScript'],
-  technologies: [
-    'Generative AI',
-    'AI Engineering',
-    'Artificial Intelligence',
-    'Machine Learning',
-    'Natural Language Processing (NLP)',
-    'AI Agents',
-    'UI/UX Design',
-    'User Experience & Wireframing',
-    'Web Development',
-    'API Integration',
-    'Chatbot Development',
-    'Automation Systems',
-    'Prompt Engineering',
-  ],
-  tools: ['Git', 'GitHub', 'VS Code', 'Antigravity', 'PowerBI', 'Supabase', 'FastAPI', 'Vercel', 'UI/UX Tools'],
-  softSkills: ['Real-Time Problem Solving', 'Technical Presentation', 'UI/UX Design Thinking'],
-}
+const skillGroups = [
+  {
+    category: 'AI & ML',
+    icon: BrainCircuit,
+    skills: ['Python', 'LLMs', 'LangChain', 'OpenAI', 'Prompt Engineering', 'TensorFlow Foundations', 'NLP Systems', 'AI Agents'],
+    tone: 'violet',
+  },
+  {
+    category: 'Frontend',
+    icon: Layers3,
+    skills: ['React', 'Next.js', 'Tailwind CSS', 'HTML5', 'CSS3', 'JavaScript', 'Figma / UI-UX'],
+    tone: 'cyan',
+  },
+  {
+    category: 'Backend',
+    icon: Terminal,
+    skills: ['FastAPI', 'Node.js', 'Express.js', 'Supabase', 'PostgreSQL', 'REST APIs'],
+    tone: 'lime',
+  },
+  {
+    category: 'Cloud & DevOps',
+    icon: Cpu,
+    skills: ['Azure', 'AWS', 'Docker', 'Vercel', 'Git & GitHub', 'CI/CD Pipelines'],
+    tone: 'cyan',
+  },
+]
 
 const capabilities = [
   { icon: BrainCircuit, title: 'Generative AI Engineering', text: 'Architecting intelligent AI agents, prompt engineering pipelines, LLM workflows, and multi-step generative automation.' },
@@ -719,7 +749,7 @@ function Manifesto() {
   )
 }
 
-function ProjectCard({ project }) {
+function ProjectCard({ project, onSelectImage }) {
   const Icon = project.icon
   const cardRef = useRef(null)
   const x = useMotionValue(0)
@@ -751,7 +781,11 @@ function ProjectCard({ project }) {
         <div className="visual-ring ring-a" />
         <div className="visual-ring ring-b" />
         <div className="visual-grid" />
-        <Icon className="visual-icon" />
+        {project.image ? (
+          <img src={project.image} alt={project.title} className="project-hero-img" loading="lazy" />
+        ) : (
+          <Icon className="visual-icon" />
+        )}
         <span>{project.result}</span>
       </div>
       <div className="project-copy">
@@ -771,17 +805,44 @@ function ProjectCard({ project }) {
           </div>
         )}
 
+        {/* Key Features List */}
+        {project.keyFeatures && (
+          <div className="project-key-features">
+            <strong>Key Features:</strong>
+            <ul>
+              {project.keyFeatures.map((feat) => (
+                <li key={feat}>✓ {feat}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <div className="project-footer">
           <div className="project-footer-top">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
           <div className="project-action-buttons">
             {project.liveUrl && (
-              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn-project-live" aria-label={`View Live Application for ${project.title}`}>
+              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn-project-live" aria-label={`View Live Demo for ${project.title}`}>
                 <span>Live Demo</span> <ExternalLink size={14} />
               </a>
             )}
             <a href={project.url} target="_blank" rel="noopener noreferrer" className="btn-project-github" aria-label={`View ${project.title} Source Code on GitHub`}>
-              <Github size={16} />
+              <Github size={16} /> <span>GitHub</span>
             </a>
+            {project.image && (
+              <button
+                type="button"
+                className="btn-project-live cert-news-btn"
+                onClick={() => onSelectImage({
+                  title: project.title,
+                  img: project.image,
+                  imgTitle: `${project.title} Case Study & Architecture`,
+                  newsImg: project.stageImage,
+                  newsTitle: project.stageTitle
+                })}
+              >
+                <span>Case Study</span> <Eye size={14} />
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -789,7 +850,7 @@ function ProjectCard({ project }) {
   )
 }
 
-function Work() {
+function Work({ onSelectImage }) {
   return (
     <section className="work section-shell" id="work">
       <div className="section-heading">
@@ -797,7 +858,9 @@ function Work() {
         <h2>Work that moves<br /><em>ideas forward.</em></h2>
       </div>
       <div className="project-grid">
-        {projects.map((project) => <ProjectCard project={project} key={project.title} />)}
+        {projects.map((project) => (
+          <ProjectCard project={project} onSelectImage={onSelectImage} key={project.title} />
+        ))}
       </div>
     </section>
   )
@@ -825,41 +888,23 @@ function Capabilities() {
 
       {/* Categorized Skill Badges Matrix */}
       <div className="skills-matrix-container">
-        <div className="skill-cat-card">
-          <div className="skill-cat-header">
-            <Terminal size={18} /> <h3>Programming Languages & Core</h3>
-          </div>
-          <div className="skill-tags">
-            {technicalSkills.languages.map((s) => <span key={s} className="skill-tag lang">{s}</span>)}
-          </div>
-        </div>
-
-        <div className="skill-cat-card">
-          <div className="skill-cat-header">
-            <BrainCircuit size={18} /> <h3>AI, GenAI & Machine Learning</h3>
-          </div>
-          <div className="skill-tags">
-            {technicalSkills.technologies.map((s) => <span key={s} className="skill-tag tech">{s}</span>)}
-          </div>
-        </div>
-
-        <div className="skill-cat-card">
-          <div className="skill-cat-header">
-            <Wrench size={18} /> <h3>Tools & Frameworks</h3>
-          </div>
-          <div className="skill-tags">
-            {technicalSkills.tools.map((s) => <span key={s} className="skill-tag tool">{s}</span>)}
-          </div>
-        </div>
-
-        <div className="skill-cat-card">
-          <div className="skill-cat-header">
-            <Sparkles size={18} /> <h3>Soft Skills & Strengths</h3>
-          </div>
-          <div className="skill-tags">
-            {technicalSkills.softSkills.map((s) => <span key={s} className="skill-tag soft">{s}</span>)}
-          </div>
-        </div>
+        {skillGroups.map((group) => {
+          const Icon = group.icon
+          return (
+            <div className={`skill-cat-card ${group.tone}`} key={group.category}>
+              <div className="skill-cat-header">
+                <Icon size={20} /> <h3>{group.category}</h3>
+              </div>
+              <div className="skill-tags">
+                {group.skills.map((s) => (
+                  <span key={s} className="skill-tag tech">
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )
+        })}
       </div>
 
       <div className="ticker" aria-hidden="true">
@@ -1300,7 +1345,7 @@ export function App() {
       <main>
         <Hero />
         <Manifesto />
-        <Work />
+        <Work onSelectImage={setSelectedImage} />
         <Capabilities />
         <Experience />
         <Achievements onSelectImage={setSelectedImage} />
