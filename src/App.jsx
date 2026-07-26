@@ -5,6 +5,19 @@ import { ArrowDown, ArrowUpRight, Award, BrainCircuit, Calendar, Camera, Code2, 
 const projects = [
   {
     number: '01',
+    title: 'IntelliAttend',
+    kicker: 'AI-Powered Smart Attendance Platform (Startup Project)',
+    description: 'Currently co-engineering an intelligent, automated attendance management portal with a startup team. IntelliAttend leverages AI algorithms to streamline attendance tracking, real-time analytics, and automated reporting for institutions.',
+    result: 'Active Startup ⚡',
+    tags: ['AI Intelligence', 'React', 'Python', 'FastAPI', 'Full-Stack', 'Active Startup'],
+    tone: 'lime',
+    icon: BrainCircuit,
+    image: '/assets/intelliattend-logo.png',
+    url: 'https://dashboard.intelliattend.app/login',
+    liveUrl: 'https://dashboard.intelliattend.app/login',
+  },
+  {
+    number: '02',
     title: 'BrandNova',
     kicker: 'AI Brand Automation Platform',
     description: 'Built an AI-powered branding suite that generates logos, brand names, and marketing content, leveraging LLM APIs and generative AI models to automate brand identity creation for startups.',
@@ -16,7 +29,7 @@ const projects = [
     liveUrl: 'https://brandnova-brand-automation.vercel.app/',
   },
   {
-    number: '02',
+    number: '03',
     title: 'CampusPulse',
     kicker: 'Smart Campus Event Management',
     description: 'CampusPulse is a smart campus event management platform designed to solve the problem of students missing important college events due to scattered information across multiple platforms such as WhatsApp groups, notice boards, emails, and social media.',
@@ -28,7 +41,7 @@ const projects = [
     liveUrl: 'https://srec-community.vercel.app/',
   },
   {
-    number: '03',
+    number: '04',
     title: 'SHOWLINK',
     kicker: 'College Search & Discovery Portal',
     description: 'Designed and developed a user-friendly web platform that lists colleges and their detailed brochures, enabling students to easily search and compare college information. Built during the "Building Blocks of the Web" workshop and presented live on stage.',
@@ -408,6 +421,7 @@ const educationList = [
 ]
 
 const experiences = [
+  { period: 'Present (Active Startup)', company: 'IntelliAttend Startup Team', role: 'AI Software Engineer & Co-Developer', text: 'Co-engineering IntelliAttend (dashboard.intelliattend.app/login), an AI-driven smart attendance intelligence & real-time analytics platform for modern educational institutions.' },
   { period: 'Feb 2025 — Feb 2027', company: 'IEEE Student Branch — Santhiram Engg. College (E25)', role: 'Secretary', text: 'Appointed as Secretary for IEEE Student Branch (E25) at Santhiram Engineering College, leading technical events, student initiatives, and managing branch operations.' },
   { period: 'Jan 2024 — Mar 2024', company: 'Google AI-ML Virtual Internship', role: 'AI / Machine Learning Intern', text: 'Studied end-to-end machine learning workflows, model development, and practical AI foundations.' },
   { period: '2024', company: 'Zcalar AI Internship', role: 'AI Developer Intern', text: 'Developed intelligent chatbot systems and explored useful, product-focused NLP experiences.' },
