@@ -1686,6 +1686,7 @@ em {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: visible;
 }
 
 .contact-glow {
@@ -1700,9 +1701,13 @@ em {
   pointer-events: none;
 }
 
+.contact .section-heading {
+  margin-bottom: 0;
+}
+
 .contact h2 {
   position: relative;
-  margin: 55px 0 30px;
+  margin: 35px 0 20px;
   font-size: clamp(64px, 11vw, 180px);
   line-height: .82;
   letter-spacing: -.095em;
@@ -1968,7 +1973,7 @@ footer a:hover {
   justify-content: center;
   flex-wrap: wrap;
   width: min(100%, 760px);
-  margin: 50px auto 40px;
+  margin: 30px auto 30px;
 }
 
 .contact-actions-row .contact-cta {
@@ -2268,7 +2273,7 @@ footer a:hover {
     font-size: 13px;
   }
 
-  .contact h2 {
+.contact h2 {
     font-size: clamp(36px, 10vw, 56px);
   }
 
