@@ -7,6 +7,9 @@ const projects = [
     number: '01',
     title: 'IntelliAttend',
     kicker: 'AI-Powered Smart Attendance Platform (Startup Project)',
+    problem: 'Manual attendance in institutions wastes 45+ minutes daily and suffers from proxy errors.',
+    solution: 'Engineered an AI automated smart attendance system with facial recognition, real-time analytics & automated reporting.',
+    impact: 'Active Startup Portal ⚡',
     description: 'Currently co-engineering an intelligent, automated attendance management portal with a startup team. IntelliAttend leverages AI algorithms to streamline attendance tracking, real-time analytics, and automated reporting for institutions.',
     result: 'Active Startup ⚡',
     tags: ['AI Intelligence', 'React', 'Python', 'FastAPI', 'Full-Stack', 'Active Startup'],
@@ -20,6 +23,9 @@ const projects = [
     number: '02',
     title: 'BrandNova',
     kicker: 'AI Brand Automation Platform',
+    problem: 'Early-stage founders spend weeks and thousands of dollars generating startup brand assets.',
+    solution: 'Architected a Generative AI suite powered by LLM pipelines & prompt engineering to generate complete brand kits instantly.',
+    impact: 'Instant 0 → Identity',
     description: 'Built an AI-powered branding suite that generates logos, brand names, and marketing content, leveraging LLM APIs and generative AI models to automate brand identity creation for startups.',
     result: '0 → identity',
     tags: ['React', 'Python', 'HTML', 'CSS', 'FastAPI', 'Vercel', 'Supabase'],
@@ -32,6 +38,9 @@ const projects = [
     number: '03',
     title: 'CampusPulse',
     kicker: 'Smart Campus Event Management',
+    problem: 'Fragmented college notices across WhatsApp groups and boards lead to missed event opportunities.',
+    solution: 'Built a centralized intelligence portal unifying campus event discovery, instant registration, and automated alerts.',
+    impact: 'Unified Campus Intelligence',
     description: 'CampusPulse is a smart campus event management platform designed to solve the problem of students missing important college events due to scattered information across multiple platforms such as WhatsApp groups, notice boards, emails, and social media.',
     result: 'Events → Unified',
     tags: ['React', 'HTML', 'CSS', 'Python', 'FastAPI', 'Node.js', 'Express.js', 'PostgreSQL'],
@@ -44,6 +53,9 @@ const projects = [
     number: '04',
     title: 'SHOWLINK',
     kicker: 'College Search & Discovery Portal',
+    problem: 'Prospective students lack a streamlined portal to compare engineering college metrics and brochures.',
+    solution: 'Developed an intuitive college discovery search engine with side-by-side brochure comparison.',
+    impact: 'Presented Live on Stage 🏆',
     description: 'Designed and developed a user-friendly web platform that lists colleges and their detailed brochures, enabling students to easily search and compare college information. Built during the "Building Blocks of the Web" workshop and presented live on stage.',
     result: 'Search → Compare',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'Workshop Built', 'Live Presented'],
@@ -743,15 +755,28 @@ function ProjectCard({ project }) {
         <span>{project.result}</span>
       </div>
       <div className="project-copy">
-        <p>{project.kicker}</p>
+        <p className="project-kicker">{project.kicker}</p>
         <h3>{project.title}</h3>
-        <p>{project.description}</p>
+        <p className="project-desc">{project.description}</p>
+
+        {/* Strong Case Study Breakdown */}
+        {project.problem && (
+          <div className="project-case-study">
+            <div className="cs-item cs-problem">
+              <strong>The Problem:</strong> <span>{project.problem}</span>
+            </div>
+            <div className="cs-item cs-solution">
+              <strong>AI Solution:</strong> <span>{project.solution}</span>
+            </div>
+          </div>
+        )}
+
         <div className="project-footer">
           <div className="project-footer-top">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
           <div className="project-action-buttons">
             {project.liveUrl && (
               <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn-project-live" aria-label={`View Live Application for ${project.title}`}>
-                <span>Live Project</span> <ExternalLink size={14} />
+                <span>Live Demo</span> <ExternalLink size={14} />
               </a>
             )}
             <a href={project.url} target="_blank" rel="noopener noreferrer" className="btn-project-github" aria-label={`View ${project.title} Source Code on GitHub`}>
