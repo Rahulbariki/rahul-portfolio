@@ -47,6 +47,20 @@ const capabilities = [
 
 const hackathons = [
   {
+    title: 'DEFEND-X National Technical Symposium (RIPPLE 2K26)',
+    organizer: 'Dept of CSE (Cyber Security), RGMCET',
+    date: 'Mar 9 — Mar 10, 2026',
+    role: '2nd Prize Winner — Prompt Engineering 🥈',
+    award: '2nd Prize Winner 🥈 (Cash Prize & Medal)',
+    description: 'Secured 2nd Prize in the Prompt Engineering competition at DEFEND-X (RIPPLE 2K26), competing against top engineering students. Awarded Certificate of Merit, cash prize, on-stage recognition, and featured in Major News Telugu newspaper press.',
+    tags: ['Prompt Engineering', 'DEFEND-X', 'RGMCET', '2nd Prize Winner', 'Press Featured'],
+    image: '/assets/cert-defendx-prompt-engineering.jpg',
+    newsImage: '/assets/news-defendx-prompt-engineering.jpg',
+    stageImage: '/assets/photo-defendx-stage-award.jpg',
+    secImage: '/assets/photo-defendx-sec-felicitation.jpg',
+    tone: 'lime',
+  },
+  {
     title: 'GenAI Forge Hackathon 2026',
     organizer: 'SmartBridge & NASSCOM FutureSkills Prime',
     date: 'Feb 11 — Feb 14, 2026',
@@ -56,7 +70,7 @@ const hackathons = [
     tags: ['GenAI Forge', 'SmartBridge', 'NASSCOM', '1st Runner Up', 'Press Featured'],
     image: '/assets/cert-genai-forge-hackathon-2026.png',
     newsImage: '/assets/news-genai-forge-hackathon-2026.jpg',
-    tone: 'lime',
+    tone: 'cyan',
   },
   {
     title: 'GenAI Innovation Hackathon',
@@ -66,7 +80,7 @@ const hackathons = [
     award: 'Featured Innovator',
     description: 'Built a generative AI automation system under 24 hours to accelerate startup branding workflows.',
     tags: ['GenAI', 'FastAPI', 'React'],
-    tone: 'cyan',
+    tone: 'violet',
   },
   {
     title: 'Smart Campus AI Challenge',
@@ -76,7 +90,7 @@ const hackathons = [
     award: 'Top Finalist',
     description: 'Engineered CampusPulse, a centralized event intelligence portal solving fragmented student communications.',
     tags: ['React', 'Node.js', 'PostgreSQL'],
-    tone: 'violet',
+    tone: 'cyan',
   },
 ]
 
@@ -242,6 +256,21 @@ const certifications = [
   // --- WINNINGS & AWARDS ---
   {
     category: 'winnings',
+    title: 'DEFEND-X National Symposium — 2nd Prize Winner',
+    kicker: 'Prompt Engineering Competition (Dept of CSE - Cyber Security, RGMCET)',
+    issuer: 'RGMCET (Autonomous)',
+    date: 'Mar 9 — 10, 2026',
+    certId: '2nd Prize & Cash Award 🥈',
+    skills: ['Prompt Engineering', 'AI Optimization', 'DEFEND-X Winner', 'Press Featured'],
+    image: '/assets/cert-defendx-prompt-engineering.jpg',
+    newsImage: '/assets/news-defendx-prompt-engineering.jpg',
+    stageImage: '/assets/photo-defendx-stage-award.jpg',
+    secImage: '/assets/photo-defendx-sec-felicitation.jpg',
+    credentialUrl: '/assets/cert-defendx-prompt-engineering.jpg',
+    tone: 'lime',
+  },
+  {
+    category: 'winnings',
     title: 'GenAI Forge Hackathon 2026 — 1st Runner Up',
     kicker: 'SmartBridge & NASSCOM FutureSkills Prime Winner',
     issuer: 'SmartBridge & NASSCOM',
@@ -251,7 +280,7 @@ const certifications = [
     image: '/assets/cert-genai-forge-hackathon-2026.png',
     newsImage: '/assets/news-genai-forge-hackathon-2026.jpg',
     credentialUrl: '/assets/cert-genai-forge-hackathon-2026.png',
-    tone: 'lime',
+    tone: 'cyan',
   },
   {
     category: 'winnings',
@@ -263,7 +292,7 @@ const certifications = [
     skills: ['GenAI Workflow', 'Rapid Prototyping', 'FastAPI'],
     image: null,
     credentialUrl: 'https://github.com/Rahulbariki',
-    tone: 'cyan',
+    tone: 'violet',
   },
   {
     category: 'winnings',
@@ -275,7 +304,7 @@ const certifications = [
     skills: ['CampusPulse Portal', 'Full Stack', 'Event Intelligence'],
     image: null,
     credentialUrl: 'https://github.com/Rahulbariki',
-    tone: 'violet',
+    tone: 'lime',
   },
 ]
 
@@ -670,7 +699,7 @@ function Hackathons({ onSelectImage }) {
               <div className="hack-preview-row">
                 <div
                   className="cert-img-thumb hack-thumb"
-                  onClick={() => onSelectImage({ title: item.title, img: item.image, newsImg: item.newsImage })}
+                  onClick={() => onSelectImage({ title: item.title, img: item.image, newsImg: item.newsImage, stageImg: item.stageImage, secImg: item.secImage })}
                   role="button"
                   tabIndex={0}
                   aria-label={`View award certificate for ${item.title}`}
@@ -685,7 +714,7 @@ function Hackathons({ onSelectImage }) {
                 {item.newsImage && (
                   <div
                     className="cert-img-thumb hack-thumb"
-                    onClick={() => onSelectImage({ title: `${item.title} — Press Feature`, img: item.newsImage })}
+                    onClick={() => onSelectImage({ title: `${item.title} — Press Feature`, img: item.newsImage, stageImg: item.stageImage, secImg: item.secImage })}
                     role="button"
                     tabIndex={0}
                     aria-label={`View newspaper press coverage for ${item.title}`}
@@ -773,7 +802,7 @@ function Certifications({ onSelectImage }) {
                   <div className="cert-img-thumb-container">
                     <div
                       className="cert-img-thumb"
-                      onClick={() => onSelectImage({ title: cert.title, img: cert.image, newsImg: cert.newsImage })}
+                      onClick={() => onSelectImage({ title: cert.title, img: cert.image, newsImg: cert.newsImage, stageImg: cert.stageImage, secImg: cert.secImage })}
                       role="button"
                       tabIndex={0}
                       aria-label={`View certificate image for ${cert.title}`}
@@ -788,7 +817,7 @@ function Certifications({ onSelectImage }) {
                     {cert.newsImage && (
                       <div
                         className="cert-img-thumb cert-news-thumb"
-                        onClick={() => onSelectImage({ title: `${cert.title} — Press Feature`, img: cert.newsImage })}
+                        onClick={() => onSelectImage({ title: `${cert.title} — Press Feature`, img: cert.newsImage, stageImg: cert.stageImage, secImg: cert.secImage })}
                         role="button"
                         tabIndex={0}
                         aria-label={`View press coverage for ${cert.title}`}
@@ -814,7 +843,7 @@ function Certifications({ onSelectImage }) {
                     <button
                       type="button"
                       className="cert-view-btn"
-                      onClick={() => onSelectImage({ title: cert.title, img: cert.image, newsImg: cert.newsImage })}
+                      onClick={() => onSelectImage({ title: cert.title, img: cert.image, newsImg: cert.newsImage, stageImg: cert.stageImage, secImg: cert.secImage })}
                     >
                       <Eye size={15} /> Certificate
                     </button>
@@ -822,7 +851,7 @@ function Certifications({ onSelectImage }) {
                       <button
                         type="button"
                         className="cert-view-btn cert-news-btn"
-                        onClick={() => onSelectImage({ title: `${cert.title} — Press Feature`, img: cert.newsImage })}
+                        onClick={() => onSelectImage({ title: `${cert.title} — Press Feature`, img: cert.newsImage, stageImg: cert.stageImage, secImg: cert.secImage })}
                       >
                         <Newspaper size={15} /> Press Feature
                       </button>
@@ -957,10 +986,25 @@ export function App() {
               </div>
               <div className="cert-modal-body">
                 <img src={selectedImage.img} alt={selectedImage.title} />
+
                 {selectedImage.newsImg && (
                   <div className="cert-modal-news-block">
-                    <h4>Nandi Patrika Press Coverage</h4>
-                    <img src={selectedImage.newsImg} alt={`${selectedImage.title} Nandi Patrika Press Coverage`} />
+                    <h4>Newspaper Press Feature</h4>
+                    <img src={selectedImage.newsImg} alt={`${selectedImage.title} Press Feature`} />
+                  </div>
+                )}
+
+                {selectedImage.stageImg && (
+                  <div className="cert-modal-news-block">
+                    <h4>On-Stage Award Presentation (RGMCET)</h4>
+                    <img src={selectedImage.stageImg} alt={`${selectedImage.title} On-Stage Award`} />
+                  </div>
+                )}
+
+                {selectedImage.secImg && (
+                  <div className="cert-modal-news-block">
+                    <h4>Santhiram Engineering College Principal Felicitation</h4>
+                    <img src={selectedImage.secImg} alt={`${selectedImage.title} SEC Felicitation`} />
                   </div>
                 )}
               </div>
