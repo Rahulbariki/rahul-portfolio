@@ -671,10 +671,12 @@ function Hero() {
             <div className="portrait-glow" />
             <div className="portrait-border-ring" />
             <img src="/assets/rahul-profile.png" alt="Rahul Bariki - Gen-AI Engineer & UI/UX Designer" loading="eager" />
-            
-            <motion.span className="hero-float-tag tag-ai" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.9 }}>GEN-AI ENGINEER</motion.span>
-            <motion.span className="hero-float-tag tag-cv" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.05 }}>UI/UX DESIGNER</motion.span>
-            <motion.span className="hero-float-tag tag-eng" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.2 }}>REAL-TIME SOLUTIONS</motion.span>
+          </div>
+
+          <div className="portrait-sub-tags">
+            <span>GEN-AI ENGINEER</span>
+            <span>UI/UX DESIGNER</span>
+            <span>REAL-TIME SOLUTIONS</span>
           </div>
         </motion.div>
       </div>

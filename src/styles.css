@@ -431,38 +431,38 @@ main {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
 
-/* Floating tags relative to portrait frame */
-.portrait-frame .hero-float-tag {
-  position: absolute;
-  z-index: 10;
-  white-space: nowrap;
-  padding: 6px 14px;
-  border: 1px solid rgba(167, 139, 250, 0.4);
-  border-radius: 100px;
-  background: rgba(10, 10, 15, 0.88);
-  backdrop-filter: blur(12px);
+.hero-portrait-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.portrait-sub-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 380px;
+  z-index: 5;
+}
+
+.portrait-sub-tags span {
   font: 500 10px 'DM Mono', monospace;
   letter-spacing: 0.08em;
+  padding: 7px 16px;
+  border-radius: 100px;
+  background: rgba(167, 139, 250, 0.12);
+  border: 1px solid rgba(167, 139, 250, 0.35);
   color: #c4b5fd;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(124, 58, 237, 0.25);
-  pointer-events: none;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-.tag-ai {
-  top: 2%;
-  left: -28px;
-}
-
-.tag-cv {
-  top: 50%;
-  right: -36px;
-  transform: translateY(-50%);
-}
-
-.tag-eng {
-  bottom: -18px;
-  left: 50%;
-  transform: translateX(-50%);
+.portrait-sub-tags span:hover {
+  transform: translateY(-2px);
+  border-color: rgba(167, 139, 250, 0.6);
 }
 
 /* CTA buttons */
