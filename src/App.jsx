@@ -799,7 +799,7 @@ function HeroTerminal() {
   )
 }
 
-function Hero() {
+function Hero({ onOpenResume }) {
   const { scrollYProgress } = useScroll()
   const y = useTransform(scrollYProgress, [0, 0.2], [0, 40])
   const opacity = useTransform(scrollYProgress, [0, 0.16], [1, 0])
@@ -843,11 +843,19 @@ function Hero() {
           {/* Interactive AI Agent Live Terminal Widget */}
           <HeroTerminal />
 
-          {/* User Requested 3 Action Buttons */}
+          {/* User Requested Action Buttons */}
           <div className="hero-actions">
             <a href="#work" className="hero-cta-primary">
               View Projects <ArrowUpRight />
             </a>
+            <button
+              type="button"
+              className="hero-cta-secondary hero-cta-view"
+              onClick={onOpenResume}
+              aria-label="View Interactive Resume of Rahul Bariki"
+            >
+              <Eye size={15} /> View Resume
+            </button>
             <a 
               href="/assets/Rahul_Bariki_Resume.pdf" 
               className="hero-cta-secondary"
@@ -856,7 +864,7 @@ function Hero() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <ArrowDown size={15} /> Download Resume
+              <ArrowDown size={15} /> Download PDF
             </a>
             <a href="#contact" className="hero-cta-secondary hero-cta-outline">
               <Mail size={15} /> Contact Me
@@ -1623,7 +1631,7 @@ function FAQAccordion() {
   )
 }
 
-function Contact() {
+function Contact({ onOpenResume }) {
   return (
     <section className="contact section-shell" id="contact">
       <div className="contact-glow" />
@@ -1639,6 +1647,9 @@ function Contact() {
         <a href="tel:+916281769623" className="contact-cta contact-cta-phone">
           <span>+91 62817 69623</span> <Phone size={20} />
         </a>
+        <button type="button" className="contact-cta contact-cta-resume" onClick={onOpenResume}>
+          <span>View Resume</span> <Eye size={20} />
+        </button>
       </div>
 
       <div className="social-row">
@@ -1652,7 +1663,7 @@ function Contact() {
           <Mail size={14} /> Email
         </a>
         <a href="/assets/Rahul_Bariki_Resume.pdf" download="Rahul_Bariki_Resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Download Resume of Rahul Bariki">
-          <ArrowDown size={14} /> Resume PDF
+          <ArrowDown size={14} /> Download PDF
         </a>
       </div>
 
@@ -1664,9 +1675,217 @@ function Contact() {
   )
 }
 
+function ResumeModal({ open, onClose }) {
+  useEffect(() => {
+    if (!open) return undefined
+    const handleKeyDown = (e) => { if (e.key === 'Escape') onClose() }
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.body.style.overflow = prevOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [open, onClose])
+
+  if (!open) return null
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        className="resume-modal-backdrop"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+      >
+        <motion.div
+          className="resume-modal-card"
+          initial={{ scale: 0.92, opacity: 0, y: 20 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          exit={{ scale: 0.92, opacity: 0, y: 20 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="resume-modal-header">
+            <div className="resume-header-title">
+              <span className="dot-cyan" />
+              <h3>Rahul Bariki's Resume</h3>
+            </div>
+            <div className="resume-header-actions">
+              <a
+                href="/assets/Rahul_Bariki_Resume.pdf"
+                download="Rahul_Bariki_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-resume-download"
+              >
+                Download PDF <ArrowDown size={14} />
+              </a>
+              <button type="button" onClick={onClose} className="btn-resume-close" aria-label="Close preview">
+                <X size={18} />
+              </button>
+            </div>
+          </div>
+
+          <div className="resume-modal-body">
+            {/* Left Sidebar */}
+            <div className="resume-sidebar">
+              <div className="resume-profile-block">
+                <h2>Rahul Bariki</h2>
+                <p className="resume-subtitle">Generative AI & AI Automation Developer</p>
+                <div className="resume-contact-list">
+                  <div><Mail size={13} /> <span>rahulbariki24@gmail.com</span></div>
+                  <div><Phone size={13} /> <span>+91 62817 69623</span></div>
+                  <div><MapPin size={13} /> <span>Nandyal, AP, India</span></div>
+                  <div><Linkedin size={13} /> <span>linkedin.com/in/rahulbariki24</span></div>
+                  <div><Github size={13} /> <span>github.com/rahulbariki</span></div>
+                </div>
+              </div>
+
+              <div className="resume-section-block">
+                <h4>SKILLS</h4>
+                <div className="resume-skills-pills">
+                  <span>Python</span>
+                  <span>Generative AI</span>
+                  <span>AI Agents</span>
+                  <span>Prompt Eng.</span>
+                  <span>FastAPI</span>
+                  <span>React.js</span>
+                  <span>LLMs</span>
+                  <span>LangChain</span>
+                  <span>Node.js</span>
+                  <span>PostgreSQL</span>
+                  <span>Supabase</span>
+                  <span>Docker</span>
+                  <span>AWS</span>
+                  <span>Azure</span>
+                </div>
+              </div>
+
+              <div className="resume-section-block">
+                <h4>CERTIFICATIONS</h4>
+                <ul className="resume-cert-list">
+                  <li>AWS Academy Data Engineering</li>
+                  <li>Zscaler Cybersecurity Fundamentals</li>
+                  <li>IEEE Student Branch Secretary</li>
+                  <li>Google AI-ML Virtual Internship</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Right Content */}
+            <div className="resume-content-main">
+              <div className="resume-content-section">
+                <h3>Projects</h3>
+                <div className="resume-card-grid">
+                  <div className="resume-item-card">
+                    <div className="resume-card-top">
+                      <h4>IntelliAttend</h4>
+                      <span className="year-badge">2026</span>
+                    </div>
+                    <p className="resume-kicker">AI-POWERED SMART ATTENDANCE PLATFORM (STARTUP)</p>
+                    <p className="resume-desc">
+                      Co-engineering an enterprise-grade automated attendance management engine leveraging Computer Vision facial recognition, real-time analytics dashboards, and fraud-prevention systems.
+                    </p>
+                  </div>
+
+                  <div className="resume-item-card">
+                    <div className="resume-card-top">
+                      <h4>BrandNova</h4>
+                      <span className="year-badge">2026</span>
+                    </div>
+                    <p className="resume-kicker">AI BRAND AUTOMATION PLATFORM</p>
+                    <p className="resume-desc">
+                      Architected a Generative AI suite powered by LLM prompt engineering pipelines and vector SVG asset generators to automate complete brand identity creation for startups.
+                    </p>
+                  </div>
+
+                  <div className="resume-item-card">
+                    <div className="resume-card-top">
+                      <h4>CampusPulse</h4>
+                      <span className="year-badge">2025</span>
+                    </div>
+                    <p className="resume-kicker">SMART CAMPUS EVENT MANAGEMENT</p>
+                    <p className="resume-desc">
+                      Built a centralized campus intelligence portal unifying multi-department event discovery, one-click student registrations, QR tickets, and real-time participation analytics.
+                    </p>
+                  </div>
+
+                  <div className="resume-item-card">
+                    <div className="resume-card-top">
+                      <h4>SHOWLINK</h4>
+                      <span className="year-badge">2024</span>
+                    </div>
+                    <p className="resume-kicker">COLLEGE SEARCH & DISCOVERY PORTAL</p>
+                    <p className="resume-desc">
+                      Developed a college brochure discovery search engine with side-by-side metrics comparison. Presented live on auditorium stage before 300+ students.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="resume-content-section">
+                <h3>Education</h3>
+                <div className="resume-card-grid">
+                  <div className="resume-item-card">
+                    <div className="resume-card-top">
+                      <h4>Santhiram Engineering College, Nandyal</h4>
+                      <span className="year-badge">2023 - 2027</span>
+                    </div>
+                    <p className="resume-kicker">B.TECH. IN CSE - ARTIFICIAL INTELLIGENCE & MACHINE LEARNING (8.46 CGPA)</p>
+                  </div>
+
+                  <div className="resume-item-card">
+                    <div className="resume-card-top">
+                      <h4>Narayana Junior College, Nandyal</h4>
+                      <span className="year-badge">2021 - 2023</span>
+                    </div>
+                    <p className="resume-kicker">INTERMEDIATE MPC (79% SCORE | JEE MAINS RANK: 58055)</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="resume-content-section">
+                <h3>Achievements & Competitions</h3>
+                <div className="resume-card-grid">
+                  <div className="resume-item-card">
+                    <div className="resume-card-top">
+                      <h4>GenAI Forge Hackathon (NASSCOM / SmartBridge)</h4>
+                      <span className="year-badge">2026</span>
+                    </div>
+                    <p className="resume-kicker">1ST RUNNER UP WINNER 🏆</p>
+                  </div>
+
+                  <div className="resume-item-card">
+                    <div className="resume-card-top">
+                      <h4>DEFEND-X National Technical Symposium</h4>
+                      <span className="year-badge">2026</span>
+                    </div>
+                    <p className="resume-kicker">2ND PRIZE WINNER — PROMPT ENGINEERING 🥈</p>
+                  </div>
+
+                  <div className="resume-item-card">
+                    <div className="resume-card-top">
+                      <h4>14th National Technical Symposium (EMINENCE-SIGMA)</h4>
+                      <span className="year-badge">2025</span>
+                    </div>
+                    <p className="resume-kicker">3RD PRIZE WINNER — CHALLENGE AI 🥉</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  )
+}
+
 export function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [loaded, setLoaded] = useState(false)
+  const [resumeOpen, setResumeOpen] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -1729,7 +1948,7 @@ export function App() {
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} theme={theme} onToggleTheme={toggleTheme} />
       <main>
         <CurrentlyBuildingBanner />
-        <Hero />
+        <Hero onOpenResume={() => setResumeOpen(true)} />
         <Manifesto />
         <section className="work section-shell" id="work">
           <div className="section-heading">
@@ -1816,8 +2035,11 @@ export function App() {
         <Education />
         <TechnicalBlog />
         <FAQAccordion />
-        <Contact />
+        <Contact onOpenResume={() => setResumeOpen(true)} />
       </main>
+
+      {/* Interactive Resume Modal */}
+      <ResumeModal open={resumeOpen} onClose={() => setResumeOpen(false)} />
 
       {/* Global Lightbox Modal for Certificate & Media Images */}
       <AnimatePresence>
