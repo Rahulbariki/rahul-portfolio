@@ -1709,7 +1709,7 @@ function ResumeModal({ open, onClose }) {
         >
           <div className="resume-modal-header">
             <div className="resume-header-title">
-              <span className="dot-cyan" />
+              <span className="dot-purple" />
               <h3>Rahul Bariki's Resume</h3>
             </div>
             <div className="resume-header-actions">

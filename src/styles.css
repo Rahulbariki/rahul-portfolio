@@ -3806,14 +3806,14 @@ footer a:hover {
 }
 
 /* ==========================================================================
-   INTERACTIVE RESUME PREVIEW MODAL STYLES (MATCHING USER REFERENCE UI)
+   INTERACTIVE RESUME PREVIEW MODAL STYLES (PURPLE/BLACK & PURPLE/WHITE THEME)
    ========================================================================== */
 .resume-modal-backdrop {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(10, 15, 26, 0.85);
-  backdrop-filter: blur(12px);
+  background: rgba(7, 9, 15, 0.88);
+  backdrop-filter: blur(14px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3825,18 +3825,18 @@ footer a:hover {
   max-width: 95vw;
   height: 85vh;
   max-height: 850px;
-  background: #141f2e;
-  border: 1px solid rgba(56, 189, 248, 0.25);
+  background: #0d0f18;
+  border: 1px solid rgba(167, 139, 250, 0.25);
   border-radius: 18px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7), 0 0 30px rgba(56, 189, 248, 0.12);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8), 0 0 35px rgba(124, 58, 237, 0.15);
 }
 
 .resume-modal-header {
   padding: 16px 24px;
-  background: #0f1724;
+  background: #090b12;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
@@ -3849,12 +3849,12 @@ footer a:hover {
   gap: 10px;
 }
 
-.dot-cyan {
+.dot-purple {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #38bdf8;
-  box-shadow: 0 0 10px #38bdf8;
+  background: #a78bfa;
+  box-shadow: 0 0 10px #a78bfa;
 }
 
 .resume-header-title h3 {
@@ -3874,9 +3874,9 @@ footer a:hover {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: #ffffff;
+  background: rgba(124, 58, 237, 0.15);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  color: #a78bfa;
   padding: 7px 16px;
   border-radius: 8px;
   font: 500 12px 'DM Mono', monospace;
@@ -3885,9 +3885,10 @@ footer a:hover {
 }
 
 .btn-resume-download:hover {
-  background: #38bdf8;
-  border-color: #38bdf8;
-  color: #0f172a;
+  background: #7c3aed;
+  border-color: #7c3aed;
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
 }
 
 .btn-resume-close {
@@ -3918,13 +3919,35 @@ footer a:hover {
 }
 
 .resume-sidebar {
-  background: #0f172a;
+  background: #0b0d15;
   padding: 28px 24px;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 28px;
+}
+
+/* Custom Scrollbars for Modal */
+.resume-sidebar::-webkit-scrollbar,
+.resume-content-main::-webkit-scrollbar {
+  width: 6px;
+}
+
+.resume-sidebar::-webkit-scrollbar-track,
+.resume-content-main::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.resume-sidebar::-webkit-scrollbar-thumb,
+.resume-content-main::-webkit-scrollbar-thumb {
+  background: rgba(167, 139, 250, 0.25);
+  border-radius: 10px;
+}
+
+.resume-sidebar::-webkit-scrollbar-thumb:hover,
+.resume-content-main::-webkit-scrollbar-thumb:hover {
+  background: rgba(167, 139, 250, 0.5);
 }
 
 .resume-profile-block h2 {
@@ -3936,7 +3959,7 @@ footer a:hover {
 }
 
 .resume-subtitle {
-  color: #38bdf8;
+  color: #a78bfa;
   font-weight: 600;
   font-size: 13px;
   margin: 6px 0 16px;
@@ -3958,7 +3981,7 @@ footer a:hover {
 }
 
 .resume-contact-list svg {
-  color: #38bdf8;
+  color: #a78bfa;
   flex-shrink: 0;
 }
 
@@ -3977,13 +4000,19 @@ footer a:hover {
 }
 
 .resume-skills-pills span {
-  background: rgba(56, 189, 248, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  color: #38bdf8;
+  background: rgba(124, 58, 237, 0.15);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  color: #c4b5fd;
   padding: 4px 10px;
   border-radius: 100px;
   font-size: 11px;
   font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.resume-skills-pills span:hover {
+  background: rgba(124, 58, 237, 0.3);
+  color: #ffffff;
 }
 
 .resume-cert-list {
@@ -4006,7 +4035,7 @@ footer a:hover {
   content: '•';
   position: absolute;
   left: 0;
-  color: #38bdf8;
+  color: #a78bfa;
 }
 
 .resume-content-main {
@@ -4015,7 +4044,7 @@ footer a:hover {
   display: flex;
   flex-direction: column;
   gap: 32px;
-  background: linear-gradient(135deg, #131d2b, #0f1724);
+  background: linear-gradient(135deg, #0e101a, #090b12);
 }
 
 .resume-content-section h3 {
@@ -4032,15 +4061,16 @@ footer a:hover {
 }
 
 .resume-item-card {
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   padding: 18px 22px;
-  transition: border-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .resume-item-card:hover {
-  border-color: rgba(56, 189, 248, 0.35);
+  border-color: rgba(167, 139, 250, 0.4);
+  background: rgba(167, 139, 250, 0.04);
 }
 
 .resume-card-top {
@@ -4059,8 +4089,9 @@ footer a:hover {
 }
 
 .year-badge {
-  background: rgba(56, 189, 248, 0.15);
-  color: #38bdf8;
+  background: rgba(124, 58, 237, 0.18);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  color: #a78bfa;
   padding: 3px 10px;
   border-radius: 100px;
   font: 500 11px 'DM Mono', monospace;
@@ -4081,11 +4112,11 @@ footer a:hover {
   margin: 0;
 }
 
-/* Light Mode Overrides for Resume Modal */
+/* Light Mode Overrides for Resume Modal (Purple/White visual theme) */
 [data-theme="light"] .resume-modal-card {
   background: #ffffff;
-  border-color: rgba(79, 70, 229, 0.25);
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
+  border-color: rgba(109, 40, 217, 0.25);
+  box-shadow: 0 25px 70px rgba(109, 40, 217, 0.15);
 }
 
 [data-theme="light"] .resume-modal-header {
@@ -4093,20 +4124,26 @@ footer a:hover {
   border-bottom-color: rgba(15, 23, 42, 0.1);
 }
 
+[data-theme="light"] .dot-purple {
+  background: #6d28d9;
+  box-shadow: 0 0 10px #6d28d9;
+}
+
 [data-theme="light"] .resume-header-title h3 {
   color: #0f172a;
 }
 
 [data-theme="light"] .btn-resume-download {
-  background: rgba(15, 23, 42, 0.06);
-  border-color: rgba(15, 23, 42, 0.15);
-  color: #0f172a;
+  background: rgba(109, 40, 217, 0.08);
+  border-color: rgba(109, 40, 217, 0.25);
+  color: #6d28d9;
 }
 
 [data-theme="light"] .btn-resume-download:hover {
-  background: #4338ca;
-  border-color: #4338ca;
+  background: #6d28d9;
+  border-color: #6d28d9;
   color: #ffffff;
+  box-shadow: 0 4px 12px rgba(109, 40, 217, 0.25);
 }
 
 [data-theme="light"] .resume-sidebar {
@@ -4114,12 +4151,17 @@ footer a:hover {
   border-right-color: rgba(15, 23, 42, 0.1);
 }
 
+[data-theme="light"] .resume-sidebar::-webkit-scrollbar-thumb,
+[data-theme="light"] .resume-content-main::-webkit-scrollbar-thumb {
+  background: rgba(109, 40, 217, 0.25);
+}
+
 [data-theme="light"] .resume-profile-block h2 {
   color: #0f172a;
 }
 
 [data-theme="light"] .resume-subtitle {
-  color: #4338ca;
+  color: #6d28d9;
 }
 
 [data-theme="light"] .resume-contact-list {
@@ -4127,13 +4169,13 @@ footer a:hover {
 }
 
 [data-theme="light"] .resume-contact-list svg {
-  color: #4338ca;
+  color: #6d28d9;
 }
 
 [data-theme="light"] .resume-skills-pills span {
-  background: rgba(99, 102, 241, 0.1);
-  border-color: rgba(99, 102, 241, 0.25);
-  color: #4338ca;
+  background: rgba(109, 40, 217, 0.08);
+  border-color: rgba(109, 40, 217, 0.2);
+  color: #6d28d9;
 }
 
 [data-theme="light"] .resume-cert-list {
@@ -4141,7 +4183,7 @@ footer a:hover {
 }
 
 [data-theme="light"] .resume-cert-list li::before {
-  color: #4338ca;
+  color: #6d28d9;
 }
 
 [data-theme="light"] .resume-content-main {
@@ -4157,13 +4199,19 @@ footer a:hover {
   border-color: rgba(15, 23, 42, 0.1);
 }
 
+[data-theme="light"] .resume-item-card:hover {
+  border-color: #6d28d9;
+  box-shadow: 0 4px 15px rgba(109, 40, 217, 0.08);
+}
+
 [data-theme="light"] .resume-card-top h4 {
   color: #0f172a;
 }
 
 [data-theme="light"] .year-badge {
-  background: rgba(99, 102, 241, 0.12);
-  color: #4338ca;
+  background: rgba(109, 40, 217, 0.1);
+  border-color: rgba(109, 40, 217, 0.25);
+  color: #6d28d9;
 }
 
 [data-theme="light"] .resume-kicker {
