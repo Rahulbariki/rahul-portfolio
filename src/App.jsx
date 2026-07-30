@@ -814,7 +814,7 @@ function Hero() {
       {/* Top status bar */}
       <motion.div className="hero-topbar" style={{ opacity }} initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
         <div className="eyebrow">
-          <span className="signal" /> GENERATIVE AI ENGINEER · AI ENGINEER · UI/UX DESIGNER
+          <span className="signal" /> GENERATIVE AI & AI AUTOMATION DEVELOPER · AI ENGINEER · UI/UX SPECIALIST
         </div>
         <div className="hero-topbar-right">
           <span className="hero-startup-pill">⚡ Co-Builder @ IntelliAttend Startup</span>
@@ -907,7 +907,7 @@ function Manifesto() {
       <div className="manifesto-meta">
         <span>📍 Nandyal, Andhra Pradesh, India</span>
         <span>🎓 B.Tech CSE (AI & ML) — 8.46 CGPA</span>
-        <span>💼 Target Roles: Generative AI Engineer | AI Engineer | UI/UX Designer</span>
+        <span>💼 Target Roles: Generative AI & AI Automation Developer | AI Engineer | UI/UX Specialist</span>
       </div>
     </section>
   )
@@ -1650,6 +1650,9 @@ function Contact() {
         </a>
         <a href="mailto:rahulbariki24@gmail.com">
           <Mail size={14} /> Email
+        </a>
+        <a href="/assets/Rahul_Bariki_Resume.pdf" download="Rahul_Bariki_Resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Download Resume of Rahul Bariki">
+          <ArrowDown size={14} /> Resume PDF
         </a>
       </div>
 
