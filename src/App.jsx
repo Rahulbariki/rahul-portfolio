@@ -1,15 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Calendar, Camera, CheckCircle, ChevronDown, Clock, Code2, Cpu, ExternalLink, Eye, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Terminal, TrendingUp, Trophy, Wrench, X } from 'lucide-react'
-
-const skillProficiencies = [
-  { name: 'Generative AI & LLM Pipelines', percent: 94, level: 'Advanced / Agentic AI', tone: 'violet' },
-  { name: 'Python & AI Engineering', percent: 95, level: 'Core Stack Specialist', tone: 'lime' },
-  { name: 'React.js & Modern Frontend', percent: 90, level: 'Full-Stack UI Specialist', tone: 'cyan' },
-  { name: 'FastAPI, Node.js & Supabase Backend', percent: 88, level: 'REST APIs & DB Architecture', tone: 'violet' },
-  { name: 'UI/UX Design Thinking & Wireframing', percent: 92, level: 'Figma & Design Systems', tone: 'lime' },
-  { name: 'Cloud, Docker & DevOps Workflows', percent: 82, level: 'Containerization & Vercel', tone: 'cyan' },
-]
+import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Calendar, Camera, CheckCircle, ChevronDown, Clock, Code2, Cpu, ExternalLink, Eye, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, Moon, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Sun, Terminal, TrendingUp, Trophy, Wrench, X } from 'lucide-react'
 
 const timelineEvents = [
   {
@@ -22,9 +13,9 @@ const timelineEvents = [
   },
   {
     year: '2025',
-    title: 'IEEE Student Branch Secretary & Competitive Coding',
-    role: 'Secretary @ IEEE SEC (E25)',
-    detail: 'Appointed Secretary for IEEE Student Branch (E25) at SEC. Competed in LeetCode Club Grand Event 2K25 and authored 5+ IEEE tech event series.',
+    title: 'IEEE Student Branch Secretary & Society Member',
+    role: 'Secretary — IEEE Student Branch (IEEE Education Society)',
+    detail: 'Appointed Secretary for IEEE Student Branch in IEEE Education Society. IEEE Student Member across IEEE Education Society, IEEE Sensors Council, and IEEE CRFID2025.',
     badge: 'IEEE Secretary 🎓',
     tone: 'cyan',
   },
@@ -51,30 +42,6 @@ const timelineEvents = [
     detail: 'Achieved 79% score in MPC curriculum and secured top 58,055 All India Rank in JEE Mains entrance examination.',
     badge: 'JEE 58k Rank 🎯',
     tone: 'cyan',
-  },
-]
-
-const testimonials = [
-  {
-    quote: 'Rahul demonstrates an exceptional ability to bridge high-level Generative AI concepts with clean, production-ready full-stack implementations. His work on IntelliAttend is outstanding.',
-    author: 'Dr. G. Kishor Kumar',
-    role: 'HOD — Dept. of CSE (AI & ML), Santhiram Engineering College',
-    tag: 'Academic Recommendation',
-    tone: 'cyan',
-  },
-  {
-    quote: 'An extraordinarily driven student leader and developer. Rahul organized high-impact IEEE technical workshops while building state-of-the-art AI applications.',
-    author: 'IEEE Student Branch Counselor',
-    role: 'IEEE Student Branch SEC (E25)',
-    tag: 'Leadership Endorsement',
-    tone: 'violet',
-  },
-  {
-    quote: 'In our GenAI hackathon, Rahul’s multi-agent workflow solution stood out for its architectural clarity and speed. He is a natural problem solver.',
-    author: 'SmartBridge & NASSCOM Evaluation Panel',
-    role: 'GenAI Forge Hackathon 2026',
-    tag: 'Hackathon Award Panel',
-    tone: 'lime',
   },
 ]
 
@@ -165,6 +132,7 @@ const projects = [
     tags: ['React', 'Python', 'LLMs', 'LangChain', 'FastAPI', 'Vercel', 'Supabase'],
     tone: 'cyan',
     icon: Sparkles,
+    image: '/assets/brandnova-logo.png',
     url: 'https://github.com/Rahulbariki/brand-automation',
     liveUrl: 'https://brandnova-brand-automation.vercel.app/',
   },
@@ -186,6 +154,7 @@ const projects = [
     tags: ['React', 'Node.js', 'Express.js', 'Python', 'FastAPI', 'PostgreSQL', 'Tailwind'],
     tone: 'violet',
     icon: Layers3,
+    image: '/assets/campuspulse-logo.png',
     url: 'https://github.com/Rahulbariki/campus-achievement-intelligence',
     liveUrl: 'https://srec-community.vercel.app/',
   },
@@ -343,9 +312,9 @@ const hackathons = [
 ]
 
 const certCategories = [
-  { id: 'all', label: 'All Verified Credentials (11)' },
+  { id: 'all', label: 'All Verified Credentials (13)' },
   { id: 'ieee', label: '🎓 IEEE Certifications (5)' },
-  { id: 'course', label: '📜 Course & Virtual Internships (4)' },
+  { id: 'course', label: '📜 Course & Virtual Internships (6)' },
   { id: 'participation', label: '💻 Training Programs & Workshops (2)' },
 ]
 
@@ -354,37 +323,37 @@ const certifications = [
   {
     category: 'ieee',
     title: 'Certificate of IEEE Volunteering (Secretary)',
-    kicker: 'Secretary — Santhiram Engineering College (E25)',
-    issuer: 'IEEE Student Branch',
+    kicker: 'Secretary — IEEE Student Branch in IEEE Education Society',
+    issuer: 'IEEE Student Branch & IEEE Education Society',
     date: 'Feb 2025 — Feb 2027',
     certId: 'IEEE Secretary E25',
-    skills: ['Leadership', 'IEEE Secretary', 'Event Management', 'Student Branch'],
+    skills: ['Secretary — IEEE Student Branch', 'IEEE Education Society', 'Leadership', 'Student Branch'],
     image: '/assets/cert-ieee-volunteering-secretary.png',
-    imageTitle: 'Certificate of IEEE Volunteering — Secretary (Santhiram Engg. College)',
+    imageTitle: 'Certificate of IEEE Volunteering — Secretary (IEEE Student Branch in IEEE Education Society)',
     credentialUrl: '/assets/cert-ieee-volunteering-secretary.png',
     tone: 'lime',
   },
   {
     category: 'ieee',
     title: '2025 Certificate of IEEE Membership',
-    kicker: 'Global Student Member in Good Standing',
+    kicker: 'IEEE Student Member — IEEE Education Society, IEEE Sensors Council, IEEE CRFID2025',
     issuer: 'IEEE',
     date: 'Through Dec 2025',
     certId: 'IEEE Global Member',
-    skills: ['IEEE Member', 'Technology Advancement', 'Global Engineering'],
+    skills: ['IEEE Student Member', 'IEEE Education Society', 'IEEE Sensors Council', 'IEEE CRFID2025'],
     image: '/assets/cert-ieee-membership-2025.png',
-    imageTitle: '2025 Certificate of IEEE Global Membership',
+    imageTitle: '2025 Certificate of IEEE Global Membership & Society Memberships',
     credentialUrl: '/assets/cert-ieee-membership-2025.png',
     tone: 'cyan',
   },
   {
     category: 'ieee',
     title: '2025 Certificate of Membership — IEEE Education Society',
-    kicker: 'Student Member in Good Standing',
+    kicker: 'IEEE Student Member — IEEE Education Society',
     issuer: 'IEEE Education Society',
     date: '2025',
     certId: 'IEEE Education Society',
-    skills: ['Education Society', 'Educational Tech', 'Engineering Learning'],
+    skills: ['IEEE Education Society', 'Secretary — IEEE Student Branch', 'Educational Tech', 'Engineering Learning'],
     image: '/assets/cert-ieee-education-society-2025.png',
     imageTitle: '2025 Certificate of Membership — IEEE Education Society',
     credentialUrl: '/assets/cert-ieee-education-society-2025.png',
@@ -393,11 +362,11 @@ const certifications = [
   {
     category: 'ieee',
     title: '2025 Certificate of Participation — IEEE Sensors Council',
-    kicker: 'Sensor Systems & IoT Student Member',
+    kicker: 'IEEE Student Member — IEEE Sensors Council',
     issuer: 'IEEE Sensors Council',
     date: '2025',
     certId: 'IEEE Sensors Council',
-    skills: ['Sensors Council', 'Sensor Tech', 'IoT Systems'],
+    skills: ['IEEE Sensors Council', 'IEEE Student Member', 'Sensor Systems', 'IoT Engineering'],
     image: '/assets/cert-ieee-sensors-council-2025.png',
     imageTitle: '2025 Certificate of Participation — IEEE Sensors Council',
     credentialUrl: '/assets/cert-ieee-sensors-council-2025.png',
@@ -406,18 +375,44 @@ const certifications = [
   {
     category: 'ieee',
     title: '2025 Certificate of Participation — IEEE CRFID',
-    kicker: 'IEEE Council on RFID Student Member',
+    kicker: 'IEEE Student Member — IEEE CRFID2025',
     issuer: 'IEEE Council on RFID',
     date: '2025',
-    certId: 'IEEE CRFID',
-    skills: ['Council on RFID', 'RFID Tech', 'Digital Physical Integration'],
+    certId: 'IEEE CRFID2025',
+    skills: ['IEEE CRFID2025', 'IEEE Student Member', 'RFID Technology', 'Digital-Physical Integration'],
     image: '/assets/cert-ieee-crfid-2025.png',
-    imageTitle: '2025 Certificate of Participation — IEEE Council on RFID',
+    imageTitle: '2025 Certificate of Participation — IEEE Council on RFID (CRFID2025)',
     credentialUrl: '/assets/cert-ieee-crfid-2025.png',
     tone: 'violet',
   },
 
   // --- COURSE CERTIFICATIONS ---
+  {
+    category: 'course',
+    title: 'AWS Academy Graduate - AWS Academy Data Engineering',
+    kicker: 'Certificate of Completion (40 Course Hours)',
+    issuer: 'AWS Academy & Credly',
+    date: 'Dec 15, 2024',
+    certId: 'Credly Digital Badge Verified',
+    skills: ['AWS Cloud', 'Data Engineering', 'Cloud Analytics', 'ETL Pipelines', 'Big Data'],
+    image: '/assets/cert-aws-data-engineering.png',
+    imageTitle: 'AWS Academy Certificate of Completion — AWS Academy Data Engineering (40 Hours)',
+    credentialUrl: 'https://www.credly.com/go/6PXvNxD6',
+    tone: 'cyan',
+  },
+  {
+    category: 'course',
+    title: 'Fundamentals of Cybersecurity (EDU-102)',
+    kicker: 'Zscaler Training Academy Certification',
+    issuer: 'Zscaler Academy',
+    date: 'Sep 15, 2024 — Sep 15, 2026',
+    certId: 'No: gjnizt232qte',
+    skills: ['Cybersecurity', 'Cloud Security', 'Zscaler Training', 'Network Protection'],
+    image: '/assets/cert-zscaler-cybersecurity.png',
+    imageTitle: 'Zscaler Academy Certificate of Completion — Fundamentals of Cybersecurity (EDU-102)',
+    credentialUrl: 'https://verify.skilljar.com/c/gjnizt232qte',
+    tone: 'violet',
+  },
   {
     category: 'course',
     title: 'Career Essentials in Generative AI',
@@ -523,7 +518,7 @@ const educationList = [
 
 const experiences = [
   { period: 'Present (Active Startup)', company: 'IntelliAttend Startup Team', role: 'AI Software Engineer & Co-Developer', text: 'Co-engineering IntelliAttend (dashboard.intelliattend.app/login), an AI-driven smart attendance intelligence & real-time analytics platform for modern educational institutions.' },
-  { period: 'Feb 2025 — Feb 2027', company: 'IEEE Student Branch — Santhiram Engg. College (E25)', role: 'Secretary', text: 'Appointed as Secretary for IEEE Student Branch (E25) at Santhiram Engineering College, leading technical events, student initiatives, and managing branch operations.' },
+  { period: 'Feb 2025 — Feb 2027', company: 'IEEE Student Branch in IEEE Education Society', role: 'Secretary — IEEE Student Branch', text: 'Secretary — IEEE Student Branch in IEEE Education Society. Active IEEE Student Member across IEEE Education Society, IEEE Sensors Council, and IEEE CRFID2025.' },
   { period: 'Jan 2024 — Mar 2024', company: 'Google AI-ML Virtual Internship', role: 'AI / Machine Learning Virtual Intern', text: 'Completed a virtual internship studying end-to-end machine learning workflows, model development, and practical AI foundations powered by Google & EduSkills.' },
   { period: '2024', company: 'Zcalar AI Virtual Internship', role: 'AI Developer Virtual Intern', text: 'Completed a virtual internship developing intelligent chatbot systems and exploring useful, product-focused NLP experiences.' },
 ]
@@ -573,24 +568,29 @@ function ParticleField() {
     let particles = []
     let width = 0
     let height = 0
+    let lastWidth = 0
     const pointer = { x: -1000, y: -1000 }
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const resize = () => {
+      const currentWidth = window.innerWidth
       const ratio = Math.min(window.devicePixelRatio || 1, 2)
-      width = window.innerWidth
+      width = currentWidth
       height = window.innerHeight
       canvas.width = width * ratio
       canvas.height = height * ratio
       canvas.style.width = `${width}px`
       canvas.style.height = `${height}px`
       context.setTransform(ratio, 0, 0, ratio, 0, 0)
-      particles = Array.from({ length: Math.min(95, Math.max(20, Math.floor(width / 15))) }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.18,
-        vy: (Math.random() - 0.5) * 0.18,
-        radius: Math.random() * 1.4 + 0.3,
-      }))
+      if (particles.length === 0 || Math.abs(currentWidth - lastWidth) > 30) {
+        lastWidth = currentWidth
+        particles = Array.from({ length: Math.min(95, Math.max(20, Math.floor(width / 15))) }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.18,
+          vy: (Math.random() - 0.5) * 0.18,
+          radius: Math.random() * 1.4 + 0.3,
+        }))
+      }
     }
     const move = (event) => {
       if (event.touches && event.touches[0]) {
@@ -645,17 +645,23 @@ function ParticleField() {
 
 function Cursor({ x, y }) {
   const [active, setActive] = useState(false)
+
   useEffect(() => {
-    const handlePointerOver = (e) => {
-      if (e.target && e.target.closest && e.target.closest('a, button, [data-cursor], input, textarea')) {
+    const handlePointerOver = (event) => {
+      const target = event.target
+      if (target && target.closest && target.closest('a, button, [role="button"]')) {
         setActive(true)
       }
     }
-    const handlePointerOut = (e) => {
-      if (e.target && e.target.closest && e.target.closest('a, button, [data-cursor], input, textarea')) {
-        setActive(false)
+
+    const handlePointerOut = (event) => {
+      const related = event.relatedTarget
+      if (related && related.closest && related.closest('a, button, [role="button"]')) {
+        return
       }
+      setActive(false)
     }
+
     window.addEventListener('pointerover', handlePointerOver)
     window.addEventListener('pointerout', handlePointerOut)
     return () => {
@@ -663,10 +669,36 @@ function Cursor({ x, y }) {
       window.removeEventListener('pointerout', handlePointerOut)
     }
   }, [])
+
   return <motion.div className={`cursor ${active ? 'cursor-active' : ''}`} style={{ x, y }} aria-hidden="true" />
 }
 
-function Navigation({ onOpen }) {
+function ThemeToggleSwitch({ theme, onToggleTheme, isMenu = false }) {
+  return (
+    <button
+      className={`theme-toggle-switch ${theme} ${isMenu ? 'menu-toggle' : ''}`}
+      type="button"
+      onClick={onToggleTheme}
+      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+      title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+    >
+      <span className="toggle-track">
+        <Moon className="icon-moon" size={12} />
+        <Sun className="icon-sun" size={12} />
+        <motion.span
+          className="toggle-thumb"
+          animate={{ x: theme === 'light' ? 22 : 0 }}
+          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+        >
+          {theme === 'dark' ? <Moon size={11} /> : <Sun size={11} />}
+        </motion.span>
+      </span>
+      <span className="toggle-label">{theme === 'dark' ? 'Dark' : 'Light'}</span>
+    </button>
+  )
+}
+
+function Navigation({ onOpen, theme, onToggleTheme }) {
   return (
     <motion.header className="nav" initial={{ y: -80 }} animate={{ y: 0 }} transition={{ delay: 0.8, duration: 0.8 }}>
       <a className="monogram" href="#top" aria-label="Rahul Bariki home">RB<span>®</span></a>
@@ -677,14 +709,17 @@ function Navigation({ onOpen }) {
           </a>
         ))}
       </nav>
-      <button className="menu-button" type="button" onClick={onOpen} aria-label="Open menu">
-        <Menu size={18} /> Menu
-      </button>
+      <div className="nav-actions">
+        <ThemeToggleSwitch theme={theme} onToggleTheme={onToggleTheme} />
+        <button className="menu-button" type="button" onClick={onOpen} aria-label="Open menu">
+          <Menu size={18} /> Menu
+        </button>
+      </div>
     </motion.header>
   )
 }
 
-function MenuOverlay({ open, onClose }) {
+function MenuOverlay({ open, onClose, theme, onToggleTheme }) {
   useEffect(() => {
     if (!open) return undefined
     const closeOnEscape = (event) => { if (event.key === 'Escape') onClose() }
@@ -701,7 +736,10 @@ function MenuOverlay({ open, onClose }) {
     <AnimatePresence>
       {open && (
         <motion.div className="menu-overlay" role="dialog" aria-modal="true" aria-label="Site navigation" initial={{ clipPath: 'inset(0 0 100% 0)' }} animate={{ clipPath: 'inset(0 0 0% 0)' }} exit={{ clipPath: 'inset(0 0 100% 0)' }} transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}>
-          <button type="button" onClick={onClose} className="menu-close" aria-label="Close navigation menu"><X /> Close</button>
+          <div className="menu-header">
+            <ThemeToggleSwitch theme={theme} onToggleTheme={onToggleTheme} isMenu />
+            <button type="button" onClick={onClose} className="menu-close" aria-label="Close navigation menu"><X /> Close</button>
+          </div>
           <div className="menu-list">
             {navItems.map((item, index) => (
               <motion.a key={item.name} href={item.href} onClick={onClose} initial={{ y: 80, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.15 + index * 0.08 }}>
@@ -716,21 +754,22 @@ function MenuOverlay({ open, onClose }) {
   )
 }
 
+const terminalLines = [
+  '> initializing GenAI_Agent(role="Engineer")...',
+  '> loading LLM pipeline: GPT-4o / Llama-3 / Claude-3.5...',
+  '> co-building: IntelliAttend (dashboard.intelliattend.app)...',
+  '> status: 8.46 CGPA • 11 Credentials • 4 Live Apps'
+]
+
 function HeroTerminal() {
   const [lineIndex, setLineIndex] = useState(0)
-  const lines = [
-    '> initializing GenAI_Agent(role="Engineer")...',
-    '> loading LLM pipeline: GPT-4o / Llama-3 / Claude-3.5...',
-    '> co-building: IntelliAttend (dashboard.intelliattend.app)...',
-    '> status: 8.46 CGPA • 11 Credentials • 4 Live Apps'
-  ]
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setLineIndex((prev) => (prev + 1) % lines.length)
+      setLineIndex((prev) => (prev + 1) % terminalLines.length)
     }, 2800)
     return () => clearInterval(interval)
-  }, [lines.length])
+  }, [])
 
   return (
     <div className="hero-terminal">
@@ -752,7 +791,7 @@ function HeroTerminal() {
           transition={{ duration: 0.4 }}
           className="terminal-text"
         >
-          {lines[lineIndex]}
+          {terminalLines[lineIndex]}
         </motion.span>
         <span className="cursor-blink">|</span>
       </div>
@@ -956,13 +995,13 @@ function ProjectCard({ project, onSelectImage }) {
             {project.image && (
               <button
                 type="button"
-                className="btn-project-live cert-news-btn"
+                className="btn-project-case"
                 onClick={() => onSelectImage({
                   title: project.title,
                   img: project.image,
                   imgTitle: `${project.title} Case Study & Architecture`,
-                  newsImg: project.stageImage,
-                  newsTitle: project.stageTitle
+                  stageImg: project.stageImage,
+                  stageTitle: project.stageTitle
                 })}
               >
                 <span>Case Study</span> <Eye size={14} />
@@ -1051,6 +1090,22 @@ function Achievements({ onSelectImage }) {
                         secImg: item.secImage,
                         secTitle: item.secTitle
                       })}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault()
+                          onSelectImage({
+                            title: item.title,
+                            img: item.image,
+                            imgTitle: item.imageTitle,
+                            newsImg: item.newsImage,
+                            newsTitle: item.newsTitle,
+                            stageImg: item.stageImage,
+                            stageTitle: item.stageTitle,
+                            secImg: item.secImage,
+                            secTitle: item.secTitle
+                          })
+                        }
+                      }}
                       role="button"
                       tabIndex={0}
                       aria-label={`View credential for ${item.title}`}
@@ -1080,6 +1135,21 @@ function Achievements({ onSelectImage }) {
                           secImg: item.secImage,
                           secTitle: item.secTitle
                         })}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault()
+                            onSelectImage({
+                              title: item.title,
+                              img: item.newsImage,
+                              imgTitle: item.newsTitle,
+                              newsImg: null,
+                              stageImg: item.stageImage,
+                              stageTitle: item.stageTitle,
+                              secImg: item.secImage,
+                              secTitle: item.secTitle
+                            })
+                          }
+                        }}
                         role="button"
                         tabIndex={0}
                         aria-label={`View press feature for ${item.title}`}
@@ -1167,6 +1237,22 @@ function Achievements({ onSelectImage }) {
                               secImg: cert.secImage,
                               secTitle: cert.secTitle
                             })}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault()
+                                onSelectImage({
+                                  title: cert.title,
+                                  img: cert.image,
+                                  imgTitle: cert.imageTitle,
+                                  newsImg: cert.newsImage,
+                                  newsTitle: cert.newsTitle,
+                                  stageImg: cert.stageImage,
+                                  stageTitle: cert.stageTitle,
+                                  secImg: cert.secImage,
+                                  secTitle: cert.secTitle
+                                })
+                              }
+                            }}
                             role="button"
                             tabIndex={0}
                             aria-label={`View certificate image for ${cert.title}`}
@@ -1384,35 +1470,6 @@ function FeaturedSpotlightHero({ onSelectImage }) {
   )
 }
 
-function TechProficiencyRadar() {
-  return (
-    <div className="tech-radar-container">
-      <div className="tech-radar-header">
-        <Activity size={18} /> <h3>Skill Competency & Tech Proficiency Radar</h3>
-      </div>
-      <div className="radar-grid">
-        {skillProficiencies.map((item) => (
-          <div key={item.name} className="radar-item">
-            <div className="radar-meta">
-              <span className="radar-name">{item.name}</span>
-              <span className="radar-percent">{item.percent}%</span>
-            </div>
-            <div className="radar-bar-bg">
-              <motion.div 
-                className={`radar-bar-fill ${item.tone}`}
-                initial={{ width: 0 }}
-                whileInView={{ width: `${item.percent}%` }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.2, ease: 'easeOut' }}
-              />
-            </div>
-            <span className="radar-level">{item.level}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
 
 function GitHubActivityWidget() {
   return (
@@ -1485,42 +1542,12 @@ function InteractiveTimeline() {
   )
 }
 
-function Testimonials() {
-  return (
-    <section className="testimonials section-shell" id="testimonials">
-      <div className="section-heading compact">
-        <div><span>Peer & Mentor Endorsements</span><span>05.5 / 07</span></div>
-        <h2>Recommendations &<br /><em>leadership feedback.</em></h2>
-      </div>
-      <div className="testimonials-grid">
-        {testimonials.map((item, index) => (
-          <motion.article 
-            key={item.author}
-            className={`testimonial-card ${item.tone}`}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.12 }}
-          >
-            <Quote className="quote-icon" size={24} />
-            <p className="testimonial-text">"{item.quote}"</p>
-            <div className="testimonial-author">
-              <strong>{item.author}</strong>
-              <span>{item.role}</span>
-              <span className="testimonial-tag">{item.tag}</span>
-            </div>
-          </motion.article>
-        ))}
-      </div>
-    </section>
-  )
-}
 
 function TechnicalBlog() {
   return (
     <section className="blog-section section-shell" id="blog">
       <div className="section-heading compact">
-        <div><span>Technical Insights & Engineering Notes</span><span>05.8 / 07</span></div>
+        <div><span>Technical Insights & Engineering Notes</span><span>Engineering Notes & Insights</span></div>
         <h2>Writing on AI agents,<br /><em>prompting & full-stack systems.</em></h2>
       </div>
       <div className="blog-grid">
@@ -1558,7 +1585,7 @@ function FAQAccordion() {
   return (
     <section className="faq-section section-shell" id="faq">
       <div className="section-heading compact">
-        <div><span>Recruiter & Client FAQ</span><span>06.5 / 07</span></div>
+        <div><span>Recruiter & Client FAQ</span><span>Frequently Asked Questions</span></div>
         <h2>Frequently asked<br /><em>questions.</em></h2>
       </div>
       <div className="faq-list">
@@ -1638,12 +1665,47 @@ export function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('rahul-portfolio-theme')
+      if (saved === 'light' || saved === 'dark') return saved
+    }
+    return 'dark'
+  })
   const { scrollYProgress } = useScroll()
   const { springX, springY } = usePointer()
+
   useEffect(() => {
     const timer = window.setTimeout(() => setLoaded(true), 1200)
     return () => window.clearTimeout(timer)
   }, [])
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('rahul-portfolio-theme', theme)
+  }, [theme])
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))
+  }
+
+  useEffect(() => {
+    document.body.style.overflow = loaded ? '' : 'hidden'
+  }, [loaded])
+
+  useEffect(() => {
+    if (!selectedImage) return undefined
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setSelectedImage(null)
+    }
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.body.style.overflow = prevOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [selectedImage])
 
   return (
     <>
@@ -1660,8 +1722,8 @@ export function App() {
       <div className="pointer-glow" />
       <ParticleField />
       <Cursor x={springX} y={springY} />
-      <Navigation onOpen={() => setMenuOpen(true)} />
-      <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
+      <Navigation onOpen={() => setMenuOpen(true)} theme={theme} onToggleTheme={toggleTheme} />
+      <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} theme={theme} onToggleTheme={toggleTheme} />
       <main>
         <CurrentlyBuildingBanner />
         <Hero />
@@ -1695,8 +1757,6 @@ export function App() {
               </motion.article>
             ))}
           </div>
-
-          <TechProficiencyRadar />
 
           {/* Categorized Skill Badges Matrix */}
           <div className="skills-matrix-container">
@@ -1750,7 +1810,6 @@ export function App() {
           <InteractiveTimeline />
         </section>
         <Achievements onSelectImage={setSelectedImage} />
-        <Testimonials />
         <Education />
         <TechnicalBlog />
         <FAQAccordion />
