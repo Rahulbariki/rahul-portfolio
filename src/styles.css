@@ -104,7 +104,7 @@ button {
   position: fixed;
   top: -18px;
   left: -18px;
-  z-index: 301;
+  z-index: 999999;
   width: 36px;
   height: 36px;
   border: 1px solid rgba(167, 139, 250, .75);
@@ -3811,13 +3811,19 @@ footer a:hover {
 .resume-modal-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 9900;
   background: rgba(7, 9, 15, 0.88);
   backdrop-filter: blur(14px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  cursor: none !important;
+}
+
+.resume-modal-card,
+.resume-modal-card * {
+  cursor: none !important;
 }
 
 .resume-modal-card {
