@@ -15,6 +15,11 @@ class ErrorBoundary extends Component {
 
   componentDidCatch(error, errorInfo) {
     console.error('[Portfolio Fatal Render Error]', error, errorInfo)
+    try {
+      localStorage.clear()
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   handleReset = () => {
@@ -23,7 +28,7 @@ class ErrorBoundary extends Component {
     } catch (e) {
       console.error(e)
     }
-    window.location.href = '/'
+    window.location.reload()
   }
 
   render() {

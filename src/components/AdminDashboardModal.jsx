@@ -824,7 +824,13 @@ function ProfileEditor({ data, onChange }) {
 ────────────────────────────────────────────── */
 function MediaLibrary() {
   const [mediaItems, setMediaItems] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('admin-media-library')) || [] } catch { return [] }
+    try { 
+      const raw = localStorage.getItem('admin-media-library')
+      const parsed = JSON.parse(raw)
+      return Array.isArray(parsed) ? parsed : [] 
+    } catch { 
+      return [] 
+    }
   })
   const [uploading, setUploading] = useState(false)
   const [dragOver, setDragOver] = useState(false)
