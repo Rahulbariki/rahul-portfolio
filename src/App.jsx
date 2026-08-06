@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
 import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Calendar, Camera, CheckCircle, ChevronDown, Clock, Code2, Cpu, ExternalLink, Eye, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, Moon, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Sun, Terminal, TrendingUp, Trophy, Wrench, X } from 'lucide-react'
 import { AdminDashboardModal, ICON_MAP } from './components/AdminDashboardModal.jsx'
+import { fetchCentralPortfolioData, publishCentralPortfolioData } from './cloudSync.js'
 
 const defaultTimelineEvents = [
   {
@@ -2090,6 +2091,21 @@ export function App() {
     }
   }, [adminOpen])
 
+  // On startup, fetch central cloud portfolio data from Supabase CDN so any visitor in the world sees latest updates
+  useEffect(() => {
+    fetchCentralPortfolioData().then((cloudData) => {
+      if (cloudData) {
+        setPortfolioData((prev) => {
+          const merged = { ...prev, ...cloudData }
+          if (merged.projects) {
+            merged.projects = rehydrateIcons(merged.projects)
+          }
+          return merged
+        })
+      }
+    })
+  }, [])
+
   const handleAdminUpdate = (key, value) => {
     setPortfolioData((prev) => {
       const next = { ...prev, [key]: value }
@@ -2097,13 +2113,17 @@ export function App() {
         next.projects = rehydrateIcons(value)
       }
       savePortfolioKey(key, value)
+      // Publish updated portfolio data to central cloud storage CDN for all visitors globally!
+      publishCentralPortfolioData(next)
       return next
     })
   }
 
   const handleFactoryReset = () => {
     ;['admin-profile','admin-projects','admin-hackathons','admin-certifications','admin-timeline','admin-blog','admin-faq'].forEach((k) => localStorage.removeItem(k))
-    setPortfolioData(loadPortfolioData())
+    const resetData = loadPortfolioData()
+    setPortfolioData(resetData)
+    publishCentralPortfolioData(resetData)
   }
 
   useEffect(() => {
