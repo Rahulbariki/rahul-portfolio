@@ -586,7 +586,11 @@ function safeLoad(key, fallback) {
   try {
     const raw = localStorage.getItem(key)
     if (!raw) return fallback
-    return JSON.parse(raw) ?? fallback
+    const parsed = JSON.parse(raw)
+    if (parsed == null) return fallback
+    if (Array.isArray(fallback) && !Array.isArray(parsed)) return fallback
+    if (typeof fallback === 'object' && !Array.isArray(fallback) && (typeof parsed !== 'object' || Array.isArray(parsed))) return fallback
+    return parsed
   } catch {
     return fallback
   }
@@ -594,21 +598,30 @@ function safeLoad(key, fallback) {
 
 function loadPortfolioData() {
   try {
-    const projectsRaw = safeLoad('admin-projects', null)
     const loadedProfile = safeLoad('admin-profile', defaultProfileInfo)
-    
-    if (!loadedProfile.profilePhotos || !Array.isArray(loadedProfile.profilePhotos) || loadedProfile.profilePhotos.length === 0) {
-      loadedProfile.profilePhotos = [loadedProfile.profilePhoto || defaultProfileInfo.profilePhoto]
+    const profileInfo = (loadedProfile && typeof loadedProfile === 'object' && !Array.isArray(loadedProfile))
+      ? { ...defaultProfileInfo, ...loadedProfile }
+      : { ...defaultProfileInfo }
+
+    if (!Array.isArray(profileInfo.profilePhotos) || profileInfo.profilePhotos.length === 0) {
+      profileInfo.profilePhotos = [profileInfo.profilePhoto || defaultProfileInfo.profilePhoto]
     }
 
+    const projectsRaw = safeLoad('admin-projects', defaultProjects)
+    const hackathonsRaw = safeLoad('admin-hackathons', defaultHackathons)
+    const certificationsRaw = safeLoad('admin-certifications', defaultCertifications)
+    const timelineEventsRaw = safeLoad('admin-timeline', defaultTimelineEvents)
+    const blogPostsRaw = safeLoad('admin-blog', defaultBlogPosts)
+    const faqItemsRaw = safeLoad('admin-faq', defaultFaqItems)
+
     const rawData = {
-      profileInfo: loadedProfile,
-      projects: projectsRaw || defaultProjects,
-      hackathons: safeLoad('admin-hackathons', defaultHackathons),
-      certifications: safeLoad('admin-certifications', defaultCertifications),
-      timelineEvents: safeLoad('admin-timeline', defaultTimelineEvents),
-      blogPosts: safeLoad('admin-blog', defaultBlogPosts),
-      faqItems: safeLoad('admin-faq', defaultFaqItems),
+      profileInfo,
+      projects: Array.isArray(projectsRaw) ? projectsRaw : defaultProjects,
+      hackathons: Array.isArray(hackathonsRaw) ? hackathonsRaw : defaultHackathons,
+      certifications: Array.isArray(certificationsRaw) ? certificationsRaw : defaultCertifications,
+      timelineEvents: Array.isArray(timelineEventsRaw) ? timelineEventsRaw : defaultTimelineEvents,
+      blogPosts: Array.isArray(blogPostsRaw) ? blogPostsRaw : defaultBlogPosts,
+      faqItems: Array.isArray(faqItemsRaw) ? faqItemsRaw : defaultFaqItems,
     }
 
     // 1. Migrate string URLs in raw data BEFORE rehydrating React icon components
@@ -621,7 +634,7 @@ function loadPortfolioData() {
   } catch (err) {
     console.error('[Portfolio Data Load Error]', err)
     return {
-      profileInfo: defaultProfileInfo,
+      profileInfo: { ...defaultProfileInfo },
       projects: rehydrateIcons(defaultProjects),
       hackathons: defaultHackathons,
       certifications: defaultCertifications,

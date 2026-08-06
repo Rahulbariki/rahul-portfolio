@@ -19,7 +19,7 @@ class ErrorBoundary extends Component {
 
   handleReset = () => {
     try {
-      ;['admin-profile','admin-projects','admin-hackathons','admin-certifications','admin-timeline','admin-blog','admin-faq'].forEach(k => localStorage.removeItem(k))
+      localStorage.clear()
     } catch (e) {
       console.error(e)
     }
