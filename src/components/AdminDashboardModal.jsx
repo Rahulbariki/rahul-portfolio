@@ -976,10 +976,35 @@ const SECTION_META = {
    MAIN ADMIN DASHBOARD MODAL
 ────────────────────────────────────────────── */
 export function AdminDashboardModal({ onClose, portfolioData, onUpdate, onFactoryReset, theme, onToggleTheme }) {
-  const [unlocked, setUnlocked] = useState(false)
+  const [unlocked, setUnlocked] = useState(() => {
+    try {
+      return sessionStorage.getItem('admin-unlocked') === 'true'
+    } catch {
+      return false
+    }
+  })
   const [activeSection, setActiveSection] = useState('projects')
 
-  if (!unlocked) return <PasswordGate onUnlock={() => setUnlocked(true)} onClose={onClose} />
+  const handleUnlock = () => {
+    setUnlocked(true)
+    try {
+      sessionStorage.setItem('admin-unlocked', 'true')
+    } catch (e) {
+      console.warn(e)
+    }
+  }
+
+  const handleLockAndExit = () => {
+    setUnlocked(false)
+    try {
+      sessionStorage.removeItem('admin-unlocked')
+    } catch (e) {
+      console.warn(e)
+    }
+    onClose()
+  }
+
+  if (!unlocked) return <PasswordGate onUnlock={handleUnlock} onClose={onClose} />
 
   const meta = SECTION_META[activeSection]
 
@@ -1062,7 +1087,7 @@ export function AdminDashboardModal({ onClose, portfolioData, onUpdate, onFactor
             ))}
           </nav>
 
-          <button type="button" className="admin-lock-btn" onClick={() => { setUnlocked(false); onClose() }}>
+          <button type="button" className="admin-lock-btn" onClick={handleLockAndExit}>
             <Lock size={14} />
             Lock &amp; Exit
           </button>
