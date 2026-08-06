@@ -32,7 +32,7 @@ function PasswordGate({ onUnlock, onClose }) {
   }
 
   return (
-    <div className="admin-gate-backdrop">
+    <div className="admin-gate-backdrop" onClick={(e) => { if (e.target === e.currentTarget) onClose() }}>
       <motion.div 
         className={`admin-gate-box ${error ? 'admin-gate-error' : ''}`}
         initial={{ opacity: 0, scale: 0.92, y: 20 }}
@@ -40,6 +40,15 @@ function PasswordGate({ onUnlock, onClose }) {
         exit={{ opacity: 0, scale: 0.92, y: 20 }}
         transition={{ type: 'spring', stiffness: 350, damping: 25 }}
       >
+        <button 
+          type="button" 
+          className="admin-gate-close-btn" 
+          onClick={(e) => { e.stopPropagation(); onClose() }}
+          aria-label="Close gateway"
+        >
+          <X size={16} />
+        </button>
+
         <div className="portrait-frame" style={{ width: '80px', height: '80px', margin: '0 auto 24px auto', position: 'relative' }}>
           <div className="portrait-glow" style={{ opacity: 0.5 }} />
           <motion.div 
@@ -89,7 +98,7 @@ function PasswordGate({ onUnlock, onClose }) {
             <button type="submit" className="admin-gate-btn">
               <span>INITIALIZE_SESSION</span>
             </button>
-            <button type="button" className="admin-gate-cancel-btn" onClick={onClose}>
+            <button type="button" className="admin-gate-cancel-btn" onClick={(e) => { e.stopPropagation(); onClose() }}>
               ABORT
             </button>
           </div>
@@ -994,15 +1003,25 @@ export function AdminDashboardModal({ onClose, portfolioData, onUpdate, onFactor
     }
   }
 
-  const handleLockAndExit = () => {
-    setUnlocked(false)
+  const handleLockAndExit = (e) => {
+    if (e) e.stopPropagation()
     try {
       sessionStorage.removeItem('admin-unlocked')
-    } catch (e) {
-      console.warn(e)
+    } catch (err) {
+      console.warn(err)
     }
     onClose()
   }
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [onClose])
 
   if (!unlocked) return <PasswordGate onUnlock={handleUnlock} onClose={onClose} />
 
@@ -1044,6 +1063,9 @@ export function AdminDashboardModal({ onClose, portfolioData, onUpdate, onFactor
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose()
+      }}
     >
       <motion.div 
         className="admin-modal"
@@ -1100,7 +1122,18 @@ export function AdminDashboardModal({ onClose, portfolioData, onUpdate, onFactor
               <h2>{meta.title}</h2>
               <p>{meta.subtitle}</p>
             </div>
-            <button type="button" className="admin-close-btn" onClick={onClose} aria-label="Close admin panel"><X size={18} /></button>
+            <button 
+              type="button" 
+              className="admin-close-btn" 
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                onClose()
+              }} 
+              aria-label="Close admin panel"
+            >
+              <X size={18} />
+            </button>
           </div>
           <div className="admin-workspace-body">
             <AnimatePresence mode="wait">
