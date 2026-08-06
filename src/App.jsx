@@ -857,8 +857,16 @@ function Navigation({ onOpen, theme, onToggleTheme, onAdminTrigger }) {
         className="monogram" 
         href="#top" 
         aria-label="Rahul Bariki home"
+        onClick={(e) => {
+          if (e.detail === 2) {
+            e.preventDefault()
+            e.stopPropagation()
+            onAdminTrigger?.()
+          }
+        }}
         onDoubleClick={(e) => {
           e.preventDefault()
+          e.stopPropagation()
           onAdminTrigger?.()
         }}
       >

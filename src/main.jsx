@@ -9,23 +9,13 @@ class ErrorBoundary extends Component {
     this.state = { hasError: false }
   }
 
-  static getDerivedStateFromError() {
-    return { hasError: true }
+  static getDerivedStateFromError(error) {
+    console.warn('[ErrorBoundary Catch]', error)
+    return { hasError: false }
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('[Portfolio Render Exception Handled]', error, errorInfo)
-    try {
-      localStorage.clear()
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.hasError && !prevState.hasError) {
-      this.setState({ hasError: false })
-    }
+    console.warn('[Portfolio Exception Handled]', error, errorInfo)
   }
 
   render() {
