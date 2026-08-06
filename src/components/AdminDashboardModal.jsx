@@ -770,7 +770,15 @@ function ProfileEditor({ data, onChange }) {
               return (
                 <div key={i} className={`profile-photo-card ${isActive ? 'active-photo' : ''}`}>
                   <div className="profile-photo-img-wrap">
-                    <img src={url} alt={`Profile ${i + 1}`} className="profile-photo-img" />
+                    <img 
+                      src={url} 
+                      alt={`Profile ${i + 1}`} 
+                      className="profile-photo-img" 
+                      onError={(e) => {
+                        e.target.onerror = null
+                        e.target.src = 'https://pnvpjoekdwiifzsrxkrs.supabase.co/storage/v1/object/public/portfolio-assets/profile/rahul-profile.png'
+                      }}
+                    />
                     {isActive && (
                       <div className="active-photo-badge">
                         <CheckCircle size={10} /> ACTIVE

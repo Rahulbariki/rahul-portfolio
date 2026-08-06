@@ -5606,4 +5606,14 @@ body:has(.admin-overlay) .cursor {
   background: rgba(109, 40, 217, 0.04);
 }
 
+/* Image Display Protection */
+.portrait-frame img,
+.profile-photo-img,
+.upload-thumb,
+.media-thumb {
+  background: #181924;
+  object-fit: cover;
+}
+
+
 

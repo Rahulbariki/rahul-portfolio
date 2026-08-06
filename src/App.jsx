@@ -1008,7 +1008,15 @@ function Hero({ onOpenResume, profileInfo }) {
             <div className="orbit-ring"><span className="orbit-dot" /></div>
             <div className="orbit-ring orbit-ring-outer"><span className="orbit-dot" /></div>
             <div className="portrait-border-ring" />
-            <img src={info.profilePhoto} alt="Rahul Bariki - Gen-AI Engineer & UI/UX Designer" loading="eager" />
+            <img 
+              src={info.profilePhoto} 
+              alt="Rahul Bariki - Gen-AI Engineer & UI/UX Designer" 
+              loading="eager" 
+              onError={(e) => {
+                e.target.onerror = null
+                e.target.src = 'https://pnvpjoekdwiifzsrxkrs.supabase.co/storage/v1/object/public/portfolio-assets/profile/rahul-profile.png'
+              }}
+            />
           </div>
 
           <div className="portrait-sub-tags">
