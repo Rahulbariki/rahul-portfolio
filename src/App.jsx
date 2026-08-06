@@ -853,15 +853,16 @@ function ThemeToggleSwitch({ theme, onToggleTheme, isMenu = false }) {
 function Navigation({ onOpen, theme, onToggleTheme, onAdminTrigger }) {
   return (
     <motion.header className="nav" initial={{ y: -80 }} animate={{ y: 0 }} transition={{ delay: 0.8, duration: 0.8 }}>
-      <a 
+      <button 
+        type="button"
         className="monogram" 
-        href="#top" 
         aria-label="Rahul Bariki home"
         onClick={(e) => {
+          e.preventDefault()
           if (e.detail === 2) {
-            e.preventDefault()
-            e.stopPropagation()
             onAdminTrigger?.()
+          } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
           }
         }}
         onDoubleClick={(e) => {
@@ -869,9 +870,10 @@ function Navigation({ onOpen, theme, onToggleTheme, onAdminTrigger }) {
           e.stopPropagation()
           onAdminTrigger?.()
         }}
+        style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', cursor: 'pointer', textAlign: 'left' }}
       >
         RB<span>®</span>
-      </a>
+      </button>
       <nav className="nav-links" aria-label="Primary navigation">
         {navItems.map((item, index) => (
           <a key={item.name} href={item.href}>
@@ -889,7 +891,7 @@ function Navigation({ onOpen, theme, onToggleTheme, onAdminTrigger }) {
   )
 }
 
-function MenuOverlay({ open, onClose, theme, onToggleTheme }) {
+function MenuOverlay({ open, onClose, theme, onToggleTheme, onAdminTrigger }) {
   useEffect(() => {
     if (!open) return undefined
     const closeOnEscape = (event) => { if (event.key === 'Escape') onClose() }
@@ -917,7 +919,29 @@ function MenuOverlay({ open, onClose, theme, onToggleTheme }) {
               </motion.a>
             ))}
           </div>
-          <p>Available for internships, ambitious ideas, and teams building what comes next.</p>
+          <div style={{ marginTop: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
+            <p style={{ margin: 0, flex: 1, minWidth: '220px' }}>Available for internships, ambitious ideas, and teams building what comes next.</p>
+            <button
+              type="button"
+              onClick={() => {
+                onClose()
+                onAdminTrigger?.()
+              }}
+              style={{
+                background: 'rgba(167, 139, 250, 0.12)',
+                border: '1px solid rgba(167, 139, 250, 0.25)',
+                color: '#a78bfa',
+                padding: '10px 18px',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontSize: '13px',
+                fontWeight: '600',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              ⚡ Admin Panel
+            </button>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
@@ -2175,7 +2199,7 @@ export function App() {
       <ParticleField />
       <Cursor x={springX} y={springY} disabled={adminOpen} />
       <Navigation onOpen={() => setMenuOpen(true)} theme={theme} onToggleTheme={toggleTheme} onAdminTrigger={() => setAdminOpen(true)} />
-      <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} theme={theme} onToggleTheme={toggleTheme} />
+      <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} theme={theme} onToggleTheme={toggleTheme} onAdminTrigger={() => setAdminOpen(true)} />
       <main>
         <CurrentlyBuildingBanner />
         <Hero onOpenResume={() => setResumeOpen(true)} profileInfo={portfolioData.profileInfo} />
