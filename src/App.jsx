@@ -531,6 +531,7 @@ const defaultProfileInfo = {
   phone: '+91 62817 69623',
   location: 'Nandyal, AP, India',
   profilePhoto: '/assets/rahul-profile.png',
+  profilePhotos: ['/assets/rahul-profile.png'],
   resumeUrl: '/assets/Rahul_Bariki_Resume.pdf',
 }
 
@@ -590,8 +591,13 @@ function safeLoad(key, fallback) {
 
 function loadPortfolioData() {
   const projects = safeLoad('admin-projects', null)
+  const loadedProfile = safeLoad('admin-profile', defaultProfileInfo)
+  if (!loadedProfile.profilePhotos || !Array.isArray(loadedProfile.profilePhotos) || loadedProfile.profilePhotos.length === 0) {
+    loadedProfile.profilePhotos = [loadedProfile.profilePhoto || defaultProfileInfo.profilePhoto]
+  }
+
   const data = {
-    profileInfo: safeLoad('admin-profile', defaultProfileInfo),
+    profileInfo: loadedProfile,
     projects: projects ? rehydrateIcons(projects) : defaultProjects,
     hackathons: safeLoad('admin-hackathons', defaultHackathons),
     certifications: safeLoad('admin-certifications', defaultCertifications),

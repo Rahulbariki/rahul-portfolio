@@ -609,41 +609,192 @@ function FAQEditor({ data, onChange }) {
    PROFILE & RESUME EDITOR
 ────────────────────────────────────────────── */
 function ProfileEditor({ data, onChange }) {
-  const update = (field, value) => {
+  const [uploading, setUploading] = useState(false)
+  const [dragOver, setDragOver] = useState(false)
+  const [newUrl, setNewUrl] = useState('')
+  const fileInputRef = useRef(null)
+
+  const activePhoto = data.profilePhoto || ''
+  const photosList = Array.isArray(data.profilePhotos) && data.profilePhotos.length > 0
+    ? data.profilePhotos
+    : (activePhoto ? [activePhoto] : [])
+
+  const updateField = (field, value) => {
     onChange({ ...data, [field]: value })
+  }
+
+  const updatePhotos = (newPhotosList, newActivePhoto) => {
+    const updatedActive = newActivePhoto !== undefined 
+      ? newActivePhoto 
+      : (newPhotosList.includes(activePhoto) ? activePhoto : (newPhotosList[0] || ''))
+
+    onChange({
+      ...data,
+      profilePhoto: updatedActive,
+      profilePhotos: newPhotosList
+    })
+  }
+
+  const handleUploadFiles = async (files) => {
+    if (!files || files.length === 0) return
+    setUploading(true)
+    const uploadedUrls = []
+    for (const file of Array.from(files)) {
+      try {
+        const url = await uploadToSupabase(file, 'profile')
+        if (url) uploadedUrls.push(url)
+      } catch (err) {
+        console.error('Failed to upload profile photo:', err)
+      }
+    }
+    if (uploadedUrls.length > 0) {
+      const combined = [...photosList, ...uploadedUrls]
+      updatePhotos(combined, uploadedUrls[0])
+    }
+    setUploading(false)
+  }
+
+  const handleAddUrl = (e) => {
+    e.preventDefault()
+    if (!newUrl.trim()) return
+    const url = newUrl.trim()
+    if (!photosList.includes(url)) {
+      updatePhotos([...photosList, url], url)
+    } else {
+      updateField('profilePhoto', url)
+    }
+    setNewUrl('')
+  }
+
+  const handleSetActive = (url) => {
+    updateField('profilePhoto', url)
+  }
+
+  const handleDeletePhoto = (url) => {
+    const nextList = photosList.filter(p => p !== url)
+    let nextActive = activePhoto
+    if (activePhoto === url) {
+      nextActive = nextList[0] || ''
+    }
+    updatePhotos(nextList, nextActive)
   }
 
   return (
     <div className="editor-section">
+      {/* Profile Details Card */}
       <div className="admin-card">
         <div className="admin-card-body" style={{ borderTop: 'none', background: 'transparent' }}>
           <div className="admin-field-row">
             <label>Name</label>
-            <input value={data.name || ''} onChange={e => update('name', e.target.value)} className="admin-input" />
+            <input value={data.name || ''} onChange={e => updateField('name', e.target.value)} className="admin-input" />
           </div>
           <div className="admin-field-row">
             <label>Role</label>
-            <input value={data.role || ''} onChange={e => update('role', e.target.value)} className="admin-input" />
+            <input value={data.role || ''} onChange={e => updateField('role', e.target.value)} className="admin-input" />
           </div>
           <div className="admin-field-row">
             <label>Email</label>
-            <input value={data.email || ''} onChange={e => update('email', e.target.value)} className="admin-input" />
+            <input value={data.email || ''} onChange={e => updateField('email', e.target.value)} className="admin-input" />
           </div>
           <div className="admin-field-row">
             <label>Phone</label>
-            <input value={data.phone || ''} onChange={e => update('phone', e.target.value)} className="admin-input" />
+            <input value={data.phone || ''} onChange={e => updateField('phone', e.target.value)} className="admin-input" />
           </div>
           <div className="admin-field-row">
             <label>Location</label>
-            <input value={data.location || ''} onChange={e => update('location', e.target.value)} className="admin-input" />
-          </div>
-          <div className="admin-field-row">
-            <label>Profile Photo</label>
-            <FileUploadInput value={data.profilePhoto || ''} onChange={v => update('profilePhoto', v)} folder="profile" label="Upload Photo" />
+            <input value={data.location || ''} onChange={e => updateField('location', e.target.value)} className="admin-input" />
           </div>
           <div className="admin-field-row">
             <label>Resume (PDF or Image)</label>
-            <FileUploadInput value={data.resumeUrl || ''} onChange={v => update('resumeUrl', v)} folder="resumes" label="Upload Resume PDF" accept="application/pdf,image/*" />
+            <FileUploadInput value={data.resumeUrl || ''} onChange={v => updateField('resumeUrl', v)} folder="resumes" label="Upload Resume PDF" accept="application/pdf,image/*" />
+          </div>
+        </div>
+      </div>
+
+      {/* Profile Photo Library & Selector */}
+      <div className="admin-card" style={{ marginTop: '20px' }}>
+        <div className="admin-card-header" style={{ cursor: 'default' }}>
+          <span className="admin-card-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <ImageIcon size={16} /> Profile Photos Gallery ({photosList.length})
+          </span>
+          <span style={{ fontSize: '11px', color: '#64748b' }}>Select active avatar or upload new ones</span>
+        </div>
+        <div className="admin-card-body" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+          {/* Upload Dropzone for Multiple Photos */}
+          <div
+            className={`upload-zone ${dragOver ? 'drag-over' : ''}`}
+            onClick={() => fileInputRef.current?.click()}
+            onDragOver={(e) => { e.preventDefault(); setDragOver(true) }}
+            onDragLeave={() => setDragOver(false)}
+            onDrop={(e) => { e.preventDefault(); setDragOver(false); handleUploadFiles(e.dataTransfer.files) }}
+            style={{ marginBottom: '16px' }}
+          >
+            {uploading ? (
+              <div className="upload-spinner-wrap"><span className="upload-spinner" /> Uploading Profile Photos…</div>
+            ) : (
+              <div className="upload-empty">
+                <CloudUpload size={24} />
+                <span>Upload Profile Photos</span>
+                <small>Drag &amp; drop multiple images or click to select</small>
+              </div>
+            )}
+            <input
+              ref={fileInputRef}
+              type="file"
+              multiple
+              accept="image/*"
+              style={{ display: 'none' }}
+              onChange={(e) => handleUploadFiles(e.target.files)}
+            />
+          </div>
+
+          {/* Add via URL Form */}
+          <form onSubmit={handleAddUrl} className="profile-url-add-form" style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
+            <input
+              type="url"
+              placeholder="Or paste profile image URL here…"
+              value={newUrl}
+              onChange={e => setNewUrl(e.target.value)}
+              className="admin-input"
+              style={{ flexGrow: 1 }}
+            />
+            <button type="submit" className="admin-btn primary" disabled={!newUrl.trim()}>
+              <Plus size={14} /> Add Image URL
+            </button>
+          </form>
+
+          {/* Photo Gallery Grid */}
+          <div className="profile-photos-grid">
+            {photosList.map((url, i) => {
+              const isActive = url === activePhoto
+              return (
+                <div key={i} className={`profile-photo-card ${isActive ? 'active-photo' : ''}`}>
+                  <div className="profile-photo-img-wrap">
+                    <img src={url} alt={`Profile ${i + 1}`} className="profile-photo-img" />
+                    {isActive && (
+                      <div className="active-photo-badge">
+                        <CheckCircle size={10} /> ACTIVE
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="profile-photo-card-actions">
+                    {isActive ? (
+                      <button type="button" className="admin-btn-sm active-indicator-btn" disabled style={{ flexGrow: 1, textAlign: 'center' }}>
+                        Active Photo
+                      </button>
+                    ) : (
+                      <button type="button" className="admin-btn-sm primary" onClick={() => handleSetActive(url)} style={{ flexGrow: 1 }}>
+                        Set Active
+                      </button>
+                    )}
+                    <button type="button" className="admin-btn-sm danger" onClick={() => handleDeletePhoto(url)} title="Delete Photo">
+                      <Trash2 size={12} />
+                    </button>
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>
