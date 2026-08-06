@@ -586,11 +586,7 @@ function safeLoad(key, fallback) {
   try {
     const raw = localStorage.getItem(key)
     if (!raw) return fallback
-    const parsed = JSON.parse(raw)
-    if (parsed == null) return fallback
-    if (Array.isArray(fallback) && !Array.isArray(parsed)) return fallback
-    if (typeof fallback === 'object' && !Array.isArray(fallback) && (typeof parsed !== 'object' || Array.isArray(parsed))) return fallback
-    return parsed
+    return JSON.parse(raw) ?? fallback
   } catch {
     return fallback
   }
@@ -598,30 +594,21 @@ function safeLoad(key, fallback) {
 
 function loadPortfolioData() {
   try {
+    const projectsRaw = safeLoad('admin-projects', null)
     const loadedProfile = safeLoad('admin-profile', defaultProfileInfo)
-    const profileInfo = (loadedProfile && typeof loadedProfile === 'object' && !Array.isArray(loadedProfile))
-      ? { ...defaultProfileInfo, ...loadedProfile }
-      : { ...defaultProfileInfo }
-
-    if (!Array.isArray(profileInfo.profilePhotos) || profileInfo.profilePhotos.length === 0) {
-      profileInfo.profilePhotos = [profileInfo.profilePhoto || defaultProfileInfo.profilePhoto]
+    
+    if (!loadedProfile.profilePhotos || !Array.isArray(loadedProfile.profilePhotos) || loadedProfile.profilePhotos.length === 0) {
+      loadedProfile.profilePhotos = [loadedProfile.profilePhoto || defaultProfileInfo.profilePhoto]
     }
 
-    const projectsRaw = safeLoad('admin-projects', defaultProjects)
-    const hackathonsRaw = safeLoad('admin-hackathons', defaultHackathons)
-    const certificationsRaw = safeLoad('admin-certifications', defaultCertifications)
-    const timelineEventsRaw = safeLoad('admin-timeline', defaultTimelineEvents)
-    const blogPostsRaw = safeLoad('admin-blog', defaultBlogPosts)
-    const faqItemsRaw = safeLoad('admin-faq', defaultFaqItems)
-
     const rawData = {
-      profileInfo,
-      projects: Array.isArray(projectsRaw) ? projectsRaw : defaultProjects,
-      hackathons: Array.isArray(hackathonsRaw) ? hackathonsRaw : defaultHackathons,
-      certifications: Array.isArray(certificationsRaw) ? certificationsRaw : defaultCertifications,
-      timelineEvents: Array.isArray(timelineEventsRaw) ? timelineEventsRaw : defaultTimelineEvents,
-      blogPosts: Array.isArray(blogPostsRaw) ? blogPostsRaw : defaultBlogPosts,
-      faqItems: Array.isArray(faqItemsRaw) ? faqItemsRaw : defaultFaqItems,
+      profileInfo: loadedProfile,
+      projects: projectsRaw || defaultProjects,
+      hackathons: safeLoad('admin-hackathons', defaultHackathons),
+      certifications: safeLoad('admin-certifications', defaultCertifications),
+      timelineEvents: safeLoad('admin-timeline', defaultTimelineEvents),
+      blogPosts: safeLoad('admin-blog', defaultBlogPosts),
+      faqItems: safeLoad('admin-faq', defaultFaqItems),
     }
 
     // 1. Migrate string URLs in raw data BEFORE rehydrating React icon components
@@ -634,7 +621,7 @@ function loadPortfolioData() {
   } catch (err) {
     console.error('[Portfolio Data Load Error]', err)
     return {
-      profileInfo: { ...defaultProfileInfo },
+      profileInfo: defaultProfileInfo,
       projects: rehydrateIcons(defaultProjects),
       hackathons: defaultHackathons,
       certifications: defaultCertifications,
@@ -853,27 +840,17 @@ function ThemeToggleSwitch({ theme, onToggleTheme, isMenu = false }) {
 function Navigation({ onOpen, theme, onToggleTheme, onAdminTrigger }) {
   return (
     <motion.header className="nav" initial={{ y: -80 }} animate={{ y: 0 }} transition={{ delay: 0.8, duration: 0.8 }}>
-      <button 
-        type="button"
+      <a 
         className="monogram" 
+        href="#top" 
         aria-label="Rahul Bariki home"
-        onClick={(e) => {
-          e.preventDefault()
-          if (e.detail === 2) {
-            onAdminTrigger?.()
-          } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-          }
-        }}
         onDoubleClick={(e) => {
           e.preventDefault()
-          e.stopPropagation()
           onAdminTrigger?.()
         }}
-        style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', cursor: 'pointer', textAlign: 'left' }}
       >
         RB<span>®</span>
-      </button>
+      </a>
       <nav className="nav-links" aria-label="Primary navigation">
         {navItems.map((item, index) => (
           <a key={item.name} href={item.href}>
@@ -891,7 +868,7 @@ function Navigation({ onOpen, theme, onToggleTheme, onAdminTrigger }) {
   )
 }
 
-function MenuOverlay({ open, onClose, theme, onToggleTheme, onAdminTrigger }) {
+function MenuOverlay({ open, onClose, theme, onToggleTheme }) {
   useEffect(() => {
     if (!open) return undefined
     const closeOnEscape = (event) => { if (event.key === 'Escape') onClose() }
@@ -919,29 +896,7 @@ function MenuOverlay({ open, onClose, theme, onToggleTheme, onAdminTrigger }) {
               </motion.a>
             ))}
           </div>
-          <div style={{ marginTop: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
-            <p style={{ margin: 0, flex: 1, minWidth: '220px' }}>Available for internships, ambitious ideas, and teams building what comes next.</p>
-            <button
-              type="button"
-              onClick={() => {
-                onClose()
-                onAdminTrigger?.()
-              }}
-              style={{
-                background: 'rgba(167, 139, 250, 0.12)',
-                border: '1px solid rgba(167, 139, 250, 0.25)',
-                color: '#a78bfa',
-                padding: '10px 18px',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontSize: '13px',
-                fontWeight: '600',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              ⚡ Admin Panel
-            </button>
-          </div>
+          <p>Available for internships, ambitious ideas, and teams building what comes next.</p>
         </motion.div>
       )}
     </AnimatePresence>
@@ -2199,7 +2154,7 @@ export function App() {
       <ParticleField />
       <Cursor x={springX} y={springY} disabled={adminOpen} />
       <Navigation onOpen={() => setMenuOpen(true)} theme={theme} onToggleTheme={toggleTheme} onAdminTrigger={() => setAdminOpen(true)} />
-      <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} theme={theme} onToggleTheme={toggleTheme} onAdminTrigger={() => setAdminOpen(true)} />
+      <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} theme={theme} onToggleTheme={toggleTheme} />
       <main>
         <CurrentlyBuildingBanner />
         <Hero onOpenResume={() => setResumeOpen(true)} profileInfo={portfolioData.profileInfo} />
