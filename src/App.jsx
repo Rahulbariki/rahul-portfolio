@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
 import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Calendar, Camera, CheckCircle, ChevronDown, Clock, Code2, Cpu, ExternalLink, Eye, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, Moon, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Sun, Terminal, TrendingUp, Trophy, Wrench, X } from 'lucide-react'
+import { AdminDashboardModal, ICON_MAP } from './components/AdminDashboardModal.jsx'
 
-const timelineEvents = [
+const defaultTimelineEvents = [
   {
     year: '2026 — 2027 (Current)',
     title: 'Co-Building IntelliAttend Startup & GenAI Breakthroughs',
@@ -45,7 +46,7 @@ const timelineEvents = [
   },
 ]
 
-const blogPosts = [
+const defaultBlogPosts = [
   {
     title: 'Architecting Zero-Proxy AI Attendance Systems with Facial Verification',
     date: 'Feb 2026',
@@ -72,7 +73,7 @@ const blogPosts = [
   },
 ]
 
-const faqItems = [
+const defaultFaqItems = [
   {
     question: 'Are you available for full-time roles, internships, or startup collaborations?',
     answer: 'Yes! As a final-year B.Tech CSE (AI & ML) student graduating in 2027, I am actively seeking full-time AI Engineering roles, Generative AI internships, and ambitious co-building opportunities.',
@@ -91,7 +92,7 @@ const faqItems = [
   },
 ]
 
-const projects = [
+const defaultProjects = [
   {
     number: '01',
     title: 'IntelliAttend',
@@ -228,7 +229,7 @@ const navItems = [
   { name: 'Contact', href: '#contact' },
 ]
 
-const hackathons = [
+const defaultHackathons = [
   {
     title: 'DEFEND-X National Technical Symposium (RIPPLE 2K26)',
     organizer: 'Dept of CSE (Cyber Security), RGMCET',
@@ -318,7 +319,7 @@ const certCategories = [
   { id: 'participation', label: '💻 Training Programs & Workshops (2)' },
 ]
 
-const certifications = [
+const defaultCertifications = [
   // --- IEEE CERTIFICATIONS ---
   {
     category: 'ieee',
@@ -523,6 +524,104 @@ const experiences = [
   { period: '2024', company: 'Zcalar AI Virtual Internship', role: 'AI Developer Virtual Intern', text: 'Completed a virtual internship developing intelligent chatbot systems and exploring useful, product-focused NLP experiences.' },
 ]
 
+const defaultProfileInfo = {
+  name: 'Rahul Bariki',
+  role: 'Generative AI & AI Automation Developer',
+  email: 'rahulbariki24@gmail.com',
+  phone: '+91 62817 69623',
+  location: 'Nandyal, AP, India',
+  profilePhoto: '/assets/rahul-profile.png',
+  resumeUrl: '/assets/Rahul_Bariki_Resume.pdf',
+}
+
+/* ─────────────────────────────────────────────
+   PORTFOLIO DATA — localStorage + defaults
+────────────────────────────────────────────── */
+function rehydrateIcons(projects) {
+  return projects.map((p) => {
+    const iconFn = p.iconKey ? ICON_MAP[p.iconKey] : null
+    if (iconFn) return { ...p, icon: iconFn }
+    // match by title to restore icon from defaults
+    const match = defaultProjects.find((d) => d.title === p.title)
+    return match ? { ...p, icon: match.icon } : { ...p, icon: ICON_MAP.Code2 }
+  })
+}
+
+function migrateAssetUrl(url) {
+  if (typeof url !== 'string' || !url.startsWith('/assets/')) return url
+  const filename = url.replace('/assets/', '')
+  const f = filename.toLowerCase()
+  let folder = 'media'
+  if (f.startsWith('rahul-profile') || f.startsWith('rahul-hero')) folder = 'profile'
+  else if (f.startsWith('cert-') || f.endsWith('.pdf')) folder = 'certificates'
+  else if (f.startsWith('news-') || f.startsWith('photo-')) folder = 'hackathons'
+  else if (f.includes('-logo') || f.includes('intelliattend') || f.includes('brandnova') || f.includes('campuspulse') || f.includes('showlink')) folder = 'projects'
+  
+  return `https://pnvpjoekdwiifzsrxkrs.supabase.co/storage/v1/object/public/portfolio-assets/${folder}/${filename}`
+}
+
+function migrateDataUrls(obj) {
+  if (!obj) return obj
+  if (typeof obj === 'string') {
+    return migrateAssetUrl(obj)
+  }
+  if (Array.isArray(obj)) {
+    return obj.map(migrateDataUrls)
+  }
+  if (typeof obj === 'object') {
+    const newObj = {}
+    for (const key in obj) {
+      newObj[key] = migrateDataUrls(obj[key])
+    }
+    return newObj
+  }
+  return obj
+}
+
+function safeLoad(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key)
+    if (!raw) return fallback
+    return JSON.parse(raw) ?? fallback
+  } catch {
+    return fallback
+  }
+}
+
+function loadPortfolioData() {
+  const projects = safeLoad('admin-projects', null)
+  const data = {
+    profileInfo: safeLoad('admin-profile', defaultProfileInfo),
+    projects: projects ? rehydrateIcons(projects) : defaultProjects,
+    hackathons: safeLoad('admin-hackathons', defaultHackathons),
+    certifications: safeLoad('admin-certifications', defaultCertifications),
+    timelineEvents: safeLoad('admin-timeline', defaultTimelineEvents),
+    blogPosts: safeLoad('admin-blog', defaultBlogPosts),
+    faqItems: safeLoad('admin-faq', defaultFaqItems),
+  }
+  return migrateDataUrls(data)
+}
+
+function savePortfolioKey(key, value) {
+  const storageKeyMap = {
+    profileInfo: 'admin-profile',
+    projects: 'admin-projects',
+    hackathons: 'admin-hackathons',
+    certifications: 'admin-certifications',
+    timelineEvents: 'admin-timeline',
+    blogPosts: 'admin-blog',
+    faqItems: 'admin-faq',
+  }
+  const storageKey = storageKeyMap[key]
+  if (storageKey) {
+    // Strip non-serialisable icon functions before saving
+    const toSave = key === 'projects'
+      ? value.map((p) => ({ ...p, icon: undefined, iconKey: p.iconKey || (defaultProjects.find((d) => d.title === p.title)?.iconKey) }))
+      : value
+    localStorage.setItem(storageKey, JSON.stringify(toSave))
+  }
+}
+
 function getMediaCount(item) {
   let count = 0
   if (item.image) count++
@@ -643,13 +742,16 @@ function ParticleField() {
   return <canvas ref={canvasRef} className="particle-field" aria-hidden="true" />
 }
 
-function Cursor({ x, y }) {
+function Cursor({ x, y, disabled }) {
   const [active, setActive] = useState(false)
 
   useEffect(() => {
+    if (disabled) return
+
     const handlePointerOver = (event) => {
       const target = event.target
       if (target && target.closest && target.closest('a, button, [role="button"]')) {
+        if (target.closest('.admin-overlay, .admin-gate-backdrop')) return
         setActive(true)
       }
     }
@@ -657,6 +759,7 @@ function Cursor({ x, y }) {
     const handlePointerOut = (event) => {
       const related = event.relatedTarget
       if (related && related.closest && related.closest('a, button, [role="button"]')) {
+        if (related.closest('.admin-overlay, .admin-gate-backdrop')) return
         return
       }
       setActive(false)
@@ -668,7 +771,9 @@ function Cursor({ x, y }) {
       window.removeEventListener('pointerover', handlePointerOver)
       window.removeEventListener('pointerout', handlePointerOut)
     }
-  }, [])
+  }, [disabled])
+
+  if (disabled) return null
 
   return <motion.div className={`cursor ${active ? 'cursor-active' : ''}`} style={{ x, y }} aria-hidden="true" />
 }
@@ -698,10 +803,20 @@ function ThemeToggleSwitch({ theme, onToggleTheme, isMenu = false }) {
   )
 }
 
-function Navigation({ onOpen, theme, onToggleTheme }) {
+function Navigation({ onOpen, theme, onToggleTheme, onAdminTrigger }) {
   return (
     <motion.header className="nav" initial={{ y: -80 }} animate={{ y: 0 }} transition={{ delay: 0.8, duration: 0.8 }}>
-      <a className="monogram" href="#top" aria-label="Rahul Bariki home">RB<span>®</span></a>
+      <a 
+        className="monogram" 
+        href="#top" 
+        aria-label="Rahul Bariki home"
+        onDoubleClick={(e) => {
+          e.preventDefault()
+          onAdminTrigger?.()
+        }}
+      >
+        RB<span>®</span>
+      </a>
       <nav className="nav-links" aria-label="Primary navigation">
         {navItems.map((item, index) => (
           <a key={item.name} href={item.href}>
@@ -799,10 +914,11 @@ function HeroTerminal() {
   )
 }
 
-function Hero({ onOpenResume }) {
+function Hero({ onOpenResume, profileInfo }) {
   const { scrollYProgress } = useScroll()
   const y = useTransform(scrollYProgress, [0, 0.2], [0, 40])
   const opacity = useTransform(scrollYProgress, [0, 0.16], [1, 0])
+  const info = profileInfo || defaultProfileInfo
 
   return (
     <section className="hero" id="top">
@@ -857,7 +973,7 @@ function Hero({ onOpenResume }) {
               <Eye size={15} /> View Resume
             </button>
             <a 
-              href="/assets/Rahul_Bariki_Resume.pdf" 
+              href={info.resumeUrl} 
               className="hero-cta-secondary"
               aria-label="Download Resume of Rahul Bariki"
               download="Rahul_Bariki_Resume.pdf"
@@ -886,7 +1002,7 @@ function Hero({ onOpenResume }) {
             <div className="orbit-ring"><span className="orbit-dot" /></div>
             <div className="orbit-ring orbit-ring-outer"><span className="orbit-dot" /></div>
             <div className="portrait-border-ring" />
-            <img src="/assets/rahul-profile.png" alt="Rahul Bariki - Gen-AI Engineer & UI/UX Designer" loading="eager" />
+            <img src={info.profilePhoto} alt="Rahul Bariki - Gen-AI Engineer & UI/UX Designer" loading="eager" />
           </div>
 
           <div className="portrait-sub-tags">
@@ -1024,7 +1140,7 @@ function ProjectCard({ project, onSelectImage }) {
 
 
 
-function Achievements({ onSelectImage }) {
+function Achievements({ onSelectImage, portfolioData }) {
   const [activeTab, setActiveTab] = useState('hackathons')
 
   const tabs = [
@@ -1032,6 +1148,9 @@ function Achievements({ onSelectImage }) {
     { id: 'certs', label: '📜 Verified Certifications (11)' },
     { id: 'leadership', label: '🎓 Leadership & Impact (2)' },
   ]
+
+  const hackathons = portfolioData?.hackathons ?? defaultHackathons
+  const certifications = portfolioData?.certifications ?? defaultCertifications
 
   const [certFilter, setCertFilter] = useState('all')
   const filteredCerts = certFilter === 'all'
@@ -1336,7 +1455,7 @@ function Achievements({ onSelectImage }) {
                 className="cert-view-btn"
                 onClick={() => onSelectImage({
                   title: 'Certificate of IEEE Volunteering (Secretary)',
-                  img: '/assets/cert-ieee-volunteering-secretary.png',
+                  img: migrateAssetUrl('/assets/cert-ieee-volunteering-secretary.png'),
                   imgTitle: 'Certificate of IEEE Volunteering — Secretary (Santhiram Engg. College)',
                 })}
               >
@@ -1361,7 +1480,7 @@ function Achievements({ onSelectImage }) {
                 className="cert-view-btn"
                 onClick={() => onSelectImage({
                   title: 'Auditorium Presentation of SHOWLINK Project',
-                  img: '/assets/photo-showlink-presentation-1.jpg',
+                  img: migrateAssetUrl('/assets/photo-showlink-presentation-1.jpg'),
                   imgTitle: 'Live Auditorium Stage Presentation of SHOWLINK Web Portal',
                 })}
               >
@@ -1459,7 +1578,7 @@ function FeaturedSpotlightHero({ onSelectImage }) {
               className="btn-spotlight-case"
               onClick={() => onSelectImage({
                 title: 'IntelliAttend Startup Architecture',
-                img: '/assets/intelliattend-logo.png',
+                img: migrateAssetUrl('/assets/intelliattend-logo.png'),
                 imgTitle: 'IntelliAttend AI Attendance Platform — Enterprise System Architecture'
               })}
             >
@@ -1469,7 +1588,7 @@ function FeaturedSpotlightHero({ onSelectImage }) {
         </div>
         <div className="spotlight-right">
           <div className="spotlight-img-frame">
-            <img src="/assets/intelliattend-logo.png" alt="IntelliAttend Startup Logo & AI Dashboard" />
+            <img src={migrateAssetUrl('/assets/intelliattend-logo.png')} alt="IntelliAttend Startup Logo & AI Dashboard" />
             <span className="spotlight-live-pill">LIVE ON PROD 🟢</span>
           </div>
         </div>
@@ -1517,14 +1636,15 @@ function GitHubActivityWidget() {
   )
 }
 
-function InteractiveTimeline() {
+function InteractiveTimeline({ timelineEvents: events }) {
+  const items = events ?? defaultTimelineEvents
   return (
     <div className="interactive-timeline-container">
       <div className="timeline-header">
         <Clock size={18} /> <h3>Career Journey & Strategic Milestones</h3>
       </div>
       <div className="timeline-track">
-        {timelineEvents.map((event, index) => (
+        {items.map((event, index) => (
           <motion.div 
             key={event.title}
             className={`timeline-step ${event.tone}`}
@@ -1551,7 +1671,8 @@ function InteractiveTimeline() {
 }
 
 
-function TechnicalBlog() {
+function TechnicalBlog({ blogPosts: posts }) {
+  const items = posts ?? defaultBlogPosts
   return (
     <section className="blog-section section-shell" id="blog">
       <div className="section-heading compact">
@@ -1559,7 +1680,7 @@ function TechnicalBlog() {
         <h2>Writing on AI agents,<br /><em>prompting & full-stack systems.</em></h2>
       </div>
       <div className="blog-grid">
-        {blogPosts.map((post, index) => (
+        {items.map((post, index) => (
           <motion.article 
             key={post.title}
             className="blog-card"
@@ -1575,7 +1696,7 @@ function TechnicalBlog() {
             <h3>{post.title}</h3>
             <p>{post.snippet}</p>
             <div className="blog-tags">
-              {post.tags.map((t) => <span key={t}>{t}</span>)}
+              {(post.tags || []).map((t) => <span key={t}>{t}</span>)}
             </div>
             <a href={post.url} target="_blank" rel="noopener noreferrer" className="blog-read-link">
               <span>Read Insight</span> <ArrowUpRight size={14} />
@@ -1587,7 +1708,8 @@ function TechnicalBlog() {
   )
 }
 
-function FAQAccordion() {
+function FAQAccordion({ faqItems: items }) {
+  const faq = items ?? defaultFaqItems
   const [openIndex, setOpenIndex] = useState(0)
 
   return (
@@ -1597,7 +1719,7 @@ function FAQAccordion() {
         <h2>Frequently asked<br /><em>questions.</em></h2>
       </div>
       <div className="faq-list">
-        {faqItems.map((item, index) => {
+        {faq.map((item, index) => {
           const isOpen = openIndex === index
           return (
             <div key={item.question} className={`faq-item ${isOpen ? 'open' : ''}`}>
@@ -1631,7 +1753,8 @@ function FAQAccordion() {
   )
 }
 
-function Contact({ onOpenResume }) {
+function Contact({ onOpenResume, profileInfo }) {
+  const info = profileInfo || defaultProfileInfo
   return (
     <section className="contact section-shell" id="contact">
       <div className="contact-glow" />
@@ -1662,7 +1785,7 @@ function Contact({ onOpenResume }) {
         <a href="mailto:rahulbariki24@gmail.com">
           <Mail size={14} /> Email
         </a>
-        <a href="/assets/Rahul_Bariki_Resume.pdf" download="Rahul_Bariki_Resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Download Resume of Rahul Bariki">
+        <a href={info.resumeUrl} download="Rahul_Bariki_Resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Download Resume of Rahul Bariki">
           <ArrowDown size={14} /> Download PDF
         </a>
       </div>
@@ -1675,7 +1798,9 @@ function Contact({ onOpenResume }) {
   )
 }
 
-function ResumeModal({ open, onClose }) {
+function ResumeModal({ open, onClose, profileInfo }) {
+  const info = profileInfo || defaultProfileInfo
+
   useEffect(() => {
     if (!open) return undefined
     const handleKeyDown = (e) => { if (e.key === 'Escape') onClose() }
@@ -1714,7 +1839,7 @@ function ResumeModal({ open, onClose }) {
             </div>
             <div className="resume-header-actions">
               <a
-                href="/assets/Rahul_Bariki_Resume.pdf"
+                href={info.resumeUrl}
                 download="Rahul_Bariki_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -1887,6 +2012,8 @@ export function App() {
   const [loaded, setLoaded] = useState(false)
   const [resumeOpen, setResumeOpen] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
+  const [adminOpen, setAdminOpen] = useState(false)
+  const [portfolioData, setPortfolioData] = useState(loadPortfolioData)
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('rahul-portfolio-theme')
@@ -1896,6 +2023,46 @@ export function App() {
   })
   const { scrollYProgress } = useScroll()
   const { springX, springY } = usePointer()
+
+  // Ctrl+Shift+A opens admin dashboard
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+        e.preventDefault()
+        setAdminOpen((prev) => !prev)
+      }
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [])
+
+  // Manage body class when admin modal is open to restore native cursors & hide custom cursor
+  useEffect(() => {
+    if (adminOpen) {
+      document.body.classList.add('admin-open')
+    } else {
+      document.body.classList.remove('admin-open')
+    }
+    return () => {
+      document.body.classList.remove('admin-open')
+    }
+  }, [adminOpen])
+
+  const handleAdminUpdate = (key, value) => {
+    setPortfolioData((prev) => {
+      const next = { ...prev, [key]: value }
+      if (key === 'projects') {
+        next.projects = rehydrateIcons(value)
+      }
+      savePortfolioKey(key, value)
+      return next
+    })
+  }
+
+  const handleFactoryReset = () => {
+    ;['admin-profile','admin-projects','admin-hackathons','admin-certifications','admin-timeline','admin-blog','admin-faq'].forEach((k) => localStorage.removeItem(k))
+    setPortfolioData(loadPortfolioData())
+  }
 
   useEffect(() => {
     const timer = window.setTimeout(() => setLoaded(true), 1200)
@@ -1943,12 +2110,12 @@ export function App() {
       <div className="noise" />
       <div className="pointer-glow" />
       <ParticleField />
-      <Cursor x={springX} y={springY} />
-      <Navigation onOpen={() => setMenuOpen(true)} theme={theme} onToggleTheme={toggleTheme} />
+      <Cursor x={springX} y={springY} disabled={adminOpen} />
+      <Navigation onOpen={() => setMenuOpen(true)} theme={theme} onToggleTheme={toggleTheme} onAdminTrigger={() => setAdminOpen(true)} />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} theme={theme} onToggleTheme={toggleTheme} />
       <main>
         <CurrentlyBuildingBanner />
-        <Hero onOpenResume={() => setResumeOpen(true)} />
+        <Hero onOpenResume={() => setResumeOpen(true)} profileInfo={portfolioData.profileInfo} />
         <Manifesto />
         <section className="work section-shell" id="work">
           <div className="section-heading">
@@ -1957,7 +2124,7 @@ export function App() {
           </div>
           <FeaturedSpotlightHero onSelectImage={setSelectedImage} />
           <div className="project-grid">
-            {projects.map((project) => (
+            {portfolioData.projects.map((project) => (
               <ProjectCard project={project} onSelectImage={setSelectedImage} key={project.title} />
             ))}
           </div>
@@ -2029,17 +2196,31 @@ export function App() {
               ))}
             </div>
           </div>
-          <InteractiveTimeline />
+          <InteractiveTimeline timelineEvents={portfolioData.timelineEvents} />
         </section>
-        <Achievements onSelectImage={setSelectedImage} />
+        <Achievements onSelectImage={setSelectedImage} portfolioData={portfolioData} />
         <Education />
-        <TechnicalBlog />
-        <FAQAccordion />
-        <Contact onOpenResume={() => setResumeOpen(true)} />
+        <TechnicalBlog blogPosts={portfolioData.blogPosts} />
+        <FAQAccordion faqItems={portfolioData.faqItems} />
+        <Contact onOpenResume={() => setResumeOpen(true)} profileInfo={portfolioData.profileInfo} />
       </main>
 
       {/* Interactive Resume Modal */}
-      <ResumeModal open={resumeOpen} onClose={() => setResumeOpen(false)} />
+      <ResumeModal open={resumeOpen} onClose={() => setResumeOpen(false)} profileInfo={portfolioData.profileInfo} />
+
+      {/* Admin Dashboard */}
+      <AnimatePresence>
+        {adminOpen && (
+          <AdminDashboardModal
+            onClose={() => setAdminOpen(false)}
+            portfolioData={portfolioData}
+            onUpdate={handleAdminUpdate}
+            onFactoryReset={handleFactoryReset}
+            theme={theme}
+            onToggleTheme={toggleTheme}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Global Lightbox Modal for Certificate & Media Images */}
       <AnimatePresence>
