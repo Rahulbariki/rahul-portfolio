@@ -569,10 +569,13 @@ function migrateDataUrls(obj) {
   if (Array.isArray(obj)) {
     return obj.map(migrateDataUrls)
   }
-  if (typeof obj === 'object') {
+  // Only recurse into plain JS data objects (never functions, React elements, or components)
+  if (typeof obj === 'object' && obj.constructor === Object && !obj.$$typeof) {
     const newObj = {}
     for (const key in obj) {
-      newObj[key] = migrateDataUrls(obj[key])
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        newObj[key] = migrateDataUrls(obj[key])
+      }
     }
     return newObj
   }
@@ -590,22 +593,43 @@ function safeLoad(key, fallback) {
 }
 
 function loadPortfolioData() {
-  const projects = safeLoad('admin-projects', null)
-  const loadedProfile = safeLoad('admin-profile', defaultProfileInfo)
-  if (!loadedProfile.profilePhotos || !Array.isArray(loadedProfile.profilePhotos) || loadedProfile.profilePhotos.length === 0) {
-    loadedProfile.profilePhotos = [loadedProfile.profilePhoto || defaultProfileInfo.profilePhoto]
-  }
+  try {
+    const projectsRaw = safeLoad('admin-projects', null)
+    const loadedProfile = safeLoad('admin-profile', defaultProfileInfo)
+    
+    if (!loadedProfile.profilePhotos || !Array.isArray(loadedProfile.profilePhotos) || loadedProfile.profilePhotos.length === 0) {
+      loadedProfile.profilePhotos = [loadedProfile.profilePhoto || defaultProfileInfo.profilePhoto]
+    }
 
-  const data = {
-    profileInfo: loadedProfile,
-    projects: projects ? rehydrateIcons(projects) : defaultProjects,
-    hackathons: safeLoad('admin-hackathons', defaultHackathons),
-    certifications: safeLoad('admin-certifications', defaultCertifications),
-    timelineEvents: safeLoad('admin-timeline', defaultTimelineEvents),
-    blogPosts: safeLoad('admin-blog', defaultBlogPosts),
-    faqItems: safeLoad('admin-faq', defaultFaqItems),
+    const rawData = {
+      profileInfo: loadedProfile,
+      projects: projectsRaw || defaultProjects,
+      hackathons: safeLoad('admin-hackathons', defaultHackathons),
+      certifications: safeLoad('admin-certifications', defaultCertifications),
+      timelineEvents: safeLoad('admin-timeline', defaultTimelineEvents),
+      blogPosts: safeLoad('admin-blog', defaultBlogPosts),
+      faqItems: safeLoad('admin-faq', defaultFaqItems),
+    }
+
+    // 1. Migrate string URLs in raw data BEFORE rehydrating React icon components
+    const migrated = migrateDataUrls(rawData)
+
+    // 2. Rehydrate React icon components on projects
+    migrated.projects = rehydrateIcons(migrated.projects)
+
+    return migrated
+  } catch (err) {
+    console.error('[Portfolio Data Load Error]', err)
+    return {
+      profileInfo: defaultProfileInfo,
+      projects: rehydrateIcons(defaultProjects),
+      hackathons: defaultHackathons,
+      certifications: defaultCertifications,
+      timelineEvents: defaultTimelineEvents,
+      blogPosts: defaultBlogPosts,
+      faqItems: defaultFaqItems,
+    }
   }
-  return migrateDataUrls(data)
 }
 
 function savePortfolioKey(key, value) {
@@ -620,11 +644,15 @@ function savePortfolioKey(key, value) {
   }
   const storageKey = storageKeyMap[key]
   if (storageKey) {
-    // Strip non-serialisable icon functions before saving
-    const toSave = key === 'projects'
-      ? value.map((p) => ({ ...p, icon: undefined, iconKey: p.iconKey || (defaultProjects.find((d) => d.title === p.title)?.iconKey) }))
-      : value
-    localStorage.setItem(storageKey, JSON.stringify(toSave))
+    try {
+      // Strip non-serialisable icon functions before saving
+      const toSave = key === 'projects'
+        ? value.map((p) => ({ ...p, icon: undefined, iconKey: p.iconKey || (defaultProjects.find((d) => d.title === p.title)?.iconKey) }))
+        : value
+      localStorage.setItem(storageKey, JSON.stringify(toSave))
+    } catch (e) {
+      console.warn('[LocalStorage Save Quota Warning]', e)
+    }
   }
 }
 
