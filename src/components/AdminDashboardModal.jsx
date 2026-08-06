@@ -676,7 +676,7 @@ function ProfileEditor({ data, onChange }) {
   }
 
   const handleSetActive = (url) => {
-    updateField('profilePhoto', url)
+    updatePhotos(photosList, url)
   }
 
   const handleDeletePhoto = (url) => {
