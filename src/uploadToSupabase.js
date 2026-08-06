@@ -95,7 +95,9 @@ export async function uploadToSupabase(file, folder = 'media', onProgress = null
   let targetFile = file
   try {
     if (file.type && file.type.startsWith('image/')) {
-      targetFile = await compressImage(file, 1200, 0.85)
+      const maxDim = folder === 'profile' ? 500 : 1000
+      const quality = folder === 'profile' ? 0.80 : 0.82
+      targetFile = await compressImage(file, maxDim, quality)
     }
   } catch (err) {
     console.warn('[Image Compress Warning]', err)

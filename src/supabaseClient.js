@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-// Only treat as ready if the URL is a real HTTP/HTTPS URL (not a placeholder)
+// Only treat as ready if the URL is a real HTTP/HTTPS URL and key is a valid Supabase JWT key
 const isValidUrl = (url) => {
   if (!url) return false
   try {
@@ -14,13 +14,20 @@ const isValidUrl = (url) => {
   }
 }
 
-const credentialsReady = isValidUrl(supabaseUrl) && supabaseAnonKey && supabaseAnonKey !== 'YOUR_SUPABASE_ANON_KEY_HERE'
+const isValidAnonKey = (key) => {
+  if (!key || typeof key !== 'string') return false
+  if (key === 'YOUR_SUPABASE_ANON_KEY_HERE') return false
+  // Real Supabase anon keys are JWT strings starting with eyJ
+  return key.startsWith('eyJ') || key.length > 50
+}
+
+const credentialsReady = isValidUrl(supabaseUrl) && isValidAnonKey(supabaseAnonKey)
 
 if (!credentialsReady) {
   console.info(
-    '[Supabase] No valid credentials found in .env.local.\n' +
-    'Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to enable cloud image uploads.\n' +
-    'Uploads will fall back to Base64 until then.'
+    '[Supabase] No valid JWT credentials found in .env.local.\n' +
+    'Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY (JWT) from Supabase dashboard to enable cloud storage.\n' +
+    'Optimized local storage mode active.'
   )
 }
 
