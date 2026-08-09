@@ -1928,6 +1928,7 @@ function ResumeModal({ open, onClose, profileInfo }) {
     ? info.resumes
     : [{ id: 'default', name: 'Generative AI & AI Engineer Resume', url: info.resumeUrl || '/assets/Rahul_Bariki_Resume.pdf', active: true }]
   const [selectedResume, setSelectedResume] = useState(() => resumes.find(r => r.active || r.url === info.resumeUrl) || resumes[0])
+  const [viewMode, setViewMode] = useState('summary')
 
   useEffect(() => {
     const current = resumes.find(r => r.active || r.url === info.resumeUrl) || resumes[0]
@@ -1966,11 +1967,30 @@ function ResumeModal({ open, onClose, profileInfo }) {
           onClick={(e) => e.stopPropagation()}
         >
           <div className="resume-modal-header" style={{ flexDirection: 'column', alignItems: 'stretch', gap: '12px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', flexWrap: 'wrap', gap: '10px' }}>
               <div className="resume-header-title">
                 <span className="dot-purple" />
                 <h3>Rahul Bariki's Resume</h3>
               </div>
+
+              {/* View Mode Switcher: Interactive Summary vs Embedded PDF Document */}
+              <div className="resume-modal-view-mode-tabs">
+                <button
+                  type="button"
+                  className={`resume-view-tab ${viewMode === 'summary' ? 'active' : ''}`}
+                  onClick={() => setViewMode('summary')}
+                >
+                  <BookOpen size={12} /> Interactive Summary
+                </button>
+                <button
+                  type="button"
+                  className={`resume-view-tab ${viewMode === 'pdf' ? 'active' : ''}`}
+                  onClick={() => setViewMode('pdf')}
+                >
+                  <FileText size={12} /> PDF Document
+                </button>
+              </div>
+
               <div className="resume-header-actions">
                 <a
                   href={selectedResume.url}
@@ -2005,7 +2025,15 @@ function ResumeModal({ open, onClose, profileInfo }) {
           </div>
 
           <div className="resume-modal-body">
-            {/* Left Sidebar */}
+            {viewMode === 'pdf' ? (
+              <iframe
+                src={`${selectedResume.url}#toolbar=1`}
+                className="inapp-pdf-iframe"
+                title={selectedResume.name}
+              />
+            ) : (
+              <>
+                {/* Left Sidebar */}
             <div className="resume-sidebar">
               <div className="resume-profile-block">
                 <h2>Rahul Bariki</h2>
@@ -2151,7 +2179,9 @@ function ResumeModal({ open, onClose, profileInfo }) {
                 </div>
               </div>
             </div>
-          </div>
+          </>
+        )}
+      </div>
         </motion.div>
       </motion.div>
     </AnimatePresence>
@@ -2388,6 +2418,7 @@ export function App() {
             onFactoryReset={handleFactoryReset}
             theme={theme}
             onToggleTheme={toggleTheme}
+            onPreviewFile={setSelectedImage}
           />
         )}
       </AnimatePresence>
@@ -2420,7 +2451,15 @@ export function App() {
               </div>
 
               <div className="cert-modal-body">
-                <img src={selectedImage.img} alt={selectedImage.imgTitle || selectedImage.title} />
+                {selectedImage.isPdf || selectedImage.img?.toLowerCase().includes('.pdf') ? (
+                  <iframe
+                    src={`${selectedImage.img}#toolbar=1`}
+                    className="inapp-pdf-iframe"
+                    title={selectedImage.title}
+                  />
+                ) : (
+                  <img src={selectedImage.img} alt={selectedImage.imgTitle || selectedImage.title} />
+                )}
 
                 {selectedImage.newsImg && (
                   <div className="cert-modal-news-block">

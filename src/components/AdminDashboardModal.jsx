@@ -608,7 +608,7 @@ function FAQEditor({ data, onChange }) {
 /* ─────────────────────────────────────────────
    PROFILE & RESUME EDITOR
 ────────────────────────────────────────────── */
-function ProfileEditor({ data, onChange }) {
+function ProfileEditor({ data, onChange, onPreviewFile }) {
   const [uploading, setUploading] = useState(false)
   const [dragOver, setDragOver] = useState(false)
   const [newUrl, setNewUrl] = useState('')
@@ -876,9 +876,14 @@ function ProfileEditor({ data, onChange }) {
                     )}
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
-                    <a href={res.url} target="_blank" rel="noopener noreferrer" className="admin-btn-sm outline" title="Preview PDF">
+                    <button
+                      type="button"
+                      className="admin-btn-sm outline"
+                      onClick={() => onPreviewFile?.({ title: res.name, img: res.url, isPdf: true })}
+                      title="Preview PDF in website"
+                    >
                       <Eye size={12} /> Preview
-                    </a>
+                    </button>
                     {isActive ? (
                       <button type="button" className="admin-btn-sm active-indicator-btn" disabled>
                         Active
@@ -1003,7 +1008,7 @@ function ProfileEditor({ data, onChange }) {
 /* ─────────────────────────────────────────────
    MEDIA LIBRARY
 ────────────────────────────────────────────── */
-function MediaLibrary() {
+function MediaLibrary({ onPreviewFile }) {
   const [mediaItems, setMediaItems] = useState(() => {
     try { return JSON.parse(localStorage.getItem('admin-media-library')) || [] } catch { return [] }
   })
@@ -1050,7 +1055,13 @@ function MediaLibrary() {
             <div className="media-thumb-info">
               <span className="media-thumb-name">{item.name}</span>
               <div className="media-thumb-actions">
-                <button type="button" className="admin-btn-sm" onClick={() => window.open(item.url, '_blank')}>Preview</button>
+                <button
+                  type="button"
+                  className="admin-btn-sm"
+                  onClick={() => onPreviewFile?.({ title: item.name, img: item.url, isPdf: item.url?.includes('.pdf') || item.type?.includes('pdf') })}
+                >
+                  Preview
+                </button>
                 <button type="button" className="admin-btn-sm" onClick={() => navigator.clipboard.writeText(item.url)}>Copy URL</button>
                 <button type="button" className="admin-btn-sm danger" onClick={() => saveMedia(mediaItems.filter((_, j) => j !== i))}>✕</button>
               </div>
@@ -1165,7 +1176,7 @@ const SECTION_META = {
 /* ─────────────────────────────────────────────
    MAIN ADMIN DASHBOARD MODAL
 ────────────────────────────────────────────── */
-export function AdminDashboardModal({ onClose, portfolioData, onUpdate, onFactoryReset, theme, onToggleTheme }) {
+export function AdminDashboardModal({ onClose, portfolioData, onUpdate, onFactoryReset, theme, onToggleTheme, onPreviewFile }) {
   const [unlocked, setUnlocked] = useState(() => {
     try {
       return sessionStorage.getItem('admin-unlocked') === 'true'
@@ -1218,8 +1229,8 @@ export function AdminDashboardModal({ onClose, portfolioData, onUpdate, onFactor
       case 'timeline':       return <TimelineEditor data={portfolioData.timelineEvents || []} onChange={v => onUpdate('timelineEvents', v)} />
       case 'blog':           return <BlogEditor data={portfolioData.blogPosts || []} onChange={v => onUpdate('blogPosts', v)} />
       case 'faq':            return <FAQEditor data={portfolioData.faqItems || []} onChange={v => onUpdate('faqItems', v)} />
-      case 'profile':        return <ProfileEditor data={portfolioData.profileInfo || {}} onChange={v => onUpdate('profileInfo', v)} />
-      case 'media':          return <MediaLibrary />
+      case 'profile':        return <ProfileEditor data={portfolioData.profileInfo || {}} onChange={v => onUpdate('profileInfo', v)} onPreviewFile={onPreviewFile} />
+      case 'media':          return <MediaLibrary onPreviewFile={onPreviewFile} />
       case 'backup':         return <DataBackup portfolioData={portfolioData} onRestore={(d) => { Object.entries(d).forEach(([k, v]) => onUpdate(k, v)) }} onFactoryReset={onFactoryReset} />
       default:               return null
     }
