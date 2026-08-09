@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Activity, ShieldCheck, Database, Cpu, Server, CheckCircle2, RefreshCw, X, Wifi, Globe, Terminal } from 'lucide-react'
+import { Activity, Database, Cpu, CheckCircle2, RefreshCw, X, Globe, Terminal } from 'lucide-react'
 
-export function InfrastructureStatusWidget() {
-  const [modalOpen, setModalOpen] = useState(false)
+export function InfrastructureTelemetryView() {
   const [pinging, setPinging] = useState(false)
   const [metrics, setMetrics] = useState({
     supabase: 14,
@@ -25,15 +24,144 @@ export function InfrastructureStatusWidget() {
     }, 600)
   }
 
-  useEffect(() => {
-    const handleKeyDown = (e) => { if (e.key === 'Escape') setModalOpen(false) }
-    if (modalOpen) window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [modalOpen])
+  return (
+    <div className="editor-section admin-telemetry-section">
+      {/* Top Health Overview */}
+      <div className="infra-summary-banner">
+        <div className="summary-left">
+          <CheckCircle2 size={24} className="summary-check-icon" />
+          <div>
+            <h4>All Systems Operational</h4>
+            <p>Global edge CDN, Supabase Storage buckets, and AI inference endpoints are operating at peak efficiency.</p>
+          </div>
+        </div>
+        <button
+          type="button"
+          className={`infra-ping-btn ${pinging ? 'pinging' : ''}`}
+          onClick={runDiagnostic}
+          disabled={pinging}
+        >
+          <RefreshCw size={13} className={pinging ? 'spin' : ''} />
+          <span>{pinging ? 'Pinging Endpoints...' : 'Run Live Diagnostic Ping'}</span>
+        </button>
+      </div>
+
+      {/* Service Metrics Grid */}
+      <div className="infra-services-grid" style={{ marginTop: '20px' }}>
+        {/* Service 1: Supabase CDN */}
+        <div className="infra-service-card">
+          <div className="service-header">
+            <Database size={18} className="service-icon cyan" />
+            <div>
+              <h5>Supabase Cloud Storage CDN</h5>
+              <span className="service-url">storage.supabase.co/portfolio-assets</span>
+            </div>
+            <span className="status-badge operational">Operational</span>
+          </div>
+          <div className="service-meta-row">
+            <div className="meta-item">
+              <span className="meta-val">{metrics.supabase} ms</span>
+              <span className="meta-lbl">CDN Latency</span>
+            </div>
+            <div className="meta-item">
+              <span className="meta-val">36 / 36</span>
+              <span className="meta-lbl">Verified Assets</span>
+            </div>
+            <div className="meta-item">
+              <span className="meta-val">99.99%</span>
+              <span className="meta-lbl">Uptime</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Service 2: AI Inference Pipeline */}
+        <div className="infra-service-card">
+          <div className="service-header">
+            <Cpu size={18} className="service-icon violet" />
+            <div>
+              <h5>AI Inference & Vector Pipeline</h5>
+              <span className="service-url">OpenCV + FaceNet / PyTorch Engine</span>
+            </div>
+            <span className="status-badge operational">Operational</span>
+          </div>
+          <div className="service-meta-row">
+            <div className="meta-item">
+              <span className="meta-val">{metrics.aiPipeline} ms</span>
+              <span className="meta-lbl">Match Latency</span>
+            </div>
+            <div className="meta-item">
+              <span className="meta-val">99.4%</span>
+              <span className="meta-lbl">Accuracy</span>
+            </div>
+            <div className="meta-item">
+              <span className="meta-val">128D</span>
+              <span className="meta-lbl">Vector Embeddings</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Service 3: Vercel Global Edge */}
+        <div className="infra-service-card">
+          <div className="service-header">
+            <Globe size={18} className="service-icon lime" />
+            <div>
+              <h5>Vercel Global Anycast CDN</h5>
+              <span className="service-url">rahulbariki.vercel.app</span>
+            </div>
+            <span className="status-badge operational">Operational</span>
+          </div>
+          <div className="service-meta-row">
+            <div className="meta-item">
+              <span className="meta-val">{metrics.vercelEdge} ms</span>
+              <span className="meta-lbl">Edge Latency</span>
+            </div>
+            <div className="meta-item">
+              <span className="meta-val">BOM1 / IAD1</span>
+              <span className="meta-lbl">Edge Regions</span>
+            </div>
+            <div className="meta-item">
+              <span className="meta-val">HTTP/3</span>
+              <span className="meta-lbl">Protocol</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Service 4: GitHub API */}
+        <div className="infra-service-card">
+          <div className="service-header">
+            <Terminal size={18} className="service-icon gold" />
+            <div>
+              <h5>GitHub API & Profile Telemetry</h5>
+              <span className="service-url">api.github.com/users/Rahulbariki</span>
+            </div>
+            <span className="status-badge operational">Operational</span>
+          </div>
+          <div className="service-meta-row">
+            <div className="meta-item">
+              <span className="meta-val">{metrics.github} ms</span>
+              <span className="meta-lbl">API Latency</span>
+            </div>
+            <div className="meta-item">
+              <span className="meta-val">58,055</span>
+              <span className="meta-lbl">JEE Rank Verified</span>
+            </div>
+            <div className="meta-item">
+              <span className="meta-val">2.0.0</span>
+              <span className="meta-lbl">Build Release</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export function InfrastructureStatusWidget() {
+  const [modalOpen, setModalOpen] = useState(false)
+  const [metrics] = useState({ supabase: 14 })
 
   return (
     <>
-      {/* Floating System Health Status Pill */}
       <div className="infra-status-dock">
         <button
           type="button"
@@ -49,7 +177,6 @@ export function InfrastructureStatusWidget() {
         </button>
       </div>
 
-      {/* System Telemetry & Health Audit Modal */}
       <AnimatePresence>
         {modalOpen && (
           <motion.div
@@ -67,7 +194,6 @@ export function InfrastructureStatusWidget() {
               transition={{ type: 'spring', stiffness: 400, damping: 30 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Modal Header */}
               <div className="infra-modal-header">
                 <div>
                   <div className="infra-header-kicker">
@@ -81,134 +207,8 @@ export function InfrastructureStatusWidget() {
                 </button>
               </div>
 
-              {/* Modal Content Body */}
               <div className="infra-modal-body">
-                {/* Top Health Overview */}
-                <div className="infra-summary-banner">
-                  <div className="summary-left">
-                    <CheckCircle2 size={24} className="summary-check-icon" />
-                    <div>
-                      <h4>All Systems Operational</h4>
-                      <p>Global edge CDN, Supabase Storage buckets, and AI inference endpoints are operating at peak efficiency.</p>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    className={`infra-ping-btn ${pinging ? 'pinging' : ''}`}
-                    onClick={runDiagnostic}
-                    disabled={pinging}
-                  >
-                    <RefreshCw size={13} className={pinging ? 'spin' : ''} />
-                    <span>{pinging ? 'Pinging Endpoints...' : 'Run Live Diagnostic Ping'}</span>
-                  </button>
-                </div>
-
-                {/* Service Metrics Grid */}
-                <div className="infra-services-grid">
-                  {/* Service 1: Supabase CDN */}
-                  <div className="infra-service-card">
-                    <div className="service-header">
-                      <Database size={18} className="service-icon cyan" />
-                      <div>
-                        <h5>Supabase Cloud Storage CDN</h5>
-                        <span className="service-url">storage.supabase.co/portfolio-assets</span>
-                      </div>
-                      <span className="status-badge operational">Operational</span>
-                    </div>
-                    <div className="service-meta-row">
-                      <div className="meta-item">
-                        <span className="meta-val">{metrics.supabase} ms</span>
-                        <span className="meta-lbl">CDN Latency</span>
-                      </div>
-                      <div className="meta-item">
-                        <span className="meta-val">36 / 36</span>
-                        <span className="meta-lbl">Verified Assets</span>
-                      </div>
-                      <div className="meta-item">
-                        <span className="meta-val">99.99%</span>
-                        <span className="meta-lbl">Uptime</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Service 2: AI Inference Pipeline */}
-                  <div className="infra-service-card">
-                    <div className="service-header">
-                      <Cpu size={18} className="service-icon violet" />
-                      <div>
-                        <h5>AI Inference & Vector Pipeline</h5>
-                        <span className="service-url">OpenCV + FaceNet / PyTorch Engine</span>
-                      </div>
-                      <span className="status-badge operational">Operational</span>
-                    </div>
-                    <div className="service-meta-row">
-                      <div className="meta-item">
-                        <span className="meta-val">{metrics.aiPipeline} ms</span>
-                        <span className="meta-lbl">Match Latency</span>
-                      </div>
-                      <div className="meta-item">
-                        <span className="meta-val">99.4%</span>
-                        <span className="meta-lbl">Accuracy</span>
-                      </div>
-                      <div className="meta-item">
-                        <span className="meta-val">128D</span>
-                        <span className="meta-lbl">Vector Embeddings</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Service 3: Vercel Global Edge */}
-                  <div className="infra-service-card">
-                    <div className="service-header">
-                      <Globe size={18} className="service-icon lime" />
-                      <div>
-                        <h5>Vercel Global Anycast CDN</h5>
-                        <span className="service-url">rahulbariki.vercel.app</span>
-                      </div>
-                      <span className="status-badge operational">Operational</span>
-                    </div>
-                    <div className="service-meta-row">
-                      <div className="meta-item">
-                        <span className="meta-val">{metrics.vercelEdge} ms</span>
-                        <span className="meta-lbl">Edge Latency</span>
-                      </div>
-                      <div className="meta-item">
-                        <span className="meta-val">BOM1 / IAD1</span>
-                        <span className="meta-lbl">Edge Regions</span>
-                      </div>
-                      <div className="meta-item">
-                        <span className="meta-val">HTTP/3</span>
-                        <span className="meta-lbl">Protocol</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Service 4: GitHub API */}
-                  <div className="infra-service-card">
-                    <div className="service-header">
-                      <Terminal size={18} className="service-icon gold" />
-                      <div>
-                        <h5>GitHub API & Profile Telemetry</h5>
-                        <span className="service-url">api.github.com/users/Rahulbariki</span>
-                      </div>
-                      <span className="status-badge operational">Operational</span>
-                    </div>
-                    <div className="service-meta-row">
-                      <div className="meta-item">
-                        <span className="meta-val">{metrics.github} ms</span>
-                        <span className="meta-lbl">API Latency</span>
-                      </div>
-                      <div className="meta-item">
-                        <span className="meta-val">58,055</span>
-                        <span className="meta-lbl">JEE Rank Verified</span>
-                      </div>
-                      <div className="meta-item">
-                        <span className="meta-val">2.0.0</span>
-                        <span className="meta-lbl">Build Release</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <InfrastructureTelemetryView />
               </div>
             </motion.div>
           </motion.div>

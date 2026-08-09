@@ -3,11 +3,12 @@ import {
   X, Search, Download, Upload, RefreshCw, Plus, Trash2, ChevronUp, ChevronDown,
   BrainCircuit, Sparkles, Layers3, Code2, Lock, LayoutDashboard, FolderOpen,
   Image as ImageIcon, Database, FileText, Trophy, Clock, BookOpen, HelpCircle,
-  CheckCircle, AlertTriangle, CloudUpload, Cpu, Eye, User, Moon, Sun,
+  CheckCircle, AlertTriangle, CloudUpload, Cpu, Eye, User, Moon, Sun, Activity
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { uploadToSupabase } from '../uploadToSupabase.js'
 import { isSupabaseReady } from '../supabaseClient.js'
+import { InfrastructureTelemetryView } from './InfrastructureStatusWidget.jsx'
 
 /* ─────────────────────────────────────────────
    ICON MAP — used to rehydrate after JSON parse
@@ -1157,6 +1158,7 @@ const SIDEBAR_SECTIONS = [
   { group: 'System', items: [
     { id: 'profile', label: 'Profile & Resume', icon: User },
     { id: 'media', label: 'Media Library', icon: ImageIcon },
+    { id: 'telemetry', label: 'System Telemetry', icon: Activity },
     { id: 'backup', label: 'Data Backup', icon: Database },
   ]},
 ]
@@ -1170,6 +1172,7 @@ const SECTION_META = {
   faq:            { title: 'FAQ Accordion', subtitle: 'Edit recruiter Q&A pairs' },
   profile:        { title: 'Profile & Resume', subtitle: 'Edit contact info, avatar, and upload resume PDF' },
   media:          { title: 'Media Library', subtitle: 'Upload and manage all media assets' },
+  telemetry:      { title: 'System Telemetry & Health Audit', subtitle: 'Real-time production infrastructure latency & CDN status' },
   backup:         { title: 'Data Backup', subtitle: 'Export, import, or reset all portfolio data' },
 }
 
@@ -1231,6 +1234,7 @@ export function AdminDashboardModal({ onClose, portfolioData, onUpdate, onFactor
       case 'faq':            return <FAQEditor data={portfolioData.faqItems || []} onChange={v => onUpdate('faqItems', v)} />
       case 'profile':        return <ProfileEditor data={portfolioData.profileInfo || {}} onChange={v => onUpdate('profileInfo', v)} onPreviewFile={onPreviewFile} />
       case 'media':          return <MediaLibrary onPreviewFile={onPreviewFile} />
+      case 'telemetry':      return <InfrastructureTelemetryView />
       case 'backup':         return <DataBackup portfolioData={portfolioData} onRestore={(d) => { Object.entries(d).forEach(([k, v]) => onUpdate(k, v)) }} onFactoryReset={onFactoryReset} />
       default:               return null
     }
