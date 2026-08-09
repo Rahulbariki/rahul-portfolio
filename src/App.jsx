@@ -2024,10 +2024,10 @@ function ResumeModal({ open, onClose, profileInfo }) {
             )}
           </div>
 
-          <div className="resume-modal-body">
+          <div className={`resume-modal-body ${viewMode === 'pdf' ? 'pdf-mode' : ''}`}>
             {viewMode === 'pdf' ? (
               <iframe
-                src={`${selectedResume.url}#toolbar=1`}
+                src={`${selectedResume.url}#view=FitH&toolbar=1`}
                 className="inapp-pdf-iframe"
                 title={selectedResume.name}
               />
@@ -2434,7 +2434,7 @@ export function App() {
             onClick={() => setSelectedImage(null)}
           >
             <motion.div
-              className="cert-modal-content"
+              className={`cert-modal-content ${selectedImage.isPdf || selectedImage.img?.toLowerCase().includes('.pdf') ? 'pdf-lightbox' : ''}`}
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -2453,7 +2453,7 @@ export function App() {
               <div className="cert-modal-body">
                 {selectedImage.isPdf || selectedImage.img?.toLowerCase().includes('.pdf') ? (
                   <iframe
-                    src={`${selectedImage.img}#toolbar=1`}
+                    src={`${selectedImage.img}#view=FitH&toolbar=1`}
                     className="inapp-pdf-iframe"
                     title={selectedImage.title}
                   />
