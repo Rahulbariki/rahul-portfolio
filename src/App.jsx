@@ -531,8 +531,8 @@ const defaultProfileInfo = {
   email: 'rahulbariki24@gmail.com',
   phone: '+91 62817 69623',
   location: 'Nandyal, AP, India',
-  profilePhoto: '/assets/rahul-profile.png',
-  profilePhotos: ['/assets/rahul-profile.png'],
+  profilePhoto: '/assets/rahul-hero.png',
+  profilePhotos: ['/assets/rahul-hero.png', '/assets/rahul-profile.png'],
   resumeUrl: '/assets/Rahul_Bariki_Resume.pdf',
 }
 
@@ -1043,7 +1043,7 @@ function Hero({ onOpenResume, profileInfo }) {
               loading="eager" 
               onError={(e) => {
                 e.target.onerror = null
-                e.target.src = 'https://pnvpjoekdwiifzsrxkrs.supabase.co/storage/v1/object/public/portfolio-assets/profile/rahul-profile.png'
+                e.target.src = 'https://pnvpjoekdwiifzsrxkrs.supabase.co/storage/v1/object/public/portfolio-assets/profile/rahul-hero.png'
               }}
             />
           </div>

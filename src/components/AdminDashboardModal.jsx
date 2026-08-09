@@ -776,7 +776,7 @@ function ProfileEditor({ data, onChange }) {
                       className="profile-photo-img" 
                       onError={(e) => {
                         e.target.onerror = null
-                        e.target.src = 'https://pnvpjoekdwiifzsrxkrs.supabase.co/storage/v1/object/public/portfolio-assets/profile/rahul-profile.png'
+                        e.target.src = 'https://pnvpjoekdwiifzsrxkrs.supabase.co/storage/v1/object/public/portfolio-assets/profile/rahul-hero.png'
                       }}
                     />
                     {isActive && (
