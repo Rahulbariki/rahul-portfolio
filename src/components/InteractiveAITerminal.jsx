@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Terminal, Send, Sparkles, CornerDownLeft, RefreshCw } from 'lucide-react'
+import { Terminal, Send, Sparkles, RefreshCw, ChevronDown, ChevronUp, MessageSquare } from 'lucide-react'
 
 const KNOWLEDGE_BASE = {
   genai: {
@@ -45,10 +45,11 @@ const KNOWLEDGE_BASE = {
 }
 
 export function InteractiveAITerminal({ onOpenResume }) {
+  const [isExpanded, setIsExpanded] = useState(false)
   const [history, setHistory] = useState([
     {
       type: 'ai',
-      text: 'Rahul AI Copilot v2.4 initialized. Type a query or click a quick prompt below to explore skills, projects, & achievements.',
+      text: 'Rahul AI Copilot v2.4 initialized. Ask anything about skills, projects, or hackathons!',
       status: '[ONLINE]'
     }
   ])
@@ -57,10 +58,10 @@ export function InteractiveAITerminal({ onOpenResume }) {
   const bodyRef = useRef(null)
 
   useEffect(() => {
-    if (bodyRef.current) {
+    if (isExpanded && bodyRef.current) {
       bodyRef.current.scrollTop = bodyRef.current.scrollHeight
     }
-  }, [history, isTyping])
+  }, [history, isTyping, isExpanded])
 
   const handleQuery = (rawQuery) => {
     if (!rawQuery || !rawQuery.trim() || isTyping) return
@@ -96,98 +97,133 @@ export function InteractiveAITerminal({ onOpenResume }) {
         }
       ])
       setIsTyping(false)
-    }, 450)
+    }, 400)
   }
 
   return (
-    <div className="hero-interactive-terminal">
-      <div className="terminal-bar">
+    <div className={`hero-interactive-terminal ${isExpanded ? 'is-expanded' : 'is-collapsed'}`}>
+      {/* Terminal Top Bar (Clicking expands/collapses terminal) */}
+      <div 
+        className="terminal-bar" 
+        onClick={() => setIsExpanded(!isExpanded)}
+        role="button"
+        tabIndex={0}
+        aria-label="Toggle Interactive AI Terminal"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            setIsExpanded(!isExpanded)
+          }
+        }}
+      >
         <div className="terminal-dots">
           <span className="dot red" />
           <span className="dot yellow" />
           <span className="dot green" />
         </div>
+
         <div className="terminal-title">
           <Sparkles size={13} className="sparkle-icon" />
           <span>rahul_ai_copilot.py</span>
           <span className="live-status-pill">● LIVE</span>
         </div>
-        <button
-          type="button"
-          className="terminal-reset-btn"
-          onClick={() => setHistory([{ type: 'ai', text: 'Terminal reset. Ask Rahul AI Copilot anything!', status: '[RESET]' }])}
-          title="Reset Terminal"
-        >
-          <RefreshCw size={12} />
-        </button>
+
+        <div className="terminal-toggle-trigger">
+          {isExpanded ? (
+            <span className="toggle-btn-label"><ChevronUp size={14} /> Collapse Terminal</span>
+          ) : (
+            <span className="toggle-btn-label expand"><MessageSquare size={13} /> Click to Expand AI Terminal <ChevronDown size={14} /></span>
+          )}
+        </div>
       </div>
 
-      <div className="terminal-interactive-body" ref={bodyRef}>
-        {history.map((item, idx) => (
-          <div key={idx} className={`terminal-line-block ${item.type}`}>
-            {item.type === 'user' ? (
-              <div className="user-query-line">
-                <span className="terminal-prompt">&gt;</span>
-                <span className="user-query-text">{item.text}</span>
-              </div>
-            ) : (
-              <div className="ai-response-block">
-                <div className="ai-status-row">
-                  <span className="ai-badge">{item.status || '[INFO]'}</span>
-                  {item.title && <strong className="ai-title">{item.title}</strong>}
+      {/* Expandable Terminal Content */}
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            className="terminal-expandable-content"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="terminal-interactive-body" ref={bodyRef}>
+              {history.map((item, idx) => (
+                <div key={idx} className={`terminal-line-block ${item.type}`}>
+                  {item.type === 'user' ? (
+                    <div className="user-query-line">
+                      <span className="terminal-prompt">&gt;</span>
+                      <span className="user-query-text">{item.text}</span>
+                    </div>
+                  ) : (
+                    <div className="ai-response-block">
+                      <div className="ai-status-row">
+                        <span className="ai-badge">{item.status || '[INFO]'}</span>
+                        {item.title && <strong className="ai-title">{item.title}</strong>}
+                      </div>
+                      <pre className="ai-response-text">{item.text}</pre>
+                    </div>
+                  )}
                 </div>
-                <pre className="ai-response-text">{item.text}</pre>
-              </div>
-            )}
-          </div>
-        ))}
+              ))}
 
-        {isTyping && (
-          <div className="ai-response-block typing">
-            <span className="ai-badge">[PROCESSING]</span>
-            <span className="typing-dots">
-              <span /> <span /> <span />
-            </span>
-          </div>
+              {isTyping && (
+                <div className="ai-response-block typing">
+                  <span className="ai-badge">[PROCESSING]</span>
+                  <span className="typing-dots">
+                    <span /> <span /> <span />
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* Quick Action Preset Pills */}
+            <div className="terminal-quick-pills">
+              <button type="button" className="term-pill" onClick={() => handleQuery('Why hire Rahul for GenAI?')}>
+                ⚡ GenAI Skills
+              </button>
+              <button type="button" className="term-pill" onClick={() => handleQuery('Tell me about IntelliAttend')}>
+                🤖 IntelliAttend
+              </button>
+              <button type="button" className="term-pill" onClick={() => handleQuery('List Hackathon Victories')}>
+                🏆 Awards
+              </button>
+              <button type="button" className="term-pill" onClick={() => handleQuery('Contact & Socials')}>
+                📬 Contact
+              </button>
+              <button
+                type="button"
+                className="term-pill reset"
+                onClick={() => setHistory([{ type: 'ai', text: 'Terminal reset. Ask Rahul AI Copilot anything!', status: '[RESET]' }])}
+                title="Reset conversation"
+              >
+                <RefreshCw size={11} /> Reset
+              </button>
+            </div>
+
+            {/* Interactive Input Form */}
+            <form
+              className="terminal-input-form"
+              onSubmit={(e) => {
+                e.preventDefault()
+                handleQuery(input)
+              }}
+            >
+              <span className="terminal-prompt">$</span>
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Ask Rahul AI Copilot (e.g. 'skills', 'projects', 'awards')…"
+                className="terminal-input-field"
+              />
+              <button type="button" className="terminal-submit-btn" onClick={() => handleQuery(input)}>
+                <Send size={13} />
+              </button>
+            </form>
+          </motion.div>
         )}
-      </div>
-
-      {/* Quick Action Preset Pills */}
-      <div className="terminal-quick-pills">
-        <button type="button" className="term-pill" onClick={() => handleQuery('Why hire Rahul for GenAI?')}>
-          ⚡ GenAI Skills
-        </button>
-        <button type="button" className="term-pill" onClick={() => handleQuery('Tell me about IntelliAttend')}>
-          🤖 IntelliAttend
-        </button>
-        <button type="button" className="term-pill" onClick={() => handleQuery('List Hackathon Victories')}>
-          🏆 Awards
-        </button>
-        <button type="button" className="term-pill" onClick={() => handleQuery('Contact & Socials')}>
-          📬 Contact
-        </button>
-      </div>
-
-      {/* Interactive Input Form */}
-      <form
-        className="terminal-input-form"
-        onSubmit={(e) => {
-          e.preventDefault()
-          handleQuery(input)
-        }}
-      >
-        <span className="terminal-prompt">$</span>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask Rahul AI Copilot (e.g. 'skills', 'projects', 'awards')…"
-          className="terminal-input-field"
-        />
-        <button type="button" className="terminal-submit-btn" onClick={() => handleQuery(input)}>
-          <Send size={13} />
-        </button>
-      </form>
+      </AnimatePresence>
     </div>
   )
 }
