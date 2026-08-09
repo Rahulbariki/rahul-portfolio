@@ -6,6 +6,7 @@ import { InteractiveAITerminal } from './components/InteractiveAITerminal.jsx'
 import { SystemArchitectureModal } from './components/SystemArchitectureModal.jsx'
 import { TrophyCabinetGrid, WinnerSpotlightModal } from './components/TrophyCabinetModal.jsx'
 import { VoicePitchPlayer } from './components/VoicePitchPlayer.jsx'
+import { InfrastructureStatusWidget } from './components/InfrastructureStatusWidget.jsx'
 import { fetchCentralPortfolioData, publishCentralPortfolioData } from './cloudSync.js'
 
 const defaultTimelineEvents = [
@@ -2585,6 +2586,9 @@ export function App() {
         onOpenResume={() => setResumeOpen(true)}
         profileInfo={portfolioData.profileInfo}
       />
+
+      {/* Production Infrastructure Telemetry Widget */}
+      <InfrastructureStatusWidget />
     </>
   )
 }
