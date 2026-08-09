@@ -681,6 +681,22 @@ function savePortfolioKey(key, value) {
   }
 }
 
+function handleImageFallback(e, originalSrc) {
+  if (e.target.dataset.failed) {
+    e.target.style.display = 'none'
+    return
+  }
+  e.target.dataset.failed = 'true'
+  if (originalSrc) {
+    const filename = originalSrc.split('/').pop()?.split('?')[0]
+    if (filename) {
+      e.target.src = `/assets/${filename}`
+      return
+    }
+  }
+  e.target.style.display = 'none'
+}
+
 function getMediaCount(item) {
   let count = 0
   if (item.image) count++
@@ -1370,7 +1386,7 @@ function Achievements({ onSelectImage, portfolioData }) {
                       tabIndex={0}
                       aria-label={`View credential for ${item.title}`}
                     >
-                      <img src={item.image} alt={item.imageTitle || item.title} loading="lazy" />
+                      <img src={item.image} alt={item.imageTitle || item.title} loading="lazy" onError={(e) => handleImageFallback(e, item.image)} />
                       {mediaCount > 1 && (
                         <span className="media-count-badge">
                           <Camera size={11} /> {mediaCount} Media
@@ -1414,7 +1430,7 @@ function Achievements({ onSelectImage, portfolioData }) {
                         tabIndex={0}
                         aria-label={`View press feature for ${item.title}`}
                       >
-                        <img src={item.newsImage} alt={item.newsTitle || `${item.title} Press Feature`} loading="lazy" />
+                        <img src={item.newsImage} alt={item.newsTitle || `${item.title} Press Feature`} loading="lazy" onError={(e) => handleImageFallback(e, item.newsImage)} />
                         <div className="thumb-overlay">
                           <Newspaper size={16} />
                           <span>Press Feature</span>
@@ -1517,7 +1533,7 @@ function Achievements({ onSelectImage, portfolioData }) {
                             tabIndex={0}
                             aria-label={`View certificate image for ${cert.title}`}
                           >
-                            <img src={cert.image} alt={cert.imageTitle || `${cert.title} certificate`} loading="lazy" />
+                            <img src={cert.image} alt={cert.imageTitle || `${cert.title} certificate`} loading="lazy" onError={(e) => handleImageFallback(e, cert.image)} />
                             {mediaCount > 1 && (
                               <span className="media-count-badge">
                                 <Camera size={11} /> {mediaCount} Media
@@ -2511,27 +2527,27 @@ export function App() {
                     title={selectedImage.title}
                   />
                 ) : (
-                  <img src={selectedImage.img} alt={selectedImage.imgTitle || selectedImage.title} />
+                  <img src={selectedImage.img} alt={selectedImage.imgTitle || selectedImage.title} onError={(e) => handleImageFallback(e, selectedImage.img)} />
                 )}
 
                 {selectedImage.newsImg && (
                   <div className="cert-modal-news-block">
                     <h4>{selectedImage.newsTitle || 'Press / Media Coverage'}</h4>
-                    <img src={selectedImage.newsImg} alt={selectedImage.newsTitle || `${selectedImage.title} Press Feature`} />
+                    <img src={selectedImage.newsImg} alt={selectedImage.newsTitle || `${selectedImage.title} Press Feature`} onError={(e) => handleImageFallback(e, selectedImage.newsImg)} />
                   </div>
                 )}
 
                 {selectedImage.stageImg && (
                   <div className="cert-modal-news-block">
                     <h4>{selectedImage.stageTitle || 'On-Stage Presentation / Award Ceremony'}</h4>
-                    <img src={selectedImage.stageImg} alt={selectedImage.stageTitle || `${selectedImage.title} Stage Ceremony`} />
+                    <img src={selectedImage.stageImg} alt={selectedImage.stageTitle || `${selectedImage.title} Stage Ceremony`} onError={(e) => handleImageFallback(e, selectedImage.stageImg)} />
                   </div>
                 )}
 
                 {selectedImage.secImg && (
                   <div className="cert-modal-news-block">
                     <h4>{selectedImage.secTitle || 'Event Presentation & Demo'}</h4>
-                    <img src={selectedImage.secImg} alt={selectedImage.secTitle || `${selectedImage.title} Event Demo`} />
+                    <img src={selectedImage.secImg} alt={selectedImage.secTitle || `${selectedImage.title} Event Demo`} onError={(e) => handleImageFallback(e, selectedImage.secImg)} />
                   </div>
                 )}
               </div>
