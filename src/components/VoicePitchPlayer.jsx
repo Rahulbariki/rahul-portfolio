@@ -41,12 +41,19 @@ export function VoicePitchPlayer() {
 
     const utterance = new SpeechSynthesisUtterance(PITCH_SCRIPT)
     utterance.rate = speed
-    utterance.pitch = 1.0
+    utterance.pitch = 0.9 // Deeper natural male voice resonance
 
-    // Try finding an English natural voice
+    // Prioritize Male English voices across OS platforms (Windows, macOS, Android, iOS)
     const voices = synthRef.current.getVoices()
-    const preferredVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Daniel'))) || voices.find(v => v.lang.startsWith('en'))
-    if (preferredVoice) utterance.voice = preferredVoice
+    const maleVoiceNames = ['David', 'Mark', 'George', 'Daniel', 'Alex', 'Fred', 'Guy', 'Ryan', 'Christopher', 'Eric', 'Male', 'James', 'Oliver', 'Rishi', 'Google US English Male', 'Google UK English Male']
+    
+    const maleVoice = voices.find(v => 
+      v.lang.startsWith('en') && maleVoiceNames.some(m => v.name.includes(m))
+    ) || voices.find(v => 
+      v.lang.startsWith('en') && !v.name.includes('Zira') && !v.name.includes('Hazel') && !v.name.includes('Susan') && !v.name.includes('Samantha') && !v.name.includes('Victoria') && !v.name.includes('Female')
+    ) || voices.find(v => v.lang.startsWith('en'))
+
+    if (maleVoice) utterance.voice = maleVoice
 
     utterance.onend = () => {
       setIsPlaying(false)
