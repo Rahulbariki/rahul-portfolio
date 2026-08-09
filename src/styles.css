@@ -6139,6 +6139,329 @@ body:has(.admin-overlay) .cursor {
   padding: 4px;
 }
 
+/* ─────────────────────────────────────────────
+   SYSTEM ARCHITECTURE VISUALIZER MODAL
+────────────────────────────────────────────── */
+.arch-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(5, 5, 10, 0.85);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.arch-modal-card {
+  background: rgba(15, 17, 26, 0.96);
+  border: 1px solid rgba(124, 58, 237, 0.35);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(124, 58, 237, 0.2);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 1100px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.arch-modal-header {
+  padding: 24px 28px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.arch-header-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #a78bfa;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.arch-live-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+}
+
+.arch-modal-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 4px;
+}
+
+.arch-header-sub {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.arch-close-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #94a3b8;
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.arch-close-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.arch-meta-bar {
+  padding: 14px 28px;
+  background: rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.arch-metrics-row {
+  display: flex;
+  gap: 20px;
+}
+
+.arch-metric-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.arch-metric-val {
+  font-size: 16px;
+  font-weight: 800;
+  color: #a78bfa;
+}
+
+.arch-metric-lbl {
+  font-size: 10px;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.arch-tech-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.arch-tech-pill {
+  font-size: 10px;
+  font-weight: 600;
+  background: rgba(124, 58, 237, 0.15);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  color: #c4b5fd;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+.arch-modal-body {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr;
+  flex: 1;
+  overflow: hidden;
+}
+
+.arch-flow-canvas {
+  padding: 24px;
+  overflow-y: auto;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.arch-flow-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.5px;
+}
+
+.arch-nodes-chain {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+
+.arch-node-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px 18px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.arch-node-card:hover,
+.arch-node-card.active {
+  border-color: rgba(167, 139, 250, 0.5);
+  background: rgba(124, 58, 237, 0.12);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.15);
+}
+
+.node-step-num {
+  font-size: 11px;
+  font-weight: 800;
+  color: #7c3aed;
+  opacity: 0.8;
+}
+
+.node-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(124, 58, 237, 0.2);
+  color: #a78bfa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.node-info h4 {
+  margin: 0 0 2px;
+  font-size: 14px;
+  color: #f1f5f9;
+}
+
+.node-tech-tag {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.node-active-indicator {
+  position: absolute;
+  right: 14px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #a78bfa;
+  box-shadow: 0 0 10px #a78bfa;
+}
+
+.arch-connector-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 16px;
+  color: rgba(124, 58, 237, 0.4);
+  position: relative;
+}
+
+.flow-arrow-head {
+  transform: rotate(90deg);
+}
+
+.arch-inspector-panel {
+  padding: 28px;
+  background: rgba(0, 0, 0, 0.25);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inspector-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #a78bfa;
+  background: rgba(124, 58, 237, 0.2);
+  padding: 4px 10px;
+  border-radius: 100px;
+  display: inline-block;
+  align-self: flex-start;
+}
+
+.arch-inspector-panel h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.inspector-tech {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #4ade80;
+}
+
+.inspector-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #cbd5e1;
+}
+
+.inspector-role-box {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 14px 16px;
+  border-radius: 10px;
+}
+
+.inspector-role-box h4 {
+  margin: 0 0 6px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+}
+
+.inspector-role-box p {
+  margin: 0;
+  font-size: 12px;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+.btn-project-arch {
+  background: rgba(124, 58, 237, 0.15);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  color: #c4b5fd;
+  padding: 8px 14px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.btn-project-arch:hover {
+  background: #7c3aed;
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+}
+
+
 
 
 

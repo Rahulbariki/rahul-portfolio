@@ -3,6 +3,7 @@ import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTrans
 import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Calendar, Camera, CheckCircle, ChevronDown, Clock, Code2, Cpu, ExternalLink, Eye, FileText, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, Moon, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Sun, Terminal, TrendingUp, Trophy, Wrench, X, Zap } from 'lucide-react'
 import { AdminDashboardModal, ICON_MAP } from './components/AdminDashboardModal.jsx'
 import { InteractiveAITerminal } from './components/InteractiveAITerminal.jsx'
+import { SystemArchitectureModal } from './components/SystemArchitectureModal.jsx'
 import { fetchCentralPortfolioData, publishCentralPortfolioData } from './cloudSync.js'
 
 const defaultTimelineEvents = [
@@ -1186,7 +1187,7 @@ function Manifesto() {
   )
 }
 
-function ProjectCard({ project, onSelectImage }) {
+function ProjectCard({ project, onSelectImage, onOpenArch }) {
   const Icon = project.icon
   const cardRef = useRef(null)
   const x = useMotionValue(0)
@@ -1265,6 +1266,14 @@ function ProjectCard({ project, onSelectImage }) {
             <a href={project.url} target="_blank" rel="noopener noreferrer" className="btn-project-github" aria-label={`View ${project.title} Source Code on GitHub`}>
               <span>GitHub</span> <Github size={14} />
             </a>
+            <button
+              type="button"
+              className="btn-project-arch"
+              onClick={() => onOpenArch?.(project)}
+              title="View System Architecture Visualizer"
+            >
+              <span>Architecture</span> <Cpu size={14} />
+            </button>
             {project.image && (
               <button
                 type="button"
@@ -1694,7 +1703,7 @@ function CurrentlyBuildingBanner() {
   )
 }
 
-function FeaturedSpotlightHero({ onSelectImage }) {
+function FeaturedSpotlightHero({ onSelectImage, onOpenArch }) {
   return (
     <motion.div 
       className="featured-spotlight-card"
@@ -1725,13 +1734,9 @@ function FeaturedSpotlightHero({ onSelectImage }) {
             <button 
               type="button"
               className="btn-spotlight-case"
-              onClick={() => onSelectImage({
-                title: 'IntelliAttend Startup Architecture',
-                img: migrateAssetUrl('/assets/intelliattend-logo.png'),
-                imgTitle: 'IntelliAttend AI Attendance Platform — Enterprise System Architecture'
-              })}
+              onClick={() => onOpenArch?.({ title: 'IntelliAttend' })}
             >
-              <span>Explore Architecture</span> <Eye size={15} />
+              <span>Explore Architecture</span> <Cpu size={15} />
             </button>
           </div>
         </div>
@@ -2255,6 +2260,7 @@ export function App() {
   const [resumeOpen, setResumeOpen] = useState(false)
   const [recruiterMode, setRecruiterMode] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
+  const [archProject, setArchProject] = useState(null)
   const [adminOpen, setAdminOpen] = useState(false)
   const [portfolioData, setPortfolioData] = useState(loadPortfolioData)
   const [theme, setTheme] = useState(() => {
@@ -2391,10 +2397,10 @@ export function App() {
             <div><span>Selected systems</span><span>02 / 07</span></div>
             <h2>Work that moves<br /><em>ideas forward.</em></h2>
           </div>
-          <FeaturedSpotlightHero onSelectImage={setSelectedImage} />
+          <FeaturedSpotlightHero onSelectImage={setSelectedImage} onOpenArch={setArchProject} />
           <div className="project-grid">
             {portfolioData.projects.map((project) => (
-              <ProjectCard project={project} onSelectImage={setSelectedImage} key={project.title} />
+              <ProjectCard project={project} onSelectImage={setSelectedImage} onOpenArch={setArchProject} key={project.title} />
             ))}
           </div>
         </section>
@@ -2476,6 +2482,11 @@ export function App() {
 
       {/* Interactive Resume Modal */}
       <ResumeModal open={resumeOpen} onClose={() => setResumeOpen(false)} profileInfo={portfolioData.profileInfo} />
+      
+      {/* System Architecture Modal */}
+      {archProject && (
+        <SystemArchitectureModal project={archProject} onClose={() => setArchProject(null)} />
+      )}
 
       {/* Admin Dashboard */}
       <AnimatePresence>
