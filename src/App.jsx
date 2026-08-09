@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Calendar, Camera, CheckCircle, ChevronDown, Clock, Code2, Cpu, ExternalLink, Eye, FileText, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, Moon, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Sun, Terminal, TrendingUp, Trophy, Wrench, X, Zap } from 'lucide-react'
+import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Calendar, Camera, CheckCircle, ChevronDown, Clock, Code2, CreditCard, Cpu, ExternalLink, Eye, FileText, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, Moon, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Sun, Terminal, TrendingUp, Trophy, Wrench, X, Zap } from 'lucide-react'
 import { AdminDashboardModal, ICON_MAP } from './components/AdminDashboardModal.jsx'
 import { InteractiveAITerminal } from './components/InteractiveAITerminal.jsx'
 import { SystemArchitectureModal } from './components/SystemArchitectureModal.jsx'
 import { TrophyCabinetGrid, WinnerSpotlightModal } from './components/TrophyCabinetModal.jsx'
 import { VoicePitchPlayer } from './components/VoicePitchPlayer.jsx'
+import { SmartBusinessCard } from './components/SmartBusinessCard.jsx'
 import { fetchCentralPortfolioData, publishCentralPortfolioData } from './cloudSync.js'
 
 const defaultTimelineEvents = [
@@ -1130,6 +1131,14 @@ function Hero({ onOpenResume, profileInfo }) {
               <Mail size={15} /> Contact Me
             </a>
             <VoicePitchPlayer />
+            <button
+              type="button"
+              className="hero-biz-card-btn"
+              onClick={() => setBizCardOpen(true)}
+              aria-label="Open Recruiter Smart Business Card"
+            >
+              <CreditCard size={15} /> Business Card
+            </button>
           </div>
 
           <div className="hero-stats">
@@ -2269,6 +2278,7 @@ export function App() {
   const [archProject, setArchProject] = useState(null)
   const [spotlightTrophy, setSpotlightTrophy] = useState(null)
   const [adminOpen, setAdminOpen] = useState(false)
+  const [bizCardOpen, setBizCardOpen] = useState(false)
   const [portfolioData, setPortfolioData] = useState(loadPortfolioData)
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -2499,6 +2509,14 @@ export function App() {
       {spotlightTrophy && (
         <WinnerSpotlightModal trophy={spotlightTrophy} onClose={() => setSpotlightTrophy(null)} onSelectImage={setSelectedImage} />
       )}
+
+      {/* Recruiter Smart Business Card */}
+      <AnimatePresence>
+        {bizCardOpen && (
+          <SmartBusinessCard onClose={() => setBizCardOpen(false)} />
+        )}
+      </AnimatePresence>
+
 
       {/* Admin Dashboard */}
       <AnimatePresence>
