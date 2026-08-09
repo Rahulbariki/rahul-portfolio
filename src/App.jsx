@@ -5,6 +5,7 @@ import { AdminDashboardModal, ICON_MAP } from './components/AdminDashboardModal.
 import { InteractiveAITerminal } from './components/InteractiveAITerminal.jsx'
 import { SystemArchitectureModal } from './components/SystemArchitectureModal.jsx'
 import { TrophyCabinetGrid, WinnerSpotlightModal } from './components/TrophyCabinetModal.jsx'
+import { VoicePitchPlayer } from './components/VoicePitchPlayer.jsx'
 import { fetchCentralPortfolioData, publishCentralPortfolioData } from './cloudSync.js'
 
 const defaultTimelineEvents = [
@@ -1128,6 +1129,7 @@ function Hero({ onOpenResume, profileInfo }) {
             <a href="#contact" className="hero-cta-secondary hero-cta-outline">
               <Mail size={15} /> Contact Me
             </a>
+            <VoicePitchPlayer />
           </div>
 
           <div className="hero-stats">
