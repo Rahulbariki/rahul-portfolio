@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Calendar, Camera, CheckCircle, ChevronDown, Clock, Code2, Cpu, ExternalLink, Eye, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, Moon, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Sun, Terminal, TrendingUp, Trophy, Wrench, X } from 'lucide-react'
+import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Calendar, Camera, CheckCircle, ChevronDown, Clock, Code2, Cpu, ExternalLink, Eye, FileText, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, Moon, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Sun, Terminal, TrendingUp, Trophy, Wrench, X } from 'lucide-react'
 import { AdminDashboardModal, ICON_MAP } from './components/AdminDashboardModal.jsx'
 import { fetchCentralPortfolioData, publishCentralPortfolioData } from './cloudSync.js'
 
@@ -534,6 +534,26 @@ const defaultProfileInfo = {
   profilePhoto: '/assets/rahul-hero.png',
   profilePhotos: ['/assets/rahul-hero.png', '/assets/rahul-profile.png'],
   resumeUrl: '/assets/Rahul_Bariki_Resume.pdf',
+  resumes: [
+    {
+      id: 'genai',
+      name: 'Generative AI & AI Engineer Resume',
+      url: '/assets/Rahul_Bariki_Resume.pdf',
+      active: true,
+    },
+    {
+      id: 'fullstack',
+      name: 'Full-Stack Developer Resume',
+      url: '/assets/Rahul_Bariki_Resume.pdf',
+      active: false,
+    },
+    {
+      id: 'uiux',
+      name: 'UI/UX Specialist Resume',
+      url: '/assets/Rahul_Bariki_Resume.pdf',
+      active: false,
+    },
+  ],
 }
 
 /* ─────────────────────────────────────────────
@@ -600,6 +620,9 @@ function loadPortfolioData() {
     
     if (!loadedProfile.profilePhotos || !Array.isArray(loadedProfile.profilePhotos) || loadedProfile.profilePhotos.length === 0) {
       loadedProfile.profilePhotos = [loadedProfile.profilePhoto || defaultProfileInfo.profilePhoto]
+    }
+    if (!loadedProfile.resumes || !Array.isArray(loadedProfile.resumes) || loadedProfile.resumes.length === 0) {
+      loadedProfile.resumes = defaultProfileInfo.resumes
     }
 
     const rawData = {
@@ -949,6 +972,73 @@ function HeroTerminal() {
   )
 }
 
+function HeroResumeDownloadButton({ profileInfo }) {
+  const [open, setOpen] = useState(false)
+  const resumes = (profileInfo?.resumes && Array.isArray(profileInfo.resumes) && profileInfo.resumes.length > 0)
+    ? profileInfo.resumes
+    : [{ id: 'default', name: 'Generative AI & AI Engineer Resume', url: profileInfo?.resumeUrl || '/assets/Rahul_Bariki_Resume.pdf', active: true }]
+
+  const activeResume = resumes.find(r => r.active || r.url === profileInfo?.resumeUrl) || resumes[0]
+
+  return (
+    <div className="hero-resume-dropdown-wrapper">
+      <a 
+        href={activeResume.url} 
+        className="hero-cta-secondary"
+        aria-label={`Download ${activeResume.name}`}
+        download={`${activeResume.name.replace(/\s+/g, '_')}.pdf`}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ borderTopRightRadius: resumes.length > 1 ? 0 : undefined, borderBottomRightRadius: resumes.length > 1 ? 0 : undefined }}
+      >
+        <ArrowDown size={15} /> Download PDF
+      </a>
+      {resumes.length > 1 && (
+        <>
+          <button
+            type="button"
+            className="hero-cta-secondary hero-resume-arrow-btn"
+            onClick={() => setOpen(!open)}
+            aria-label="Select Specialized Resume Version"
+            style={{ paddingLeft: '8px', paddingRight: '8px', borderLeft: '1px solid rgba(255,255,255,0.15)', borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+          >
+            <ChevronDown size={14} style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }} />
+          </button>
+
+          <AnimatePresence>
+            {open && (
+              <motion.div
+                className="hero-resume-menu"
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                transition={{ duration: 0.15 }}
+              >
+                <div className="hero-resume-menu-title">SELECT RESUME VERSION</div>
+                {resumes.map((res) => (
+                  <a
+                    key={res.id}
+                    href={res.url}
+                    download={`${res.name.replace(/\s+/g, '_')}.pdf`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`hero-resume-menu-item ${res.url === activeResume.url ? 'active' : ''}`}
+                    onClick={() => setOpen(false)}
+                  >
+                    <FileText size={14} />
+                    <span>{res.name}</span>
+                    {res.url === activeResume.url && <span className="menu-active-pill">Active</span>}
+                  </a>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </>
+      )}
+    </div>
+  )
+}
+
 function Hero({ onOpenResume, profileInfo }) {
   const { scrollYProgress } = useScroll()
   const y = useTransform(scrollYProgress, [0, 0.2], [0, 40])
@@ -1007,16 +1097,7 @@ function Hero({ onOpenResume, profileInfo }) {
             >
               <Eye size={15} /> View Resume
             </button>
-            <a 
-              href={info.resumeUrl} 
-              className="hero-cta-secondary"
-              aria-label="Download Resume of Rahul Bariki"
-              download="Rahul_Bariki_Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ArrowDown size={15} /> Download PDF
-            </a>
+            <HeroResumeDownloadButton profileInfo={info} />
             <a href="#contact" className="hero-cta-secondary hero-cta-outline">
               <Mail size={15} /> Contact Me
             </a>
@@ -1843,6 +1924,15 @@ function Contact({ onOpenResume, profileInfo }) {
 
 function ResumeModal({ open, onClose, profileInfo }) {
   const info = profileInfo || defaultProfileInfo
+  const resumes = (info.resumes && Array.isArray(info.resumes) && info.resumes.length > 0)
+    ? info.resumes
+    : [{ id: 'default', name: 'Generative AI & AI Engineer Resume', url: info.resumeUrl || '/assets/Rahul_Bariki_Resume.pdf', active: true }]
+  const [selectedResume, setSelectedResume] = useState(() => resumes.find(r => r.active || r.url === info.resumeUrl) || resumes[0])
+
+  useEffect(() => {
+    const current = resumes.find(r => r.active || r.url === info.resumeUrl) || resumes[0]
+    setSelectedResume(current)
+  }, [info])
 
   useEffect(() => {
     if (!open) return undefined
@@ -1875,25 +1965,43 @@ function ResumeModal({ open, onClose, profileInfo }) {
           transition={{ type: 'spring', stiffness: 400, damping: 30 }}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="resume-modal-header">
-            <div className="resume-header-title">
-              <span className="dot-purple" />
-              <h3>Rahul Bariki's Resume</h3>
+          <div className="resume-modal-header" style={{ flexDirection: 'column', alignItems: 'stretch', gap: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+              <div className="resume-header-title">
+                <span className="dot-purple" />
+                <h3>Rahul Bariki's Resume</h3>
+              </div>
+              <div className="resume-header-actions">
+                <a
+                  href={selectedResume.url}
+                  download={`${selectedResume.name.replace(/\s+/g, '_')}.pdf`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-resume-download"
+                >
+                  Download PDF <ArrowDown size={14} />
+                </a>
+                <button type="button" onClick={onClose} className="btn-resume-close" aria-label="Close preview">
+                  <X size={18} />
+                </button>
+              </div>
             </div>
-            <div className="resume-header-actions">
-              <a
-                href={info.resumeUrl}
-                download="Rahul_Bariki_Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-resume-download"
-              >
-                Download PDF <ArrowDown size={14} />
-              </a>
-              <button type="button" onClick={onClose} className="btn-resume-close" aria-label="Close preview">
-                <X size={18} />
-              </button>
-            </div>
+
+            {resumes.length > 1 && (
+              <div className="resume-version-pills" style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '8px' }}>
+                <span style={{ fontSize: '11px', color: '#94a3b8', alignSelf: 'center', marginRight: '4px' }}>Targeted Version:</span>
+                {resumes.map((res) => (
+                  <button
+                    key={res.id}
+                    type="button"
+                    className={`resume-version-btn ${res.id === selectedResume.id ? 'active' : ''}`}
+                    onClick={() => setSelectedResume(res)}
+                  >
+                    {res.name}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="resume-modal-body">

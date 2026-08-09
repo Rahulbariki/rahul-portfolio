@@ -670,6 +670,92 @@ function ProfileEditor({ data, onChange }) {
     updateField('profilePhoto', url)
   }
 
+  const activeResumeUrl = data.resumeUrl || ''
+  const resumesList = Array.isArray(data.resumes) && data.resumes.length > 0
+    ? data.resumes
+    : [{ id: 'default', name: 'Generative AI & AI Engineer Resume', url: activeResumeUrl || '/assets/Rahul_Bariki_Resume.pdf', active: true }]
+
+  const resumeInputRef = useRef(null)
+  const [uploadingResume, setUploadingResume] = useState(false)
+  const [newResumeName, setNewResumeName] = useState('')
+  const [newResumeUrl, setNewResumeUrl] = useState('')
+
+  const updateResumes = (newList, newActiveUrl) => {
+    const activeUrl = newActiveUrl !== undefined ? newActiveUrl : (newList.find(r => r.active)?.url || newList[0]?.url || '')
+    const updatedList = newList.map(r => ({
+      ...r,
+      active: r.url === activeUrl
+    }))
+    onChange({
+      ...data,
+      resumeUrl: activeUrl,
+      resumes: updatedList
+    })
+  }
+
+  const handleUploadResumeFiles = async (files) => {
+    if (!files || files.length === 0) return
+    setUploadingResume(true)
+    const newItems = []
+    for (const file of Array.from(files)) {
+      try {
+        const url = await uploadToSupabase(file, 'certificates')
+        if (url) {
+          const rawName = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ')
+          const cleanName = rawName.charAt(0).toUpperCase() + rawName.slice(1)
+          newItems.push({
+            id: 'res_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+            name: cleanName || 'Specialized Resume',
+            url: url,
+            active: false
+          })
+        }
+      } catch (err) {
+        console.error('Failed to upload resume PDF:', err)
+      }
+    }
+    if (newItems.length > 0) {
+      updateResumes([...resumesList, ...newItems], newItems[0].url)
+    }
+    setUploadingResume(false)
+  }
+
+  const handleAddResumeUrl = (e) => {
+    e.preventDefault()
+    if (!newResumeUrl.trim()) return
+    const url = newResumeUrl.trim()
+    const name = newResumeName.trim() || 'Custom Resume PDF'
+    const newEntry = {
+      id: 'res_' + Date.now(),
+      name,
+      url,
+      active: false
+    }
+    updateResumes([...resumesList, newEntry], url)
+    setNewResumeName('')
+    setNewResumeUrl('')
+  }
+
+  const handleRenameResume = (id, newName) => {
+    const updated = resumesList.map(r => r.id === id ? { ...r, name: newName } : r)
+    updateResumes(updated, activeResumeUrl)
+  }
+
+  const handleSetActiveResume = (url) => {
+    updateResumes(resumesList, url)
+  }
+
+  const handleDeleteResume = (id) => {
+    if (resumesList.length <= 1) return
+    const target = resumesList.find(r => r.id === id)
+    const nextList = resumesList.filter(r => r.id !== id)
+    let nextActive = activeResumeUrl
+    if (target && target.url === activeResumeUrl) {
+      nextActive = nextList[0]?.url || ''
+    }
+    updateResumes(nextList, nextActive)
+  }
+
   const handleDeletePhoto = (url) => {
     const nextList = photosList.filter(p => p !== url)
     let nextActive = activePhoto
@@ -705,8 +791,112 @@ function ProfileEditor({ data, onChange }) {
             <input value={data.location || ''} onChange={e => updateField('location', e.target.value)} className="admin-input" />
           </div>
           <div className="admin-field-row">
-            <label>Resume (PDF or Image)</label>
-            <FileUploadInput value={data.resumeUrl || ''} onChange={v => updateField('resumeUrl', v)} folder="resumes" label="Upload Resume PDF" accept="application/pdf,image/*" />
+            <label>Primary Resume URL</label>
+            <FileUploadInput value={data.resumeUrl || ''} onChange={v => updateField('resumeUrl', v)} folder="resumes" label="Upload Primary Resume PDF" accept="application/pdf,image/*" />
+          </div>
+        </div>
+      </div>
+
+      {/* Multiple Specialized Resumes Library */}
+      <div className="admin-card" style={{ marginTop: '20px' }}>
+        <div className="admin-card-header" style={{ cursor: 'default' }}>
+          <span className="admin-card-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <FileText size={16} /> Specialized Resumes Library ({resumesList.length})
+          </span>
+          <span style={{ fontSize: '11px', color: '#64748b' }}>Manage role-targeted resumes (GenAI, Full-Stack, UI/UX)</span>
+        </div>
+        <div className="admin-card-body" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+          {/* Upload Dropzone for Resumes */}
+          <div
+            className="upload-zone"
+            onClick={() => resumeInputRef.current?.click()}
+            style={{ marginBottom: '16px' }}
+          >
+            {uploadingResume ? (
+              <div className="upload-spinner-wrap"><span className="upload-spinner" /> Uploading Resume PDF…</div>
+            ) : (
+              <div className="upload-empty">
+                <CloudUpload size={24} />
+                <span>Upload Specialized Resume (PDF)</span>
+                <small>Upload targeted resumes for GenAI, Full-Stack, or UI/UX roles</small>
+              </div>
+            )}
+            <input
+              ref={resumeInputRef}
+              type="file"
+              multiple
+              accept="application/pdf,image/*"
+              style={{ display: 'none' }}
+              onChange={(e) => handleUploadResumeFiles(e.target.files)}
+            />
+          </div>
+
+          {/* Add Resume URL Form */}
+          <form onSubmit={handleAddResumeUrl} style={{ display: 'flex', gap: '8px', marginBottom: '20px', flexWrap: 'wrap' }}>
+            <input
+              type="text"
+              placeholder="Resume Title (e.g. Full-Stack Developer Resume)"
+              value={newResumeName}
+              onChange={e => setNewResumeName(e.target.value)}
+              className="admin-input"
+              style={{ flex: '1 1 200px' }}
+            />
+            <input
+              type="url"
+              placeholder="Resume PDF URL…"
+              value={newResumeUrl}
+              onChange={e => setNewResumeUrl(e.target.value)}
+              className="admin-input"
+              style={{ flex: '2 1 250px' }}
+            />
+            <button type="submit" className="admin-btn primary" disabled={!newResumeUrl.trim()}>
+              <Plus size={14} /> Add Resume
+            </button>
+          </form>
+
+          {/* Resume Cards List */}
+          <div className="resume-cards-list" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            {resumesList.map((res) => {
+              const isActive = res.url === activeResumeUrl || res.active
+              return (
+                <div key={res.id} className={`admin-resume-item-card ${isActive ? 'active-resume-card' : ''}`}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexGrow: 1, flexWrap: 'wrap' }}>
+                    <FileText size={18} style={{ color: '#a78bfa', flexShrink: 0 }} />
+                    <input
+                      type="text"
+                      value={res.name}
+                      onChange={(e) => handleRenameResume(res.id, e.target.value)}
+                      className="admin-input-inline-edit"
+                      title="Click to rename resume label"
+                    />
+                    {isActive && (
+                      <span className="active-photo-badge" style={{ position: 'relative', top: 0, right: 0 }}>
+                        <CheckCircle size={10} /> ACTIVE DEFAULT
+                      </span>
+                    )}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+                    <a href={res.url} target="_blank" rel="noopener noreferrer" className="admin-btn-sm outline" title="Preview PDF">
+                      <Eye size={12} /> Preview
+                    </a>
+                    {isActive ? (
+                      <button type="button" className="admin-btn-sm active-indicator-btn" disabled>
+                        Active
+                      </button>
+                    ) : (
+                      <button type="button" className="admin-btn-sm primary" onClick={() => handleSetActiveResume(res.url)}>
+                        Set Active
+                      </button>
+                    )}
+                    {resumesList.length > 1 && (
+                      <button type="button" className="admin-btn-sm danger" onClick={() => handleDeleteResume(res.id)} title="Delete Resume">
+                        <Trash2 size={12} />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>

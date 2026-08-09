@@ -5615,5 +5615,171 @@ body:has(.admin-overlay) .cursor {
   object-fit: cover;
 }
 
+/* ─────────────────────────────────────────────
+   MULTIPLE RESUMES SYSTEM STYLES
+────────────────────────────────────────────── */
+.hero-resume-dropdown-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+}
+
+.hero-resume-arrow-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.hero-resume-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 280px;
+  background: #0f111a;
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  backdrop-filter: blur(16px);
+}
+
+.hero-resume-menu-title {
+  font: 700 10px 'DM Mono', monospace;
+  color: #a78bfa;
+  letter-spacing: 0.08em;
+  padding: 6px 10px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 4px;
+}
+
+.hero-resume-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #e2e8f0;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+
+.hero-resume-menu-item:hover {
+  background: rgba(167, 139, 250, 0.15);
+  color: #ffffff;
+}
+
+.hero-resume-menu-item.active {
+  background: rgba(124, 58, 237, 0.2);
+  color: #a78bfa;
+  font-weight: 600;
+}
+
+.menu-active-pill {
+  margin-left: auto;
+  font-size: 10px;
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 2px 6px;
+  border-radius: 100px;
+  font-weight: 700;
+}
+
+.admin-resume-item-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.admin-resume-item-card.active-resume-card {
+  border-color: rgba(167, 139, 250, 0.4);
+  background: rgba(124, 58, 237, 0.08);
+}
+
+.admin-input-inline-edit {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #f1f5f9;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: border 0.18s;
+  flex-grow: 1;
+}
+
+.admin-input-inline-edit:hover,
+.admin-input-inline-edit:focus {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(167, 139, 250, 0.4);
+  outline: none;
+}
+
+.resume-version-pills {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px;
+}
+
+.resume-version-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.resume-version-btn:hover {
+  background: rgba(167, 139, 250, 0.15);
+  color: #ffffff;
+}
+
+.resume-version-btn.active {
+  background: rgba(124, 58, 237, 0.3);
+  border-color: #a78bfa;
+  color: #ffffff;
+}
+
+[data-theme="light"] .hero-resume-menu {
+  background: #ffffff;
+  border-color: rgba(109, 40, 217, 0.25);
+  box-shadow: 0 16px 36px rgba(109, 40, 217, 0.15);
+}
+
+[data-theme="light"] .hero-resume-menu-item {
+  color: #334155;
+}
+
+[data-theme="light"] .hero-resume-menu-item:hover {
+  background: rgba(109, 40, 217, 0.08);
+  color: #6d28d9;
+}
+
+[data-theme="light"] .admin-resume-item-card {
+  background: #f8fafc;
+  border-color: rgba(15, 23, 42, 0.1);
+}
+
+[data-theme="light"] .admin-input-inline-edit {
+  color: #0f172a;
+}
+
+
 
 
