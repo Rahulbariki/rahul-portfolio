@@ -4,6 +4,7 @@ import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Calen
 import { AdminDashboardModal, ICON_MAP } from './components/AdminDashboardModal.jsx'
 import { InteractiveAITerminal } from './components/InteractiveAITerminal.jsx'
 import { SystemArchitectureModal } from './components/SystemArchitectureModal.jsx'
+import { TrophyCabinetGrid, WinnerSpotlightModal } from './components/TrophyCabinetModal.jsx'
 import { fetchCentralPortfolioData, publishCentralPortfolioData } from './cloudSync.js'
 
 const defaultTimelineEvents = [
@@ -1298,7 +1299,7 @@ function ProjectCard({ project, onSelectImage, onOpenArch }) {
 
 
 
-function Achievements({ onSelectImage, portfolioData }) {
+function Achievements({ onSelectImage, portfolioData, onSelectTrophy }) {
   const [activeTab, setActiveTab] = useState('hackathons')
 
   const tabs = [
@@ -1321,6 +1322,9 @@ function Achievements({ onSelectImage, portfolioData }) {
         <div><span>Recognitions & Impact</span><span>05 / 07</span></div>
         <h2>Hackathons, certifications<br /><em>& leadership impact.</em></h2>
       </div>
+
+      {/* 3D Glassmorphic Trophy Showcase */}
+      <TrophyCabinetGrid onSelectTrophy={onSelectTrophy} />
 
       {/* Primary Sub-Section Tabs: Hackathons | Certifications | Leadership */}
       <div className="cert-filter-tabs">
@@ -2261,6 +2265,7 @@ export function App() {
   const [recruiterMode, setRecruiterMode] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
   const [archProject, setArchProject] = useState(null)
+  const [spotlightTrophy, setSpotlightTrophy] = useState(null)
   const [adminOpen, setAdminOpen] = useState(false)
   const [portfolioData, setPortfolioData] = useState(loadPortfolioData)
   const [theme, setTheme] = useState(() => {
@@ -2473,7 +2478,7 @@ export function App() {
           </div>
           <InteractiveTimeline timelineEvents={portfolioData.timelineEvents} />
         </section>
-        <Achievements onSelectImage={setSelectedImage} portfolioData={portfolioData} />
+          <Achievements onSelectImage={setSelectedImage} portfolioData={portfolioData} onSelectTrophy={setSpotlightTrophy} />
         <Education />
         <TechnicalBlog blogPosts={portfolioData.blogPosts} />
         <FAQAccordion faqItems={portfolioData.faqItems} />
@@ -2486,6 +2491,11 @@ export function App() {
       {/* System Architecture Modal */}
       {archProject && (
         <SystemArchitectureModal project={archProject} onClose={() => setArchProject(null)} />
+      )}
+
+      {/* Winner Spotlight Modal */}
+      {spotlightTrophy && (
+        <WinnerSpotlightModal trophy={spotlightTrophy} onClose={() => setSpotlightTrophy(null)} onSelectImage={setSelectedImage} />
       )}
 
       {/* Admin Dashboard */}
