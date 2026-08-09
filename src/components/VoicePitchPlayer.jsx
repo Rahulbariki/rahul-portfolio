@@ -4,6 +4,20 @@ import { Volume2, VolumeX, Play, Pause, RotateCcw, Sparkles, FastForward, Info }
 
 const PITCH_SCRIPT = `Hi there! I am Rahul Bariki, a Generative AI and AI Automation Developer specializing in AI agents, Computer Vision, and full-stack systems engineering. I co-engineered IntelliAttend, an automated attendance platform using facial recognition, and won 1st Runner Up at the GenAI Forge Hackathon organized by NASSCOM and SmartBridge. Feel free to explore my interactive AI copilot, system architecture visualizers, and verified credentials!`
 
+// Helper: pick best male English voice from a list
+function pickMaleVoice(voices) {
+  const maleNames = ['David', 'Mark', 'George', 'Daniel', 'Alex', 'Fred', 'Guy', 'Ryan',
+    'Christopher', 'Eric', 'Male', 'James', 'Oliver', 'Rishi',
+    'Google US English Male', 'Google UK English Male']
+  const femaleNames = ['Zira', 'Hazel', 'Susan', 'Samantha', 'Victoria', 'Female', 'Karen', 'Moira', 'Tessa', 'Fiona']
+
+  return (
+    voices.find(v => v.lang.startsWith('en') && maleNames.some(m => v.name.includes(m))) ||
+    voices.find(v => v.lang.startsWith('en') && !femaleNames.some(f => v.name.includes(f))) ||
+    voices.find(v => v.lang.startsWith('en'))
+  )
+}
+
 export function VoicePitchPlayer() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
@@ -12,18 +26,27 @@ export function VoicePitchPlayer() {
   const [supported, setSupported] = useState(true)
   const synthRef = useRef(null)
   const utterRef = useRef(null)
+  // Pre-cache voices to avoid Windows Chrome race condition where getVoices() returns [] on first call
+  const voicesRef = useRef([])
 
   useEffect(() => {
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       synthRef.current = window.speechSynthesis
+
+      // Eagerly load voices (Chrome requires voiceschanged event)
+      const loadVoices = () => {
+        const v = synthRef.current.getVoices()
+        if (v.length > 0) voicesRef.current = v
+      }
+      loadVoices()
+      synthRef.current.addEventListener('voiceschanged', loadVoices)
+
+      return () => {
+        synthRef.current?.removeEventListener('voiceschanged', loadVoices)
+        synthRef.current?.cancel()
+      }
     } else {
       setSupported(false)
-    }
-
-    return () => {
-      if (synthRef.current) {
-        synthRef.current.cancel()
-      }
     }
   }, [])
 
@@ -43,15 +66,11 @@ export function VoicePitchPlayer() {
     utterance.rate = speed
     utterance.pitch = 0.9 // Deeper natural male voice resonance
 
-    // Prioritize Male English voices across OS platforms (Windows, macOS, Android, iOS)
-    const voices = synthRef.current.getVoices()
-    const maleVoiceNames = ['David', 'Mark', 'George', 'Daniel', 'Alex', 'Fred', 'Guy', 'Ryan', 'Christopher', 'Eric', 'Male', 'James', 'Oliver', 'Rishi', 'Google US English Male', 'Google UK English Male']
-    
-    const maleVoice = voices.find(v => 
-      v.lang.startsWith('en') && maleVoiceNames.some(m => v.name.includes(m))
-    ) || voices.find(v => 
-      v.lang.startsWith('en') && !v.name.includes('Zira') && !v.name.includes('Hazel') && !v.name.includes('Susan') && !v.name.includes('Samantha') && !v.name.includes('Victoria') && !v.name.includes('Female')
-    ) || voices.find(v => v.lang.startsWith('en'))
+    // Use pre-cached voices (voiceschanged event) or fallback to fresh call
+    const voices = voicesRef.current.length > 0
+      ? voicesRef.current
+      : synthRef.current.getVoices()
+    const maleVoice = pickMaleVoice(voices)
 
     if (maleVoice) utterance.voice = maleVoice
 

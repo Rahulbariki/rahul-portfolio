@@ -4588,6 +4588,19 @@ footer a:hover {
   color: #ef4444;
 }
 
+.admin-lock-btn.saving {
+  background: rgba(34, 197, 94, 0.12);
+  border-color: rgba(34, 197, 94, 0.3);
+  color: #22c55e;
+  animation: savingPulse 0.5s ease-in-out infinite alternate;
+  cursor: not-allowed;
+}
+
+@keyframes savingPulse {
+  from { opacity: 0.7; }
+  to   { opacity: 1; }
+}
+
 /* Workspace */
 .admin-workspace {
   flex-grow: 1;

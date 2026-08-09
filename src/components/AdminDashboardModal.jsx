@@ -1188,6 +1188,7 @@ export function AdminDashboardModal({ onClose, portfolioData, onUpdate, onFactor
     }
   })
   const [activeSection, setActiveSection] = useState('projects')
+  const [isSaving, setIsSaving] = useState(false)
 
   const handleUnlock = () => {
     setUnlocked(true)
@@ -1199,13 +1200,18 @@ export function AdminDashboardModal({ onClose, portfolioData, onUpdate, onFactor
   }
 
   const handleLockAndExit = () => {
-    setUnlocked(false)
-    try {
-      sessionStorage.removeItem('admin-unlocked')
-    } catch (e) {
-      console.warn(e)
-    }
-    onClose()
+    setIsSaving(true)
+    // Brief visual feedback before closing
+    setTimeout(() => {
+      setIsSaving(false)
+      setUnlocked(false)
+      try {
+        sessionStorage.removeItem('admin-unlocked')
+      } catch (e) {
+        console.warn(e)
+      }
+      onClose()
+    }, 700)
   }
 
   if (!unlocked) return <PasswordGate onUnlock={handleUnlock} onClose={onClose} />
@@ -1292,9 +1298,9 @@ export function AdminDashboardModal({ onClose, portfolioData, onUpdate, onFactor
             ))}
           </nav>
 
-          <button type="button" className="admin-lock-btn" onClick={handleLockAndExit}>
+          <button type="button" className={`admin-lock-btn ${isSaving ? 'saving' : ''}`} onClick={handleLockAndExit} disabled={isSaving}>
             <CheckCircle size={14} />
-            Save &amp; Exit
+            {isSaving ? 'Saving…' : 'Save & Exit'}
           </button>
         </aside>
 
