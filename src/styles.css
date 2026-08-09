@@ -543,6 +543,7 @@ main {
   width: 92%;
   height: 92%;
   object-fit: cover;
+  object-position: 75% 25%;
   border-radius: 50%;
   filter: contrast(1.05) brightness(1.02);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
