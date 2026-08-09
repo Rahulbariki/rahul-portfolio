@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Calendar, Camera, CheckCircle, ChevronDown, Clock, Code2, Cpu, ExternalLink, Eye, FileText, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, Moon, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Sun, Terminal, TrendingUp, Trophy, Wrench, X } from 'lucide-react'
+import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Calendar, Camera, CheckCircle, ChevronDown, Clock, Code2, Cpu, ExternalLink, Eye, FileText, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, Moon, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Sun, Terminal, TrendingUp, Trophy, Wrench, X, Zap } from 'lucide-react'
 import { AdminDashboardModal, ICON_MAP } from './components/AdminDashboardModal.jsx'
+import { InteractiveAITerminal } from './components/InteractiveAITerminal.jsx'
 import { fetchCentralPortfolioData, publishCentralPortfolioData } from './cloudSync.js'
 
 const defaultTimelineEvents = [
@@ -861,7 +862,7 @@ function ThemeToggleSwitch({ theme, onToggleTheme, isMenu = false }) {
   )
 }
 
-function Navigation({ onOpen, theme, onToggleTheme, onAdminTrigger }) {
+function Navigation({ onOpen, theme, onToggleTheme, onAdminTrigger, recruiterMode, onToggleRecruiterMode }) {
   return (
     <motion.header className="nav" initial={{ y: -80 }} animate={{ y: 0 }} transition={{ delay: 0.8, duration: 0.8 }}>
       <a 
@@ -883,6 +884,14 @@ function Navigation({ onOpen, theme, onToggleTheme, onAdminTrigger }) {
         ))}
       </nav>
       <div className="nav-actions">
+        <button
+          type="button"
+          className={`recruiter-mode-pill ${recruiterMode ? 'active' : ''}`}
+          onClick={onToggleRecruiterMode}
+          title="Toggle Recruiter Fast Mode for rapid 6-second scan"
+        >
+          <Zap size={13} /> {recruiterMode ? 'Fast Mode ON' : 'Recruiter Mode'}
+        </button>
         <ThemeToggleSwitch theme={theme} onToggleTheme={onToggleTheme} />
         <button className="menu-button" type="button" onClick={onOpen} aria-label="Open menu">
           <Menu size={18} /> Menu
@@ -1082,7 +1091,7 @@ function Hero({ onOpenResume, profileInfo }) {
           </p>
 
           {/* Interactive AI Agent Live Terminal Widget */}
-          <HeroTerminal />
+          <InteractiveAITerminal onOpenResume={onOpenResume} />
 
           {/* User Requested Action Buttons */}
           <div className="hero-actions">
@@ -2188,10 +2197,47 @@ function ResumeModal({ open, onClose, profileInfo }) {
   )
 }
 
+function RecruiterFastModeFloatingBar({ active, onExit, onOpenResume, profileInfo }) {
+  const info = profileInfo || defaultProfileInfo
+  if (!active) return null
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        className="recruiter-fast-bar"
+        initial={{ y: 80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 80, opacity: 0 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+      >
+        <div className="recruiter-bar-label">
+          <span className="recruiter-live-dot" />
+          <span>⚡ RECRUITER FAST MODE</span>
+        </div>
+        <div className="recruiter-bar-actions">
+          <button type="button" className="recruiter-btn primary" onClick={onOpenResume}>
+            <FileText size={13} /> View / Download Resume
+          </button>
+          <a href={`mailto:${info.email}`} className="recruiter-btn outline">
+            <Mail size={13} /> Email Rahul
+          </a>
+          <a href={`tel:${info.phone}`} className="recruiter-btn outline">
+            <Phone size={13} /> Call Direct
+          </a>
+          <button type="button" className="recruiter-btn close" onClick={onExit} aria-label="Exit Recruiter Mode">
+            <X size={14} />
+          </button>
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  )
+}
+
 export function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const [resumeOpen, setResumeOpen] = useState(false)
+  const [recruiterMode, setRecruiterMode] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
   const [adminOpen, setAdminOpen] = useState(false)
   const [portfolioData, setPortfolioData] = useState(loadPortfolioData)
@@ -2311,7 +2357,14 @@ export function App() {
       <div className="pointer-glow" />
       <ParticleField />
       <Cursor x={springX} y={springY} disabled={adminOpen} />
-      <Navigation onOpen={() => setMenuOpen(true)} theme={theme} onToggleTheme={toggleTheme} onAdminTrigger={() => setAdminOpen(true)} />
+      <Navigation
+        onOpen={() => setMenuOpen(true)}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+        onAdminTrigger={() => setAdminOpen(true)}
+        recruiterMode={recruiterMode}
+        onToggleRecruiterMode={() => setRecruiterMode((prev) => !prev)}
+      />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} theme={theme} onToggleTheme={toggleTheme} />
       <main>
         <CurrentlyBuildingBanner />
@@ -2486,6 +2539,13 @@ export function App() {
           </motion.div>
         )}
       </AnimatePresence>
+      {/* Recruiter Fast Mode Floating Bar */}
+      <RecruiterFastModeFloatingBar
+        active={recruiterMode}
+        onExit={() => setRecruiterMode(false)}
+        onOpenResume={() => setResumeOpen(true)}
+        profileInfo={portfolioData.profileInfo}
+      />
     </>
   )
 }
