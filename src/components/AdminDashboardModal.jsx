@@ -1293,8 +1293,8 @@ export function AdminDashboardModal({ onClose, portfolioData, onUpdate, onFactor
           </nav>
 
           <button type="button" className="admin-lock-btn" onClick={handleLockAndExit}>
-            <Lock size={14} />
-            Lock &amp; Exit
+            <CheckCircle size={14} />
+            Save &amp; Exit
           </button>
         </aside>
 
