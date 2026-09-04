@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Calendar, Camera, CheckCircle, ChevronDown, Clock, Code2, CreditCard, Cpu, ExternalLink, Eye, FileText, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, Moon, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Sun, Terminal, TrendingUp, Trophy, Wrench, X, Zap } from 'lucide-react'
+import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Briefcase, Calendar, Camera, Check, CheckCircle, ChevronDown, Clock, Code2, CreditCard, Cpu, ExternalLink, Eye, FileText, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, Moon, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Sun, Terminal, TrendingUp, Trophy, Wrench, X, Zap } from 'lucide-react'
 import { AdminDashboardModal, ICON_MAP } from './components/AdminDashboardModal.jsx'
 import { InteractiveAITerminal } from './components/InteractiveAITerminal.jsx'
 import { SystemArchitectureModal } from './components/SystemArchitectureModal.jsx'
@@ -14,8 +14,8 @@ const defaultTimelineEvents = [
     year: '2026 — 2027 (Current)',
     title: 'Co-Building IntelliAttend Startup & GenAI Breakthroughs',
     role: 'AI Software Engineer & Startup Co-Developer',
-    detail: 'Co-building IntelliAttend attendance intelligence platform. Won 1st Runner Up in GenAI Forge Hackathon 2026 (NASSCOM/SmartBridge) and 1st Prize in DEFEND-X Prompt Engineering.',
-    badge: 'Active Startup ⚡',
+    detail: 'Co-building IntelliAttend attendance intelligence platform. Won 1st Runner Up in GenAI Forge Hackathon 2026 (NASSCOM/SmartBridge) and 2nd Prize in DEFEND-X Prompt Engineering.',
+    badge: 'Active Startup',
     tone: 'lime',
   },
   {
@@ -23,7 +23,7 @@ const defaultTimelineEvents = [
     title: 'IEEE Student Branch Secretary & Society Member',
     role: 'Secretary — IEEE Student Branch (IEEE Education Society)',
     detail: 'Appointed Secretary for IEEE Student Branch in IEEE Education Society. IEEE Student Member across IEEE Education Society, IEEE Sensors Council, and IEEE CRFID2025.',
-    badge: 'IEEE Secretary 🎓',
+    badge: 'IEEE Secretary',
     tone: 'cyan',
   },
   {
@@ -31,7 +31,7 @@ const defaultTimelineEvents = [
     title: 'AI Virtual Internships & SHOWLINK Stage Demo',
     role: 'Google AI-ML & Zcalar AI Intern',
     detail: 'Completed Google AI-ML and Zcalar AI Virtual Internships. Built SHOWLINK college portal and presented live on auditorium stage at INSW 2K24.',
-    badge: 'Stage Demo 🏆',
+    badge: 'Stage Presentation',
     tone: 'violet',
   },
   {
@@ -39,7 +39,7 @@ const defaultTimelineEvents = [
     title: 'Admitted to B.Tech CSE (AI & ML) @ Santhiram Engg. College',
     role: 'Undergraduate AI & ML Student',
     detail: 'Enrolled in Autonomous B.Tech Artificial Intelligence & Machine Learning program, maintaining a high academic standing of 8.46 CGPA.',
-    badge: '8.46 CGPA 🌟',
+    badge: '8.46 CGPA',
     tone: 'lime',
   },
   {
@@ -47,7 +47,7 @@ const defaultTimelineEvents = [
     title: 'Class XII Intermediate MPC & Top 58k JEE Mains Rank',
     role: 'Student @ Narayana Junior College',
     detail: 'Achieved 79% score in MPC curriculum and secured top 58,055 All India Rank in JEE Mains entrance examination.',
-    badge: 'JEE 58k Rank 🎯',
+    badge: 'JEE Mains: 58k Rank',
     tone: 'cyan',
   },
 ]
@@ -111,9 +111,9 @@ const defaultProjects = [
       'Automated parent/admin notifications for low attendance',
       'Secure multi-role dashboard for students, faculty & admins'
     ],
-    impact: 'Active Startup Portal ⚡',
+    impact: 'Active Startup Portal',
     description: 'Currently co-engineering an intelligent, automated attendance management portal with a startup team. IntelliAttend leverages AI algorithms to streamline attendance tracking, real-time analytics, and automated reporting for institutions.',
-    result: 'Active Startup ⚡',
+    result: 'Active Startup',
     tags: ['AI Intelligence', 'React', 'Python', 'FastAPI', 'Full-Stack', 'Active Startup'],
     tone: 'lime',
     icon: BrainCircuit,
@@ -177,7 +177,7 @@ const defaultProjects = [
       'Interactive digital brochure PDF preview engine',
       'Presented live on auditorium stage before 300+ students'
     ],
-    impact: 'Presented Live on Stage 🏆',
+    impact: 'Presented Live on Stage',
     description: 'Designed and developed a user-friendly web platform that lists colleges and their detailed brochures, enabling students to easily search and compare college information. Built during the "Building Blocks of the Web" workshop and presented live on stage.',
     result: 'Search → Compare',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'Workshop Built', 'Live Presented'],
@@ -188,6 +188,50 @@ const defaultProjects = [
     stageTitle: 'Live Auditorium Stage Presentation of SHOWLINK Project',
     url: 'https://github.com/Rahulbariki/SHOWLINK',
     liveUrl: 'https://showlink.vercel.app/',
+  },
+  {
+    number: '05',
+    title: 'ToolVerse',
+    kicker: 'AI Tool Discovery & Aggregation Platform (Internship Project)',
+    problem: 'Discovering, comparing, and tracking rapidly emerging AI tools across scattered websites is time-consuming.',
+    solution: 'Engineered a centralized AI tool directory platform categorizing market AI tools with automated n8n listing pipelines.',
+    keyFeatures: [
+      'Comprehensive market AI tool directory & categorization',
+      'Category-based real-time discovery and filtering',
+      'Automated n8n form submission & ingestion pipeline',
+      'Sleek responsive web interface for seamless exploration'
+    ],
+    impact: 'AI Tool Aggregator',
+    description: 'Developed as a group prototype during the CodeTantra GenAI Internship. ToolVerse serves as a one-stop discovery portal where users explore and search curated AI tools without needing to visit multiple platforms.',
+    result: 'Explore → Aggregate',
+    tags: ['Generative AI', 'React', 'n8n Automation', 'AI Tools', 'Internship Project'],
+    tone: 'cyan',
+    icon: Sparkles,
+    image: '/assets/codetantra-genai-internship-submission-page-1.png',
+    url: 'https://toolversedaily.netlify.app/',
+    liveUrl: 'https://toolversedaily.netlify.app/',
+  },
+  {
+    number: '06',
+    title: 'Nexus Super App',
+    kicker: 'All-in-One Smart Multi-Service Ecosystem (Solo Prototype)',
+    problem: 'Switching between isolated apps for food delivery, grocery shopping, cabs, and home maintenance causes friction.',
+    solution: 'Architected an all-in-one smart service ecosystem integrating delivery, cab/bike taxi booking, and doorstep services with AI recommendations.',
+    keyFeatures: [
+      'Unified multi-service super app interface',
+      'AI-powered smart recommendations for personalized service selection',
+      'Real-time order tracking and live service update engine',
+      'Smart booking system for cabs, bike taxis & home maintenance'
+    ],
+    impact: '1 App → All Services',
+    description: 'Engineered as an individual solo prototype during the CodeTantra GenAI Internship. Nexus Super App unifies food delivery, grocery shopping, ride hailing, and home services into a single intelligent digital ecosystem.',
+    result: 'Smart Super App',
+    tags: ['React', 'Smart Services', 'AI Recommendations', 'Vercel', 'Solo Prototype'],
+    tone: 'violet',
+    icon: Layers3,
+    image: '/assets/codetantra-genai-internship-submission-page-2.png',
+    url: 'https://nexus-super-app-nine.vercel.app/',
+    liveUrl: 'https://nexus-super-app-nine.vercel.app/',
   },
 ]
 
@@ -240,8 +284,8 @@ const defaultHackathons = [
     title: 'DEFEND-X National Technical Symposium (RIPPLE 2K26)',
     organizer: 'Dept of CSE (Cyber Security), RGMCET',
     date: 'Mar 9 — Mar 10, 2026',
-    role: '2nd Prize Winner — Prompt Engineering 🥈',
-    award: '2nd Prize Winner 🥈 (Cash Prize & Medal)',
+    role: '2nd Prize Winner — Prompt Engineering',
+    award: '2nd Prize Winner (Cash Prize & Medal)',
     description: 'Secured 2nd Prize in the Prompt Engineering competition at DEFEND-X (RIPPLE 2K26), competing against top engineering students. Awarded Certificate of Merit, cash prize, on-stage recognition, and featured in Major News Telugu newspaper press.',
     tags: ['Prompt Engineering', 'DEFEND-X', 'RGMCET', '2nd Prize Winner', 'Press Featured'],
     image: '/assets/cert-defendx-prompt-engineering.jpg',
@@ -258,8 +302,8 @@ const defaultHackathons = [
     title: '14th National Technical Symposium (EMINENCE-SIGMA-2K25)',
     organizer: 'Dept of ECE & Dept of Basic Sciences, SEC',
     date: 'Feb 28 — Mar 1, 2025',
-    role: '3rd Prize Winner — Challenge AI 🥉',
-    award: '3rd Prize Winner 🥉 (Trophy Memento)',
+    role: '3rd Prize Winner — Challenge AI',
+    award: '3rd Prize Winner (Trophy Memento)',
     description: 'Secured 3rd Prize in the Challenge AI competition at the 14th National Level Technical Symposium (EMINENCE-SIGMA-2K25). Presented a live Python AI assistant & speech recognition system on stage before faculty judges.',
     tags: ['Challenge AI', 'EMINENCE-SIGMA', '3rd Prize Winner', 'AI Competition', 'Live Demo'],
     image: '/assets/cert-challenge-ai-merit-3rd-prize.jpg',
@@ -276,8 +320,8 @@ const defaultHackathons = [
     title: 'GenAI Forge Hackathon 2026',
     organizer: 'SmartBridge & NASSCOM FutureSkills Prime',
     date: 'Feb 11 — Feb 14, 2026',
-    role: '1st Runner Up Winner 🏆',
-    award: '1st Runner Up Winner 🥇',
+    role: '1st Runner Up Winner',
+    award: '1st Runner Up Winner',
     description: 'Won 1st Runner Up in a 4-day intensive GenAI bootcamp & hackathon organized by SmartBridge and NASSCOM FutureSkills Prime at Santhiram Engineering College. Featured in Nandi Patrika national press.',
     tags: ['GenAI Forge', 'SmartBridge', 'NASSCOM', '1st Runner Up', 'Press Featured'],
     image: '/assets/cert-genai-forge-hackathon-2026.png',
@@ -291,7 +335,7 @@ const defaultHackathons = [
     organizer: 'LeetCode Club & IEEE Computer Society',
     date: 'Feb 22, 2025',
     role: 'Active Participant — Competitive Coding',
-    award: 'Active Participant 🏆',
+    award: 'Active Participant',
     description: 'Participated in the LeetCode Club Grand Event - 2K25 organized by LeetCode Club, IEEE Computer Society, and Dept of CSE (AI & ML) at Santhiram Engineering College, focusing on data structures, algorithms, and rapid problem solving.',
     tags: ['LeetCode', 'Algorithms', 'Data Structures', 'Competitive Coding', 'IEEE'],
     image: '/assets/cert-leetcode-club-2k25.jpg',
@@ -319,10 +363,10 @@ const defaultHackathons = [
 ]
 
 const certCategories = [
-  { id: 'all', label: 'All Verified Credentials (13)' },
-  { id: 'ieee', label: '🎓 IEEE Certifications (5)' },
-  { id: 'course', label: '📜 Course & Virtual Internships (6)' },
-  { id: 'participation', label: '💻 Training Programs & Workshops (2)' },
+  { id: 'all', label: 'All Verified Credentials (14)' },
+  { id: 'ieee', label: 'IEEE Certifications (5)' },
+  { id: 'course', label: 'Course & Industry Internships (7)' },
+  { id: 'participation', label: 'Training Programs & Workshops (2)' },
 ]
 
 const defaultCertifications = [
@@ -394,6 +438,23 @@ const defaultCertifications = [
   },
 
   // --- COURSE CERTIFICATIONS ---
+  {
+    category: 'course',
+    title: 'Generative AI (GenAI) Internship Certificate',
+    kicker: 'Offline Short-term GenAI Internship — AICTE & APSCHE Approved',
+    issuer: 'CodeTantra Tech Solutions, AICTE & APSCHE',
+    date: 'May 02, 2026 — Jun 27, 2026',
+    certId: 'CT031120260620GENS',
+    skills: ['Generative AI', 'n8n Workflows', 'Telegram Bots', 'AI Tool Directory', 'Nexus Super App', 'AICTE Approved'],
+    image: '/assets/cert-codetantra-genai-internship.png',
+    imageTitle: 'Certificate of Internship — Offline Short-term Generative AI (GenAI) by CodeTantra Tech Solutions, AICTE & APSCHE',
+    stageImg: '/assets/codetantra-genai-internship-submission-page-1.png',
+    stageTitle: 'Internship Project Submission — ToolVerse (Group Prototype) & Nexus Super App (Solo Prototype)',
+    secImg: '/assets/codetantra-genai-internship-submission-page-2.png',
+    secTitle: 'Internship Project Submission — Telegram Bot (@BRahulOnline_bot) & n8n Automation Workflows',
+    credentialUrl: '/assets/cert-codetantra-genai-internship.pdf',
+    tone: 'lime',
+  },
   {
     category: 'course',
     title: 'AWS Academy Graduate - AWS Academy Data Engineering',
@@ -507,7 +568,7 @@ const educationList = [
     institution: 'Santhiram Engineering College, Nandyal (Autonomous)',
     scoreLabel: 'CGPA',
     scoreValue: '8.46 / 10.0',
-    badge: '8.46 CGPA 🌟',
+    badge: '8.46 CGPA',
     details: 'Specializing in Artificial Intelligence, Machine Learning, Natural Language Processing, Generative AI, AI Agents, and Full-Stack Engineering.',
     tone: 'cyan',
   },
@@ -517,13 +578,26 @@ const educationList = [
     institution: 'Narayana Junior College, Nandyal',
     scoreLabel: 'Score & JEE Mains Rank',
     scoreValue: '79% Score • JEE Mains Rank: 58055',
-    badge: 'JEE Rank: 58055 🎯',
+    badge: 'JEE Mains: 58,055',
     details: 'Completed higher secondary education in Mathematics, Physics, and Chemistry (MPC) with a 79% score and top 58k JEE Mains All India Rank.',
     tone: 'violet',
   },
 ]
 
 const experiences = [
+  {
+    period: 'May 2026 — Jun 2026',
+    company: 'CodeTantra Tech Solutions (AICTE & APSCHE)',
+    role: 'Generative AI (GenAI) Intern',
+    text: 'Completed an intensive offline short-term internship in Generative AI (GenAI) conducted by CodeTantra in collaboration with AICTE and APSCHE. Engineered ToolVerse (AI tool aggregator), Nexus Super App, automated Telegram bot (@BRahulOnline_bot), and n8n job scraping pipelines.',
+    certImage: '/assets/cert-codetantra-genai-internship.png',
+    certTitle: 'Certificate of Internship — Generative AI (GenAI) by CodeTantra Tech Solutions, AICTE & APSCHE',
+    stageImage: '/assets/codetantra-genai-internship-submission-page-1.png',
+    stageTitle: 'Internship Project Submission — ToolVerse (Group Prototype) & Nexus Super App (Solo Prototype)',
+    secImage: '/assets/codetantra-genai-internship-submission-page-2.png',
+    secTitle: 'Internship Project Submission — Telegram Bot (@BRahulOnline_bot) & n8n Automation Workflows',
+    badge: 'AICTE & APSCHE Verified',
+  },
   { period: 'Present (Active Startup)', company: 'IntelliAttend Startup Team', role: 'AI Software Engineer & Co-Developer', text: 'Co-engineering IntelliAttend (dashboard.intelliattend.app/login), an AI-driven smart attendance intelligence & real-time analytics platform for modern educational institutions.' },
   { period: 'Feb 2025 — Feb 2027', company: 'IEEE Student Branch in IEEE Education Society', role: 'Secretary — IEEE Student Branch', text: 'Secretary — IEEE Student Branch in IEEE Education Society. Active IEEE Student Member across IEEE Education Society, IEEE Sensors Council, and IEEE CRFID2025.' },
   { period: 'Jan 2024 — Mar 2024', company: 'Google AI-ML Virtual Internship', role: 'AI / Machine Learning Virtual Intern', text: 'Completed a virtual internship studying end-to-end machine learning workflows, model development, and practical AI foundations powered by Google & EduSkills.' },
@@ -564,13 +638,52 @@ const defaultProfileInfo = {
 /* ─────────────────────────────────────────────
    PORTFOLIO DATA — localStorage + defaults
 ────────────────────────────────────────────── */
+const defaultHeroStats = [
+  { value: '8.46', label: 'B.Tech CGPA' },
+  { value: '58,055', label: 'JEE Mains Rank' },
+  { value: '6+', label: 'Live Apps' },
+  { value: '03', label: 'AI Internships' },
+]
+
+const defaultCurrentlyBuilding = {
+  active: true,
+  text: 'IntelliAttend v2.0 & Multi-Modal AI Agent Workflows',
+  url: 'https://dashboard.intelliattend.app/login'
+}
+
 function rehydrateIcons(projects) {
-  return projects.map((p) => {
+  return (projects || defaultProjects).map((p) => {
     const iconFn = p.iconKey ? ICON_MAP[p.iconKey] : null
     if (iconFn) return { ...p, icon: iconFn }
-    // match by title to restore icon from defaults
     const match = defaultProjects.find((d) => d.title === p.title)
-    return match ? { ...p, icon: match.icon } : { ...p, icon: ICON_MAP.Code2 }
+    const validIcon = (p.icon && (typeof p.icon === 'function' || typeof p.icon.render === 'function'))
+      ? p.icon
+      : (match?.icon || ICON_MAP.Code2 || Code2)
+    return { ...p, icon: validIcon }
+  })
+}
+
+function rehydrateSkillGroups(groups) {
+  return (groups || skillGroups).map((g) => {
+    const iconFn = g.iconKey ? ICON_MAP[g.iconKey] : null
+    if (iconFn) return { ...g, icon: iconFn }
+    const match = skillGroups.find((d) => d.category === g.category)
+    const validIcon = (g.icon && (typeof g.icon === 'function' || typeof g.icon.render === 'function'))
+      ? g.icon
+      : (match?.icon || ICON_MAP.Layers3 || Layers3)
+    return { ...g, icon: validIcon }
+  })
+}
+
+function rehydrateCapabilities(caps) {
+  return (caps || capabilities).map((c) => {
+    const iconFn = c.iconKey ? ICON_MAP[c.iconKey] : null
+    if (iconFn) return { ...c, icon: iconFn }
+    const match = capabilities.find((d) => d.title === c.title)
+    const validIcon = (c.icon && (typeof c.icon === 'function' || typeof c.icon.render === 'function'))
+      ? c.icon
+      : (match?.icon || ICON_MAP.BrainCircuit || BrainCircuit)
+    return { ...c, icon: validIcon }
   })
 }
 
@@ -595,11 +708,17 @@ function migrateDataUrls(obj) {
   if (Array.isArray(obj)) {
     return obj.map(migrateDataUrls)
   }
-  // Only recurse into plain JS data objects (never functions, React elements, or components)
-  if (typeof obj === 'object' && obj.constructor === Object && !obj.$$typeof) {
+  // Never touch or mutate functions, components, or icons
+  if (typeof obj === 'function' || obj.$$typeof || (typeof obj === 'object' && typeof obj.render === 'function')) {
+    return obj
+  }
+  // Only recurse into plain JS data objects
+  if (typeof obj === 'object' && obj.constructor === Object) {
     const newObj = {}
     for (const key in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      if (key === 'icon') {
+        newObj[key] = obj[key]
+      } else if (Object.prototype.hasOwnProperty.call(obj, key)) {
         newObj[key] = migrateDataUrls(obj[key])
       }
     }
@@ -638,13 +757,21 @@ function loadPortfolioData() {
       timelineEvents: safeLoad('admin-timeline', defaultTimelineEvents),
       blogPosts: safeLoad('admin-blog', defaultBlogPosts),
       faqItems: safeLoad('admin-faq', defaultFaqItems),
+      skillGroups: safeLoad('admin-skills', skillGroups),
+      capabilities: safeLoad('admin-capabilities', capabilities),
+      educationList: safeLoad('admin-education', educationList),
+      currentlyBuilding: safeLoad('admin-building', defaultCurrentlyBuilding),
+      heroStats: safeLoad('admin-hero-stats', defaultHeroStats),
+      copilotKnowledge: safeLoad('admin-copilot', {}),
     }
 
     // 1. Migrate string URLs in raw data BEFORE rehydrating React icon components
     const migrated = migrateDataUrls(rawData)
 
-    // 2. Rehydrate React icon components on projects
+    // 2. Rehydrate React icon components
     migrated.projects = rehydrateIcons(migrated.projects)
+    migrated.skillGroups = rehydrateSkillGroups(migrated.skillGroups)
+    migrated.capabilities = rehydrateCapabilities(migrated.capabilities)
 
     return migrated
   } catch (err) {
@@ -657,6 +784,12 @@ function loadPortfolioData() {
       timelineEvents: defaultTimelineEvents,
       blogPosts: defaultBlogPosts,
       faqItems: defaultFaqItems,
+      skillGroups: rehydrateSkillGroups(skillGroups),
+      capabilities: rehydrateCapabilities(capabilities),
+      educationList: educationList,
+      currentlyBuilding: defaultCurrentlyBuilding,
+      heroStats: defaultHeroStats,
+      copilotKnowledge: {},
     }
   }
 }
@@ -670,14 +803,25 @@ function savePortfolioKey(key, value) {
     timelineEvents: 'admin-timeline',
     blogPosts: 'admin-blog',
     faqItems: 'admin-faq',
+    skillGroups: 'admin-skills',
+    capabilities: 'admin-capabilities',
+    educationList: 'admin-education',
+    currentlyBuilding: 'admin-building',
+    heroStats: 'admin-hero-stats',
+    copilotKnowledge: 'admin-copilot',
   }
   const storageKey = storageKeyMap[key]
   if (storageKey) {
     try {
       // Strip non-serialisable icon functions before saving
-      const toSave = key === 'projects'
-        ? value.map((p) => ({ ...p, icon: undefined, iconKey: p.iconKey || (defaultProjects.find((d) => d.title === p.title)?.iconKey) }))
-        : value
+      let toSave = value
+      if (key === 'projects') {
+        toSave = value.map((p) => ({ ...p, icon: undefined, iconKey: p.iconKey || (defaultProjects.find((d) => d.title === p.title)?.iconKey) }))
+      } else if (key === 'skillGroups') {
+        toSave = value.map((g) => ({ ...g, icon: undefined, iconKey: g.iconKey || (skillGroups.find((d) => d.category === g.category)?.iconKey) }))
+      } else if (key === 'capabilities') {
+        toSave = value.map((c) => ({ ...c, icon: undefined, iconKey: c.iconKey || (capabilities.find((d) => d.title === c.title)?.iconKey) }))
+      }
       localStorage.setItem(storageKey, JSON.stringify(toSave))
     } catch (e) {
       console.warn('[LocalStorage Save Quota Warning]', e)
@@ -1068,11 +1212,12 @@ function HeroResumeDownloadButton({ profileInfo }) {
   )
 }
 
-function Hero({ onOpenResume, profileInfo }) {
+function Hero({ onOpenResume, profileInfo, heroStats, copilotKnowledge, onOpenBizCard }) {
   const { scrollYProgress } = useScroll()
   const y = useTransform(scrollYProgress, [0, 0.2], [0, 40])
   const opacity = useTransform(scrollYProgress, [0, 0.16], [1, 0])
   const info = profileInfo || defaultProfileInfo
+  const stats = heroStats || defaultHeroStats
 
   return (
     <section className="hero" id="top">
@@ -1087,31 +1232,31 @@ function Hero({ onOpenResume, profileInfo }) {
           <span className="signal" /> GENERATIVE AI & AI AUTOMATION DEVELOPER · AI ENGINEER · UI/UX SPECIALIST
         </div>
         <div className="hero-topbar-right">
-          <span className="hero-startup-pill">⚡ Co-Builder @ IntelliAttend Startup</span>
-          <span className="hero-location"><MapPin size={13} /> Nandyal, AP, India</span>
+          <span className="hero-startup-pill">{info.startupPill || 'Co-Builder @ IntelliAttend Startup'}</span>
+          <span className="hero-location"><MapPin size={13} /> {info.location || 'Nandyal, AP, India'}</span>
         </div>
       </motion.div>
 
       {/* Main Grid: Name & Text on Left, Portrait Frame on Right */}
       <div className="hero-main-grid">
         <motion.div className="hero-text-col" style={{ y, opacity }}>
-          <h1 aria-label="Rahul Bariki">
-            <span className="hero-line"><motion.span initial={{ y: '120%' }} animate={{ y: 0 }} transition={{ duration: 1.1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}>Rahul</motion.span></span>
-            <span className="hero-line hero-line-last"><motion.span initial={{ y: '120%' }} animate={{ y: 0 }} transition={{ duration: 1.1, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}>Bariki</motion.span></span>
+          <h1 aria-label={info.name || 'Rahul Bariki'}>
+            <span className="hero-line"><motion.span initial={{ y: '120%' }} animate={{ y: 0 }} transition={{ duration: 1.1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}>{info.name?.split(' ')[0] || 'Rahul'}</motion.span></span>
+            <span className="hero-line hero-line-last"><motion.span initial={{ y: '120%' }} animate={{ y: 0 }} transition={{ duration: 1.1, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}>{info.name?.split(' ').slice(1).join(' ') || 'Bariki'}</motion.span></span>
           </h1>
 
           {/* User Requested Memorable Headline */}
           <h2 className="hero-tagline">
-            Building AI Products that Solve Real Problems.
+            {info.tagline || 'Building AI Products that Solve Real Problems.'}
           </h2>
 
           {/* User Requested Subtext / Bio */}
           <p className="hero-desc">
-            Final-year AI & ML student specializing in AI Agents, Automation, and Full-Stack Development.
+            {info.bio || 'Final-year AI & ML student specializing in AI Agents, Automation, and Full-Stack Development.'}
           </p>
 
           {/* Interactive AI Agent Live Terminal Widget */}
-          <InteractiveAITerminal onOpenResume={onOpenResume} />
+          <InteractiveAITerminal onOpenResume={onOpenResume} customKnowledge={copilotKnowledge} />
 
           {/* User Requested Action Buttons */}
           <div className="hero-actions">
@@ -1134,7 +1279,7 @@ function Hero({ onOpenResume, profileInfo }) {
             <button
               type="button"
               className="hero-biz-card-btn"
-              onClick={() => setBizCardOpen(true)}
+              onClick={onOpenBizCard}
               aria-label="Open Recruiter Smart Business Card"
             >
               <CreditCard size={15} /> Business Card
@@ -1142,10 +1287,9 @@ function Hero({ onOpenResume, profileInfo }) {
           </div>
 
           <div className="hero-stats">
-            <span><strong>8.46</strong><small>B.Tech CGPA</small></span>
-            <span><strong>58,055</strong><small>JEE Mains Rank</small></span>
-            <span><strong>4+</strong><small>Live Apps</small></span>
-            <span><strong>02</strong><small>AI Internships</small></span>
+            {stats.map((st, idx) => (
+              <span key={idx}><strong>{st.value}</strong><small>{st.label}</small></span>
+            ))}
           </div>
         </motion.div>
 
@@ -1191,16 +1335,18 @@ function Manifesto() {
         Results-driven Software Engineer with expertise in AI engineering, Generative AI, and UI/UX design. Passionate about architecting intelligent AI agents, intuitive user-centric platforms, and developing software solutions to solve real-time problems.
       </motion.p>
       <div className="manifesto-meta">
-        <span>📍 Nandyal, Andhra Pradesh, India</span>
-        <span>🎓 B.Tech CSE (AI & ML) — 8.46 CGPA</span>
-        <span>💼 Target Roles: Generative AI & AI Automation Developer | AI Engineer | UI/UX Specialist</span>
+        <span><MapPin size={13} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '5px' }} /> Nandyal, Andhra Pradesh, India</span>
+        <span><GraduationCap size={13} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '5px' }} /> B.Tech CSE (AI & ML) — 8.46 CGPA</span>
+        <span><Briefcase size={13} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '5px' }} /> Target Roles: Generative AI & AI Automation Developer | AI Engineer | UI/UX Specialist</span>
       </div>
     </section>
   )
 }
 
 function ProjectCard({ project, onSelectImage, onOpenArch }) {
-  const Icon = project.icon
+  const Icon = (project?.icon && (typeof project.icon === 'function' || typeof project.icon.render === 'function'))
+    ? project.icon
+    : (ICON_MAP[project?.iconKey] || ICON_MAP.Code2 || Code2)
   const cardRef = useRef(null)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -1261,7 +1407,10 @@ function ProjectCard({ project, onSelectImage, onOpenArch }) {
             <strong>Key Features:</strong>
             <ul>
               {project.keyFeatures.map((feat) => (
-                <li key={feat}>✓ {feat}</li>
+                <li key={feat}>
+                  <Check size={13} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px', color: '#10b981' }} />
+                  {feat}
+                </li>
               ))}
             </ul>
           </div>
@@ -1313,14 +1462,14 @@ function ProjectCard({ project, onSelectImage, onOpenArch }) {
 function Achievements({ onSelectImage, portfolioData, onSelectTrophy }) {
   const [activeTab, setActiveTab] = useState('hackathons')
 
-  const tabs = [
-    { id: 'hackathons', label: '🏆 Hackathons & Competitions (5)' },
-    { id: 'certs', label: '📜 Verified Certifications (11)' },
-    { id: 'leadership', label: '🎓 Leadership & Impact (2)' },
-  ]
-
   const hackathons = portfolioData?.hackathons ?? defaultHackathons
   const certifications = portfolioData?.certifications ?? defaultCertifications
+
+  const tabs = [
+    { id: 'hackathons', label: `Hackathons & Competitions (${hackathons.length})` },
+    { id: 'certs', label: `Verified Certifications (${certifications.length})` },
+    { id: 'leadership', label: 'Leadership & Impact (2)' },
+  ]
 
   const [certFilter, setCertFilter] = useState('all')
   const filteredCerts = certFilter === 'all'
@@ -1667,7 +1816,8 @@ function Achievements({ onSelectImage, portfolioData, onSelectTrophy }) {
   )
 }
 
-function Education() {
+function Education({ data }) {
+  const items = data || educationList
   return (
     <section className="education section-shell" id="education">
       <div className="section-heading compact">
@@ -1676,10 +1826,10 @@ function Education() {
       </div>
 
       <div className="education-grid">
-        {educationList.map((item, index) => (
+        {items.map((item, index) => (
           <motion.article
             key={item.degree}
-            className={`education-card ${item.tone}`}
+            className={`education-card ${item.tone || 'cyan'}`}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -1693,7 +1843,7 @@ function Education() {
             <h3>{item.degree}</h3>
             <p className="edu-institution">{item.institution}</p>
             <div className="edu-score-pill">
-              <span>{item.scoreLabel}:</span> <strong>{item.scoreValue}</strong>
+              <span>{item.scoreLabel || 'Score'}:</span> <strong>{item.scoreValue}</strong>
             </div>
             <p className="edu-details">{item.details}</p>
           </motion.article>
@@ -1703,16 +1853,21 @@ function Education() {
   )
 }
 
-function CurrentlyBuildingBanner() {
+function CurrentlyBuildingBanner({ data }) {
+  const info = data || defaultCurrentlyBuilding
+  if (!info || info.active === false) return null
+
   return (
     <div className="currently-building-banner">
       <div className="cb-inner">
         <span className="cb-pulse" />
         <span className="cb-label">CURRENTLY BUILDING:</span>
-        <span className="cb-text">IntelliAttend v2.0 & Multi-Modal AI Agent Workflows</span>
-        <a href="https://dashboard.intelliattend.app/login" target="_blank" rel="noopener noreferrer" className="cb-link">
-          Live Portal <ExternalLink size={12} />
-        </a>
+        <span className="cb-text">{info.text || 'IntelliAttend v2.0 & Multi-Modal AI Agent Workflows'}</span>
+        {info.url && (
+          <a href={info.url} target="_blank" rel="noopener noreferrer" className="cb-link">
+            Live Portal <ExternalLink size={12} />
+          </a>
+        )}
       </div>
     </div>
   )
@@ -1740,14 +1895,14 @@ function FeaturedSpotlightHero({ onSelectImage, onOpenArch }) {
           <div className="spotlight-metrics">
             <div><strong>45+ Mins</strong><small>Daily Time Saved</small></div>
             <div><strong>99.4%</strong><small>Verification Accuracy</small></div>
-            <div><strong>Active ⚡</strong><small>Startup Status</small></div>
+            <div><strong>Active</strong><small>Startup Status</small></div>
           </div>
           <div className="spotlight-actions">
             <a href="https://dashboard.intelliattend.app/login" target="_blank" rel="noopener noreferrer" className="btn-spotlight-live">
               <span>Launch Live Startup Portal</span> <ExternalLink size={15} />
             </a>
             <button 
-              type="button"
+              type="button" 
               className="btn-spotlight-case"
               onClick={() => onOpenArch?.({ title: 'IntelliAttend' })}
             >
@@ -1758,7 +1913,7 @@ function FeaturedSpotlightHero({ onSelectImage, onOpenArch }) {
         <div className="spotlight-right">
           <div className="spotlight-img-frame">
             <img src={migrateAssetUrl('/assets/intelliattend-logo.png')} alt="IntelliAttend Startup Logo & AI Dashboard" />
-            <span className="spotlight-live-pill">LIVE ON PROD 🟢</span>
+            <span className="spotlight-live-pill">LIVE ON PRODUCTION</span>
           </div>
         </div>
       </div>
@@ -2115,6 +2270,7 @@ function ResumeModal({ open, onClose, profileInfo }) {
               <div className="resume-section-block">
                 <h4>CERTIFICATIONS</h4>
                 <ul className="resume-cert-list">
+                  <li>CodeTantra GenAI Internship</li>
                   <li>AWS Academy Data Engineering</li>
                   <li>Zscaler Cybersecurity Fundamentals</li>
                   <li>IEEE Student Branch Secretary</li>
@@ -2147,6 +2303,28 @@ function ResumeModal({ open, onClose, profileInfo }) {
                     <p className="resume-kicker">AI BRAND AUTOMATION PLATFORM</p>
                     <p className="resume-desc">
                       Architected a Generative AI suite powered by LLM prompt engineering pipelines and vector SVG asset generators to automate complete brand identity creation for startups.
+                    </p>
+                  </div>
+
+                  <div className="resume-item-card">
+                    <div className="resume-card-top">
+                      <h4>ToolVerse</h4>
+                      <span className="year-badge">2026</span>
+                    </div>
+                    <p className="resume-kicker">AI TOOL DISCOVERY & AGGREGATION PLATFORM</p>
+                    <p className="resume-desc">
+                      Engineered a one-stop AI tool directory aggregating and categorizing market AI tools with automated n8n ingestion workflows.
+                    </p>
+                  </div>
+
+                  <div className="resume-item-card">
+                    <div className="resume-card-top">
+                      <h4>Nexus Super App</h4>
+                      <span className="year-badge">2026</span>
+                    </div>
+                    <p className="resume-kicker">ALL-IN-ONE SMART SERVICE ECOSYSTEM</p>
+                    <p className="resume-desc">
+                      Unified daily essentials platform for food/grocery ordering, ride hailing (cabs & bike taxis), and home services with AI recommendations.
                     </p>
                   </div>
 
@@ -2203,7 +2381,7 @@ function ResumeModal({ open, onClose, profileInfo }) {
                       <h4>GenAI Forge Hackathon (NASSCOM / SmartBridge)</h4>
                       <span className="year-badge">2026</span>
                     </div>
-                    <p className="resume-kicker">1ST RUNNER UP WINNER 🏆</p>
+                    <p className="resume-kicker">1ST RUNNER UP WINNER</p>
                   </div>
 
                   <div className="resume-item-card">
@@ -2211,7 +2389,7 @@ function ResumeModal({ open, onClose, profileInfo }) {
                       <h4>DEFEND-X National Technical Symposium</h4>
                       <span className="year-badge">2026</span>
                     </div>
-                    <p className="resume-kicker">2ND PRIZE WINNER — PROMPT ENGINEERING 🥈</p>
+                    <p className="resume-kicker">2ND PRIZE WINNER — PROMPT ENGINEERING</p>
                   </div>
 
                   <div className="resume-item-card">
@@ -2219,7 +2397,7 @@ function ResumeModal({ open, onClose, profileInfo }) {
                       <h4>14th National Technical Symposium (EMINENCE-SIGMA)</h4>
                       <span className="year-badge">2025</span>
                     </div>
-                    <p className="resume-kicker">3RD PRIZE WINNER — CHALLENGE AI 🥉</p>
+                    <p className="resume-kicker">3RD PRIZE WINNER — CHALLENGE AI</p>
                   </div>
                 </div>
               </div>
@@ -2248,7 +2426,7 @@ function RecruiterFastModeFloatingBar({ active, onExit, onOpenResume, profileInf
       >
         <div className="recruiter-bar-label">
           <span className="recruiter-live-dot" />
-          <span>⚡ RECRUITER FAST MODE</span>
+          <span>RECRUITER FAST MODE</span>
         </div>
         <div className="recruiter-bar-actions">
           <button type="button" className="recruiter-btn primary" onClick={onOpenResume}>
@@ -2334,6 +2512,10 @@ export function App() {
       const next = { ...prev, [key]: value }
       if (key === 'projects') {
         next.projects = rehydrateIcons(value)
+      } else if (key === 'skillGroups') {
+        next.skillGroups = rehydrateSkillGroups(value)
+      } else if (key === 'capabilities') {
+        next.capabilities = rehydrateCapabilities(value)
       }
       savePortfolioKey(key, value)
       // Publish updated portfolio data to central cloud storage CDN for all visitors globally!
@@ -2343,7 +2525,7 @@ export function App() {
   }
 
   const handleFactoryReset = () => {
-    ;['admin-profile','admin-projects','admin-hackathons','admin-certifications','admin-timeline','admin-blog','admin-faq'].forEach((k) => localStorage.removeItem(k))
+    ;['admin-profile','admin-projects','admin-hackathons','admin-certifications','admin-timeline','admin-blog','admin-faq','admin-skills','admin-capabilities','admin-education','admin-building','admin-hero-stats','admin-copilot'].forEach((k) => localStorage.removeItem(k))
     const resetData = loadPortfolioData()
     setPortfolioData(resetData)
     publishCentralPortfolioData(resetData)
@@ -2406,8 +2588,14 @@ export function App() {
       />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} theme={theme} onToggleTheme={toggleTheme} />
       <main>
-        <CurrentlyBuildingBanner />
-        <Hero onOpenResume={() => setResumeOpen(true)} profileInfo={portfolioData.profileInfo} />
+        <CurrentlyBuildingBanner data={portfolioData.currentlyBuilding} />
+        <Hero
+          onOpenResume={() => setResumeOpen(true)}
+          profileInfo={portfolioData.profileInfo}
+          heroStats={portfolioData.heroStats}
+          copilotKnowledge={portfolioData.copilotKnowledge}
+          onOpenBizCard={() => setBizCardOpen(true)}
+        />
         <Manifesto />
         <section className="work section-shell" id="work">
           <div className="section-heading">
@@ -2428,21 +2616,24 @@ export function App() {
           </div>
 
           <div className="capability-list">
-            {capabilities.map(({ icon: Icon, title, text }, index) => (
-              <motion.article key={title} initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }}>
-                <span>0{index + 1}</span>
-                <Icon />
-                <h3>{title}</h3>
-                <p>{text}</p>
-                <ArrowUpRight />
-              </motion.article>
-            ))}
+            {(portfolioData.capabilities || capabilities).map(({ icon, title, text }, index) => {
+              const Icon = (icon && (typeof icon === 'function' || typeof icon.render === 'function')) ? icon : BrainCircuit
+              return (
+                <motion.article key={title} initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }}>
+                  <span>0{index + 1}</span>
+                  {Icon && <Icon />}
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                  <ArrowUpRight />
+                </motion.article>
+              )
+            })}
           </div>
 
           {/* Categorized Skill Badges Matrix */}
           <div className="skills-matrix-container">
-            {skillGroups.map((group) => {
-              const Icon = group.icon
+            {(portfolioData.skillGroups || skillGroups).map((group) => {
+              const Icon = (group.icon && (typeof group.icon === 'function' || typeof group.icon.render === 'function')) ? group.icon : Layers3
               return (
                 <div className={`skill-cat-card ${group.tone}`} key={group.category}>
                   <div className="skill-cat-header">
@@ -2480,10 +2671,33 @@ export function App() {
             <div className="experience-list">
               {experiences.map((item, index) => (
                 <motion.article key={item.company} initial={{ opacity: 0, y: 35 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}>
-                  <div><span>0{index + 1}</span><span>{item.period}</span></div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+                    <span>0{index + 1}</span>
+                    <span>{item.period}</span>
+                  </div>
                   <h3>{item.company}</h3>
                   <h4>{item.role}</h4>
                   <p>{item.text}</p>
+                  {item.certImage && (
+                    <div style={{ marginTop: '14px', display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                      <button
+                        type="button"
+                        className="cert-view-btn"
+                        style={{ fontSize: '11px', padding: '6px 14px' }}
+                        onClick={() => setSelectedImage({
+                          title: item.company,
+                          img: item.certImage,
+                          imgTitle: item.certTitle,
+                          stageImg: item.stageImage,
+                          stageTitle: item.stageTitle,
+                          secImg: item.secImage,
+                          secTitle: item.secTitle,
+                        })}
+                      >
+                        <Eye size={13} /> View Certificate &amp; Submission
+                      </button>
+                    </div>
+                  )}
                 </motion.article>
               ))}
             </div>
@@ -2491,7 +2705,7 @@ export function App() {
           <InteractiveTimeline timelineEvents={portfolioData.timelineEvents} />
         </section>
           <Achievements onSelectImage={setSelectedImage} portfolioData={portfolioData} onSelectTrophy={setSpotlightTrophy} />
-        <Education />
+        <Education data={portfolioData.educationList} />
         <TechnicalBlog blogPosts={portfolioData.blogPosts} />
         <FAQAccordion faqItems={portfolioData.faqItems} />
         <Contact onOpenResume={() => setResumeOpen(true)} profileInfo={portfolioData.profileInfo} />

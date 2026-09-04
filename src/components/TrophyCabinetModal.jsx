@@ -5,15 +5,15 @@ import { Trophy, Medal, Award, Sparkles, Newspaper, Camera, Eye, ExternalLink, X
 export const TROPHIES = [
   {
     id: 'defendx',
-    rank: '2nd Prize Winner 🥈',
+    rank: '2nd Prize Winner',
     category: 'PROMPT ENGINEERING & AI CYBER',
     title: 'DEFEND-X National Technical Symposium (RIPPLE 2K26)',
     organizer: 'Dept of CSE (Cyber Security), RGMCET',
     date: 'Mar 9 — Mar 10, 2026',
-    award: '2nd Prize Winner 🥈 (Cash Prize, Medal & Certificate)',
+    award: '2nd Prize Winner (Cash Prize, Medal & Certificate)',
     description: 'Secured 2nd Prize in the Prompt Engineering competition at DEFEND-X (RIPPLE 2K26). Awarded Certificate of Merit, cash prize, on-stage medal presentation, and featured in Major News Telugu newspaper press.',
     theme: 'gold',
-    badge: 'CASH PRIZE & PRESS FEATURED 📰',
+    badge: 'CASH PRIZE & PRESS FEATURED',
     media: [
       { type: 'Certificate', title: 'Certificate of Merit — 2nd Prize Winner in Prompt Engineering', url: '/assets/cert-defendx-prompt-engineering.jpg' },
       { type: 'Press Feature', title: 'Major News Telugu Press Feature (12 March 2026)', url: '/assets/news-defendx-prompt-engineering.jpg' },
@@ -23,15 +23,15 @@ export const TROPHIES = [
   },
   {
     id: 'genai-forge',
-    rank: '1st Runner Up Winner 🏆',
+    rank: '1st Runner Up Winner',
     category: 'GENERATIVE AI & LLM BOOTCAMP',
     title: 'GenAI Forge Hackathon 2026',
     organizer: 'SmartBridge & NASSCOM FutureSkills Prime',
     date: 'Feb 11 — Feb 14, 2026',
-    award: '1st Runner Up Winner 🥇 (National Recognition)',
+    award: '1st Runner Up Winner (National Recognition)',
     description: 'Won 1st Runner Up in a 4-day intensive GenAI bootcamp & hackathon organized by SmartBridge and NASSCOM FutureSkills Prime. Featured in Nandi Patrika national press.',
     theme: 'gold',
-    badge: 'NASSCOM FUTURESKILLS PRIME 🥇',
+    badge: 'NASSCOM FUTURESKILLS PRIME',
     media: [
       { type: 'Certificate', title: 'GenAI Forge Hackathon 2026 — 1st Runner Up Certificate of Recognition', url: '/assets/cert-genai-forge-hackathon-2026.png' },
       { type: 'Press Feature', title: 'Nandi Patrika National Press Coverage (15 Feb 2026)', url: '/assets/news-genai-forge-hackathon-2026.jpg' }
@@ -39,15 +39,15 @@ export const TROPHIES = [
   },
   {
     id: 'eminence-sigma',
-    rank: '3rd Prize Winner 🥉',
+    rank: '3rd Prize Winner',
     category: 'CHALLENGE AI COMPETITION',
     title: '14th National Technical Symposium (EMINENCE-SIGMA-2K25)',
     organizer: 'Dept of ECE & Dept of Basic Sciences, SEC',
     date: 'Feb 28 — Mar 1, 2025',
-    award: '3rd Prize Winner 🥉 (Trophy Memento)',
+    award: '3rd Prize Winner (Trophy Memento)',
     description: 'Secured 3rd Prize in Challenge AI competition. Presented a live Python AI assistant & speech recognition system on stage before faculty judges.',
     theme: 'bronze',
-    badge: 'TROPHY MEMENTO 🏆',
+    badge: 'TROPHY MEMENTO',
     media: [
       { type: 'Certificate', title: 'Certificate of Merit — 3rd Prize Winner in Challenge AI', url: '/assets/cert-challenge-ai-merit-3rd-prize.jpg' },
       { type: 'Certificate', title: 'Certificate of Participation — Challenge AI', url: '/assets/cert-challenge-ai-participation.jpg' },
@@ -57,7 +57,7 @@ export const TROPHIES = [
   },
   {
     id: 'ieee-leadership',
-    rank: 'IEEE Student Branch Secretary 🎓',
+    rank: 'IEEE Student Branch Secretary',
     category: 'LEADERSHIP & GLOBAL MEMBERSHIP',
     title: 'IEEE Student Branch Leadership & Volunteering',
     organizer: 'IEEE Student Branch & IEEE Education Society',
@@ -65,7 +65,7 @@ export const TROPHIES = [
     award: 'Secretary — IEEE Student Branch (IEEE Education Society)',
     description: 'Appointed Secretary for IEEE Student Branch in IEEE Education Society. Active IEEE Student Member across IEEE Education Society, IEEE Sensors Council, and IEEE CRFID2025.',
     theme: 'cyan',
-    badge: 'IEEE SECRETARY 🎓',
+    badge: 'IEEE SECRETARY',
     media: [
       { type: 'Certificate', title: 'Certificate of IEEE Volunteering — Secretary', url: '/assets/cert-ieee-volunteering-secretary.png' },
       { type: 'Membership', title: '2025 Certificate of IEEE Global Membership', url: '/assets/cert-ieee-membership-2025.png' },

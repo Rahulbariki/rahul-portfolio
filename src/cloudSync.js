@@ -35,6 +35,14 @@ export async function publishCentralPortfolioData(fullPortfolioData) {
       ...p,
       icon: undefined,
     })),
+    capabilities: (fullPortfolioData.capabilities || []).map((c) => ({
+      ...c,
+      icon: undefined,
+    })),
+    skillGroups: (fullPortfolioData.skillGroups || []).map((s) => ({
+      ...s,
+      icon: undefined,
+    })),
   }
 
   const jsonString = JSON.stringify(cleanedData, null, 2)
@@ -50,6 +58,11 @@ export async function publishCentralPortfolioData(fullPortfolioData) {
     if (cleanedData.timelineEvents) localStorage.setItem('admin-timeline', JSON.stringify(cleanedData.timelineEvents))
     if (cleanedData.blogPosts) localStorage.setItem('admin-blog', JSON.stringify(cleanedData.blogPosts))
     if (cleanedData.faqItems) localStorage.setItem('admin-faq', JSON.stringify(cleanedData.faqItems))
+    if (cleanedData.skillGroups) localStorage.setItem('admin-skills', JSON.stringify(cleanedData.skillGroups))
+    if (cleanedData.capabilities) localStorage.setItem('admin-capabilities', JSON.stringify(cleanedData.capabilities))
+    if (cleanedData.educationList) localStorage.setItem('admin-education', JSON.stringify(cleanedData.educationList))
+    if (cleanedData.copilotKnowledge) localStorage.setItem('admin-copilot', JSON.stringify(cleanedData.copilotKnowledge))
+    if (cleanedData.currentlyBuilding) localStorage.setItem('admin-building', JSON.stringify(cleanedData.currentlyBuilding))
   } catch (e) {
     console.warn('[CloudSync LocalStorage Warning]', e)
   }

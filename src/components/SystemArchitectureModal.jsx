@@ -155,6 +155,54 @@ const ARCHITECTURES = {
         tone: 'cyan'
       }
     ]
+  },
+  SHOWLINK: {
+    title: 'SHOWLINK — College Search & Discovery Architecture',
+    subtitle: 'High-Speed Brochure Preview & Metric Comparison Pipeline',
+    techBadges: ['HTML5', 'CSS3', 'JavaScript', 'PDF Stream Engine', 'Vercel CDN'],
+    metrics: [
+      { label: 'Search Latency', value: '< 20ms' },
+      { label: 'Audience Reach', value: '300+ Peers' },
+      { label: 'Brochure Formats', value: 'Interactive PDF' }
+    ],
+    nodes: [
+      {
+        id: 's1',
+        name: 'Client UI & Search Engine',
+        role: 'Instant Filter & Search',
+        tech: 'JavaScript / DOM Virtualizer',
+        desc: 'Processes keystroke searches across 50+ engineering institution cutoff metrics and location filters with sub-millisecond filtering.',
+        icon: Sparkles,
+        tone: 'cyan'
+      },
+      {
+        id: 's2',
+        name: 'College Dataset Repository',
+        role: 'Normalized Data Store',
+        tech: 'JSON Database / REST Cache',
+        desc: 'Stores structured institution credentials, course seats, tuition schedules, and verified accreditation ratings.',
+        icon: Database,
+        tone: 'violet'
+      },
+      {
+        id: 's3',
+        name: 'Interactive Brochure Engine',
+        role: 'Document Canvas Streamer',
+        tech: 'HTML5 Embed Canvas / PDF Stream',
+        desc: 'Provides seamless in-browser brochure viewing, zoom capabilities, and instant PDF download triggers.',
+        icon: Layers,
+        tone: 'lime'
+      },
+      {
+        id: 's4',
+        name: 'Cloud Edge Hosting & Live Demo',
+        role: 'Edge Delivery & Demo Portal',
+        tech: 'Vercel Anycast CDN',
+        desc: 'Deployed for real-time live auditorium stage demonstration before 300+ students and college faculty members.',
+        icon: Server,
+        tone: 'cyan'
+      }
+    ]
   }
 }
 

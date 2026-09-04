@@ -39,15 +39,25 @@ function downloadVCard() {
     'END:VCARD',
   ].join('\r\n')
 
-  const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' })
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement('a')
-  a.href = url
-  a.download = 'Rahul_Bariki.vcf'
-  document.body.appendChild(a)
-  a.click()
-  document.body.removeChild(a)
-  setTimeout(() => URL.revokeObjectURL(url), 1000)
+  try {
+    const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' })
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'Rahul_Bariki.vcf'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    setTimeout(() => window.URL.revokeObjectURL(url), 2000)
+  } catch {
+    const base64Data = btoa(unescape(encodeURIComponent(vcard)))
+    const a = document.createElement('a')
+    a.href = 'data:text/x-vcard;base64,' + base64Data
+    a.download = 'Rahul_Bariki.vcf'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+  }
 }
 
 /* ─── Holographic Tilt Hook ─────────────────────────────── */
@@ -223,7 +233,7 @@ export function SmartBusinessCard({ onClose }) {
                     <MapPin size={11} />
                     <span>{CARD_DATA.location}</span>
                   </div>
-                  <div className="biz-affiliation">⚡ {CARD_DATA.affiliation}</div>
+                  <div className="biz-affiliation"><Sparkles size={11} /> {CARD_DATA.affiliation}</div>
                 </div>
 
                 <p className="biz-tagline">"{CARD_DATA.tagline}"</p>
