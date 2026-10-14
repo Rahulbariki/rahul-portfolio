@@ -657,8 +657,8 @@ const defaultProfileInfo = {
   startupPill: 'SDE Intern @ SHNOOR • Co-Builder @ IntelliAttend',
   tagline: 'Building AI Products & Enterprise Systems that Solve Real Problems.',
   bio: 'SDE Intern at SHNOOR International LLC & Final-year B.Tech CSE (AI & ML) student specializing in AI Agents, Generative AI, Automation, and Scalable Software Engineering.',
-  profilePhoto: '/assets/rahul-hero.png',
-  profilePhotos: ['/assets/rahul-hero.png', '/assets/rahul-profile.png'],
+  profilePhoto: '/assets/rahul-profile.png',
+  profilePhotos: ['/assets/rahul-profile.png'],
   resumeUrl: '/assets/Rahul_Bariki_Resume.pdf',
   resumes: [
     {
@@ -801,7 +801,7 @@ function safeLoad(key, fallback) {
   }
 }
 
-const CURRENT_DATA_VERSION = 'v2026.10.14-id-3d-hover'
+const CURRENT_DATA_VERSION = 'v2026.10.14-favicon-profile'
 
 function loadPortfolioData() {
   try {
@@ -1398,7 +1398,7 @@ function Hero({ onOpenResume, profileInfo, heroStats, copilotKnowledge, onOpenBi
               loading="eager" 
               onError={(e) => {
                 e.target.onerror = null
-                e.target.src = '/assets/rahul-hero.png'
+                e.target.src = '/assets/rahul-profile.png'
               }}
             />
           </div>

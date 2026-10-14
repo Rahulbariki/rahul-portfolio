@@ -1623,7 +1623,7 @@ function ProfileEditor({ data, onChange, onPreviewFile }) {
     ? data.resumes
     : [{ id: 'default', name: 'Primary Resume', url: data.resumeUrl || '', active: true }]
 
-  const activePhoto = data.profilePhoto || '/assets/rahul-hero.png'
+  const activePhoto = data.profilePhoto || '/assets/rahul-profile.png'
   const photosList = (data.profilePhotos && Array.isArray(data.profilePhotos) && data.profilePhotos.length > 0)
     ? data.profilePhotos
     : [activePhoto]
@@ -1635,12 +1635,12 @@ function ProfileEditor({ data, onChange, onPreviewFile }) {
   const handleDeletePhoto = (photoUrl) => {
     const nextList = photosList.filter(p => p !== photoUrl)
     const nextActive = (photoUrl === activePhoto)
-      ? (nextList[0] || '/assets/rahul-hero.png')
+      ? (nextList[0] || '/assets/rahul-profile.png')
       : activePhoto
 
     onChange({
       ...data,
-      profilePhotos: nextList.length > 0 ? nextList : ['/assets/rahul-hero.png'],
+      profilePhotos: nextList.length > 0 ? nextList : ['/assets/rahul-profile.png'],
       profilePhoto: nextActive
     })
   }
@@ -1848,7 +1848,7 @@ function ProfileEditor({ data, onChange, onPreviewFile }) {
               return (
                 <div key={i} className={`profile-photo-card ${isActive ? 'active-photo' : ''}`}>
                   <div className="profile-photo-img-wrap">
-                    <img src={url} alt={`Profile ${i + 1}`} className="profile-photo-img" onError={(e) => { e.target.onerror = null; e.target.src = '/assets/rahul-hero.png' }} />
+                    <img src={url} alt={`Profile ${i + 1}`} className="profile-photo-img" onError={(e) => { e.target.onerror = null; e.target.src = '/assets/rahul-profile.png' }} />
                     {isActive && <div className="active-photo-badge"><CheckCircle size={10} /> ACTIVE</div>}
                   </div>
                   <div className="profile-photo-card-actions">
