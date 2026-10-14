@@ -7,6 +7,7 @@ import { SystemArchitectureModal } from './components/SystemArchitectureModal.js
 import { TrophyCabinetGrid, WinnerSpotlightModal } from './components/TrophyCabinetModal.jsx'
 import { VoicePitchPlayer } from './components/VoicePitchPlayer.jsx'
 import { SmartBusinessCard } from './components/SmartBusinessCard.jsx'
+import { RealisticIdCardHover3D } from './components/RealisticIdCardHover3D.jsx'
 import { fetchCentralPortfolioData, publishCentralPortfolioData } from './cloudSync.js'
 
 const defaultTimelineEvents = [
@@ -685,6 +686,7 @@ const defaultFeatureVisibility = {
   showShnoorEmail: true,
   showShnoorSpotlight: true,
   showShnoorIdInExp: true,
+  showIdCardHoverAnimation: true,
   showCurrentlyBuilding: true,
   showStartupPill: true,
   showCopilotTerminal: true,
@@ -799,7 +801,7 @@ function safeLoad(key, fallback) {
   }
 }
 
-const CURRENT_DATA_VERSION = 'v2026.10.14-visibility'
+const CURRENT_DATA_VERSION = 'v2026.10.14-id-3d-hover'
 
 function loadPortfolioData() {
   try {
@@ -2016,6 +2018,7 @@ function FeaturedSpotlightHero({ onSelectImage, onOpenArch }) {
 function ShnoorIdSpotlightHero({ onSelectImage, visibility = defaultFeatureVisibility, profileInfo }) {
   const showEmail = (visibility?.showShnoorEmail !== false) && (profileInfo?.showShnoorEmail !== false)
   const shnoorEmail = profileInfo?.shnoorEmail || 'bariki@shnoor.com'
+  const is3dEnabled = visibility?.showIdCardHoverAnimation !== false
 
   const handleOpenIdCard = () => {
     onSelectImage?.({
@@ -2071,27 +2074,19 @@ function ShnoorIdSpotlightHero({ onSelectImage, visibility = defaultFeatureVisib
             </a>
           </div>
         </div>
-        <div className="spotlight-right">
-          <div 
-            className="id-card-spotlight-frame"
-            onClick={handleOpenIdCard}
-            role="button"
-            tabIndex={0}
-            aria-label="View Full-Size Official SHNOOR ID Card"
-          >
-            <img 
-              src="/assets/shnoor-sde-intern-id-card.png" 
-              alt="Bariki Rahul — Intern Software Development Engineer ID Card (SHNOOR International LLC)" 
-              loading="lazy"
-            />
-            <div className="id-card-overlay-badge">
-              <CheckCircle size={13} style={{ color: '#10b981' }} />
-              <span>OFFICIAL ID VERIFIED · SI0121</span>
-            </div>
-            <div className="id-card-hover-hint">
-              <Eye size={14} /> Click to Expand ID Card
-            </div>
-          </div>
+        <div className="spotlight-right" style={{ display: 'flex', justifyContent: 'center' }}>
+          <RealisticIdCardHover3D
+            cardImage="/assets/shnoor-sde-intern-id-card.png"
+            employeeId="SI0121"
+            employeeName="BARIKI RAHUL"
+            designation="Intern – Software Development Engineer"
+            department="Information Technology"
+            company="SHNOOR International LLC"
+            joiningDate="05-10-2026"
+            workMode="Remote"
+            onExpand={handleOpenIdCard}
+            is3dEnabled={is3dEnabled}
+          />
         </div>
       </div>
     </motion.div>

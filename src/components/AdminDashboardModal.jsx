@@ -2313,6 +2313,15 @@ function FeatureVisibilityEditor({ data = {}, profileData = {}, onChange, onChan
             badge="Experience Section"
             highlight={true}
           />
+
+          <ToggleSwitch
+            checked={current.showIdCardHoverAnimation !== false}
+            onChange={() => toggle('showIdCardHoverAnimation')}
+            label="Realistic 3D ID Card Floating &amp; Hover Physics"
+            description="Enable realistic hanging lanyard badge physics, smooth 3D mouse tilt, pendulum swing, holographic iridescent reflection, and 3D card flip."
+            badge="3D Badge Physics"
+            highlight={true}
+          />
         </div>
       </div>
 
