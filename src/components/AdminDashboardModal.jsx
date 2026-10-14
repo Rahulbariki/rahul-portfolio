@@ -3,7 +3,7 @@ import {
   X, Search, Download, Upload, RefreshCw, Plus, Trash2, ChevronUp, ChevronDown,
   BrainCircuit, Sparkles, Layers3, Code2, Lock, LayoutDashboard, FolderOpen,
   Image as ImageIcon, Database, FileText, Trophy, Clock, BookOpen, HelpCircle,
-  CheckCircle, AlertTriangle, CloudUpload, Cpu, Eye, User, Moon, Sun, Activity,
+  CheckCircle, AlertTriangle, CloudUpload, Cpu, Eye, EyeOff, User, Moon, Sun, Activity,
   Copy, Edit3, Check, Zap, Globe, MessageSquare, GraduationCap, Award, Sliders,
   Shield, ArrowRight, Tag, Bookmark, CheckSquare, Send, Wand2, Key, Bot
 } from 'lucide-react'
@@ -1733,12 +1733,33 @@ function ProfileEditor({ data, onChange, onPreviewFile }) {
           <span className="admin-card-title">Contact & Social Links</span>
         </div>
         <div className="admin-card-body">
-          {[['Email', 'email'], ['Phone', 'phone'], ['LinkedIn URL', 'linkedin'], ['GitHub URL', 'github'], ['Portfolio URL', 'portfolio']].map(([lbl, key]) => (
+          {[['Personal Email', 'email'], ['SHNOOR Company Email', 'shnoorEmail'], ['Phone', 'phone'], ['LinkedIn URL', 'linkedin'], ['GitHub URL', 'github'], ['Portfolio URL', 'portfolio']].map(([lbl, key]) => (
             <div className="admin-field-row" key={key}>
               <label>{lbl}</label>
-              <input value={data[key] || ''} onChange={e => update(key, e.target.value)} className="admin-input" />
+              <input value={data[key] || (key === 'shnoorEmail' ? 'bariki@shnoor.com' : '')} onChange={e => update(key, e.target.value)} className="admin-input" />
             </div>
           ))}
+          <div style={{ marginTop: '14px', padding: '12px 16px', background: 'rgba(245, 158, 11, 0.08)', border: '1px solid rgba(245, 158, 11, 0.25)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', flexWrap: 'wrap' }}>
+            <div>
+              <strong style={{ fontSize: '13px', color: '#fbbf24' }}>SHNOOR Email Visibility on Portfolio</strong>
+              <p style={{ margin: '2px 0 0', fontSize: '11px', color: '#94a3b8' }}>
+                Toggle displaying bariki@shnoor.com in the post-hero credential spotlight and contact links
+              </p>
+            </div>
+            <button
+              type="button"
+              className="admin-btn-sm"
+              style={{
+                background: data.showShnoorEmail !== false ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)',
+                color: data.showShnoorEmail !== false ? '#34d399' : '#f87171',
+                borderColor: data.showShnoorEmail !== false ? 'rgba(16, 185, 129, 0.4)' : 'rgba(239, 68, 68, 0.4)',
+                cursor: 'pointer'
+              }}
+              onClick={() => update('showShnoorEmail', data.showShnoorEmail === false ? true : false)}
+            >
+              {data.showShnoorEmail !== false ? <><Eye size={12} /> Visible (Showing)</> : <><EyeOff size={12} /> Hidden</>}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -2090,6 +2111,358 @@ function DataBackup({ portfolioData, onRestore, onFactoryReset }) {
   )
 }
 
+function ToggleSwitch({ checked, onChange, label, description, badge, highlight }) {
+  return (
+    <div 
+      className="visibility-toggle-row"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '16px 20px',
+        background: checked 
+          ? (highlight ? 'rgba(245, 158, 11, 0.08)' : 'rgba(124, 58, 237, 0.08)') 
+          : 'rgba(255, 255, 255, 0.02)',
+        border: checked 
+          ? (highlight ? '1px solid rgba(245, 158, 11, 0.35)' : '1px solid rgba(167, 139, 250, 0.3)') 
+          : '1px solid rgba(255, 255, 255, 0.06)',
+        borderRadius: '12px',
+        gap: '16px',
+        transition: 'all 0.25s ease',
+        cursor: 'pointer'
+      }}
+      onClick={() => onChange(!checked)}
+    >
+      <div style={{ flex: 1 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
+          <strong style={{ color: checked ? '#ffffff' : '#94a3b8', fontSize: '14px' }}>
+            {label}
+          </strong>
+          {badge && (
+            <span style={{
+              fontSize: '10px',
+              fontFamily: "'DM Mono', monospace",
+              padding: '2px 8px',
+              borderRadius: '100px',
+              background: highlight ? 'rgba(245, 158, 11, 0.15)' : 'rgba(124, 58, 237, 0.15)',
+              color: highlight ? '#fbbf24' : '#c4b5fd',
+              border: highlight ? '1px solid rgba(245, 158, 11, 0.3)' : '1px solid rgba(167, 139, 250, 0.3)'
+            }}>
+              {badge}
+            </span>
+          )}
+        </div>
+        {description && (
+          <p style={{ margin: 0, fontSize: '12px', color: '#64748b', lineHeight: 1.5 }}>
+            {description}
+          </p>
+        )}
+      </div>
+
+      <div 
+        style={{
+          width: '46px',
+          height: '26px',
+          borderRadius: '100px',
+          background: checked 
+            ? (highlight ? 'linear-gradient(135deg, #d97706, #f59e0b)' : 'linear-gradient(135deg, #7c3aed, #6366f1)') 
+            : 'rgba(255, 255, 255, 0.12)',
+          position: 'relative',
+          transition: 'all 0.25s ease',
+          flexShrink: 0,
+          border: checked ? 'none' : '1px solid rgba(255, 255, 255, 0.1)'
+        }}
+      >
+        <div 
+          style={{
+            width: '20px',
+            height: '20px',
+            borderRadius: '50%',
+            background: '#ffffff',
+            position: 'absolute',
+            top: '3px',
+            left: checked ? '23px' : '3px',
+            transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.4)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          {checked ? (
+            <Eye size={11} color={highlight ? '#b45309' : '#6d28d9'} />
+          ) : (
+            <EyeOff size={11} color="#94a3b8" />
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function FeatureVisibilityEditor({ data = {}, profileData = {}, onChange, onChangeProfile }) {
+  const current = {
+    showShnoorEmail: true,
+    showShnoorSpotlight: true,
+    showShnoorIdInExp: true,
+    showCurrentlyBuilding: true,
+    showStartupPill: true,
+    showCopilotTerminal: true,
+    showHeroStats: true,
+    showIntelliAttendSpotlight: true,
+    showVoicePitch: true,
+    showBizCard: true,
+    showGitHubWidget: true,
+    showBlogSection: true,
+    showFaqSection: true,
+    showTimelineSection: true,
+    showPhone: true,
+    showEmail: true,
+    ...data,
+  }
+
+  // If user changed showShnoorEmail in profileData, stay in sync
+  if (profileData.showShnoorEmail !== undefined && current.showShnoorEmail !== profileData.showShnoorEmail) {
+    current.showShnoorEmail = profileData.showShnoorEmail
+  }
+
+  const toggle = (key) => {
+    const nextVal = !current[key]
+    const updated = {
+      ...current,
+      [key]: nextVal,
+    }
+    onChange(updated)
+    if (key === 'showShnoorEmail' && onChangeProfile) {
+      onChangeProfile({ ...profileData, showShnoorEmail: nextVal })
+    }
+  }
+
+  const enableAll = () => {
+    const allOn = {}
+    Object.keys(current).forEach((k) => { allOn[k] = true })
+    onChange(allOn)
+    if (onChangeProfile) onChangeProfile({ ...profileData, showShnoorEmail: true })
+  }
+
+  const activeCount = Object.values(current).filter(Boolean).length
+  const totalCount = Object.keys(current).length
+
+  return (
+    <div className="editor-section">
+      {/* Top Controls Bar */}
+      <div className="admin-card" style={{ marginBottom: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', flexWrap: 'wrap', gap: '12px' }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span className="dot-purple" />
+              <h4 style={{ margin: 0, color: '#fff', fontSize: '15px' }}>Portfolio Feature &amp; Visibility Switchboard</h4>
+            </div>
+            <p style={{ margin: '4px 0 0', fontSize: '12px', color: '#94a3b8' }}>
+              Live control to hide or unhide modules, sensitive professional emails, sections, and interactive widgets.
+            </p>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{ fontSize: '11px', fontFamily: "'DM Mono', monospace", color: '#34d399', background: 'rgba(16, 185, 129, 0.12)', padding: '5px 12px', borderRadius: '100px', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
+              {activeCount} of {totalCount} Features Visible
+            </span>
+            <button
+              type="button"
+              className="admin-btn-sm"
+              style={{ background: 'rgba(124, 58, 237, 0.2)', color: '#c4b5fd', borderColor: 'rgba(167, 139, 250, 0.4)' }}
+              onClick={enableAll}
+            >
+              <Eye size={12} /> Show All
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 1. SHNOOR & Executive Credentials (Target Feature) */}
+      <div className="admin-card" style={{ marginBottom: '20px' }}>
+        <div className="admin-card-header" style={{ cursor: 'default' }}>
+          <span className="admin-card-title" style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#fbbf24' }}>
+            <Shield size={16} /> SHNOOR International LLC &amp; Professional Credentials
+          </span>
+          <span style={{ fontSize: '11px', color: '#f59e0b', fontFamily: "'DM Mono', monospace" }}>Requested Controls</span>
+        </div>
+        <div className="admin-card-body" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <ToggleSwitch
+            checked={current.showShnoorEmail !== false}
+            onChange={() => toggle('showShnoorEmail')}
+            label="SHNOOR Professional Email (bariki@shnoor.com)"
+            description="Toggle visibility of your official SHNOOR company email (bariki@shnoor.com) across the post-hero ID card spotlight, contact section, and action buttons."
+            badge="bariki@shnoor.com"
+            highlight={true}
+          />
+
+          <ToggleSwitch
+            checked={current.showShnoorSpotlight !== false}
+            onChange={() => toggle('showShnoorSpotlight')}
+            label="SHNOOR SDE Appointment &amp; ID Card Spotlight Section"
+            description="Show or hide the illuminated credential spotlight section placed directly after the Hero section."
+            badge="Post-Hero Spotlight"
+            highlight={true}
+          />
+
+          <ToggleSwitch
+            checked={current.showShnoorIdInExp !== false}
+            onChange={() => toggle('showShnoorIdInExp')}
+            label="Official ID Card Button in Experience Section"
+            description="Show or hide the 'View Official ID Card' certificate button under SHNOOR International LLC in Field Notes &amp; Internships."
+            badge="Experience Section"
+            highlight={true}
+          />
+        </div>
+      </div>
+
+      {/* 2. Startup Highlights & Banners */}
+      <div className="admin-card" style={{ marginBottom: '20px' }}>
+        <div className="admin-card-header" style={{ cursor: 'default' }}>
+          <span className="admin-card-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Sparkles size={16} /> Startup Highlights &amp; Live Status Banners
+          </span>
+        </div>
+        <div className="admin-card-body" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <ToggleSwitch
+            checked={current.showCurrentlyBuilding !== false}
+            onChange={() => toggle('showCurrentlyBuilding')}
+            label="Currently Building Live Status Banner"
+            description="Top animated pill banner displaying real-time build status (IntelliAttend v2.0 &amp; Multi-Modal AI Agent Workflows)."
+            badge="Top Banner"
+          />
+
+          <ToggleSwitch
+            checked={current.showIntelliAttendSpotlight !== false}
+            onChange={() => toggle('showIntelliAttendSpotlight')}
+            label="IntelliAttend Featured Startup Spotlight Card"
+            description="Large glowing showcase card highlighting the IntelliAttend platform above the featured project grid."
+            badge="Projects Showcase"
+          />
+
+          <ToggleSwitch
+            checked={current.showStartupPill !== false}
+            onChange={() => toggle('showStartupPill')}
+            label="Hero Status Pill (SDE Intern @ SHNOOR • Co-Builder @ IntelliAttend)"
+            description="Display the startup affiliation badge in the upper right hero topbar."
+            badge="Hero Topbar"
+          />
+
+          <ToggleSwitch
+            checked={current.showHeroStats !== false}
+            onChange={() => toggle('showHeroStats')}
+            label="Hero 4-Key Metrics Grid"
+            description="Showcase the 4 primary stats (B.Tech CGPA, JEE Mains, Live Projects, Internships) beneath hero CTA buttons."
+            badge="Hero Metrics"
+          />
+        </div>
+      </div>
+
+      {/* 3. Interactive Widgets & AI Copilot */}
+      <div className="admin-card" style={{ marginBottom: '20px' }}>
+        <div className="admin-card-header" style={{ cursor: 'default' }}>
+          <span className="admin-card-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Bot size={16} /> Interactive AI &amp; Recruiter Widgets
+          </span>
+        </div>
+        <div className="admin-card-body" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <ToggleSwitch
+            checked={current.showCopilotTerminal !== false}
+            onChange={() => toggle('showCopilotTerminal')}
+            label="Interactive AI Agent Live Terminal"
+            description="Cyber terminal widget embedded in Hero enabling recruiters to run interactive terminal prompts about your background."
+            badge="Hero Terminal"
+          />
+
+          <ToggleSwitch
+            checked={current.showVoicePitch !== false}
+            onChange={() => toggle('showVoicePitch')}
+            label="Voice Pitch Audio Player Widget"
+            description="Ambient interactive speech player delivering a 30-second synthesized elevator pitch to visitors."
+            badge="Audio Player"
+          />
+
+          <ToggleSwitch
+            checked={current.showBizCard !== false}
+            onChange={() => toggle('showBizCard')}
+            label="Recruiter Smart Business Card &amp; vCard QR Button"
+            description="Interactive 3D business card modal with QR code and downloadable .vcf address book card."
+            badge="vCard Modal"
+          />
+
+          <ToggleSwitch
+            checked={current.showGitHubWidget !== false}
+            onChange={() => toggle('showGitHubWidget')}
+            label="GitHub Open Source Activity Card"
+            description="GitHub contribution metrics and repository activity visualizer located in the Capabilities section."
+            badge="GitHub Card"
+          />
+        </div>
+      </div>
+
+      {/* 4. Portfolio Sections */}
+      <div className="admin-card" style={{ marginBottom: '20px' }}>
+        <div className="admin-card-header" style={{ cursor: 'default' }}>
+          <span className="admin-card-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Layers3 size={16} /> Major Page Sections
+          </span>
+        </div>
+        <div className="admin-card-body" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <ToggleSwitch
+            checked={current.showTimelineSection !== false}
+            onChange={() => toggle('showTimelineSection')}
+            label="Interactive Career Timeline (#timeline)"
+            description="Chronological journey with expandable milestones located inside the Field Notes &amp; Internships section."
+            badge="Timeline"
+          />
+
+          <ToggleSwitch
+            checked={current.showBlogSection !== false}
+            onChange={() => toggle('showBlogSection')}
+            label="Technical Blog &amp; Engineering Insights (#blog)"
+            description="Engineering deep dives and architecture write-ups section."
+            badge="Technical Blog"
+          />
+
+          <ToggleSwitch
+            checked={current.showFaqSection !== false}
+            onChange={() => toggle('showFaqSection')}
+            label="Recruiter FAQ Accordion (#faq)"
+            description="Collapsible answers to common recruiter questions regarding full-time roles and availability."
+            badge="FAQ"
+          />
+        </div>
+      </div>
+
+      {/* 5. Contact & Privacy */}
+      <div className="admin-card">
+        <div className="admin-card-header" style={{ cursor: 'default' }}>
+          <span className="admin-card-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <User size={16} /> Privacy &amp; Direct Contact Information
+          </span>
+        </div>
+        <div className="admin-card-body" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <ToggleSwitch
+            checked={current.showPhone !== false}
+            onChange={() => toggle('showPhone')}
+            label="Direct Phone Number (+91 62817 69623)"
+            description="Show or hide your personal mobile phone number across the hero topbar, contact section, and interactive resume."
+            badge="Privacy Control"
+          />
+
+          <ToggleSwitch
+            checked={current.showEmail !== false}
+            onChange={() => toggle('showEmail')}
+            label="Primary Personal Email (rahulbariki24@gmail.com)"
+            description="Show or hide your primary personal email across contact points."
+            badge="Primary Email"
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /* ─────────────────────────────────────────────
    SIDEBAR NAV CONFIG
 ────────────────────────────────────────────── */
@@ -2110,7 +2483,8 @@ const SIDEBAR_SECTIONS = [
     { id: 'faq', label: 'FAQ', icon: HelpCircle },
     { id: 'copilot', label: 'AI Copilot KB', icon: MessageSquare },
   ]},
-  { group: 'System & Sync', items: [
+  { group: 'System & Controls', items: [
+    { id: 'visibility', label: 'Feature Visibility', icon: Sliders },
     { id: 'profile', label: 'Profile & Resumes', icon: User },
     { id: 'media', label: 'Media Library', icon: ImageIcon },
     { id: 'telemetry', label: 'System Telemetry', icon: Activity },
@@ -2129,6 +2503,7 @@ const SECTION_META = {
   blog:           { title: 'Technical Blog & Insights', subtitle: 'Manage your engineering write-ups and tags' },
   faq:            { title: 'Recruiter FAQ Accordion', subtitle: 'Edit recruiter Q&A pairs and career notes' },
   copilot:        { title: 'Interactive AI Copilot Knowledge Base', subtitle: 'Configure AI terminal questions, answers, and clickable action pills' },
+  visibility:     { title: 'Feature Visibility & Module Toggles', subtitle: 'Hide or unhide specific portfolio modules, professional emails, and widgets' },
   profile:        { title: 'Profile & Targeted Resumes', subtitle: 'Manage contact info, avatar photos, and multiple PDF resumes' },
   media:          { title: 'Media Library', subtitle: 'Upload and organize media assets on Supabase CDN' },
   telemetry:      { title: 'System Telemetry & Health Audit', subtitle: 'Real-time production infrastructure latency & API audit' },
@@ -2192,6 +2567,7 @@ export function AdminDashboardModal({ onClose, portfolioData, onUpdate, onFactor
       education: portfolioData.educationList?.length,
       skills: portfolioData.skillGroups?.length,
       copilot: portfolioData.copilotKnowledge ? Object.keys(portfolioData.copilotKnowledge).length : undefined,
+      visibility: portfolioData.featureVisibility ? `${Object.values(portfolioData.featureVisibility).filter(Boolean).length} Active` : undefined,
     }
     return map[id]
   }
@@ -2244,6 +2620,15 @@ export function AdminDashboardModal({ onClose, portfolioData, onUpdate, onFactor
         return <BlogEditor data={portfolioData.blogPosts || []} onChange={v => onUpdate('blogPosts', v)} />
       case 'faq':
         return <FAQEditor data={portfolioData.faqItems || []} onChange={v => onUpdate('faqItems', v)} />
+      case 'visibility':
+        return (
+          <FeatureVisibilityEditor
+            data={portfolioData.featureVisibility || {}}
+            profileData={portfolioData.profileInfo || {}}
+            onChange={v => onUpdate('featureVisibility', v)}
+            onChangeProfile={v => onUpdate('profileInfo', v)}
+          />
+        )
       case 'profile':
         return <ProfileEditor data={portfolioData.profileInfo || {}} onChange={v => onUpdate('profileInfo', v)} onPreviewFile={onPreviewFile} />
       case 'media':

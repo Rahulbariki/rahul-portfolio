@@ -649,6 +649,8 @@ const defaultProfileInfo = {
   name: 'Rahul Bariki',
   role: 'Software Development Engineer Intern | Generative AI Developer',
   email: 'rahulbariki24@gmail.com',
+  shnoorEmail: 'bariki@shnoor.com',
+  showShnoorEmail: true,
   phone: '+91 62817 69623',
   location: 'Nandyal, AP, India',
   startupPill: 'SDE Intern @ SHNOOR • Co-Builder @ IntelliAttend',
@@ -677,6 +679,25 @@ const defaultProfileInfo = {
       active: false,
     },
   ],
+}
+
+const defaultFeatureVisibility = {
+  showShnoorEmail: true,
+  showShnoorSpotlight: true,
+  showShnoorIdInExp: true,
+  showCurrentlyBuilding: true,
+  showStartupPill: true,
+  showCopilotTerminal: true,
+  showHeroStats: true,
+  showIntelliAttendSpotlight: true,
+  showVoicePitch: true,
+  showBizCard: true,
+  showGitHubWidget: true,
+  showBlogSection: true,
+  showFaqSection: true,
+  showTimelineSection: true,
+  showPhone: true,
+  showEmail: true,
 }
 
 /* ─────────────────────────────────────────────
@@ -778,7 +799,7 @@ function safeLoad(key, fallback) {
   }
 }
 
-const CURRENT_DATA_VERSION = 'v2026.10.14-shnoor-id'
+const CURRENT_DATA_VERSION = 'v2026.10.14-visibility'
 
 function loadPortfolioData() {
   try {
@@ -792,6 +813,7 @@ function loadPortfolioData() {
 
     const projectsRaw = safeLoad('admin-projects', null)
     const loadedProfile = safeLoad('admin-profile', defaultProfileInfo)
+    const loadedVisibility = safeLoad('admin-visibility', defaultFeatureVisibility)
     
     if (!loadedProfile.profilePhotos || !Array.isArray(loadedProfile.profilePhotos) || loadedProfile.profilePhotos.length === 0) {
       loadedProfile.profilePhotos = [loadedProfile.profilePhoto || defaultProfileInfo.profilePhoto]
@@ -814,6 +836,7 @@ function loadPortfolioData() {
       currentlyBuilding: safeLoad('admin-building', defaultCurrentlyBuilding),
       heroStats: safeLoad('admin-hero-stats', defaultHeroStats),
       copilotKnowledge: safeLoad('admin-copilot', {}),
+      featureVisibility: { ...defaultFeatureVisibility, ...(loadedVisibility || {}) },
     }
 
     // 1. Migrate string URLs in raw data BEFORE rehydrating React icon components
@@ -841,6 +864,7 @@ function loadPortfolioData() {
       currentlyBuilding: defaultCurrentlyBuilding,
       heroStats: defaultHeroStats,
       copilotKnowledge: {},
+      featureVisibility: defaultFeatureVisibility,
     }
   }
 }
@@ -860,6 +884,7 @@ function savePortfolioKey(key, value) {
     currentlyBuilding: 'admin-building',
     heroStats: 'admin-hero-stats',
     copilotKnowledge: 'admin-copilot',
+    featureVisibility: 'admin-visibility',
   }
   const storageKey = storageKeyMap[key]
   if (storageKey) {
@@ -1263,12 +1288,13 @@ function HeroResumeDownloadButton({ profileInfo }) {
   )
 }
 
-function Hero({ onOpenResume, profileInfo, heroStats, copilotKnowledge, onOpenBizCard }) {
+function Hero({ onOpenResume, profileInfo, heroStats, copilotKnowledge, onOpenBizCard, visibility = defaultFeatureVisibility }) {
   const { scrollYProgress } = useScroll()
   const y = useTransform(scrollYProgress, [0, 0.2], [0, 40])
   const opacity = useTransform(scrollYProgress, [0, 0.16], [1, 0])
   const info = profileInfo || defaultProfileInfo
   const stats = heroStats || defaultHeroStats
+  const vis = visibility || defaultFeatureVisibility
 
   return (
     <section className="hero" id="top">
@@ -1283,7 +1309,9 @@ function Hero({ onOpenResume, profileInfo, heroStats, copilotKnowledge, onOpenBi
           <span className="signal" /> SDE INTERN @ SHNOOR · GENERATIVE AI & AI AUTOMATION DEVELOPER · AI ENGINEER
         </div>
         <div className="hero-topbar-right">
-          <span className="hero-startup-pill">{info.startupPill || 'SDE Intern @ SHNOOR • Co-Builder @ IntelliAttend'}</span>
+          {vis.showStartupPill !== false && (
+            <span className="hero-startup-pill">{info.startupPill || 'SDE Intern @ SHNOOR • Co-Builder @ IntelliAttend'}</span>
+          )}
           <span className="hero-location"><MapPin size={13} /> {info.location || 'Nandyal, AP, India'}</span>
         </div>
       </motion.div>
@@ -1307,7 +1335,9 @@ function Hero({ onOpenResume, profileInfo, heroStats, copilotKnowledge, onOpenBi
           </p>
 
           {/* Interactive AI Agent Live Terminal Widget */}
-          <InteractiveAITerminal onOpenResume={onOpenResume} customKnowledge={copilotKnowledge} />
+          {vis.showCopilotTerminal !== false && (
+            <InteractiveAITerminal onOpenResume={onOpenResume} customKnowledge={copilotKnowledge} />
+          )}
 
           {/* User Requested Action Buttons */}
           <div className="hero-actions">
@@ -1326,22 +1356,31 @@ function Hero({ onOpenResume, profileInfo, heroStats, copilotKnowledge, onOpenBi
             <a href="#contact" className="hero-cta-secondary hero-cta-outline">
               <Mail size={15} /> Contact Me
             </a>
-            <VoicePitchPlayer />
-            <button
-              type="button"
-              className="hero-biz-card-btn"
-              onClick={onOpenBizCard}
-              aria-label="Open Recruiter Smart Business Card"
-            >
-              <CreditCard size={15} /> Business Card
-            </button>
+            {vis.showVoicePitch !== false && (
+              <VoicePitchPlayer />
+            )}
+            {vis.showBizCard !== false && (
+              <button
+                type="button"
+                className="hero-biz-card-btn"
+                onClick={onOpenBizCard}
+                aria-label="Open Recruiter Smart Business Card"
+              >
+                <CreditCard size={15} /> Business Card
+              </button>
+            )}
           </div>
 
-          <div className="hero-stats">
-            {stats.map((st, idx) => (
-              <span key={idx}><strong>{st.value}</strong><small>{st.label}</small></span>
-            ))}
-          </div>
+          {vis.showHeroStats !== false && (
+            <div className="hero-stats">
+              {stats.map((s) => (
+                <div className="stat-card" key={s.label}>
+                  <strong>{s.value}</strong>
+                  <span>{s.label}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </motion.div>
 
         {/* Dedicated Portrait Frame Column with Cyber Orbit Rings */}
@@ -1974,7 +2013,10 @@ function FeaturedSpotlightHero({ onSelectImage, onOpenArch }) {
   )
 }
 
-function ShnoorIdSpotlightHero({ onSelectImage }) {
+function ShnoorIdSpotlightHero({ onSelectImage, visibility = defaultFeatureVisibility, profileInfo }) {
+  const showEmail = (visibility?.showShnoorEmail !== false) && (profileInfo?.showShnoorEmail !== false)
+  const shnoorEmail = profileInfo?.shnoorEmail || 'bariki@shnoor.com'
+
   const handleOpenIdCard = () => {
     onSelectImage?.({
       title: 'SHNOOR International LLC — Official Employee ID Card',
@@ -2019,9 +2061,11 @@ function ShnoorIdSpotlightHero({ onSelectImage }) {
             >
               <span>View Official ID Card</span> <Eye size={15} />
             </button>
-            <a href="mailto:bariki@shnoor.com" className="btn-spotlight-case">
-              <span>bariki@shnoor.com</span> <Mail size={15} />
-            </a>
+            {showEmail && (
+              <a href={`mailto:${shnoorEmail}`} className="btn-spotlight-case" aria-label="Send email to SHNOOR professional email">
+                <span>{shnoorEmail}</span> <Mail size={15} />
+              </a>
+            )}
             <a href="#experience" className="btn-spotlight-case">
               <span>View Experience Section</span> <Briefcase size={15} />
             </a>
@@ -2210,8 +2254,13 @@ function FAQAccordion({ faqItems: items }) {
   )
 }
 
-function Contact({ onOpenResume, profileInfo }) {
+function Contact({ onOpenResume, profileInfo, visibility = defaultFeatureVisibility }) {
   const info = profileInfo || defaultProfileInfo
+  const showShnoorEmail = (visibility?.showShnoorEmail !== false) && (info.showShnoorEmail !== false)
+  const shnoorEmail = info.shnoorEmail || 'bariki@shnoor.com'
+  const showPhone = visibility?.showPhone !== false
+  const showEmail = visibility?.showEmail !== false
+
   return (
     <section className="contact section-shell" id="contact">
       <div className="contact-glow" />
@@ -2221,12 +2270,21 @@ function Contact({ onOpenResume, profileInfo }) {
       </div>
 
       <div className="contact-actions-row">
-        <a href="mailto:rahulbariki24@gmail.com" className="contact-cta">
-          <span>rahulbariki24@gmail.com</span> <Mail size={20} />
-        </a>
-        <a href="tel:+916281769623" className="contact-cta contact-cta-phone">
-          <span>+91 62817 69623</span> <Phone size={20} />
-        </a>
+        {showEmail && (
+          <a href="mailto:rahulbariki24@gmail.com" className="contact-cta">
+            <span>rahulbariki24@gmail.com</span> <Mail size={20} />
+          </a>
+        )}
+        {showShnoorEmail && (
+          <a href={`mailto:${shnoorEmail}`} className="contact-cta" style={{ borderColor: 'rgba(245, 158, 11, 0.4)', background: 'rgba(245, 158, 11, 0.08)' }}>
+            <span style={{ color: '#fbbf24' }}>{shnoorEmail}</span> <Mail size={20} color="#fbbf24" />
+          </a>
+        )}
+        {showPhone && (
+          <a href="tel:+916281769623" className="contact-cta contact-cta-phone">
+            <span>+91 62817 69623</span> <Phone size={20} />
+          </a>
+        )}
         <button type="button" className="contact-cta contact-cta-resume" onClick={onOpenResume}>
           <span>View Resume</span> <Eye size={20} />
         </button>
@@ -2719,7 +2777,7 @@ export function App() {
   }
 
   const handleFactoryReset = () => {
-    ;['admin-profile','admin-projects','admin-hackathons','admin-certifications','admin-timeline','admin-blog','admin-faq','admin-skills','admin-capabilities','admin-education','admin-building','admin-hero-stats','admin-copilot'].forEach((k) => localStorage.removeItem(k))
+    ;['admin-profile','admin-projects','admin-hackathons','admin-certifications','admin-timeline','admin-blog','admin-faq','admin-skills','admin-capabilities','admin-education','admin-building','admin-hero-stats','admin-copilot','admin-visibility'].forEach((k) => localStorage.removeItem(k))
     const resetData = loadPortfolioData()
     setPortfolioData(resetData)
     publishCentralPortfolioData(resetData)
@@ -2782,24 +2840,35 @@ export function App() {
       />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} theme={theme} onToggleTheme={toggleTheme} />
       <main>
-        <CurrentlyBuildingBanner data={portfolioData.currentlyBuilding} />
+        {portfolioData.featureVisibility?.showCurrentlyBuilding !== false && (
+          <CurrentlyBuildingBanner data={portfolioData.currentlyBuilding} />
+        )}
         <Hero
           onOpenResume={() => setResumeOpen(true)}
           profileInfo={portfolioData.profileInfo}
           heroStats={portfolioData.heroStats}
           copilotKnowledge={portfolioData.copilotKnowledge}
           onOpenBizCard={() => setBizCardOpen(true)}
+          visibility={portfolioData.featureVisibility}
         />
-        <section className="appointment-spotlight-section" id="appointment">
-          <ShnoorIdSpotlightHero onSelectImage={setSelectedImage} />
-        </section>
+        {portfolioData.featureVisibility?.showShnoorSpotlight !== false && (
+          <section className="appointment-spotlight-section" id="appointment">
+            <ShnoorIdSpotlightHero
+              onSelectImage={setSelectedImage}
+              visibility={portfolioData.featureVisibility}
+              profileInfo={portfolioData.profileInfo}
+            />
+          </section>
+        )}
         <Manifesto />
         <section className="work section-shell" id="work">
           <div className="section-heading">
             <div><span>Selected systems</span><span>02 / 07</span></div>
             <h2>Work that moves<br /><em>ideas forward.</em></h2>
           </div>
-          <FeaturedSpotlightHero onSelectImage={setSelectedImage} onOpenArch={setArchProject} />
+          {portfolioData.featureVisibility?.showIntelliAttendSpotlight !== false && (
+            <FeaturedSpotlightHero onSelectImage={setSelectedImage} onOpenArch={setArchProject} />
+          )}
           <div className="project-grid">
             {portfolioData.projects.map((project) => (
               <ProjectCard project={project} onSelectImage={setSelectedImage} onOpenArch={setArchProject} key={project.title} />
@@ -2848,7 +2917,9 @@ export function App() {
             })}
           </div>
 
-          <GitHubActivityWidget />
+          {portfolioData.featureVisibility?.showGitHubWidget !== false && (
+            <GitHubActivityWidget />
+          )}
 
           <div className="ticker" aria-hidden="true">
             <div>PYTHON · GENERATIVE AI · AI AGENTS · MACHINE LEARNING · NATURAL LANGUAGE PROCESSING · FASTAPI · REACT · PROMPT ENGINEERING · </div>
@@ -2876,36 +2947,44 @@ export function App() {
                   <h4>{item.role}</h4>
                   <p>{item.text}</p>
                   {item.certImage && (
-                    <div style={{ marginTop: '14px', display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-                      <button
-                        type="button"
-                        className="cert-view-btn"
-                        style={{ fontSize: '11px', padding: '6px 14px' }}
-                        onClick={() => setSelectedImage({
-                          title: item.company,
-                          img: item.certImage,
-                          imgTitle: item.certTitle,
-                          stageImg: item.stageImage,
-                          stageTitle: item.stageTitle,
-                          secImg: item.secImage,
-                          secTitle: item.secTitle,
-                        })}
-                      >
-                        <Eye size={13} /> {item.company.includes('SHNOOR') ? 'View Official ID Card' : 'View Certificate & Submission'}
-                      </button>
-                    </div>
+                    (!item.company.includes('SHNOOR') || portfolioData.featureVisibility?.showShnoorIdInExp !== false) && (
+                      <div style={{ marginTop: '14px', display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                        <button
+                          type="button"
+                          className="cert-view-btn"
+                          style={{ fontSize: '11px', padding: '6px 14px' }}
+                          onClick={() => setSelectedImage({
+                            title: item.company,
+                            img: item.certImage,
+                            imgTitle: item.certTitle,
+                            stageImg: item.stageImage,
+                            stageTitle: item.stageTitle,
+                            secImg: item.secImage,
+                            secTitle: item.secTitle,
+                          })}
+                        >
+                          <Eye size={13} /> {item.company.includes('SHNOOR') ? 'View Official ID Card' : 'View Certificate & Submission'}
+                        </button>
+                      </div>
+                    )
                   )}
                 </motion.article>
               ))}
             </div>
           </div>
-          <InteractiveTimeline timelineEvents={portfolioData.timelineEvents} />
+          {portfolioData.featureVisibility?.showTimelineSection !== false && (
+            <InteractiveTimeline timelineEvents={portfolioData.timelineEvents} />
+          )}
         </section>
           <Achievements onSelectImage={setSelectedImage} portfolioData={portfolioData} onSelectTrophy={setSpotlightTrophy} />
         <Education data={portfolioData.educationList} />
-        <TechnicalBlog blogPosts={portfolioData.blogPosts} />
-        <FAQAccordion faqItems={portfolioData.faqItems} />
-        <Contact onOpenResume={() => setResumeOpen(true)} profileInfo={portfolioData.profileInfo} />
+        {portfolioData.featureVisibility?.showBlogSection !== false && (
+          <TechnicalBlog blogPosts={portfolioData.blogPosts} />
+        )}
+        {portfolioData.featureVisibility?.showFaqSection !== false && (
+          <FAQAccordion faqItems={portfolioData.faqItems} />
+        )}
+        <Contact onOpenResume={() => setResumeOpen(true)} profileInfo={portfolioData.profileInfo} visibility={portfolioData.featureVisibility} />
       </main>
 
       {/* Interactive Resume Modal */}

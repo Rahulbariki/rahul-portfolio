@@ -64,6 +64,7 @@ export async function publishCentralPortfolioData(fullPortfolioData) {
     if (cleanedData.educationList) localStorage.setItem('admin-education', JSON.stringify(cleanedData.educationList))
     if (cleanedData.copilotKnowledge) localStorage.setItem('admin-copilot', JSON.stringify(cleanedData.copilotKnowledge))
     if (cleanedData.currentlyBuilding) localStorage.setItem('admin-building', JSON.stringify(cleanedData.currentlyBuilding))
+    if (cleanedData.featureVisibility) localStorage.setItem('admin-visibility', JSON.stringify(cleanedData.featureVisibility))
   } catch (e) {
     console.warn('[CloudSync LocalStorage Warning]', e)
   }
