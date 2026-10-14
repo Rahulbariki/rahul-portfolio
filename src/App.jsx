@@ -1303,7 +1303,7 @@ function Hero({ onOpenResume, profileInfo, heroStats, copilotKnowledge, onOpenBi
               loading="eager" 
               onError={(e) => {
                 e.target.onerror = null
-                e.target.src = 'https://pnvpjoekdwiifzsrxkrs.supabase.co/storage/v1/object/public/portfolio-assets/profile/rahul-hero.png'
+                e.target.src = '/assets/rahul-hero.png'
               }}
             />
           </div>
