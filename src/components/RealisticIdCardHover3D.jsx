@@ -225,11 +225,6 @@ export function RealisticIdCardHover3D({
                   <CheckCircle size={13} style={{ color: '#10b981' }} />
                   <span>OFFICIAL ID VERIFIED · {employeeId}</span>
                 </div>
-
-                {/* Hover Click-to-Expand Hint */}
-                <div className="id-card-hover-hint">
-                  <Eye size={14} /> Click to Expand ID Card
-                </div>
               </div>
 
               {/* Specular Light Bloom (tracks mouse cursor) */}

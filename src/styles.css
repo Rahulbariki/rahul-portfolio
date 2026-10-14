@@ -2759,35 +2759,6 @@ footer a:hover {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
-.id-card-hover-hint {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(15, 23, 42, 0.92);
-  border: 1px solid rgba(245, 158, 11, 0.6);
-  color: #fde68a;
-  font: 600 10px 'DM Mono', monospace;
-  padding: 6px 16px;
-  border-radius: 100px;
-  letter-spacing: 0.06em;
-  opacity: 0.92;
-  transition: all 0.3s ease;
-  pointer-events: none;
-  white-space: nowrap;
-}
-
-.id-card-spotlight-frame:hover .id-card-hover-hint {
-  opacity: 1;
-  background: #f59e0b;
-  color: #000000;
-  border-color: #f59e0b;
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.7);
-}
-
 /* ==========================================================================
    REALISTIC 3D LANYARD ID CARD HOVERING BADGE
    ========================================================================== */
