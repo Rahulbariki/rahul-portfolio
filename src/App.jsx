@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, Bot, BrainCircuit, Briefcase, Calendar, Camera, Check, CheckCircle, ChevronDown, Clock, Code2, CreditCard, Cpu, ExternalLink, Eye, FileText, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, Moon, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Sun, Terminal, TrendingUp, Trophy, Wrench, X, Zap } from 'lucide-react'
+import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, Bot, BrainCircuit, Briefcase, Calendar, Camera, Check, CheckCircle, ChevronDown, Clock, Code2, CreditCard, Cpu, ExternalLink, Eye, FileText, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, Moon, MoveUpRight, Newspaper, Phone, Quote, Shield, Sparkles, Sun, Terminal, TrendingUp, Trophy, Wrench, X, Zap } from 'lucide-react'
 import { AdminDashboardModal, ICON_MAP } from './components/AdminDashboardModal.jsx'
 import { InteractiveAITerminal } from './components/InteractiveAITerminal.jsx'
 import { SystemArchitectureModal } from './components/SystemArchitectureModal.jsx'
@@ -622,6 +622,8 @@ const experiences = [
     company: 'SHNOOR International LLC',
     role: 'Intern – Software Development Engineer, Information Technology',
     text: 'Serving as Software Development Engineer Intern in Information Technology (Remote). Contributing to enterprise software development, backend systems, scalable cloud services, and production software workflows.',
+    certImage: '/assets/shnoor-sde-intern-id-card.png',
+    certTitle: 'Official Employee ID Card — Bariki Rahul (ID: SI0121), SHNOOR International LLC',
     badge: 'Active SDE Internship',
   },
   {
@@ -776,7 +778,7 @@ function safeLoad(key, fallback) {
   }
 }
 
-const CURRENT_DATA_VERSION = 'v2026.10.14-shnoor'
+const CURRENT_DATA_VERSION = 'v2026.10.14-shnoor-id'
 
 function loadPortfolioData() {
   try {
@@ -1972,6 +1974,86 @@ function FeaturedSpotlightHero({ onSelectImage, onOpenArch }) {
   )
 }
 
+function ShnoorIdSpotlightHero({ onSelectImage }) {
+  const handleOpenIdCard = () => {
+    onSelectImage?.({
+      title: 'SHNOOR International LLC — Official Employee ID Card',
+      img: '/assets/shnoor-sde-intern-id-card.png',
+      imgTitle: 'BARIKI RAHUL — Intern – Software Development Engineer (SI0121)',
+      stageTitle: 'Department: Information Technology | Joining Date: 05-10-2026 | Barcode: SI0121',
+    })
+  }
+
+  return (
+    <motion.div 
+      className="shnoor-id-spotlight-card"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="spotlight-badge" style={{ background: 'rgba(245, 158, 11, 0.12)', borderColor: 'rgba(245, 158, 11, 0.45)', color: '#fbbf24' }}>
+        <Shield size={14} /> <span>OFFICIAL SDE APPOINTMENT &amp; VERIFIED CREDENTIAL</span>
+      </div>
+      <div className="spotlight-grid">
+        <div className="spotlight-left">
+          <h2 style={{ letterSpacing: '-0.03em' }}>SHNOOR International LLC</h2>
+          <p className="spotlight-subtitle" style={{ color: '#f59e0b', fontWeight: 600 }}>
+            Intern – Software Development Engineer, Information Technology
+          </p>
+          <p className="spotlight-desc">
+            Serving as a Software Development Engineer Intern in Information Technology (Remote). Contributing to enterprise software development, backend systems, scalable cloud services, and production software workflows. Verified by official employee ID badge #SI0121.
+          </p>
+          <div className="spotlight-metrics">
+            <div><strong style={{ color: '#f59e0b' }}>SI0121</strong><small>Employee ID No.</small></div>
+            <div><strong>05-10-2026</strong><small>Date of Joining</small></div>
+            <div><strong>Remote</strong><small>Work Mode</small></div>
+            <div><strong>Active</strong><small>Internship Status</small></div>
+          </div>
+          <div className="spotlight-actions">
+            <button 
+              type="button" 
+              className="btn-spotlight-live"
+              style={{ background: 'linear-gradient(135deg, #d97706, #b45309)', boxShadow: '0 0 30px rgba(217, 119, 6, 0.4)' }}
+              onClick={handleOpenIdCard}
+            >
+              <span>View Official ID Card</span> <Eye size={15} />
+            </button>
+            <a href="mailto:bariki@shnoor.com" className="btn-spotlight-case">
+              <span>bariki@shnoor.com</span> <Mail size={15} />
+            </a>
+            <a href="#experience" className="btn-spotlight-case">
+              <span>View Experience Section</span> <Briefcase size={15} />
+            </a>
+          </div>
+        </div>
+        <div className="spotlight-right">
+          <div 
+            className="id-card-spotlight-frame"
+            onClick={handleOpenIdCard}
+            role="button"
+            tabIndex={0}
+            aria-label="View Full-Size Official SHNOOR ID Card"
+          >
+            <img 
+              src="/assets/shnoor-sde-intern-id-card.png" 
+              alt="Bariki Rahul — Intern Software Development Engineer ID Card (SHNOOR International LLC)" 
+              loading="lazy"
+            />
+            <div className="id-card-overlay-badge">
+              <CheckCircle size={13} style={{ color: '#10b981' }} />
+              <span>OFFICIAL ID VERIFIED · SI0121</span>
+            </div>
+            <div className="id-card-hover-hint">
+              <Eye size={14} /> Click to Expand ID Card
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
 
 function GitHubActivityWidget() {
   return (
@@ -2708,6 +2790,9 @@ export function App() {
           copilotKnowledge={portfolioData.copilotKnowledge}
           onOpenBizCard={() => setBizCardOpen(true)}
         />
+        <section className="appointment-spotlight-section" id="appointment">
+          <ShnoorIdSpotlightHero onSelectImage={setSelectedImage} />
+        </section>
         <Manifesto />
         <section className="work section-shell" id="work">
           <div className="section-heading">
@@ -2806,7 +2891,7 @@ export function App() {
                           secTitle: item.secTitle,
                         })}
                       >
-                        <Eye size={13} /> View Certificate &amp; Submission
+                        <Eye size={13} /> {item.company.includes('SHNOOR') ? 'View Official ID Card' : 'View Certificate & Submission'}
                       </button>
                     </div>
                   )}

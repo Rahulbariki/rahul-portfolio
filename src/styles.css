@@ -2691,6 +2691,103 @@ footer a:hover {
   letter-spacing: 0.08em;
 }
 
+/* SHNOOR SDE Intern ID Card Spotlight */
+.appointment-spotlight-section {
+  padding: 60px 4vw 45px;
+  position: relative;
+  border-bottom: 1px solid var(--line);
+  background: radial-gradient(circle at 85% 30%, rgba(217, 119, 6, 0.09), transparent 45%),
+              radial-gradient(circle at 15% 70%, rgba(99, 102, 241, 0.07), transparent 50%),
+              #08080c;
+}
+
+.shnoor-id-spotlight-card {
+  max-width: 1400px;
+  margin: 0 auto;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.12), rgba(10, 10, 18, 0.92) 55%, rgba(99, 102, 241, 0.08));
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  padding: 40px;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65), inset 0 0 35px rgba(245, 158, 11, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.id-card-spotlight-frame {
+  position: relative;
+  border-radius: 20px;
+  padding: 14px;
+  background: linear-gradient(145deg, rgba(245, 158, 11, 0.15), rgba(15, 15, 25, 0.95));
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(245, 158, 11, 0.25);
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.id-card-spotlight-frame:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 50px rgba(245, 158, 11, 0.45);
+  border-color: rgba(245, 158, 11, 0.8);
+}
+
+.id-card-spotlight-frame img {
+  width: 100%;
+  max-width: 270px;
+  height: auto;
+  border-radius: 14px;
+  display: block;
+}
+
+.id-card-overlay-badge {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(10, 10, 15, 0.92);
+  border: 1px solid rgba(16, 185, 129, 0.6);
+  color: #34d399;
+  font: 700 9px 'DM Mono', monospace;
+  padding: 5px 12px;
+  border-radius: 100px;
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.id-card-hover-hint {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(245, 158, 11, 0.6);
+  color: #fde68a;
+  font: 600 10px 'DM Mono', monospace;
+  padding: 6px 16px;
+  border-radius: 100px;
+  letter-spacing: 0.06em;
+  opacity: 0.92;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.id-card-spotlight-frame:hover .id-card-hover-hint {
+  opacity: 1;
+  background: #f59e0b;
+  color: #000000;
+  border-color: #f59e0b;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.7);
+}
+
 /* 3. Tech Proficiency Radar */
 .tech-radar-container {
   margin: 40px 0;
@@ -3337,6 +3434,31 @@ footer a:hover {
   background: #ffffff;
   border-color: rgba(109, 40, 217, 0.25);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .appointment-spotlight-section {
+  background: radial-gradient(circle at 85% 30%, rgba(217, 119, 6, 0.06), transparent 45%),
+              #f8fafc;
+}
+
+[data-theme="light"] .shnoor-id-spotlight-card {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.08), rgba(255, 255, 255, 0.95) 55%, rgba(99, 102, 241, 0.04));
+  border-color: rgba(217, 119, 6, 0.35);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .shnoor-id-spotlight-card h2 {
+  color: #0f172a;
+}
+
+[data-theme="light"] .shnoor-id-spotlight-card .spotlight-desc {
+  color: #334155;
+}
+
+[data-theme="light"] .id-card-spotlight-frame {
+  background: #ffffff;
+  border-color: rgba(217, 119, 6, 0.35);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
 }
 
 [data-theme="light"] .project-card {
