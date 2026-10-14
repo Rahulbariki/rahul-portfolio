@@ -118,7 +118,7 @@ const defaultProjects = [
     tone: 'lime',
     icon: BrainCircuit,
     image: '/assets/intelliattend-logo.png',
-    url: 'https://dashboard.intelliattend.app/login',
+    url: '',
     liveUrl: 'https://dashboard.intelliattend.app/login',
   },
   {
@@ -140,7 +140,7 @@ const defaultProjects = [
     tone: 'cyan',
     icon: Sparkles,
     image: '/assets/brandnova-logo.png',
-    url: 'https://github.com/Rahulbariki/brand-automation',
+    url: 'https://github.com/Rahulbariki',
     liveUrl: 'https://brandnova-brand-automation.vercel.app/',
   },
   {
@@ -186,7 +186,7 @@ const defaultProjects = [
     image: '/assets/showlink-logo.png',
     stageImage: '/assets/photo-showlink-presentation-1.jpg',
     stageTitle: 'Live Auditorium Stage Presentation of SHOWLINK Project',
-    url: 'https://github.com/Rahulbariki/SHOWLINK',
+    url: 'https://github.com/Rahulbariki',
     liveUrl: 'https://showlink.vercel.app/',
   },
   {
@@ -208,7 +208,7 @@ const defaultProjects = [
     tone: 'cyan',
     icon: Sparkles,
     image: '/assets/codetantra-genai-internship-submission-page-1.png',
-    url: 'https://toolversedaily.netlify.app/',
+    url: '',
     liveUrl: 'https://toolversedaily.netlify.app/',
   },
   {
@@ -230,7 +230,7 @@ const defaultProjects = [
     tone: 'violet',
     icon: Layers3,
     image: '/assets/codetantra-genai-internship-submission-page-2.png',
-    url: 'https://nexus-super-app-nine.vercel.app/',
+    url: '',
     liveUrl: 'https://nexus-super-app-nine.vercel.app/',
   },
 ]
@@ -688,16 +688,13 @@ function rehydrateCapabilities(caps) {
 }
 
 function migrateAssetUrl(url) {
-  if (typeof url !== 'string' || !url.startsWith('/assets/')) return url
-  const filename = url.replace('/assets/', '')
-  const f = filename.toLowerCase()
-  let folder = 'media'
-  if (f.startsWith('rahul-profile') || f.startsWith('rahul-hero')) folder = 'profile'
-  else if (f.startsWith('cert-') || f.endsWith('.pdf')) folder = 'certificates'
-  else if (f.startsWith('news-') || f.startsWith('photo-')) folder = 'hackathons'
-  else if (f.includes('-logo') || f.includes('intelliattend') || f.includes('brandnova') || f.includes('campuspulse') || f.includes('showlink')) folder = 'projects'
-  
-  return `https://pnvpjoekdwiifzsrxkrs.supabase.co/storage/v1/object/public/portfolio-assets/${folder}/${filename}`
+  if (typeof url !== 'string') return url
+  // If previously saved as a dead Supabase URL from localStorage cache, recover the local asset path
+  if (url.includes('pnvpjoekdwiifzsrxkrs.supabase.co/storage/v1/object/public/portfolio-assets/')) {
+    const filename = url.split('/').pop()
+    return `/assets/${filename}`
+  }
+  return url
 }
 
 function migrateDataUrls(obj) {
@@ -1424,9 +1421,11 @@ function ProjectCard({ project, onSelectImage, onOpenArch }) {
                 <span>Live Demo</span> <ExternalLink size={14} />
               </a>
             )}
-            <a href={project.url} target="_blank" rel="noopener noreferrer" className="btn-project-github" aria-label={`View ${project.title} Source Code on GitHub`}>
-              <span>GitHub</span> <Github size={14} />
-            </a>
+            {project.url && project.url.includes('github.com') && (
+              <a href={project.url} target="_blank" rel="noopener noreferrer" className="btn-project-github" aria-label={`View ${project.title} on GitHub`}>
+                <span>GitHub</span> <Github size={14} />
+              </a>
+            )}
             <button
               type="button"
               className="btn-project-arch"

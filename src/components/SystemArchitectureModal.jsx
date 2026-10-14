@@ -203,12 +203,108 @@ const ARCHITECTURES = {
         tone: 'cyan'
       }
     ]
+  },
+  ToolVerse: {
+    title: 'ToolVerse — AI Tool Discovery & Ingestion Architecture',
+    subtitle: 'Automated n8n Ingestion Workflows, Category Indexing & Fast Exploration',
+    techBadges: ['React', 'n8n Automation', 'REST API', 'JavaScript', 'Tailwind', 'Netlify Edge'],
+    metrics: [
+      { label: 'Discovery Latency', value: '< 15ms' },
+      { label: 'Ingestion Pipeline', value: 'Automated' },
+      { label: 'Catalog Directory', value: '100+ AI Tools' }
+    ],
+    nodes: [
+      {
+        id: 'tv1',
+        name: 'Client Discovery & Search Engine',
+        role: 'Client Search & Dynamic Filters',
+        tech: 'React / Dynamic State Filter',
+        desc: 'Processes real-time keyword queries, category filters (LLMs, Image Gen, Audio, Code), and tag aggregation.',
+        icon: Sparkles,
+        tone: 'cyan'
+      },
+      {
+        id: 'tv2',
+        name: 'n8n Automated Submission Pipeline',
+        role: 'Workflow Automation',
+        tech: 'n8n Webhook / Automated Scraper',
+        desc: 'Captures tool submission webhooks, validates metadata, verifies URL reachability, and routes approved submissions.',
+        icon: Zap,
+        tone: 'violet'
+      },
+      {
+        id: 'tv3',
+        name: 'Normalized Tool Catalog Store',
+        role: 'Structured Data Store',
+        tech: 'JSON Database / REST Cache',
+        desc: 'Stores categorized tool specifications, pricing tier tags, feature highlights, and direct platform access links.',
+        icon: Database,
+        tone: 'lime'
+      },
+      {
+        id: 'tv4',
+        name: 'Netlify Edge CDN Distribution',
+        role: 'Edge Delivery & Hosting',
+        tech: 'Netlify Edge / High Availability',
+        desc: 'Serves the responsive single-page discovery portal with sub-second asset delivery across desktop and mobile devices.',
+        icon: Server,
+        tone: 'cyan'
+      }
+    ]
+  },
+  'Nexus Super App': {
+    title: 'Nexus Super App — Multi-Service Smart Ecosystem Architecture',
+    subtitle: 'Unified Gateway Architecture with AI Recommendation & Real-Time Tracking',
+    techBadges: ['React', 'AI Recommendations', 'Context API', 'Vercel CDN', 'Modular Architecture'],
+    metrics: [
+      { label: 'Module Switching', value: 'Instant' },
+      { label: 'Recommendation Speed', value: '< 40ms' },
+      { label: 'Integrated Verticals', value: '4 Core Services' }
+    ],
+    nodes: [
+      {
+        id: 'nx1',
+        name: 'Unified Service Dispatcher',
+        role: 'Super App View Gateway',
+        tech: 'React Router / View Orchestrator',
+        desc: 'Coordinates four core everyday digital services (Food Delivery, Grocery, Cabs/Bike Taxi, Home Services) within a seamless single view.',
+        icon: Layers,
+        tone: 'cyan'
+      },
+      {
+        id: 'nx2',
+        name: 'AI Smart Recommendation Engine',
+        role: 'Contextual AI Suggestions',
+        tech: 'AI Heuristic / Personalized Matrix',
+        desc: 'Analyzes user timing, prior preferences, and location context to offer predictive food order suggestions and service recommendations.',
+        icon: Sparkles,
+        tone: 'violet'
+      },
+      {
+        id: 'nx3',
+        name: 'Cross-Vertical Cart & Booking Manager',
+        role: 'State Synchronization',
+        tech: 'React Context / LocalStorage Sync',
+        desc: 'Maintains consolidated active carts, ride pickup coordinates, scheduling slots, and multi-vertical order state without conflicts.',
+        icon: Activity,
+        tone: 'lime'
+      },
+      {
+        id: 'nx4',
+        name: 'Live Order & Transit Simulator',
+        role: 'Real-Time Update UI',
+        tech: 'Simulated Event Stream / Webhook Polling',
+        desc: 'Renders step-by-step order progression milestones, driver assignment indicators, and simulated live delivery ETA trackers.',
+        icon: Server,
+        tone: 'cyan'
+      }
+    ]
   }
 }
 
 export function SystemArchitectureModal({ project, onClose }) {
-  const projectName = project?.title || 'IntelliAttend'
-  const archKey = Object.keys(ARCHITECTURES).find(k => k.toLowerCase() === projectName.toLowerCase()) || 'IntelliAttend'
+  const projectName = (project?.title || 'IntelliAttend').trim()
+  const archKey = Object.keys(ARCHITECTURES).find(k => k.toLowerCase() === projectName.toLowerCase() || projectName.toLowerCase().includes(k.toLowerCase())) || 'IntelliAttend'
   const data = ARCHITECTURES[archKey]
   const [selectedNode, setSelectedNode] = useState(data.nodes[0])
 

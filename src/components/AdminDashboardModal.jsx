@@ -39,7 +39,7 @@ export const ICON_MAP = {
   BookOpen,
   Clock
 }
-export const ICON_KEYS = Object.keys(ICON_MAP)
+const ICON_KEYS = Object.keys(ICON_MAP)
 
 function PasswordGate({ onUnlock, onClose }) {
   const [pw, setPw] = useState('')

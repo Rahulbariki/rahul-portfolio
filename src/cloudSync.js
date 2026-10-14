@@ -7,6 +7,7 @@ const CENTRAL_DATA_URL = `https://pnvpjoekdwiifzsrxkrs.supabase.co/storage/v1/ob
  * @returns {Promise<object|null>}
  */
 export async function fetchCentralPortfolioData() {
+  if (!isSupabaseReady) return null
   try {
     const res = await fetch(`${CENTRAL_DATA_URL}?t=${Date.now()}`)
     if (!res.ok) return null
