@@ -9,15 +9,15 @@ import QRCodeLib from 'qrcode'
 /* ─── Contact Data ─────────────────────────────────────── */
 const CARD_DATA = {
   name: 'Rahul Bariki',
-  roles: ['GenAI Engineer', 'AI Automation Dev', 'Full-Stack Developer', 'UI/UX Specialist'],
+  roles: ['SDE Intern @ SHNOOR', 'GenAI Engineer', 'AI Automation Dev', 'Full-Stack Developer'],
   location: 'Nandyal, AP, India',
   email: 'rahulbariki24@gmail.com',
   phone: '+91 62817 69623',
   linkedin: 'https://linkedin.com/in/rahulbariki24',
   github: 'https://github.com/rahulbariki',
   portfolio: 'https://rahulbariki.vercel.app',
-  tagline: 'Building AI Products that Solve Real Problems.',
-  affiliation: 'Co-Builder @ IntelliAttend Startup',
+  tagline: 'Building Scalable Software & AI Products that Solve Real Problems.',
+  affiliation: 'SDE Intern @ SHNOOR • Co-Builder @ IntelliAttend',
 }
 
 /* ─── vCard Generator ───────────────────────────────────── */
@@ -27,8 +27,8 @@ function downloadVCard() {
     'VERSION:3.0',
     `FN:${CARD_DATA.name}`,
     `N:Bariki;Rahul;;;`,
-    `TITLE:Generative AI & AI Automation Developer`,
-    `ORG:IntelliAttend Startup`,
+    `TITLE:Intern – Software Development Engineer | GenAI Developer`,
+    `ORG:SHNOOR International LLC`,
     `TEL;TYPE=CELL:${CARD_DATA.phone}`,
     `EMAIL:${CARD_DATA.email}`,
     `URL:${CARD_DATA.portfolio}`,

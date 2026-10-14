@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Volume2, VolumeX, Play, Pause, RotateCcw, Sparkles, FastForward, Info } from 'lucide-react'
 
-const PITCH_SCRIPT = `Hi there! I am Rahul Bariki, a Generative AI and AI Automation Developer specializing in AI agents, Computer Vision, and full-stack systems engineering. I co-engineered IntelliAttend, an automated attendance platform using facial recognition, and won 1st Runner Up at the GenAI Forge Hackathon organized by NASSCOM and SmartBridge. Feel free to explore my interactive AI copilot, system architecture visualizers, and verified credentials!`
+const PITCH_SCRIPT = `Hi there! I am Rahul Bariki, a Software Development Engineer Intern at SHNOOR International LLC and Generative AI developer specializing in AI agents, LLM pipelines, and full-stack software systems engineering. I co-engineered IntelliAttend, an automated attendance platform using facial recognition, and won 1st Runner Up at the GenAI Forge Hackathon organized by NASSCOM and SmartBridge. Feel free to explore my interactive AI copilot, system architecture visualizers, and verified credentials!`
 
 // Helper: pick best male English voice from a list
 function pickMaleVoice(voices) {

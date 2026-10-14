@@ -252,6 +252,54 @@ const ARCHITECTURES = {
       }
     ]
   },
+  Jarvis: {
+    title: 'Jarvis AI — Voice-First Ambient Architecture',
+    subtitle: 'Low-Latency Speech Recognition & Desktop Task Automation Pipeline',
+    techBadges: ['Python', 'SpeechRecognition', 'PyAudio', 'NLP Parser', 'OS Automation', 'Desktop GUI'],
+    metrics: [
+      { label: 'Voice Response', value: '< 220ms' },
+      { label: 'Command Accuracy', value: '98.2%' },
+      { label: 'Live Presentation', value: '3rd Prize Winner' }
+    ],
+    nodes: [
+      {
+        id: 'j1',
+        name: 'Acoustic Audio Ingestion',
+        role: 'Microphone Stream Capture',
+        tech: 'PyAudio / Buffer Normalization',
+        desc: 'Captures continuous ambient audio streams, applies noise thresholding, and detects voice trigger signals.',
+        icon: Sparkles,
+        tone: 'cyan'
+      },
+      {
+        id: 'j2',
+        name: 'Speech-to-Text Transcriber',
+        role: 'Acoustic Model Engine',
+        tech: 'Python SpeechRecognition Engine',
+        desc: 'Translates raw audio waveforms into tokenized English text with sub-second acoustic model inference.',
+        icon: Zap,
+        tone: 'violet'
+      },
+      {
+        id: 'j3',
+        name: 'Intent Classification & Dispatcher',
+        role: 'Semantic Command Parser',
+        tech: 'Regex & Heuristic Intent Matrix',
+        desc: 'Classifies voice commands into actionable system instructions (web browsing, app launching, file search, media control).',
+        icon: Database,
+        tone: 'lime'
+      },
+      {
+        id: 'j4',
+        name: 'System Execution & Voice Response',
+        role: 'Automation & Speech Feedback',
+        tech: 'OS Subprocess / Text-to-Speech Engine',
+        desc: 'Executes desktop operations and provides natural spoken voice feedback to confirm completed operations.',
+        icon: Server,
+        tone: 'cyan'
+      }
+    ]
+  },
   'Nexus Super App': {
     title: 'Nexus Super App — Multi-Service Smart Ecosystem Architecture',
     subtitle: 'Unified Gateway Architecture with AI Recommendation & Real-Time Tracking',

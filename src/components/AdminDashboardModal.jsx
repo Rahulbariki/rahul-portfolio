@@ -37,7 +37,8 @@ export const ICON_MAP = {
   Trophy,
   Award,
   BookOpen,
-  Clock
+  Clock,
+  Bot
 }
 const ICON_KEYS = Object.keys(ICON_MAP)
 

@@ -82,11 +82,20 @@ const KNOWLEDGE_BASE = {
   },
   experience: {
     title: 'Industry Experience & Internships',
-    response: `• Generative AI (GenAI) Intern @ CodeTantra Tech Solutions (May — Jun 2026, AICTE & APSCHE): Built ToolVerse, Nexus Super App, @BRahulOnline_bot Telegram automation, and n8n job scraping pipelines.
+    response: `• Intern – Software Development Engineer @ SHNOOR International LLC (Oct 2026 — Present, Remote): Information Technology department working on software development workflows & modern application engineering.
+• Generative AI (GenAI) Intern @ CodeTantra Tech Solutions (May — Jun 2026, AICTE & APSCHE): Built ToolVerse, Nexus Super App, @BRahulOnline_bot Telegram automation, and n8n job scraping pipelines.
 • Co-Developer @ IntelliAttend Startup (2026 — Present): Facial verification & institutional analytics.
 • Google AI-ML Virtual Intern (2024): Applied machine learning algorithms & model evaluation.
 • Zcalar AI Virtual Intern (2024): Prompt engineering, NLP pipelines & chatbot development.`,
-    pills: ['ToolVerse Platform', 'Nexus Super App', 'Open Resume']
+    pills: ['Tell me about Jarvis', 'IntelliAttend Platform', 'Open Resume']
+  },
+  jarvis: {
+    title: 'Jarvis AI — Voice-First Ambient Desktop Assistant',
+    response: `Designed and built an ambient voice AI assistant leveraging Python, speech recognition, and intent extraction.
+• Honors: Awarded 3rd Prize Winner in Challenge AI at the 14th National Level Technical Symposium (EMINENCE-SIGMA-2K25).
+• Live Presentation: Demonstrated live on auditorium digital screen before faculty and student judges.
+• Features: Real-time speech-to-text recognition, conversational voice feedback, desktop task automation, and hands-free system command execution.`,
+    pills: ['Tell me about BrandNova', 'Hackathon Victories', 'Open Resume']
   },
   resume: {
     title: 'Rahul Bariki — Verified Resume & Credentials',
@@ -155,6 +164,8 @@ export function InteractiveAITerminal({ onOpenResume, customKnowledge }) {
         key = 'intelliattend'
       } else if (lower.includes('brandnova') || lower.includes('brand')) {
         key = 'brandnova'
+      } else if (lower.includes('jarvis') || lower.includes('voice assistant')) {
+        key = 'jarvis'
       } else if (lower.includes('campuspulse') || lower.includes('campus') || lower.includes('event')) {
         key = 'campuspulse'
       } else if (lower.includes('showlink') || lower.includes('college search')) {
@@ -169,7 +180,7 @@ export function InteractiveAITerminal({ onOpenResume, customKnowledge }) {
         key = 'toolverse'
       } else if (lower.includes('nexus') || lower.includes('super app')) {
         key = 'nexus'
-      } else if (lower.includes('intern') || lower.includes('experience') || lower.includes('codetantra') || lower.includes('google') || lower.includes('zcalar')) {
+      } else if (lower.includes('intern') || lower.includes('experience') || lower.includes('shnoor') || lower.includes('codetantra') || lower.includes('google') || lower.includes('zcalar')) {
         key = 'experience'
       } else if (lower.includes('contact') || lower.includes('email') || lower.includes('phone') || lower.includes('hire') || lower.includes('reach') || lower.includes('social')) {
         key = 'contact'

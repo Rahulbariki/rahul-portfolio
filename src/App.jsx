@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
-import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, BrainCircuit, Briefcase, Calendar, Camera, Check, CheckCircle, ChevronDown, Clock, Code2, CreditCard, Cpu, ExternalLink, Eye, FileText, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, Moon, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Sun, Terminal, TrendingUp, Trophy, Wrench, X, Zap } from 'lucide-react'
+import { Activity, ArrowDown, ArrowUpRight, Award, BookOpen, Bot, BrainCircuit, Briefcase, Calendar, Camera, Check, CheckCircle, ChevronDown, Clock, Code2, CreditCard, Cpu, ExternalLink, Eye, FileText, GitCommit, Github, GraduationCap, HelpCircle, Layers3, Linkedin, Mail, MapPin, Medal, Menu, MessageSquare, Moon, MoveUpRight, Newspaper, Phone, Quote, Sparkles, Sun, Terminal, TrendingUp, Trophy, Wrench, X, Zap } from 'lucide-react'
 import { AdminDashboardModal, ICON_MAP } from './components/AdminDashboardModal.jsx'
 import { InteractiveAITerminal } from './components/InteractiveAITerminal.jsx'
 import { SystemArchitectureModal } from './components/SystemArchitectureModal.jsx'
@@ -10,6 +10,14 @@ import { SmartBusinessCard } from './components/SmartBusinessCard.jsx'
 import { fetchCentralPortfolioData, publishCentralPortfolioData } from './cloudSync.js'
 
 const defaultTimelineEvents = [
+  {
+    year: 'Oct 2026 — Present',
+    title: 'Intern – Software Development Engineer @ SHNOOR International LLC',
+    role: 'SDE Intern — Information Technology (Remote)',
+    detail: 'Contributing to Information Technology engineering, software development, cloud systems, and production software services.',
+    badge: 'Active SDE Internship',
+    tone: 'cyan',
+  },
   {
     year: '2026 — 2027 (Current)',
     title: 'Co-Building IntelliAttend Startup & GenAI Breakthroughs',
@@ -191,6 +199,30 @@ const defaultProjects = [
   },
   {
     number: '05',
+    title: 'Jarvis AI',
+    kicker: 'Python Voice Assistant (Live Stage Demo & 3rd Prize)',
+    problem: 'Desktop operating system navigation and multi-tasking often require manual, repetitive friction.',
+    solution: 'Engineered an intelligent voice-controlled desktop assistant executing speech-to-text, real-time command parsing, web automation, and dynamic voice responses.',
+    keyFeatures: [
+      'Real-time acoustic speech recognition & voice synthesis',
+      'Natural language command routing & OS execution',
+      'Automated web browsing, media streaming & workflow tasks',
+      'Demonstrated live on auditorium stage winning 3rd Prize in Challenge AI'
+    ],
+    impact: 'Live Stage Demo & Award Winner',
+    description: 'Designed and built a Python-driven desktop voice assistant utilizing speech recognition and natural language processing. Demonstrated live in front of faculty and peers at EMINENCE-SIGMA-2K25, winning 3rd Prize in Challenge AI.',
+    result: '3rd Prize Award',
+    tags: ['Python', 'Speech Recognition', 'AI Assistant', 'Live Demo', 'Symposium Award'],
+    tone: 'lime',
+    icon: Bot,
+    image: '/assets/photo-challenge-ai-presentation-1.jpg',
+    stageImage: '/assets/photo-challenge-ai-trophy.jpg',
+    stageTitle: 'Live Stage Presentation & 3rd Prize Trophy for Jarvis AI',
+    url: 'https://github.com/Rahulbariki',
+    liveUrl: '',
+  },
+  {
+    number: '06',
     title: 'ToolVerse',
     kicker: 'AI Tool Discovery & Aggregation Platform (Internship Project)',
     problem: 'Discovering, comparing, and tracking rapidly emerging AI tools across scattered websites is time-consuming.',
@@ -212,7 +244,7 @@ const defaultProjects = [
     liveUrl: 'https://toolversedaily.netlify.app/',
   },
   {
-    number: '06',
+    number: '07',
     title: 'Nexus Super App',
     kicker: 'All-in-One Smart Multi-Service Ecosystem (Solo Prototype)',
     problem: 'Switching between isolated apps for food delivery, grocery shopping, cabs, and home maintenance causes friction.',
@@ -586,6 +618,13 @@ const educationList = [
 
 const experiences = [
   {
+    period: 'Oct 2026 — Present',
+    company: 'SHNOOR International LLC',
+    role: 'Intern – Software Development Engineer, Information Technology',
+    text: 'Serving as Software Development Engineer Intern in Information Technology (Remote). Contributing to enterprise software development, backend systems, scalable cloud services, and production software workflows.',
+    badge: 'Active SDE Internship',
+  },
+  {
     period: 'May 2026 — Jun 2026',
     company: 'CodeTantra Tech Solutions (AICTE & APSCHE)',
     role: 'Generative AI (GenAI) Intern',
@@ -606,10 +645,13 @@ const experiences = [
 
 const defaultProfileInfo = {
   name: 'Rahul Bariki',
-  role: 'Generative AI & AI Automation Developer',
+  role: 'Software Development Engineer Intern | Generative AI Developer',
   email: 'rahulbariki24@gmail.com',
   phone: '+91 62817 69623',
   location: 'Nandyal, AP, India',
+  startupPill: 'SDE Intern @ SHNOOR • Co-Builder @ IntelliAttend',
+  tagline: 'Building AI Products & Enterprise Systems that Solve Real Problems.',
+  bio: 'SDE Intern at SHNOOR International LLC & Final-year B.Tech CSE (AI & ML) student specializing in AI Agents, Generative AI, Automation, and Scalable Software Engineering.',
   profilePhoto: '/assets/rahul-hero.png',
   profilePhotos: ['/assets/rahul-hero.png', '/assets/rahul-profile.png'],
   resumeUrl: '/assets/Rahul_Bariki_Resume.pdf',
@@ -641,8 +683,8 @@ const defaultProfileInfo = {
 const defaultHeroStats = [
   { value: '8.46', label: 'B.Tech CGPA' },
   { value: '58,055', label: 'JEE Mains Rank' },
-  { value: '6+', label: 'Live Apps' },
-  { value: '03', label: 'AI Internships' },
+  { value: '7+', label: 'Live Projects' },
+  { value: '04', label: 'Engg Internships' },
 ]
 
 const defaultCurrentlyBuilding = {
@@ -734,8 +776,18 @@ function safeLoad(key, fallback) {
   }
 }
 
+const CURRENT_DATA_VERSION = 'v2026.10.14-shnoor'
+
 function loadPortfolioData() {
   try {
+    const savedVersion = safeLoad('admin-data-version', null)
+    if (savedVersion !== CURRENT_DATA_VERSION) {
+      ;['admin-profile', 'admin-projects', 'admin-timeline', 'admin-hero-stats'].forEach((k) => {
+        try { localStorage.removeItem(k) } catch {}
+      })
+      try { localStorage.setItem('admin-data-version', JSON.stringify(CURRENT_DATA_VERSION)) } catch {}
+    }
+
     const projectsRaw = safeLoad('admin-projects', null)
     const loadedProfile = safeLoad('admin-profile', defaultProfileInfo)
     
@@ -1226,10 +1278,10 @@ function Hero({ onOpenResume, profileInfo, heroStats, copilotKnowledge, onOpenBi
       {/* Top status bar */}
       <motion.div className="hero-topbar" style={{ opacity }} initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
         <div className="eyebrow">
-          <span className="signal" /> GENERATIVE AI & AI AUTOMATION DEVELOPER · AI ENGINEER · UI/UX SPECIALIST
+          <span className="signal" /> SDE INTERN @ SHNOOR · GENERATIVE AI & AI AUTOMATION DEVELOPER · AI ENGINEER
         </div>
         <div className="hero-topbar-right">
-          <span className="hero-startup-pill">{info.startupPill || 'Co-Builder @ IntelliAttend Startup'}</span>
+          <span className="hero-startup-pill">{info.startupPill || 'SDE Intern @ SHNOOR • Co-Builder @ IntelliAttend'}</span>
           <span className="hero-location"><MapPin size={13} /> {info.location || 'Nandyal, AP, India'}</span>
         </div>
       </motion.div>
@@ -1329,12 +1381,12 @@ function Manifesto() {
     <section className="manifesto" id="about">
       <div className="section-kicker">Professional Summary / 01 / 07</div>
       <motion.p initial={{ opacity: 0.2 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 1.2 }}>
-        Results-driven Software Engineer with expertise in AI engineering, Generative AI, and UI/UX design. Passionate about architecting intelligent AI agents, intuitive user-centric platforms, and developing software solutions to solve real-time problems.
+        Software Development Engineer Intern at SHNOOR International LLC and final-year B.Tech CSE (AI & ML) student with an 8.46 CGPA. Passionate about AI/ML, Generative AI, LLMs, autonomous AI Agents, intelligent automation, and scalable full-stack software engineering. Dedicated to architecting robust enterprise systems, intuitive user-centric platforms, and high-impact products solving real-world challenges.
       </motion.p>
       <div className="manifesto-meta">
         <span><MapPin size={13} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '5px' }} /> Nandyal, Andhra Pradesh, India</span>
         <span><GraduationCap size={13} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '5px' }} /> B.Tech CSE (AI & ML) — 8.46 CGPA</span>
-        <span><Briefcase size={13} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '5px' }} /> Target Roles: Generative AI & AI Automation Developer | AI Engineer | UI/UX Specialist</span>
+        <span><Briefcase size={13} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '5px' }} /> SDE Intern @ SHNOOR International LLC | Co-Builder @ IntelliAttend</span>
       </div>
     </section>
   )
@@ -2236,7 +2288,7 @@ function ResumeModal({ open, onClose, profileInfo }) {
             <div className="resume-sidebar">
               <div className="resume-profile-block">
                 <h2>Rahul Bariki</h2>
-                <p className="resume-subtitle">Generative AI & AI Automation Developer</p>
+                <p className="resume-subtitle">Software Development Engineer Intern | Generative AI Developer</p>
                 <div className="resume-contact-list">
                   <div><Mail size={13} /> <span>rahulbariki24@gmail.com</span></div>
                   <div><Phone size={13} /> <span>+91 62817 69623</span></div>
@@ -2267,9 +2319,10 @@ function ResumeModal({ open, onClose, profileInfo }) {
               </div>
 
               <div className="resume-section-block">
-                <h4>CERTIFICATIONS</h4>
+                <h4>EXPERIENCE & CREDENTIALS</h4>
                 <ul className="resume-cert-list">
-                  <li>CodeTantra GenAI Internship</li>
+                  <li>SDE Intern @ SHNOOR International</li>
+                  <li>CodeTantra GenAI Internship (AICTE)</li>
                   <li>AWS Academy Data Engineering</li>
                   <li>Zscaler Cybersecurity Fundamentals</li>
                   <li>IEEE Student Branch Secretary</li>
@@ -2280,6 +2333,55 @@ function ResumeModal({ open, onClose, profileInfo }) {
 
             {/* Right Content */}
             <div className="resume-content-main">
+              <div className="resume-content-section">
+                <h3>Work Experience & Internships</h3>
+                <div className="resume-card-grid">
+                  <div className="resume-item-card">
+                    <div className="resume-card-top">
+                      <h4>SHNOOR International LLC</h4>
+                      <span className="year-badge">Oct 2026 — Present</span>
+                    </div>
+                    <p className="resume-kicker">INTERN – SOFTWARE DEVELOPMENT ENGINEER, INFORMATION TECHNOLOGY</p>
+                    <p className="resume-desc">
+                      Contributing to enterprise Information Technology engineering, software development, cloud services, and scalable production systems (Remote).
+                    </p>
+                  </div>
+
+                  <div className="resume-item-card">
+                    <div className="resume-card-top">
+                      <h4>CodeTantra Tech Solutions (AICTE & APSCHE)</h4>
+                      <span className="year-badge">May 2026 — Jun 2026</span>
+                    </div>
+                    <p className="resume-kicker">GENERATIVE AI (GENAI) INTERN</p>
+                    <p className="resume-desc">
+                      Engineered ToolVerse AI directory platform, Nexus Super App, automated Telegram bot, and n8n job scraping pipelines. AICTE & APSCHE verified.
+                    </p>
+                  </div>
+
+                  <div className="resume-item-card">
+                    <div className="resume-card-top">
+                      <h4>IntelliAttend Startup Team</h4>
+                      <span className="year-badge">Active Startup</span>
+                    </div>
+                    <p className="resume-kicker">AI SOFTWARE ENGINEER & CO-DEVELOPER</p>
+                    <p className="resume-desc">
+                      Co-engineering an AI-driven smart attendance intelligence platform with facial recognition, real-time analytics, and fraud prevention.
+                    </p>
+                  </div>
+
+                  <div className="resume-item-card">
+                    <div className="resume-card-top">
+                      <h4>Google AI-ML Virtual Internship</h4>
+                      <span className="year-badge">2024</span>
+                    </div>
+                    <p className="resume-kicker">AI / MACHINE LEARNING VIRTUAL INTERN</p>
+                    <p className="resume-desc">
+                      Completed machine learning workflows, model engineering, and practical AI foundations powered by Google & EduSkills.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <div className="resume-content-section">
                 <h3>Projects</h3>
                 <div className="resume-card-grid">
@@ -2302,6 +2404,17 @@ function ResumeModal({ open, onClose, profileInfo }) {
                     <p className="resume-kicker">AI BRAND AUTOMATION PLATFORM</p>
                     <p className="resume-desc">
                       Architected a Generative AI suite powered by LLM prompt engineering pipelines and vector SVG asset generators to automate complete brand identity creation for startups.
+                    </p>
+                  </div>
+
+                  <div className="resume-item-card">
+                    <div className="resume-card-top">
+                      <h4>Jarvis AI</h4>
+                      <span className="year-badge">2025</span>
+                    </div>
+                    <p className="resume-kicker">PYTHON VOICE ASSISTANT (3RD PRIZE AWARD)</p>
+                    <p className="resume-desc">
+                      Built a Python-driven desktop voice assistant utilizing acoustic speech recognition and OS automation. Demonstrated live on stage, winning 3rd Prize in Challenge AI at EMINENCE-SIGMA-2K25.
                     </p>
                   </div>
 
